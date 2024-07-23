@@ -1,0 +1,9 @@
+#!/bin/sh
+echo 'lint 검사중...'
+if pnpm lint; then
+  echo 'lint 성공!'
+  exit 0
+else
+  echo 'lint 에러 발생!'
+  exit 1
+fi

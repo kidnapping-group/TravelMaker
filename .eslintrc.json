@@ -1,0 +1,32 @@
+{
+  "extends": [
+    "next/core-web-vitals", // Next.js 권장 설정과 Core Web Vitals 관련 규칙 포함
+    "airbnb", // Airbnb의 JavaScript 스타일 가이드 포함
+    "airbnb/hooks", // Airbnb의 React Hook 관련 규칙 포함
+    "plugin:@typescript-eslint/recommended", // TypeScript ESLint 플러그인의 권장 규칙 포함
+    "prettier" // Prettier와의 통합을 위해 필요한 설정 포함
+  ],
+  "parser": "@typescript-eslint/parser", // TypeScript 구문 분석기 설정
+  "plugins": ["@typescript-eslint"], // TypeScript ESLint 플러그인 사용
+  "rules": {
+    "no-unused-vars": "off", // 기본 no-unused-vars 규칙 비활성화
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ], // TypeScript에서 사용되지 않는 변수에 대한 규칙 설정
+    "react/react-in-jsx-scope": "off", // React 17 이상에서는 JSX 사용 시 React를 명시적으로 import할 필요가 없음
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx"] }], // .tsx 파일에서 JSX 문법을 허용
+    "react-hooks/rules-of-hooks": "off", // React Hook 사용 관련 규칙 비활성화
+    "import/extensions": "off", // import 시 파일 확장자를 생략할 수 있도록 설정
+    "prefer-const": "off", // const 사용을 강제하는 규칙 비활성화
+    "react/jsx-props-no-spreading": "off", // JSX에서 props spreading을 허용
+    "react/prop-types": "off" // TypeScript를 사용하기 때문에 prop-types 검사를 비활성화
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"] // import 시 인식할 파일 확장자 설정
+      }
+    }
+  }
+}
