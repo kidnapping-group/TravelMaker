@@ -3,7 +3,7 @@
 
 echo ' 푸시 이전에 build를 진행합니다....'
 
-pnpm build; then
+pnpm build;
 
 if [ $? -ne 0 ]; then
   echo 'build 테스트 실패 했습니다.'
