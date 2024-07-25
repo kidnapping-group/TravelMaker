@@ -23,8 +23,8 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        pc: { min: "1200px" },
-        tablet: { min: "768px", max: "1199px" },
+        pc: "1200px",
+        tablet: "768px",
       },
       zIndex: {
         dropdown: "1",
