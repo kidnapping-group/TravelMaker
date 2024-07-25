@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname -- "$0")/husky.sh"
-
 echo ' 푸시 이전에 build를 진행합니다....'
 
 pnpm build;
@@ -10,4 +7,4 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-  echo 'build 테스트 성공! push를 진해했습니다.'
+  echo 'build 테스트 성공! push를 진행했습니다.'
