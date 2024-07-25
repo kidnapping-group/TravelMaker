@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname -- "$0")/husky.sh" # Husky 초기화
-
 echo 'lint 검사 중...'
 
 # lint를 실행하기 전에 package-lock.json 파일이 있는지 확인

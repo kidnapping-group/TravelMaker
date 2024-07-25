@@ -10,6 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "next": "14.2.5",
     "pnpm": "^9.6.0",
     "react": "^18",
@@ -34,7 +35,6 @@
     "husky": "^9.1.1",
     "postcss": "^8",
     "prettier": "^3.3.3",
-    "prettier-plugin-import-sort": "^0.0.7",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
