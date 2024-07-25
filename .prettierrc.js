@@ -9,5 +9,16 @@ module.exports = {
   jsxBracketSameLine: false, // JSX 에서 마지막 '>'를 다음 줄에 위치시킬지 여부를 지정합니다.
   arrowParens: "avoid", // 화살표 함수의 매개변수에 괄호를 사용할지 여부를 지정합니다.
   endOfLine: "auto", // 파일 끝의 줄바꿈 문자를 어떻게 처리할지 결정합니다. "auto": 파일에 이미 존재하는 줄바꿈 문자를 유지합니다.
-  plugins: ["prettier-plugin-tailwindcss"],
+  importOrder: [
+    "<THIRD_PARTY_MODULES>",
+    "^./_api/(.)$",
+    "^./_hooks/(.)$",
+    "^./_models/(.)$",
+    "^./_components/(.)$",
+    "^./utilities/(.*)$",
+    "^[./]",
+  ],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+  plugins: ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
 };
