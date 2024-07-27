@@ -176,3 +176,28 @@ export interface postActivitiesImage {
 export interface posttActivitiesImageRes {
   activitiesImageUrl: string;
 }
+
+export interface postUsers {
+  email: string;
+  nickname: string;
+  password: string;
+}
+
+export interface UsersRes {
+  id: number;
+  email: string;
+  nickname: string;
+  profileImageUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface patchUsers {
+  nickname: string;
+  profileImageUrl: string;
+  newPassword: string;
+}
+
+export interface postUsersImageRes {
+  profileImageUrl: string;
+}
