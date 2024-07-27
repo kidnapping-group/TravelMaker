@@ -10,7 +10,7 @@ import handleAxiosError from "./ApiError";
 import axiosInstance from "./axiosInstance";
 
 const myReservationAPI = {
-  // 회원가입
+  // 내 예약 리스트 조회
   get: async (params: getReservation): Promise<ReservationRes | null> => {
     try {
       const cursorId = params.cursorId ? `&cursorId=${params.cursorId}` : "";
@@ -23,6 +23,7 @@ const myReservationAPI = {
       return null;
     }
   },
+  // 내 예약 수정(취소)
   patch: async (reservationId: ReservationId): Promise<patchReservationRes | null> => {
     try {
       const response = await axiosInstance.patch(`/my-reservations/${reservationId}`, {
@@ -34,6 +35,7 @@ const myReservationAPI = {
       return null;
     }
   },
+  // 내 예약 리뷰 작성
   postReviews: async (
     reservationId: ReservationId,
     body: postReviews,

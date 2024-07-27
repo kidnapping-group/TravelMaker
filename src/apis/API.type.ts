@@ -272,3 +272,27 @@ export interface postReviewsRes {
   teamId: string;
   id: number;
 }
+
+export interface getNotifications {
+  cursorId?: number;
+  size?: number;
+}
+
+export interface getNotificationsRes {
+  cursorId: number;
+  notifications: [
+    {
+      id: number;
+      teamId: string;
+      userId: number;
+      content: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string;
+    },
+  ];
+  totalCount: number;
+}
+export interface NotificationId {
+  NotificationId: number;
+}
