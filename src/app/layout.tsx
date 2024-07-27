@@ -21,7 +21,7 @@ function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${pretendardFont.className} text-black`}>{children}</body>
+      <body className={`${pretendardFont.className} text-black`}>
         <Header />
         {children}
       </body>
