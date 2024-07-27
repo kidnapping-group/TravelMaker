@@ -65,7 +65,7 @@ const activitiesAPI = {
       return null;
     }
   },
-  //체험 리뷰 조회
+  // 체험 리뷰 조회
   getReview: async (params: getActivitiesReviews): Promise<getActivitiesReviewsRes | null> => {
     try {
       const page = params.page ? params.page : 1;
@@ -79,7 +79,7 @@ const activitiesAPI = {
       return null;
     }
   },
-  //체험 예약 신청
+  // 체험 예약 신청
   postReservations: async (
     activityId: number,
     params: postActivitiesReservations,
