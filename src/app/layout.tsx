@@ -1,3 +1,4 @@
+import Header from "@/app/_components/Header";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -20,7 +21,10 @@ function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={pretendardFont.className}>{children}</body>
+      <body className={`${pretendardFont.className} text-black`}>{children}</body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
