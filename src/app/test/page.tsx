@@ -4,7 +4,7 @@ function Test() {
   return (
     <div>
       <p>test</p>
-      <Link href="test/login">login으로 이동!</Link>
+      <Link href="test/modal">modal등장!</Link>
     </div>
   );
 }
