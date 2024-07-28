@@ -56,7 +56,7 @@ function Modal({ children, title, size = "normal", bg = "white" }: ModalProps) {
           </button>
         </div>
         {children}
-        <div className="h-160px w-full" />
+        <div className="h-160px tablet:hidden" />
       </div>
     </div>
   );
