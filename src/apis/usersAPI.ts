@@ -1,47 +1,47 @@
-import { patchUsers, postUsers, postUsersImageRes, UsersRes } from "./API.type";
+import { UsersRes, patchUsers, postUsers, postUsersImageRes } from "./API.type";
 import handleAxiosError from "./ApiError";
 import axiosInstance from "./axiosInstance";
 
 const userAPI = {
   // 회원가입
-  postSingup: async (body: postUsers): Promise<UsersRes | null> => {
+  postSingup: async (body: postUsers) => {
     try {
-      const response = await axiosInstance.post("/users", body);
-      return response.data;
+      const { data } = await axiosInstance.post<UsersRes>("/users", body);
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;
     }
   },
   // 내 정보 조회
-  getUsers: async (): Promise<UsersRes | null> => {
+  getUsers: async () => {
     try {
-      const response = await axiosInstance.get("/users/me");
-      return response.data;
+      const { data } = await axiosInstance.get<UsersRes>("/users/me");
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;
     }
   },
   // 내 정보 수정
-  patchUsers: async (body: patchUsers): Promise<UsersRes | null> => {
+  patchUsers: async (body: patchUsers) => {
     try {
-      const response = await axiosInstance.patch("/users/me", body);
-      return response.data;
+      const { data } = await axiosInstance.patch<UsersRes>("/users/me", body);
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;
     }
   },
   // 프로필 이미지 url 생성
-  postUsersImage: async (formData: FormData): Promise<postUsersImageRes | null> => {
+  postUsersImage: async (formData: FormData) => {
     try {
-      const response = await axiosInstance.post("/users/me/image", formData, {
+      const { data } = await axiosInstance.post<postUsersImageRes>("/users/me/image", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      return response.data;
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;
