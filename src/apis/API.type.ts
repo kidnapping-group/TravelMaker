@@ -173,7 +173,7 @@ export interface postActivitiesImage {
   image: string;
 }
 
-export interface posttActivitiesImageRes {
+export interface postActivitiesImageRes {
   activitiesImageUrl: string;
 }
 
