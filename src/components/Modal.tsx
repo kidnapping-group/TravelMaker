@@ -11,9 +11,24 @@ interface ModalProps {
 }
 
 const sizeConfig = {
-  small: { width: "tablet:w-[368px]", padding: "tablet:px-5", imgSize: 24, fontSize: "text-xl" },
-  normal: { width: "tablet:w-[430px]", padding: "tablet:px-6", imgSize: 40, fontSize: "text-28px" },
-  large: { width: "tablet:w-[490px]", padding: "tablet:px-6", imgSize: 40, fontSize: "text-28px" },
+  small: {
+    width: "tablet:w-[368px]",
+    padding: "tablet:px-5 tablet:pt-6 px-5 pt-10",
+    imgSize: 24,
+    fontSize: "text-xl",
+  },
+  normal: {
+    width: "tablet:w-[430px]",
+    padding: "tablet:px-6 tablet:pt-6 px-4 pt-4",
+    imgSize: 40,
+    fontSize: "text-28px",
+  },
+  large: {
+    width: "tablet:w-[490px]",
+    padding: "tablet:px-6 tablet:pt-6 px-4 pt-4",
+    imgSize: 40,
+    fontSize: "text-28px",
+  },
 };
 let modalToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
 
@@ -25,9 +40,11 @@ function Modal({ children, title, size = "normal", bg = "white" }: ModalProps) {
   const { width, padding, imgSize, fontSize } = sizeConfig[size];
 
   return (
-    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-70">
+    <div
+      className={`fixed inset-0 z-20 flex items-center justify-center ${bg === "white" && "bg-black bg-opacity-70"}`}
+    >
       <div className={`h-full w-full bg-${bg} shadow-lg tablet:h-auto ${width} tablet:rounded-lg`}>
-        <div className={`flex items-center justify-between px-4 pt-4 ${padding} tablet:pt-6`}>
+        <div className={`flex items-center justify-between ${padding}`}>
           <h1 className={`${fontSize} font-bold`}>{title}</h1>
           <button type="button" onClick={() => setIsOpen(false)}>
             <Image
