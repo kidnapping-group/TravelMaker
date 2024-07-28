@@ -12,10 +12,13 @@ axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
     if (config.headers["exclude-access-token"]) {
       const newConfig = { ...config };
-      delete newConfig.headers["exclude-access-token"];
+      newConfig.headers.delete("exclude-access-token");
       return newConfig;
     }
-    return config;
+    const accessToken = await localStorage.getItem('accessToken');
+    const newConfig = { ...config };
+    newConfig.headers.Authorization = `Bearer ${accessToken}`;
+    return newConfig;
   },
   error => Promise.reject(error),
 );

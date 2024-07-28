@@ -18,21 +18,18 @@ import axiosInstance from "./axiosInstance";
 
 const activitiesAPI = {
   // 체험 리스트 조회
-  get: async (params: getActivities): Promise<getActivitiesRes | null> => {
+  get: async (params: getActivities) => {
     try {
-      const cursorId = params.cursorId ? `&cursorId=${params.cursorId}` : "";
-      const category = params.category ? `&category=${params.category}` : "";
-      const keyword = params.keyword ? `&keyword=${params.keyword}` : "";
-      const sort = params.sort ? `&sort=${params.sort}` : "";
-      const response = await axiosInstance.get(
-        `/activities?method=${params.method}${cursorId}${category}${keyword}${sort}&page=${params.page}&size=${params.size}`,
-      );
-      return response.data;
+      const { data } = await axiosInstance.get<getActivitiesRes>("/activities", {
+        params,
+      });
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;
     }
   },
+  
   // 체험 등록
   post: async (body: postActivities): Promise<postActivitiesRes | null> => {
     try {
