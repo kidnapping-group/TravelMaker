@@ -11,22 +11,25 @@ import axiosInstance from "./axiosInstance";
 
 const myReservationAPI = {
   // 내 예약 리스트 조회
-  get: async (params: getReservation): Promise<ReservationRes | null> => {
+  get: async (params: getReservation) => {
     try {
-      const cursorId = params.cursorId ? `&cursorId=${params.cursorId}` : "";
-      const size = params.size ? `&size=${params.size}` : "&size=10";
-      const status = params.status ? `&status=${params.status}` : "";
-      const response = await axiosInstance.get(`/my-reservations?${cursorId}${size}${status}`);
-      return response.data;
+      const { data } = await axiosInstance.get<ReservationRes>("/my-reservations", {
+        params: {
+          cursorId: params.cursorId,
+          size: params.size || 10,
+          status: params.status,
+        },
+      });
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;
     }
   },
   // 내 예약 수정(취소)
-  patch: async (reservationId: ReservationId): Promise<patchReservationRes | null> => {
+  patch: async (reservationId: ReservationId) => {
     try {
-      const response = await axiosInstance.patch(`/my-reservations/${reservationId}`, {
+      const response = await axiosInstance.patch<patchReservationRes>(`/my-reservations/${reservationId}`, {
         status: "canceled",
       });
       return response.data;
@@ -39,9 +42,9 @@ const myReservationAPI = {
   postReviews: async (
     reservationId: ReservationId,
     body: postReviews,
-  ): Promise<postReviewsRes | null> => {
+  ) => {
     try {
-      const response = await axiosInstance.post(`/my-reservations/${reservationId}/reviews`, body);
+      const response = await axiosInstance.post<postReviewsRes>(`/my-reservations/${reservationId}/reviews`, body);
       return response.data;
     } catch (error) {
       handleAxiosError(error);
