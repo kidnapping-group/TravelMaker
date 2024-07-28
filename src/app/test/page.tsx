@@ -1,12 +1,14 @@
-import Link from "next/link";
+import HairModal from "@/app/test/_components/HairModal";
+import { openModal } from "@/components/Modal";
 
-function Test() {
+export default function Page() {
   return (
     <div>
-      <p>test</p>
-      <Link href="test/modal">modal등장!</Link>
+      <h1>페이지 제목</h1>
+      <button type="button" onClick={openModal}>
+        헤어 모달 열기
+      </button>
+      <HairModal />
     </div>
   );
 }
-
-export default Test;

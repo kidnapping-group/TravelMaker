@@ -1,29 +1,47 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 interface ModalProps {
   children: ReactNode;
   title: string;
+  size?: "small" | "normal" | "large";
+  bg?: string;
 }
 
-function Modal({ children, title }: ModalProps) {
-  const router = useRouter();
+const sizeConfig = {
+  small: { width: "tablet:w-[368px]", padding: "tablet:px-5" },
+  normal: { width: "tablet:w-[430px]", padding: "tablet:px-6" },
+  large: { width: "tablet:w-[490px]", padding: "tablet:px-6" },
+};
+
+let modalToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
+
+function Modal({ children, title, size = "normal", bg = "white" }: ModalProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  modalToggle = setIsOpen;
+
+  if (!isOpen) return null;
+
+  const { width, padding } = sizeConfig[size];
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70">
-      <div className="w-11/12 rounded-lg bg-white shadow-lg md:w-1/2 lg:w-1/3">
-        <div className="flex flex-row items-center justify-between border-b p-4">
+    <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-70">
+      <div className={`h-full w-full bg-${bg} shadow-lg tablet:h-auto ${width} tablet:rounded-lg`}>
+        <div className={`flex items-center justify-between px-4 pt-4 ${padding} tablet:pt-6`}>
           <h1 className="text-xl font-semibold">{title}</h1>
-          <button type="button" onClick={() => router.back()}>
+          <button type="button" onClick={() => setIsOpen(false)}>
             <Image width={40} height={40} alt="창 닫기" src="/icons/icon-close-black.svg" />
           </button>
         </div>
-        <div className="p-4">{children}</div>
+        {children}
+        <div className="h-160px w-full" />
       </div>
     </div>
   );
 }
 
+export const openModal = () => modalToggle?.(true);
 export default Modal;
