@@ -1,24 +1,32 @@
 "use server";
 
-import DropDown from "@/app/components/DropDown";
+import Dropdown from "@/app/components/Dropdown";
 
 // 심각한 문제는 실제 상황에서는 use server 상태라 훅 못쓸꺼야 승헌님께 조언구하자
 // searchParams나 전역 변수 넘겨주기 둘중 하나밖에 안떠올라.
-const mockData = [
-  { title: "예약 신청", color: "yellow" },
-  { title: "예약 취소", color: "red" },
-  { title: "예약 승인", color: "brown" },
-  { title: "예약 거절", color: "green" },
-  { title: "체험 완료", color: "blue" },
+// status프롭을 status로 정제 잘해서 내려줘야함.
+// 가격순 할 때는 searchParams 받고, 이거를 sort값으로 바꿔줘야함 하..
+// status순 할 때는 쿼리파람 줘야함.
+const menuItems = [
+  { title: "전체 예약", status: "" },
+  { title: "예약 신청", status: "pending" },
+  { title: "예약 취소", status: "confirmed" },
+  { title: "예약 승인", status: "declined" },
+  { title: "예약 거절", status: "canceled" },
+  { title: "체험 완료", status: "completed" },
 ];
 
-function Page({ searchParams }: { searchParams: { status?: string } }) {
-  let status = searchParams.status || "예약 현황";
-
+async function Page({ searchParams }: { searchParams: { status?: string } }) {
+  let selectedStatus = searchParams;
+  // if (status) {
+  //   await getActivity({ selectedStatus });
+  // } else {
+  //   await getActivity();
+  // }
   return (
     <div>
       드롭 다운 조지기!
-      <DropDown status={status} mockData={mockData} />
+      <Dropdown menuItems={menuItems} type="dropdown" />
     </div>
   );
 }
