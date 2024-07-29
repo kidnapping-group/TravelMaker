@@ -1,6 +1,6 @@
 "use server";
 
-import Dropdown from "@/app/components/Dropdown";
+import Dropdown from "@/app/components/dropdown";
 
 // 심각한 문제는 실제 상황에서는 use server 상태라 훅 못쓸꺼야 승헌님께 조언구하자
 // searchParams나 전역 변수 넘겨주기 둘중 하나밖에 안떠올라.

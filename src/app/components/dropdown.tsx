@@ -24,9 +24,7 @@ function Dropdown({ menuItems, type = "dropdown" }: DropDownProps) {
   const handleItemClick = (e: MenuItemsItem) => {
     setSelectedTitle(() => e.title);
     setIsOpen(false);
-    if (type !== "selector") {
-      router.push(`?status=${encodeURIComponent(e.status)}`);
-    }
+    if (type !== "selector") router.push(`?status=${encodeURIComponent(e.status)}`);
   };
 
   const handleBlur = (e: FocusEvent<HTMLElement>) => {
