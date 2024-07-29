@@ -4,27 +4,55 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FocusEvent, useRef, useState } from "react";
 
-interface MenuItemsItem {
+interface MenuItem {
   title: string;
   status: string;
 }
 
-interface DropDownProps {
-  menuItems: MenuItemsItem[];
-  type: "dropdown" | "selector";
+interface DropdownProps {
+  menuItems: MenuItem[];
+  type: "dropdown" | "selector" | "timeSelector";
 }
 
-function Dropdown({ menuItems, type = "dropdown" }: DropDownProps) {
+const styleConfig = {
+  dropdown: {
+    container: "w-auto text-lg font-medium",
+    button: "rounded-2xl text-green border-green p-4",
+    item: "border-b text-center py-4 h-14 text-[#4B4B4B]",
+    selectedText: "text-green",
+    dropdownList: "",
+    image: { style: "dropdown-small", size: 16 },
+  },
+  selector: {
+    container: "w-full text-base font-light",
+    button: "rounded-[4px] text-[#A1A1A1] border-gray-500 py-4 pl-4",
+    item: "text-left pl-2 py-2 h-10",
+    selectedText: "text-gray-600",
+    dropdownList: "p-2",
+    image: { style: "dropdown", size: 48 },
+  },
+  timeSelector: {
+    container: "w-full text-base font-light",
+    button: "rounded-[4px] text-[#A1A1A1] border-gray-500 py-4 pl-4",
+    item: "text-left pl-2 py-2 h-10",
+    selectedText: "",
+    dropdownList: "p-2",
+    image: { style: "dropdown", size: 48 },
+  },
+};
+
+function Dropdown({ menuItems, type = "dropdown" }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedTitle, setSelectedTitle] = useState(menuItems[0].title);
+  const [selectedItem, setSelectedItem] = useState(menuItems[0]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
   if (!menuItems.length) return null;
 
-  const handleItemClick = (e: MenuItemsItem) => {
-    setSelectedTitle(() => e.title);
+  const handleItemClick = (item: MenuItem) => {
+    setSelectedItem(item);
     setIsOpen(false);
-    if (type !== "selector") router.push(`?status=${encodeURIComponent(e.status)}`);
+    if (type !== "selector") router.push(`?status=${encodeURIComponent(item.status)}`);
   };
 
   const handleBlur = (e: FocusEvent<HTMLElement>) => {
@@ -33,67 +61,44 @@ function Dropdown({ menuItems, type = "dropdown" }: DropDownProps) {
     }
   };
 
-  const styleConfig = {
-    dropdown: {
-      styleA: "w-auto text-lg font-medium",
-      styleB: "rounded-2xl text-green border-green p-4",
-      styleC: "border-b text-center py-4 h-14 text-#4B4B4B",
-      styleD: "text-green",
-      styleE: "",
-      imgStyle: "dropdown-small",
-      imgSize: 16,
-    },
-    selector: {
-      styleA: "w-full text-base font-light",
-      styleB: "rounded-4px text-#A1A1A1 border-gray-500 py-4 pl-4",
-      styleC: "text-left pl-2 py-2 h-10",
-      styleD: "text-gray-600",
-      styleE: "p-2",
-      imgStyle: !isOpen ? "dropdown" : "dropup",
-      imgSize: 48,
-    },
-  };
-
-  const { styleA, styleB, styleC, styleD, styleE, imgStyle, imgSize } = styleConfig[type];
-  const itemsToRender = type === "selector" ? menuItems.slice(1) : menuItems;
+  const styles = styleConfig[type];
+  const itemsToRender = type !== "dropdown" ? menuItems.slice(1) : menuItems;
 
   return (
-    <div>
-      <div
-        className={`relative inline-block min-w-32 ${styleA}`}
-        ref={dropdownRef}
-        onBlur={handleBlur}
+    <div
+      className={`relative inline-block min-w-32 ${styles.container}`}
+      ref={dropdownRef}
+      onBlur={handleBlur}
+    >
+      <button
+        type="button"
+        className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styles.button} text-left shadow-sm`}
+        onClick={() => setIsOpen(!isOpen)}
       >
-        <button
-          type="button"
-          className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styleB} text-left shadow-sm`}
-          onClick={() => setIsOpen(!isOpen)}
+        <span className={styles.selectedText}>{selectedItem.title}</span>
+        <Image
+          src={`/icons/icon-${isOpen ? "dropup" : styles.image.style}.svg`}
+          alt="드롭다운 버튼"
+          width={styles.image.size}
+          height={styles.image.size}
+        />
+      </button>
+      {isOpen && (
+        <div
+          className={`absolute ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
         >
-          <span className={styleD}>{selectedTitle}</span>
-          <Image
-            src={`/icons/icon-${imgStyle}.svg`}
-            alt="드랍다운 버튼"
-            width={imgSize}
-            height={imgSize}
-          />
-        </button>
-        {isOpen && (
-          <div
-            className={`border-#1122110D absolute ${styleE} mt-2 w-full rounded-md border bg-white shadow-sm`}
-          >
-            {itemsToRender.map(item => (
-              <button
-                className={`border-#1122110D block w-full ${styleC} rounded-md py-4 hover:bg-gray-200`}
-                type="button"
-                key={crypto.randomUUID()}
-                onClick={() => handleItemClick(item)}
-              >
-                {item.title}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+          {itemsToRender.map(item => (
+            <button
+              className={`block w-full ${styles.item} rounded-md hover:bg-gray-200`}
+              type="button"
+              key={item.status}
+              onClick={() => handleItemClick(item)}
+            >
+              {item.title}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
