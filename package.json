@@ -10,11 +10,14 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "next": "14.2.5",
     "pnpm": "^9.6.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20",
