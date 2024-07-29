@@ -11,9 +11,8 @@ const menuItems = [
   { title: "체험 완료", status: "completed" },
 ];
 
-async function Page({ searchParams }: { searchParams: { status?: string } }) {
-  let selectedStatus = searchParams;
-  alert(selectedStatus);
+async function Page({ searchParams }: { searchParams: { status: string } }) {
+  let selectedStatus = searchParams.status;
   // if (status) {
   //   await getActivity({ selectedStatus });
   // } else {
@@ -21,8 +20,8 @@ async function Page({ searchParams }: { searchParams: { status?: string } }) {
   // }
   return (
     <div>
-      드롭 다운 조지기!
-      <Dropdown menuItems={menuItems} type="selector" />
+      드롭 다운 조지기! selectedStatus: {selectedStatus}
+      <Dropdown menuItems={menuItems} type="dropdown" />
     </div>
   );
 }

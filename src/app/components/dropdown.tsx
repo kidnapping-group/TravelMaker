@@ -65,40 +65,42 @@ function Dropdown({ menuItems, type = "dropdown" }: DropdownProps) {
   const itemsToRender = type !== "dropdown" ? menuItems.slice(1) : menuItems;
 
   return (
-    <div
-      className={`relative inline-block min-w-32 ${styles.container}`}
-      ref={dropdownRef}
-      onBlur={handleBlur}
-    >
-      <button
-        type="button"
-        className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styles.button} text-left shadow-sm`}
-        onClick={() => setIsOpen(!isOpen)}
+    <div>
+      <div
+        className={`relative inline-block min-w-32 ${styles.container}`}
+        ref={dropdownRef}
+        onBlur={handleBlur}
       >
-        <span className={styles.selectedText}>{selectedItem.title}</span>
-        <Image
-          src={`/icons/icon-${isOpen ? "dropup" : styles.image.style}.svg`}
-          alt="드롭다운 버튼"
-          width={styles.image.size}
-          height={styles.image.size}
-        />
-      </button>
-      {isOpen && (
-        <div
-          className={`absolute ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
+        <button
+          type="button"
+          className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styles.button} text-left shadow-sm`}
+          onClick={() => setIsOpen(!isOpen)}
         >
-          {itemsToRender.map(item => (
-            <button
-              className={`block w-full ${styles.item} rounded-md hover:bg-gray-200`}
-              type="button"
-              key={item.status}
-              onClick={() => handleItemClick(item)}
-            >
-              {item.title}
-            </button>
-          ))}
-        </div>
-      )}
+          <span className={styles.selectedText}>{selectedItem.title}</span>
+          <Image
+            src={`/icons/icon-${isOpen ? "dropup" : styles.image.style}.svg`}
+            alt="드롭다운 버튼"
+            width={styles.image.size}
+            height={styles.image.size}
+          />
+        </button>
+        {isOpen && (
+          <div
+            className={`absolute ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
+          >
+            {itemsToRender.map(item => (
+              <button
+                className={`block w-full ${styles.item} rounded-md hover:bg-gray-200`}
+                type="button"
+                key={item.status}
+                onClick={() => handleItemClick(item)}
+              >
+                {item.title}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
