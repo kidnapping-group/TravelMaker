@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
-interface PaginationProps {
+interface PaginationProps extends React.PropsWithChildren {
   totalCount: number;
   pageSize: number;
 }
