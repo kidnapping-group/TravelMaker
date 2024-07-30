@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { FocusEvent, useRef, useState } from "react";
 
 interface MenuItem {
@@ -46,13 +46,13 @@ function Dropdown({ menuItems, type = "dropdown" }: DropdownProps) {
   const [selectedItem, setSelectedItem] = useState(menuItems[0]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
+  const pathname = usePathname();
   if (!menuItems.length) return null;
 
   const handleItemClick = (item: MenuItem) => {
     setSelectedItem(item);
     setIsOpen(false);
-    if (type !== "selector") router.push(`?status=${encodeURIComponent(item.status)}`);
+    if (type !== "selector") router.push(`${pathname}?status=${encodeURIComponent(item.status)}`);
   };
 
   const handleBlur = (e: FocusEvent<HTMLElement>) => {
