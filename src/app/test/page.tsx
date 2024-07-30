@@ -1,6 +1,6 @@
 "use server";
 
-import Dropdown from "@/app/test/Dropdown";
+import Dropdown from "@/components/Dropdown";
 
 const menuItems = [
   { title: "전체 예약", status: "" },
@@ -21,7 +21,7 @@ async function Page({ searchParams }: { searchParams: { status: string } }) {
   return (
     <div>
       드롭 다운 조지기! selectedStatus: {selectedStatus}
-      <Dropdown menuItems={menuItems} type="dropdown" />
+      <Dropdown menuItems={menuItems} type="selector" />
     </div>
   );
 }

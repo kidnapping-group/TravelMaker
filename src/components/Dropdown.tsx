@@ -9,9 +9,9 @@ interface MenuItem {
   status: string;
 }
 
-interface DropdownProps {
+interface DropdownProps extends React.PropsWithChildren {
   menuItems: MenuItem[];
-  type: "dropdown" | "selector" | "timeSelector";
+  type: "dropdown" | "selector";
 }
 
 const styleConfig = {
@@ -28,14 +28,6 @@ const styleConfig = {
     button: "rounded-[4px] text-[#A1A1A1] border-gray-500 py-4 pl-4",
     item: "text-left pl-2 py-2 h-10",
     selectedText: "text-gray-600",
-    dropdownList: "p-2",
-    image: { style: "dropdown", size: 48 },
-  },
-  timeSelector: {
-    container: "w-full text-base font-light",
-    button: "rounded-[4px] text-[#A1A1A1] border-gray-500 py-4 pl-4",
-    item: "text-left pl-2 py-2 h-10",
-    selectedText: "",
     dropdownList: "p-2",
     image: { style: "dropdown", size: 48 },
   },
