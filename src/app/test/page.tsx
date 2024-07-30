@@ -1,7 +1,7 @@
 import Popup, { openPopup } from "@/app/components/Popup";
 import { redirect } from "next/navigation";
 
-function Page({ searchParams }) {
+function Page({ searchParams }: { searchParams: { confirm: string } }) {
   const { confirm } = searchParams;
 
   if (confirm) {
