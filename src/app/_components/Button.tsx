@@ -31,10 +31,10 @@ export default function Button({
   onClick,
   children,
 }: Props) {
-  if (href) {
+  if (href && !disabled) {
     return (
       <Link
-        className={`${buttonStyleBySize[size]} ${disabled ? "cursor-default bg-gray-600 text-white" : buttonStyleByVariant[variant]} inline-flex w-full items-center justify-center rounded-lg font-semibold`}
+        className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} inline-flex w-full items-center justify-center rounded-lg font-semibold`}
         href={disabled ? "/" : href}
       >
         {children}
