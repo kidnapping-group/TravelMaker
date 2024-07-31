@@ -1,11 +1,6 @@
 echo 'lint 검사 중...'
 
-# lint를 실행하기 전에 package-lock.json 파일이 있는지 확인
-if [ -f "package-lock.json" ]; then
-  pnpm lint
-else
-  echo "package-lock.json 파일이 없습니다. lint를 건너뜁니다."
-fi
+pnpm lint
 
 # 변경된 파일 가져오기, 여기서 --diff-filter=ACM 옵션은 추가(A), 변경(C), 이동(M)만 포함
 changed_files=$(git diff --name-only --staged --diff-filter=ACM)
@@ -15,14 +10,18 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# 변경된 파일들을 다시 스테이징합니다.
-echo "$changed_files" | while IFS= read -r file; do
-  git add "$file"
-done
+# 변경된 파일이 있는 경우에만 다시 스테이징합니다.
+if [ -n "$changed_files" ]; then
+  echo "$changed_files" | while IFS= read -r file; do
+    git add "$file"
+  done
 
-if [ $? -ne 0 ]; then
-  echo "lint 에러 발생! 파일을 다시 스테이징하는 중 오류가 발생했습니다."
-  exit 1
+  if [ $? -ne 0 ]; then
+    echo "lint 에러 발생! 파일을 다시 스테이징하는 중 오류가 발생했습니다."
+    exit 1
+  fi
+else
+  echo "변경된 파일이 없습니다."
 fi
 
 echo 'lint 성공!'
