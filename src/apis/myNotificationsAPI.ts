@@ -21,8 +21,8 @@ const myNotificationsAPI = {
   // 내 알림 삭제
   delete: async (notificationId: NotificationId) => {
     try {
-      const response = await axiosInstance.delete(`/my-notifications/${notificationId}`);
-      return response.data;
+      const { data } = await axiosInstance.delete(`/my-notifications/${notificationId}`);
+      return data;
     } catch (error) {
       handleAxiosError(error);
       return null;

@@ -25,8 +25,8 @@ export interface getActivities {
   category?: string | null;
   keyword?: string | null;
   sort?: string | null;
-  page: number;
-  size: number;
+  page?: number;
+  size?: number;
 }
 
 export interface postActivities {
@@ -295,4 +295,149 @@ export interface getNotificationsRes {
 }
 export interface NotificationId {
   NotificationId: number;
+}
+
+export interface Login {
+  email: string;
+  password: string;
+}
+export interface LoginRes {
+  user: {
+    id: string;
+    email: string;
+    nickname: string;
+    profileImageUrl: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  refreshToken: string;
+  accessToken: string;
+}
+
+export interface getReservationMonth {
+  activityId: string;
+  year: string;
+  month: string;
+}
+
+export interface getReservationMonthRes {
+  date: string;
+  reservations: {
+    pending: number;
+    confirmed: number;
+    completed: number;
+  };
+}
+
+export interface getReservationDate {
+  activityId: string;
+  month: string;
+}
+
+export interface getReservationDateRes {
+  scheduleId: number;
+  startTime: string;
+  endTime: string;
+  count: {
+    declined: number;
+    confirmed: number;
+    pending: number;
+  };
+}
+
+export interface getMyReservation {
+  activityId: string;
+  cursorId?: number;
+  size?: number;
+  scheduleId: number;
+  status: string;
+}
+
+export interface getMyReservationRes {
+  cursorId: number;
+  totalCount: number;
+  reservations: {
+    id: number;
+    nickname: string;
+    userId: number;
+    teamId: string;
+    activityId: number;
+    scheduleId: number;
+    status: string;
+    reviewSubmitted: boolean;
+    totalPrice: number;
+    headCount: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
+}
+
+export interface patchMyReservation {
+  activityId: string;
+  reservationId: string;
+  status: "declined" | "pending" | "confirmed";
+}
+
+export interface patchMyReservationRes {
+  id: number;
+  teamId: string;
+  userId: number;
+  activityId: number;
+  scheduleId: number;
+  status: string;
+  reviewSubmitted: boolean;
+  totalPrice: number;
+  headCount: number;
+  date: string;
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface patchMyActivities {
+  title: string;
+  category: string;
+  description: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  subImageIdsToRemove: number[];
+  subImageUrlsToAdd: string[];
+  scheduleIdsToRemove: number[];
+  schedulesToAdd: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  }[];
+}
+
+export interface patchMyActivitiesRes {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+  subImages: {
+    imageUrl: string;
+    id: number;
+  }[];
+  schedules: {
+    times: {
+      endTime: string;
+      startTime: string;
+      id: number;
+    }[];
+    date: string;
+  }[];
 }
