@@ -1,14 +1,6 @@
 "use client";
 
-import Link from "next/link";
-
-interface Props extends React.PropsWithChildren {
-  href?: string;
-  variant?: keyof typeof buttonStyleByVariant;
-  size?: keyof typeof buttonStyleBySize;
-  disabled?: boolean;
-  onClick?: () => void;
-}
+import Link, { LinkProps } from "next/link";
 
 const buttonStyleByVariant = {
   default: "bg-green text-white disabled:bg-gray-600",
@@ -23,33 +15,40 @@ const buttonStyleBySize = {
   small: "h-[38px] max-w-20 text-sm",
 };
 
-export default function Button({
-  href,
+interface ButtonProps extends React.PropsWithChildren {
+  variant?: keyof typeof buttonStyleByVariant;
+  size?: keyof typeof buttonStyleBySize;
+}
+
+export function Button({
   variant = "default",
   size = "medium",
-  disabled = false,
-  onClick,
   children,
-}: Props) {
-  if (href && !disabled) {
-    return (
-      <Link
-        className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} inline-flex w-full items-center justify-center rounded-lg font-semibold`}
-        href={disabled ? "/" : href}
-      >
-        {children}
-      </Link>
-    );
-  }
-
+  ...props
+}: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
       className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} w-full rounded-lg font-semibold`}
-      disabled={disabled}
-      onClick={onClick}
       type="submit"
+      {...props}
     >
       {children}
     </button>
+  );
+}
+
+export function LinkButton({
+  variant = "default",
+  size = "medium",
+  children,
+  ...props
+}: ButtonProps & LinkProps) {
+  return (
+    <Link
+      className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} inline-flex w-full items-center justify-center rounded-lg font-semibold`}
+      {...props}
+    >
+      {children}
+    </Link>
   );
 }
