@@ -62,7 +62,7 @@ const activitiesAPI = {
     }
   },
   // 체험 리뷰 조회
-  getReview: async (params: getActivitiesReviews) => {
+  getReview: async (params: getActivitiesReviews ) => {
     try {
       const page = params.page ? params.page : 1;
       const size = params.size ? params.size : 3;

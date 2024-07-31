@@ -17,17 +17,17 @@ export type getActivitiesRes = {
       updatedAt: string;
     },
   ];
-}
+};
 
 export type getActivities = {
-  method: "offset";
+  method?: "offset";
   cursorId?: number | null;
   category?: string | null;
   keyword?: string | null;
   sort?: string | null;
   page?: number;
   size?: number;
-}
+};
 
 export type postActivities = {
   title: string;
@@ -42,7 +42,7 @@ export type postActivities = {
   }[];
   bannerImageUrl: string;
   subImageUrls: string[];
-}
+};
 
 export type postActivitiesRes = {
   id: number;
@@ -71,11 +71,11 @@ export type postActivitiesRes = {
       id: number;
     },
   ];
-}
+};
 
 export type getActivitiesInfo = {
   id: number;
-}
+};
 
 export type getActivitiesInfoRes = {
   id: number;
@@ -104,13 +104,13 @@ export type getActivitiesInfoRes = {
   reviewCount: number;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export type getActivitiesSchedule = {
   id: number;
   year: string;
   month: string;
-}
+};
 
 export type getActivitiesScheduleRes = {
   date: string;
@@ -119,13 +119,13 @@ export type getActivitiesScheduleRes = {
     startTime: string;
     id: number;
   }[];
-}
+};
 
 export type getActivitiesReviews = {
   id: number;
-  page: number;
-  size: number;
-}
+  page?: number;
+  size?: number;
+};
 
 export type getActivitiesReviewsRes = {
   averageRating: number;
@@ -145,12 +145,12 @@ export type getActivitiesReviewsRes = {
       updatedAt: string;
     },
   ];
-}
+};
 
 export type postActivitiesReservations = {
   scheduleId: number;
   headCount: number;
-}
+};
 
 export type postActivitiesReservationsRes = {
   id: number;
@@ -167,21 +167,21 @@ export type postActivitiesReservationsRes = {
   endTime: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export type postActivitiesImage = {
   image: string;
-}
+};
 
 export type postActivitiesImageRes = {
   activitiesImageUrl: string;
-}
+};
 
 export type postUsers = {
   email: string;
   nickname: string;
   password: string;
-}
+};
 
 export type UsersRes = {
   id: number;
@@ -190,27 +190,27 @@ export type UsersRes = {
   profileImageUrl: string | null;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export type patchUsers = {
   nickname: string;
   profileImageUrl: string;
   newPassword: string;
-}
+};
 
 export type postUsersImageRes = {
   profileImageUrl: string;
-}
+};
 
 export type getReservation = {
   cursorId?: string;
   size?: number;
   status?: string;
-}
+};
 
 export type ReservationId = {
   reservationId: number;
-}
+};
 
 export type ReservationRes = {
   cursorId: number;
@@ -237,7 +237,7 @@ export type ReservationRes = {
     },
   ];
   totalCount: number;
-}
+};
 
 export type patchReservationRes = {
   id: number;
@@ -254,12 +254,12 @@ export type patchReservationRes = {
   endTime: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export type postReviews = {
   rating: number;
   content: string;
-}
+};
 
 export type postReviewsRes = {
   deletedAt: string;
@@ -271,12 +271,12 @@ export type postReviewsRes = {
   activityId: number;
   teamId: string;
   id: number;
-}
+};
 
 export type getNotifications = {
   cursorId?: number;
   size?: number;
-}
+};
 
 export type getNotificationsRes = {
   cursorId: number;
@@ -292,15 +292,15 @@ export type getNotificationsRes = {
     },
   ];
   totalCount: number;
-}
+};
 export type NotificationId = {
   NotificationId: number;
-}
+};
 
 export type Login = {
   email: string;
   password: string;
-}
+};
 export type LoginRes = {
   user: {
     id: string;
@@ -312,13 +312,13 @@ export type LoginRes = {
   };
   refreshToken: string;
   accessToken: string;
-}
+};
 
 export type getReservationMonth = {
-  activityId: string;
+  activityId: number;
   year: string;
   month: string;
-}
+};
 
 export type getReservationMonthRes = {
   date: string;
@@ -327,12 +327,12 @@ export type getReservationMonthRes = {
     confirmed: number;
     completed: number;
   };
-}
+};
 
 export type getReservationDate = {
-  activityId: string;
-  month: string;
-}
+  activityId: number;
+  date: string;
+};
 
 export type getReservationDateRes = {
   scheduleId: number;
@@ -343,15 +343,15 @@ export type getReservationDateRes = {
     confirmed: number;
     pending: number;
   };
-}
+};
 
 export type getMyReservation = {
-  activityId: string;
+  activityId: number;
   cursorId?: number;
   size?: number;
   scheduleId: number;
   status: string;
-}
+};
 
 export type getMyReservationRes = {
   cursorId: number;
@@ -373,13 +373,13 @@ export type getMyReservationRes = {
     createdAt: string;
     updatedAt: string;
   }[];
-}
+};
 
 export type patchMyReservation = {
-  activityId: string;
-  reservationId: string;
+  activityId: number;
+  reservationId: number;
   status: "declined" | "pending" | "confirmed";
-}
+};
 
 export type patchMyReservationRes = {
   id: number;
@@ -396,7 +396,7 @@ export type patchMyReservationRes = {
   endTime: string;
   createdAt: string;
   updatedAt: string;
-}
+};
 
 export type patchMyActivities = {
   title: string;
@@ -413,7 +413,7 @@ export type patchMyActivities = {
     startTime: string;
     endTime: string;
   }[];
-}
+};
 
 export type patchMyActivitiesRes = {
   id: number;
@@ -440,4 +440,4 @@ export type patchMyActivitiesRes = {
     }[];
     date: string;
   }[];
-}
+};

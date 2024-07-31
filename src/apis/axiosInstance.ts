@@ -2,7 +2,7 @@ import useAuthStore from "@/store/useAuthStore";
 import axios, { InternalAxiosRequestConfig } from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://sp-globalnomad-api.vercel.app/06-02/",
+  baseURL: "https://sp-globalnomad-api.vercel.app/4-15/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -11,6 +11,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
+    const excludedUrls = ["/auth/tokens"]; // 인터셉터를 건너뛸 URL 리스트
+    if (excludedUrls.some(url => config.url?.includes(url))) {
+      return config;
+    }
     const accessToken = await localStorage.getItem("accessToken");
     const newConfig = { ...config };
     newConfig.headers.Authorization = `Bearer ${accessToken}`;

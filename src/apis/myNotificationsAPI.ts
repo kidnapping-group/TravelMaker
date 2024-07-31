@@ -4,12 +4,12 @@ import axiosInstance from "./axiosInstance";
 
 const myNotificationsAPI = {
   //  내 알림 리스트 조회
-  get: async (params: getNotifications) => {
+  get: async (params?: getNotifications) => {
     try {
       const { data } = await axiosInstance.get<getNotificationsRes>("/my-notifications", {
         params: {
-          cursorId: params.cursorId,
-          size: params.size || 10,
+          cursorId: params?.cursorId,
+          size: params?.size ?? 10,
         },
       });
       return data;

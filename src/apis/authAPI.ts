@@ -10,6 +10,7 @@ const authAPI = {
       const { data } = await axiosInstance.post<LoginRes>("/auth/login", body);
       const { accessToken, refreshToken } = data;
       localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("accessToken", accessToken);
       const { login } = useAuthStore.getState();
       login(accessToken, refreshToken);
       return data;

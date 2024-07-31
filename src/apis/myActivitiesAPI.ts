@@ -17,7 +17,7 @@ import axiosInstance from "./axiosInstance";
 
 const myActivitiesAPI = {
   //  내 체험 리스트 조회
-  get: async (params: getActivities) => {
+  get: async (params: getActivities = { size: 20 }) => {
     try {
       const { data } = await axiosInstance.get<getActivitiesRes>("/my-activities", {
         params,
@@ -32,7 +32,7 @@ const myActivitiesAPI = {
   getReservationMonth: async (params: getReservationMonth) => {
     try {
       const { data } = await axiosInstance.get<getReservationMonthRes[]>(
-        `/my-activities${params.activityId}/reservation-dashboard`,
+        `/my-activities/${params.activityId}/reservation-dashboard?year=${params.year}&month=${params.month}`,
       );
       return data;
     } catch (error) {
@@ -44,7 +44,7 @@ const myActivitiesAPI = {
   getReservationDate: async (params: getReservationDate) => {
     try {
       const { data } = await axiosInstance.get<getReservationDateRes[]>(
-        `/my-activities${params.activityId}/reserved-schedule`,
+        `/my-activities/${params.activityId}/reserved-schedule?date=${params.date}`,
       );
       return data;
     } catch (error) {
@@ -55,8 +55,10 @@ const myActivitiesAPI = {
   // 내 체험 예약 시간대별 예약 내역 조회
   getReservation: async (params: getMyReservation) => {
     try {
+      const size = params.size ? params.size : 3;
+      const cursorId = params.cursorId ? `&=cursorId=${params.cursorId}` : "";
       const { data } = await axiosInstance.get<getMyReservationRes>(
-        `/my-activities${params.activityId}/reservations`,
+        `/my-activities/${params.activityId}/reservations?size=${size}${cursorId}&scheduleId=${params.scheduleId}&status=${params.status}`,
       );
       return data;
     } catch (error) {
