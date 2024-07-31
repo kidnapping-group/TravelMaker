@@ -1,4 +1,4 @@
-export interface getActivitiesRes {
+export type getActivitiesRes = {
   cursorId: number;
   totalCount: number;
   activities: [
@@ -19,7 +19,7 @@ export interface getActivitiesRes {
   ];
 }
 
-export interface getActivities {
+export type getActivities = {
   method: "offset";
   cursorId?: number | null;
   category?: string | null;
@@ -29,7 +29,7 @@ export interface getActivities {
   size?: number;
 }
 
-export interface postActivities {
+export type postActivities = {
   title: string;
   category: string;
   description: string;
@@ -44,7 +44,7 @@ export interface postActivities {
   subImageUrls: string[];
 }
 
-export interface postActivitiesRes {
+export type postActivitiesRes = {
   id: number;
   userId: number;
   title: string;
@@ -73,11 +73,11 @@ export interface postActivitiesRes {
   ];
 }
 
-export interface getActivitiesInfo {
+export type getActivitiesInfo = {
   id: number;
 }
 
-export interface getActivitiesInfoRes {
+export type getActivitiesInfoRes = {
   id: number;
   userId: number;
   title: string;
@@ -106,13 +106,13 @@ export interface getActivitiesInfoRes {
   updatedAt: string;
 }
 
-export interface getActivitiesSchedule {
+export type getActivitiesSchedule = {
   id: number;
   year: string;
   month: string;
 }
 
-export interface getActivitiesScheduleRes {
+export type getActivitiesScheduleRes = {
   date: string;
   times: {
     endTime: string;
@@ -121,13 +121,13 @@ export interface getActivitiesScheduleRes {
   }[];
 }
 
-export interface getActivitiesReviews {
+export type getActivitiesReviews = {
   id: number;
   page: number;
   size: number;
 }
 
-export interface getActivitiesReviewsRes {
+export type getActivitiesReviewsRes = {
   averageRating: number;
   totalCount: number;
   reviews: [
@@ -147,12 +147,12 @@ export interface getActivitiesReviewsRes {
   ];
 }
 
-export interface postActivitiesReservations {
+export type postActivitiesReservations = {
   scheduleId: number;
   headCount: number;
 }
 
-export interface postActivitiesReservationsRes {
+export type postActivitiesReservationsRes = {
   id: number;
   teamId: string;
   userId: number;
@@ -169,21 +169,21 @@ export interface postActivitiesReservationsRes {
   updatedAt: string;
 }
 
-export interface postActivitiesImage {
+export type postActivitiesImage = {
   image: string;
 }
 
-export interface postActivitiesImageRes {
+export type postActivitiesImageRes = {
   activitiesImageUrl: string;
 }
 
-export interface postUsers {
+export type postUsers = {
   email: string;
   nickname: string;
   password: string;
 }
 
-export interface UsersRes {
+export type UsersRes = {
   id: number;
   email: string;
   nickname: string;
@@ -192,27 +192,27 @@ export interface UsersRes {
   updatedAt: string;
 }
 
-export interface patchUsers {
+export type patchUsers = {
   nickname: string;
   profileImageUrl: string;
   newPassword: string;
 }
 
-export interface postUsersImageRes {
+export type postUsersImageRes = {
   profileImageUrl: string;
 }
 
-export interface getReservation {
+export type getReservation = {
   cursorId?: string;
   size?: number;
   status?: string;
 }
 
-export interface ReservationId {
+export type ReservationId = {
   reservationId: number;
 }
 
-export interface ReservationRes {
+export type ReservationRes = {
   cursorId: number;
   reservations: [
     {
@@ -239,7 +239,7 @@ export interface ReservationRes {
   totalCount: number;
 }
 
-export interface patchReservationRes {
+export type patchReservationRes = {
   id: number;
   teamId: string;
   userId: number;
@@ -256,12 +256,12 @@ export interface patchReservationRes {
   updatedAt: string;
 }
 
-export interface postReviews {
+export type postReviews = {
   rating: number;
   content: string;
 }
 
-export interface postReviewsRes {
+export type postReviewsRes = {
   deletedAt: string;
   updatedAt: string;
   createdAt: string;
@@ -273,12 +273,12 @@ export interface postReviewsRes {
   id: number;
 }
 
-export interface getNotifications {
+export type getNotifications = {
   cursorId?: number;
   size?: number;
 }
 
-export interface getNotificationsRes {
+export type getNotificationsRes = {
   cursorId: number;
   notifications: [
     {
@@ -293,15 +293,15 @@ export interface getNotificationsRes {
   ];
   totalCount: number;
 }
-export interface NotificationId {
+export type NotificationId = {
   NotificationId: number;
 }
 
-export interface Login {
+export type Login = {
   email: string;
   password: string;
 }
-export interface LoginRes {
+export type LoginRes = {
   user: {
     id: string;
     email: string;
@@ -314,13 +314,13 @@ export interface LoginRes {
   accessToken: string;
 }
 
-export interface getReservationMonth {
+export type getReservationMonth = {
   activityId: string;
   year: string;
   month: string;
 }
 
-export interface getReservationMonthRes {
+export type getReservationMonthRes = {
   date: string;
   reservations: {
     pending: number;
@@ -329,12 +329,12 @@ export interface getReservationMonthRes {
   };
 }
 
-export interface getReservationDate {
+export type getReservationDate = {
   activityId: string;
   month: string;
 }
 
-export interface getReservationDateRes {
+export type getReservationDateRes = {
   scheduleId: number;
   startTime: string;
   endTime: string;
@@ -345,7 +345,7 @@ export interface getReservationDateRes {
   };
 }
 
-export interface getMyReservation {
+export type getMyReservation = {
   activityId: string;
   cursorId?: number;
   size?: number;
@@ -353,7 +353,7 @@ export interface getMyReservation {
   status: string;
 }
 
-export interface getMyReservationRes {
+export type getMyReservationRes = {
   cursorId: number;
   totalCount: number;
   reservations: {
@@ -375,13 +375,13 @@ export interface getMyReservationRes {
   }[];
 }
 
-export interface patchMyReservation {
+export type patchMyReservation = {
   activityId: string;
   reservationId: string;
   status: "declined" | "pending" | "confirmed";
 }
 
-export interface patchMyReservationRes {
+export type patchMyReservationRes = {
   id: number;
   teamId: string;
   userId: number;
@@ -398,7 +398,7 @@ export interface patchMyReservationRes {
   updatedAt: string;
 }
 
-export interface patchMyActivities {
+export type patchMyActivities = {
   title: string;
   category: string;
   description: string;
@@ -415,7 +415,7 @@ export interface patchMyActivities {
   }[];
 }
 
-export interface patchMyActivitiesRes {
+export type patchMyActivitiesRes = {
   id: number;
   userId: number;
   title: string;
