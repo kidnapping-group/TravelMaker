@@ -44,7 +44,7 @@ function Dropdown({ menuItems, type = "dropdown" }: DropdownProps) {
   const handleItemClick = (item: MenuItem) => {
     setSelectedItem(item);
     setIsOpen(false);
-    if (type !== "selector") router.push(`${pathname}?status=${encodeURIComponent(item.status)}`);
+    router.push(`${pathname}?status=${encodeURIComponent(item.status)}`);
   };
 
   const handleBlur = (e: FocusEvent<HTMLElement>) => {
