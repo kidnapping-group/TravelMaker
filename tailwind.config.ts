@@ -1,19 +1,6 @@
 import type { Config } from "tailwindcss";
 import type { PluginAPI } from "tailwindcss/types/config";
 
-const createPxRange = (max: number) => {
-  const result: { [key: string]: string } = {};
-  for (let i = 0; i <= max; i += 1) {
-    result[`${i}px`] = `${i}px`;
-  }
-  return result;
-};
-
-const px0_10 = createPxRange(10);
-const px0_100 = createPxRange(100);
-const px0_200 = createPxRange(200);
-const px0_500 = createPxRange(500);
-
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -32,12 +19,6 @@ const config: Config = {
         modalbackground: "1",
         modalbody: "1",
       },
-      borderWidth: px0_10,
-      fontSize: px0_100,
-      spacing: px0_200,
-      borderRadius: px0_100,
-      width: px0_500,
-      height: px0_500,
       colors: {
         black: "#1B1B1B",
         "nomad-black": "#323236",
