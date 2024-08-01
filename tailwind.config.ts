@@ -13,12 +13,6 @@ const config: Config = {
         pc: "1200px",
         tablet: "768px",
       },
-      zIndex: {
-        dropdown: "1",
-        popup: "1",
-        modalbackground: "1",
-        modalbody: "1",
-      },
       colors: {
         black: "#1B1B1B",
         "nomad-black": "#323236",
