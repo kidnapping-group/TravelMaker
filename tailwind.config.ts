@@ -1,5 +1,4 @@
 import type { Config } from "tailwindcss";
-import type { PluginAPI } from "tailwindcss/types/config";
 
 const config: Config = {
   content: [
@@ -46,16 +45,7 @@ const config: Config = {
           lighter: "#12FBFF",
         },
       },
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
     },
   },
-  plugins: [
-    function ({ addUtilities }: PluginAPI) {
-      addUtilities({});
-    },
-  ],
 };
 export default config;
