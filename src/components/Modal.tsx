@@ -12,9 +12,10 @@ let modalToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
 function Modal({ children, title }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   modalToggle = setIsOpen;
+
   useEffect(() => {
-    const handleEsc = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
         setIsOpen(false);
       }
     };
