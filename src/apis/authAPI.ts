@@ -1,4 +1,5 @@
 import useAuthStore from "@/store/useAuthStore";
+import Cookies from "js-cookie";
 
 import { Login, LoginRes } from "./API.type";
 import handleAxiosError from "./ApiError";
@@ -9,10 +10,11 @@ const authAPI = {
     try {
       const { data } = await axiosInstance.post<LoginRes>("/auth/login", body);
       const { accessToken, refreshToken } = data;
-      localStorage.setItem("refreshToken", refreshToken);
-      localStorage.setItem("accessToken", accessToken);
+      Cookies.set("accessToken", accessToken);
+      Cookies.set("refreshToken", refreshToken);
       const { login } = useAuthStore.getState();
       login(accessToken, refreshToken);
+
       return data;
     } catch (error) {
       handleAxiosError(error);

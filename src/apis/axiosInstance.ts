@@ -1,8 +1,9 @@
 import useAuthStore from "@/store/useAuthStore";
 import axios, { InternalAxiosRequestConfig } from "axios";
+import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: "https://sp-globalnomad-api.vercel.app/4-15/",
+  baseURL: "https://sp-globalnomad-api.vercel.app/06-02/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -11,11 +12,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const excludedUrls = ["/auth/tokens"]; // 인터셉터를 건너뛸 URL 리스트
+    const excludedUrls = ["/auth/tokens"];
     if (excludedUrls.some(url => config.url?.includes(url))) {
       return config;
     }
-    const accessToken = await localStorage.getItem("accessToken");
+    const accessToken = await Cookies.get("accessToken");
     const newConfig = { ...config };
     newConfig.headers.Authorization = `Bearer ${accessToken}`;
     return newConfig;
@@ -30,7 +31,7 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !prevRequest.retry) {
       prevRequest.retry = true;
 
-      let currentRefreshToken = localStorage.getItem("refreshToken");
+      let currentRefreshToken = Cookies.get("refreshToken");
       if (!currentRefreshToken) {
         const { logout } = useAuthStore.getState();
         logout();
@@ -42,11 +43,11 @@ axiosInstance.interceptors.response.use(
         const { data } = await axiosInstance.post("/auth/tokens");
         const { accessToken, refreshToken } = data;
 
-        localStorage.setItem("refreshToken", refreshToken);
+        Cookies.set("refreshToken", refreshToken);
         const { login } = useAuthStore.getState();
         login(accessToken, refreshToken);
 
-        localStorage.setItem("accessToken", accessToken);
+        Cookies.set("accessToken", accessToken);
         prevRequest.headers.Authorization = `Bearer ${accessToken}`;
         return await axiosInstance(prevRequest);
       } catch (refreshError) {
