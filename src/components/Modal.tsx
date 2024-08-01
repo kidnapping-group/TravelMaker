@@ -12,10 +12,20 @@ let modalToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
 function Modal({ children, title }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   modalToggle = setIsOpen;
-
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("keydown", handleEsc);
+      document.body.style.overflow = "hidden";
+    }
+
     return () => {
+      document.removeEventListener("keydown", handleEsc);
       document.body.style.overflow = "";
     };
   }, [isOpen]);
