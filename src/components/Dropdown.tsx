@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FocusEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { FocusEvent, KeyboardEvent, useRef, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -80,12 +80,6 @@ function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownPr
         break;
     }
   };
-
-  useEffect(() => {
-    if (focusedIndex >= 0 && focusedIndex < itemRefs.current.length) {
-      itemRefs.current[focusedIndex]?.focus();
-    }
-  }, [focusedIndex]);
 
   return (
     <div>
