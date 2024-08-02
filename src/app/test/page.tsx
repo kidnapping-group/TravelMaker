@@ -15,6 +15,8 @@ const menuItems = [
 async function handleServerAction(status: string) {
   "use server";
 
+  // 서버액션을 위해 추가한 지시어
+
   redirect(`/test?status=${status}`);
 }
 
@@ -24,7 +26,7 @@ function Page({ searchParams }: { searchParams: { status: string } }) {
   return (
     <div>
       드롭 다운 조지기! selectedStatus: {selectedStatus}
-      <Dropdown menuItems={menuItems} type="dropdown" onChangeDropdown={handleServerAction} />
+      <Dropdown menuItems={menuItems} type="round" onChangeDropdown={handleServerAction} />
     </div>
   );
 }

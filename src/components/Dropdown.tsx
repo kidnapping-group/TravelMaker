@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FocusEvent, KeyboardEvent, useRef, useState } from "react";
+import { FocusEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -10,12 +10,12 @@ interface MenuItem {
 
 interface DropdownProps {
   menuItems: MenuItem[];
-  type: "dropdown" | "selector";
+  type: "square" | "round";
   onChangeDropdown: (status: string) => Promise<void> | void;
 }
 
 const styleConfig = {
-  dropdown: {
+  square: {
     container: "w-auto text-lg font-medium",
     button: "rounded-2xl text-green border-green p-4",
     item: "border-b text-center py-4 h-14 text-[#4B4B4B]",
@@ -23,7 +23,7 @@ const styleConfig = {
     dropdownList: "",
     image: { style: "dropdown-small", size: 16 },
   },
-  selector: {
+  round: {
     container: "w-full text-base font-light",
     button: "rounded-[4px] text-[#A1A1A1] border-gray-500 py-4 pl-4",
     item: "text-left pl-2 py-2 h-10",
@@ -33,7 +33,7 @@ const styleConfig = {
   },
 };
 
-function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownProps) {
+function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(menuItems[0]);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -42,7 +42,7 @@ function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownPr
   if (!menuItems.length) return null;
 
   const styles = styleConfig[type];
-  const itemsToRender = type !== "dropdown" ? menuItems.slice(1) : menuItems;
+  const itemsToRender = type !== "round" ? menuItems.slice(1) : menuItems;
 
   const handleItemClick = async (item: MenuItem) => {
     setSelectedItem(item);
@@ -80,6 +80,12 @@ function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownPr
         break;
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      setFocusedIndex(-1);
+    }
+  }, [isOpen]);
 
   return (
     <div>
