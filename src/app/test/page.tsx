@@ -1,6 +1,7 @@
 "use server";
 
 import Dropdown from "@/components/Dropdown";
+import { redirect } from "next/navigation";
 
 const menuItems = [
   { title: "전체 예약", status: "" },
@@ -11,17 +12,19 @@ const menuItems = [
   { title: "체험 완료", status: "completed" },
 ];
 
-async function Page({ searchParams }: { searchParams: { status: string } }) {
+async function handleServerAction(status: string) {
+  "use server";
+
+  redirect(`/test?status=${status}`);
+}
+
+function Page({ searchParams }: { searchParams: { status: string } }) {
   let selectedStatus = searchParams.status;
-  // if (status) {
-  //   await getActivity({ selectedStatus });
-  // } else {
-  //   await getActivity();
-  // }
+
   return (
     <div>
       드롭 다운 조지기! selectedStatus: {selectedStatus}
-      <Dropdown menuItems={menuItems} type="selector" />
+      <Dropdown menuItems={menuItems} type="selector" onChangeDropdown={handleServerAction} />
     </div>
   );
 }
