@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FocusEvent, useRef, useState } from "react";
+import { FocusEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -36,9 +36,13 @@ const styleConfig = {
 function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(menuItems[0]);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
   if (!menuItems.length) return null;
+
+  const styles = styleConfig[type];
+  const itemsToRender = type !== "dropdown" ? menuItems.slice(1) : menuItems;
 
   const handleItemClick = async (item: MenuItem) => {
     setSelectedItem(item);
@@ -52,15 +56,46 @@ function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownPr
     }
   };
 
-  const styles = styleConfig[type];
-  const itemsToRender = type !== "dropdown" ? menuItems.slice(1) : menuItems;
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setFocusedIndex(prev => (prev < itemsToRender.length - 1 ? prev + 1 : 0));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setFocusedIndex(prev => (prev > 0 ? prev - 1 : itemsToRender.length - 1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (focusedIndex >= 0) {
+          handleItemClick(itemsToRender[focusedIndex]);
+        }
+        break;
+      case "Escape":
+        e.preventDefault();
+        setIsOpen(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (focusedIndex >= 0 && focusedIndex < itemRefs.current.length) {
+      itemRefs.current[focusedIndex]?.focus();
+    }
+  }, [focusedIndex]);
 
   return (
     <div>
       <div
+        role="button"
         className={`relative inline-block min-w-32 ${styles.container}`}
         ref={dropdownRef}
         onBlur={handleBlur}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
       >
         <button
           type="button"
@@ -79,11 +114,16 @@ function Dropdown({ menuItems, type = "dropdown", onChangeDropdown }: DropdownPr
           <div
             className={`absolute ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
           >
-            {itemsToRender.map(item => (
+            {itemsToRender.map((item, index) => (
               <button
-                className={`block w-full ${styles.item} rounded-md hover:bg-gray-200`}
+                className={`block w-full ${styles.item} rounded-md hover:bg-gray-200 ${
+                  index === focusedIndex ? "bg-gray-100" : ""
+                }`}
                 type="button"
                 key={item.status}
+                ref={(el: HTMLButtonElement | null) => {
+                  itemRefs.current[index] = el;
+                }}
                 onClick={() => handleItemClick(item)}
               >
                 {item.title}

@@ -24,7 +24,7 @@ function Page({ searchParams }: { searchParams: { status: string } }) {
   return (
     <div>
       드롭 다운 조지기! selectedStatus: {selectedStatus}
-      <Dropdown menuItems={menuItems} type="selector" onChangeDropdown={handleServerAction} />
+      <Dropdown menuItems={menuItems} type="dropdown" onChangeDropdown={handleServerAction} />
     </div>
   );
 }
