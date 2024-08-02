@@ -3,9 +3,9 @@
 import Link, { LinkProps } from "next/link";
 
 const buttonStyleByVariant = {
-  default: "bg-green text-white disabled:bg-gray-600",
+  default: "bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700",
   outline:
-    "border border-green bg-white text-green disabled:border-none disabled:bg-gray-600 disabled:text-white",
+    "border border-primary-500 bg-white text-primary-500 hover:bg-gray-100 active:bg-gray-200",
 };
 
 const buttonStyleBySize = {
@@ -28,7 +28,7 @@ export function Button({
 }: ButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-      className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} w-full rounded-lg font-semibold`}
+      className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} w-full rounded-lg font-semibold transition disabled:border-none disabled:bg-gray-400 disabled:text-white`}
       type="submit"
       {...props}
     >
@@ -45,7 +45,7 @@ export function LinkButton({
 }: ButtonProps & LinkProps) {
   return (
     <Link
-      className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} inline-flex w-full items-center justify-center rounded-lg font-semibold`}
+      className={`${buttonStyleBySize[size]} ${buttonStyleByVariant[variant]} inline-flex w-full items-center justify-center rounded-lg font-semibold transition`}
       {...props}
     >
       {children}
