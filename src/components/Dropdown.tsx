@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FocusEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { FocusEvent, KeyboardEvent, useCallback, useMemo, useRef, useState } from "react";
 
 interface MenuItem {
   title: string;
@@ -39,16 +39,21 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  if (!menuItems.length) return null;
 
-  const styles = styleConfig[type];
-  const itemsToRender = type !== "round" ? menuItems.slice(1) : menuItems;
+  const styles = useMemo(() => styleConfig[type], [type]);
+  const itemsToRender = useMemo(
+    () => (type !== "round" ? menuItems.slice(1) : menuItems),
+    [menuItems, type],
+  );
 
-  const handleItemClick = async (item: MenuItem) => {
-    setSelectedItem(item);
-    setIsOpen(false);
-    onChangeDropdown(item.status);
-  };
+  const handleItemClick = useCallback(
+    async (item: MenuItem) => {
+      setSelectedItem(item);
+      setIsOpen(false);
+      await onChangeDropdown(item.status);
+    },
+    [onChangeDropdown],
+  );
 
   const handleBlur = (e: FocusEvent<HTMLElement>) => {
     if (!dropdownRef.current?.contains(e.relatedTarget)) {
@@ -56,36 +61,33 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
     }
   };
 
+  const moveFocus = (direction: number) => {
+    setFocusedIndex(prev => (prev + direction + itemsToRender.length) % itemsToRender.length);
+  };
+
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setFocusedIndex(prev => (prev < itemsToRender.length - 1 ? prev + 1 : 0));
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setFocusedIndex(prev => (prev > 0 ? prev - 1 : itemsToRender.length - 1));
-        break;
-      case "Enter":
-        e.preventDefault();
-        if (focusedIndex >= 0) {
-          handleItemClick(itemsToRender[focusedIndex]);
-        }
-        break;
-      case "Escape":
-        e.preventDefault();
-        setIsOpen(false);
-        break;
-      default:
-        break;
+    const keyActions: { [key: string]: () => void } = {
+      ArrowDown: () => moveFocus(1),
+      ArrowUp: () => moveFocus(-1),
+      Enter: () => {
+        if (focusedIndex >= 0) handleItemClick(itemsToRender[focusedIndex]);
+      },
+      Escape: () => setIsOpen(false),
+    };
+    if (keyActions[e.key]) {
+      e.preventDefault();
+      keyActions[e.key]();
     }
   };
 
-  useEffect(() => {
-    if (isOpen) {
-      setFocusedIndex(-1);
-    }
-  }, [isOpen]);
+  const toggleDropdown = useCallback(() => {
+    setIsOpen(prev => {
+      if (!prev) {
+        setFocusedIndex(-1);
+      }
+      return !prev;
+    });
+  }, []);
 
   return (
     <div>
@@ -99,8 +101,8 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
       >
         <button
           type="button"
-          className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styles.button} text-left shadow-sm`}
-          onClick={() => setIsOpen(!isOpen)}
+          className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styles.button} text-left shadow-sm outline-none`}
+          onClick={toggleDropdown}
         >
           <span className={styles.selectedText}>{selectedItem.title}</span>
           <Image
@@ -117,7 +119,7 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
             {itemsToRender.map((item, index) => (
               <button
                 className={`block w-full ${styles.item} rounded-md hover:bg-gray-200 ${
-                  index === focusedIndex ? "bg-gray-100" : ""
+                  index === focusedIndex ? "bg-gray-200" : ""
                 }`}
                 type="button"
                 key={item.status}
