@@ -1,10 +1,12 @@
+import Image from "next/image";
+import { useState } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
-import PasswordInput from "./PasswordInput";
+import OffEye from "../../../public/icons/icon-eye-off.svg";
+import Eye from "../../../public/icons/icon-eye.svg";
 
-interface InputProps extends React.PropsWithChildren {
+interface PasswordInputProps extends React.PropsWithChildren {
   register: UseFormRegisterReturn;
-  type: "text" | "email" | "password" | "number";
   name: string;
   label: string;
   placeholder: string;
@@ -12,15 +14,15 @@ interface InputProps extends React.PropsWithChildren {
   touched: boolean | undefined;
 }
 
-export default function Input({
+export default function PasswordInput({
   register,
-  type,
   name,
   label,
   placeholder,
   error,
   touched,
-}: InputProps) {
+}: PasswordInputProps) {
+  const [showPassword, setShowPassword] = useState(false);
   const getClassName = () => {
     if (error) {
       return "border border-red";
@@ -31,29 +33,23 @@ export default function Input({
     return "";
   };
 
-  if (type === "password") {
-    return (
-      <PasswordInput
-        register={register}
-        name={name}
-        label={label}
-        placeholder={placeholder}
-        error={error}
-        touched={touched}
-      />
-    );
-  }
   return (
-    <div className="flex flex-col gap-[8px]">
+    <div className="relative flex flex-col gap-[10px]">
       <label htmlFor={name} className="text-[16px] font-normal leading-[26px] text-black">
         {label}
       </label>
       <input
         id={name}
-        type={type}
+        type={showPassword ? "text" : "password"}
         placeholder={placeholder}
         {...register}
         className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] pr-[40px] outline-none ${getClassName()}`}
+      />
+      <Image
+        src={showPassword ? Eye : OffEye}
+        alt="toggle visibility"
+        className="absolute right-[10px] top-[53px] cursor-pointer"
+        onClick={() => setShowPassword(!showPassword)}
       />
       {error && <p className="text-[12px] font-normal leading-[18px] text-red">{error.message}</p>}
     </div>
