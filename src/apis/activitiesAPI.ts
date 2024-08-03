@@ -8,10 +8,10 @@ import {
   getActivitiesSchedule,
   getActivitiesScheduleRes,
   postActivities,
+  postActivitiesImageRes,
   postActivitiesRes,
   postActivitiesReservations,
   postActivitiesReservationsRes,
-  postActivitiesImageRes,
 } from "./API.type";
 import handleAxiosError from "./ApiError";
 import axiosInstance from "./axiosInstance";
@@ -30,9 +30,9 @@ const activitiesAPI = {
     }
   },
   // 체험 등록
-  post: async (body: postActivities)=> {
+  post: async (body: postActivities) => {
     try {
-      const { data } = await axiosInstance.post<postActivitiesRes> (`/activities`, body);
+      const { data } = await axiosInstance.post<postActivitiesRes>(`/activities`, body);
       return data;
     } catch (error) {
       handleAxiosError(error);
@@ -52,7 +52,7 @@ const activitiesAPI = {
   // 체험 예약 가능일 조회
   getSchedule: async (params: getActivitiesSchedule) => {
     try {
-      const { data }= await axiosInstance.get<getActivitiesScheduleRes>(
+      const { data } = await axiosInstance.get<getActivitiesScheduleRes>(
         `/activities/${params.id}/available-schedule?year=${params.year}&month=${params.month}`,
       );
       return data;
@@ -62,7 +62,7 @@ const activitiesAPI = {
     }
   },
   // 체험 리뷰 조회
-  getReview: async (params: getActivitiesReviews ) => {
+  getReview: async (params: getActivitiesReviews) => {
     try {
       const page = params.page ? params.page : 1;
       const size = params.size ? params.size : 3;
@@ -76,15 +76,15 @@ const activitiesAPI = {
     }
   },
   // 체험 예약 신청
-  postReservations: async (
-    activityId: number,
-    params: postActivitiesReservations,
-  ) => {
+  postReservations: async (activityId: number, params: postActivitiesReservations) => {
     try {
-      const { data } = await axiosInstance.post<postActivitiesReservationsRes>(`/activities/${activityId}/reservations`, {
-        scheduleId: params.scheduleId,
-        headCount: params.headCount,
-      });
+      const { data } = await axiosInstance.post<postActivitiesReservationsRes>(
+        `/activities/${activityId}/reservations`,
+        {
+          scheduleId: params.scheduleId,
+          headCount: params.headCount,
+        },
+      );
       return data;
     } catch (error) {
       handleAxiosError(error);
@@ -96,11 +96,15 @@ const activitiesAPI = {
     try {
       const formData = new FormData();
       formData.append("image", file);
-      const { data } = await axiosInstance.post<postActivitiesImageRes>(`/activities/image`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const { data } = await axiosInstance.post<postActivitiesImageRes>(
+        `/activities/image`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         },
-      });
+      );
       return data;
     } catch (error) {
       handleAxiosError(error);
