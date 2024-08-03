@@ -20,9 +20,9 @@ function AlertItem({ notification }: { notification: Notification }) {
   //   await myNotificationAPI.delete(id);
   // };
   return (
-    <div className="bg-white px-4 py-3 rounded-[5px] border flex flex-col gap-1 font-[14px] tablet:h-[126px] tablet:w-[328px] pc:h-[126px] pc:w-[328px]">
+    <div className="flex flex-col gap-1 rounded-[5px] border bg-white px-4 py-3 font-[14px] tablet:h-[126px] tablet:w-[328px]">
       <div className="flex items-center justify-between">
-        <Image src={Status.src} width={5} height={5} alt="" />
+        <Image src={Status.src} width={5} height={5} alt="ellipse" />
         <Image
           src="/icons/icon-close-gary-bold.svg"
           width={24}
