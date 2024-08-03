@@ -3,14 +3,19 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  @apply w-[6px];
+  width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  background-color: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
-  @apply rounded bg-gray-200;
+  border-radius: 9999px;
+  background-color: #e5e7eb;
 }
+
 ::-webkit-scrollbar-button {
-  @apply h-0 w-0;
+  height: 0;
+  width: 0;
 }
