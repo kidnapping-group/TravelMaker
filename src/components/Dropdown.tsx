@@ -3,19 +3,15 @@
 import Image from "next/image";
 import { FocusEvent, KeyboardEvent, useCallback, useMemo, useRef, useState } from "react";
 
-interface MenuItem {
-  title: string;
-  status: string;
-}
-
 interface DropdownProps {
-  menuItems: MenuItem[];
+  menuItems: string[];
   type: "square" | "round";
   onChangeDropdown: (status: string) => Promise<void> | void;
+  placeHolder?: string;
 }
 
 const styleConfig = {
-  square: {
+  round: {
     container: "w-auto text-lg font-medium",
     button: "rounded-2xl text-green border-green p-4",
     item: "border-b text-center py-4 h-14 text-[#4B4B4B]",
@@ -23,7 +19,7 @@ const styleConfig = {
     dropdownList: "",
     image: { style: "dropdown-small", size: 16 },
   },
-  round: {
+  square: {
     container: "w-full text-base font-light",
     button: "rounded-[4px] text-[#A1A1A1] border-gray-500 py-4 pl-4",
     item: "text-left pl-2 py-2 h-10",
@@ -32,25 +28,20 @@ const styleConfig = {
     image: { style: "dropdown", size: 48 },
   },
 };
-
-function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps) {
+// 홀더 없으면 메뉴아이템 첫 번째 배열이 떠야함.
+function Dropdown({ menuItems, type = "round", onChangeDropdown, placeHolder }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(menuItems[0]);
+  const [selectedItem, setSelectedItem] = useState(placeHolder || menuItems[0]);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
-
   const styles = useMemo(() => styleConfig[type], [type]);
-  const itemsToRender = useMemo(
-    () => (type !== "round" ? menuItems.slice(1) : menuItems),
-    [menuItems, type],
-  );
 
   const handleItemClick = useCallback(
-    async (item: MenuItem) => {
+    async (item: string) => {
       setSelectedItem(item);
       setIsOpen(false);
-      await onChangeDropdown(item.status);
+      await onChangeDropdown(item);
     },
     [onChangeDropdown],
   );
@@ -62,7 +53,7 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
   };
 
   const moveFocus = (direction: number) => {
-    setFocusedIndex(prev => (prev + direction + itemsToRender.length) % itemsToRender.length);
+    setFocusedIndex(prev => (prev + direction + menuItems.length) % menuItems.length);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -70,7 +61,7 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
       ArrowDown: () => moveFocus(1),
       ArrowUp: () => moveFocus(-1),
       Enter: () => {
-        if (focusedIndex >= 0) handleItemClick(itemsToRender[focusedIndex]);
+        if (focusedIndex >= 0) handleItemClick(menuItems[focusedIndex]);
       },
       Escape: () => setIsOpen(false),
     };
@@ -104,7 +95,7 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
           className={`flex h-14 w-full items-center justify-between gap-2 whitespace-nowrap border ${styles.button} text-left shadow-sm outline-none`}
           onClick={toggleDropdown}
         >
-          <span className={styles.selectedText}>{selectedItem.title}</span>
+          <span className={styles.selectedText}>{selectedItem}</span>
           <Image
             src={`/icons/icon-${isOpen ? "dropup" : styles.image.style}.svg`}
             alt="드롭다운 버튼"
@@ -116,19 +107,19 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown }: DropdownProps
           <div
             className={`absolute ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
           >
-            {itemsToRender.map((item, index) => (
+            {menuItems.map((item, index) => (
               <button
                 className={`block w-full ${styles.item} rounded-md hover:bg-gray-200 ${
                   index === focusedIndex ? "bg-gray-200" : ""
                 }`}
                 type="button"
-                key={item.status}
+                key={item}
                 ref={(el: HTMLButtonElement | null) => {
                   itemRefs.current[index] = el;
                 }}
                 onClick={() => handleItemClick(item)}
               >
-                {item.title}
+                {item}
               </button>
             ))}
           </div>

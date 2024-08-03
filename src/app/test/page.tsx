@@ -3,20 +3,12 @@
 import Dropdown from "@/components/Dropdown";
 import { redirect } from "next/navigation";
 
-const menuItems = [
-  { title: "전체 예약", status: "" },
-  { title: "예약 신청", status: "pending" },
-  { title: "예약 취소", status: "confirmed" },
-  { title: "예약 승인", status: "declined" },
-  { title: "예약 거절", status: "canceled" },
-  { title: "체험 완료", status: "completed" },
-];
+const menuItems = ["전체 예약", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
 
 async function handleServerAction(status: string) {
   "use server";
 
   // 서버액션을 위해 추가한 지시어
-
   redirect(`/test?status=${status}`);
 }
 
@@ -26,7 +18,12 @@ function Page({ searchParams }: { searchParams: { status: string } }) {
   return (
     <div>
       드롭 다운 조지기! selectedStatus: {selectedStatus}
-      <Dropdown menuItems={menuItems} type="round" onChangeDropdown={handleServerAction} />
+      <Dropdown
+        menuItems={menuItems}
+        type="square"
+        onChangeDropdown={handleServerAction}
+        placeHolder="category"
+      />
     </div>
   );
 }
