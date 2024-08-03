@@ -13,7 +13,7 @@ function Page({ searchParams }: { searchParams: { confirm: string } }) {
       <button type="button" onClick={openPopup}>
         팝업 버튼
       </button>
-      <Popup type="reservation" />
+      <Popup text="fdsavs" firstButton="확" />
     </div>
   );
 }
