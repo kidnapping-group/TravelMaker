@@ -26,7 +26,7 @@ function Notification({ data, onClose }: NotificationModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex tablet:relative pc:relative">
-      <div className="overflow relative h-full w-full overflow-hidden bg-gray-400 px-5 py-10 tablet:absolute tablet:top-12px tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute pc:h-[494px] pc:w-[368px]">
+      <div className="overflow relative h-full w-full bg-gray-400 px-[14px] py-6 tablet:absolute tablet:top-12px tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute pc:h-[494px] pc:w-[368px]">
         <div className="flex h-full w-full flex-col gap-4">
           <div className="flex items-center justify-between">
             <p className="text-20px font-bold">알림 {data.totalCount}개</p>
@@ -39,7 +39,7 @@ function Notification({ data, onClose }: NotificationModalProps) {
               onClick={onClose}
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 overflow-y-auto">
             {notifications.map(notification => (
               <AlertItem key={notification.id} notification={notification} />
             ))}
