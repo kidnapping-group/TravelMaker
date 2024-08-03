@@ -4,6 +4,7 @@ import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 import OffEye from "../../../public/icons/icon-eye-off.svg";
 import Eye from "../../../public/icons/icon-eye.svg";
+import getInputClassName from "../../utils/getInputClassName";
 
 interface InputProps extends React.PropsWithChildren {
   register: UseFormRegisterReturn;
@@ -26,16 +27,6 @@ export default function Input({
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
-  const getClassName = () => {
-    if (error) {
-      return "border border-red";
-    }
-    if (touched) {
-      return "border border-blue";
-    }
-    return "";
-  };
-
   return (
     <div className="relative flex flex-col gap-[10px]">
       <label htmlFor={name} className="text-[16px] font-normal leading-[26px] text-black">
@@ -46,7 +37,7 @@ export default function Input({
         type={type === "password" && showPassword ? "text" : type}
         placeholder={placeholder}
         {...register}
-        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] pr-[40px] outline-none ${getClassName()}`}
+        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] pr-[40px] outline-none ${getInputClassName(error, touched)}`}
       />
       {type === "password" && (
         <Image
