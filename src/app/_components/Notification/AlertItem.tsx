@@ -1,5 +1,6 @@
 "use client";
 
+import myNotificationsAPI from "@/apis/myNotificationsAPI";
 import ContentStatus from "@/utils/ContentStatus";
 import formatTime from "@/utils/formatTime";
 import Image from "next/image";
@@ -16,9 +17,9 @@ type Notification = {
 
 function AlertItem({ notification }: { notification: Notification }) {
   const Status = ContentStatus(notification.content);
-  // const handleDelete = async (id: number) => {
-  //   await myNotificationAPI.delete(id);
-  // };
+  const handleDelete = async (id: number) => {
+    await myNotificationsAPI.delete(id);
+  };
   return (
     <div className="flex flex-col gap-1 rounded-[5px] border bg-white px-4 py-3 font-[14px] tablet:h-[126px] tablet:w-[328px]">
       <div className="flex items-center justify-between">
@@ -28,7 +29,7 @@ function AlertItem({ notification }: { notification: Notification }) {
           width={24}
           height={24}
           alt="알람삭제"
-          // onClick={() => handleDelete(notification.id)}
+          onClick={() => handleDelete(notification.id)}
         />
       </div>
       <p>{Status.text}</p>

@@ -293,9 +293,6 @@ export type getNotificationsRes = {
   ];
   totalCount: number;
 };
-export type NotificationId = {
-  NotificationId: number;
-};
 
 export type Login = {
   email: string;
