@@ -26,8 +26,8 @@ function Notification({ data, onClose }: NotificationModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex tablet:relative pc:relative">
-      <div className="bg-red10 relative h-full w-full overflow-y-auto rounded-10px border tablet:absolute tablet:right-30 tablet:top-12px tablet:h-400px tablet:w-350px pc:absolute pc:right-0 pc:top-12px pc:h-400px pc:w-350px">
-        <div className="flex h-full w-full flex-col gap-12px px-20px py-24px">
+      <div className="overflow relative h-full w-full overflow-hidden bg-gray-400 px-5 py-10 tablet:absolute tablet:top-12px tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute pc:h-[494px] pc:w-[368px]">
+        <div className="flex h-full w-full flex-col gap-4">
           <div className="flex items-center justify-between">
             <p className="text-20px font-bold">알림 {data.totalCount}개</p>
             <Image
@@ -39,9 +39,7 @@ function Notification({ data, onClose }: NotificationModalProps) {
               onClick={onClose}
             />
           </div>
-          <div
-            className="flex flex-col gap-12px"
-          >
+          <div className="flex flex-col gap-2">
             {notifications.map(notification => (
               <AlertItem key={notification.id} notification={notification} />
             ))}
@@ -53,4 +51,3 @@ function Notification({ data, onClose }: NotificationModalProps) {
 }
 
 export default Notification;
-
