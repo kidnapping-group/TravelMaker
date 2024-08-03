@@ -28,7 +28,7 @@ const styleConfig = {
     image: { style: "dropdown", size: 48 },
   },
 };
-// 홀더 없으면 메뉴아이템 첫 번째 배열이 떠야함.
+
 function Dropdown({ menuItems, type = "round", onChangeDropdown, placeHolder }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(placeHolder || menuItems[0]);
