@@ -19,7 +19,7 @@ export default function Error({ error }: { error: Error }) {
       />
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-medium">
-          {error.message.slice(0, 3)} Error:<span>{error.message.slice(3)}</span>
+          {error.message.slice(0, 3)} Error: <span>{error.message.slice(3)}</span>
         </h1>
         {error.message.slice(0, 3) === "404" && <p>페이지를 찾을 수가 없습니다.</p>}
         <button type="button" onClick={() => router.back()} className="text-primary-500 text-left">
