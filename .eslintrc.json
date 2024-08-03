@@ -53,7 +53,8 @@
           "some": ["nesting", "id"]
         }
       }
-    ]
+    ],
+    "react/require-default-props": "off"
   },
   "settings": {
     "react": {

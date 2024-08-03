@@ -1,6 +1,7 @@
-import useAuthStore from "@/store/useAuthStore";
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
+
+import handleAxiosError from "./ApiError";
 
 const axiosInstance = axios.create({
   baseURL: process.env.BASE_URL,
@@ -33,8 +34,6 @@ axiosInstance.interceptors.response.use(
 
       let currentRefreshToken = Cookies.get("refreshToken");
       if (!currentRefreshToken) {
-        const { logout } = useAuthStore.getState();
-        logout();
         return Promise.reject(error);
       }
 
@@ -42,20 +41,16 @@ axiosInstance.interceptors.response.use(
         axiosInstance.defaults.headers.common.Authorization = `Bearer ${currentRefreshToken}`;
         const { data } = await axiosInstance.post("/auth/tokens");
         const { accessToken, refreshToken } = data;
-
         Cookies.set("refreshToken", refreshToken);
-        const { login } = useAuthStore.getState();
-        login(accessToken, refreshToken);
-
         Cookies.set("accessToken", accessToken);
         prevRequest.headers.Authorization = `Bearer ${accessToken}`;
         return await axiosInstance(prevRequest);
       } catch (refreshError) {
-        const { logout } = useAuthStore.getState();
-        logout();
+        handleAxiosError(refreshError);
         return Promise.reject(refreshError);
       }
     }
+    handleAxiosError(error);
     return Promise.reject(error);
   },
 );
