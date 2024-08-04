@@ -6,12 +6,13 @@ import { useState } from "react";
 
 interface PopupProps {
   text: string;
-  firstButton: string;
-  secondButton?: string;
+  onCloseButton: string;
+  onChangeButton?: string;
 }
 
 let popupToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
-function Popup({ text, firstButton, secondButton }: PopupProps) {
+
+function Popup({ text, onCloseButton, onChangeButton }: PopupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   popupToggle = setIsOpen;
@@ -24,16 +25,16 @@ function Popup({ text, firstButton, secondButton }: PopupProps) {
         <p>{text}</p>
         <div className="flex items-center justify-center gap-5">
           <button type="button" onClick={() => setIsOpen(false)} className="bg-blue p-4">
-            {firstButton}
+            {onCloseButton}
           </button>
-          {secondButton && (
+          {onChangeButton && (
             <Link
               href={`${pathname}?confirm=1`}
               type="button"
               onClick={() => setIsOpen(false)}
               className="bg-pink-400 p-4"
             >
-              {secondButton}
+              {onChangeButton}
             </Link>
           )}
         </div>
