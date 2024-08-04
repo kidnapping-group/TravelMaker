@@ -10,6 +10,12 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# 변경된 파일이 없는 경우 처리
+if [ -z "$changed_files" ]; then
+  echo "변경된 파일이 없습니다. lint 성공!"
+  exit 0
+fi
+
 # 변경된 파일들을 다시 스테이징합니다.
 echo "$changed_files" | while IFS= read -r file; do
   git add "$file"
