@@ -1,6 +1,5 @@
 import {
   getActivities,
-  getActivitiesInfo,
   getActivitiesInfoRes,
   getActivitiesRes,
   getActivitiesReviews,
@@ -29,8 +28,8 @@ const activitiesAPI = {
     return data;
   },
   // 체험 상세 조회
-  getInfo: async (params: getActivitiesInfo) => {
-    const { data } = await axiosInstance.get<getActivitiesInfoRes>(`/activities/${params.id}`);
+  getInfo: async (activityId: number) => {
+    const { data } = await axiosInstance.get<getActivitiesInfoRes>(`/activities/${activityId}`);
     return data;
   },
   // 체험 예약 가능일 조회
