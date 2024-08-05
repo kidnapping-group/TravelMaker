@@ -1,4 +1,5 @@
 import Header from "@/app/_components/Header";
+import ReactQueryProviders from "@/contexts/reactQueryProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -22,8 +23,10 @@ function RootLayout({
   return (
     <html lang="en">
       <body className={`${pretendardFont.className} text-black`}>
-        <Header />
-        {children}
+        <ReactQueryProviders>
+          <Header />
+          {children}
+        </ReactQueryProviders>
       </body>
     </html>
   );
