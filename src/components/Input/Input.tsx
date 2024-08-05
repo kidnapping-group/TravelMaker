@@ -33,7 +33,7 @@ export default function Input({
         type={type === "password" && showPassword ? "text" : type}
         placeholder={placeholder}
         {...register}
-        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] outline-none ${type === "password" ? "pr-[40px]" : "pr-[10px]"} ${getInputColorStatus(error, touched)}`}
+        className={`h-[58px] w-full rounded-md bg-gray-200 py-[10px] pl-[10px] outline-none ${type === "password" ? "pr-10" : "pr-[10px]"} ${getInputColorStatus(error, touched)}`}
       />
       {type === "password" && (
         <Image
