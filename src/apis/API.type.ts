@@ -279,17 +279,22 @@ export type getNotifications = {
 };
 
 export type getNotificationsRes = {
-  cursorId: number | null;
-  notifications: {
-    id: number;
-    teamId: string;
-    userId: number;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string|null;
-  }[];
+  cursorId: number;
+  notifications: [
+    {
+      id: number;
+      teamId: string;
+      userId: number;
+      content: string;
+      createdAt: string;
+      updatedAt: string;
+      deletedAt: string;
+    },
+  ];
   totalCount: number;
+};
+export type NotificationId = {
+  NotificationId: number;
 };
 
 export type Login = {

@@ -4,7 +4,6 @@ import myNotificationsAPI from "@/apis/myNotificationsAPI";
 import formatTime from "@/utils/formatTime";
 import Image from "next/image";
 
-
 interface AlertData {
   id: number;
   content: string;
@@ -26,9 +25,11 @@ const contentStatus = (content: string): { text: JSX.Element[]; color: string } 
     color = "green-500";
   }
   const text = [
-    <span key='1'>{activityName} </span>,
-    <span key='2' className={`text-${color} font-bold`}>{status}</span>,
-    <span key='3'>{conclusion}</span>,
+    <span key="1">{activityName} </span>,
+    <span key="2" className={`text-${color} font-bold`}>
+      {status}
+    </span>,
+    <span key="3">{conclusion}</span>,
   ];
 
   return { text, color };
@@ -37,7 +38,7 @@ const contentStatus = (content: string): { text: JSX.Element[]; color: string } 
 function AlertItem({ id, content, updatedAt }: AlertData) {
   const status = contentStatus(content);
   const handleDelete = async (notificationId: number) => {
-    await myNotificationsAPI.delete(notificationId);
+    await myNotificationsAPI.delete({ NotificationId: notificationId });
   };
   return (
     <div className="flex flex-col gap-1 rounded-[5px] border bg-white px-4 py-3 text-md tablet:h-[126px] tablet:w-[328px]">
