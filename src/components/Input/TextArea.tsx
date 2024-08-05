@@ -16,7 +16,7 @@ export default function TextArea({ register, name, placeholder, error, touched }
         {...register}
         id={name}
         placeholder={placeholder}
-        className={`h-[200px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[20px] pr-[40px] outline-none ${getInputClassName(error, touched)}`}
+        className={`h-[200px] w-full resize-none rounded-[6px] bg-gray-200 px-[10px] py-[10px] outline-none ${getInputClassName(error, touched)}`}
       />
       {error && <p className="text-[12px] font-normal leading-[18px] text-red">{error.message}</p>}
     </div>

@@ -1,10 +1,10 @@
+import getInputClassName from "@/utils/getInputClassName";
 import Image from "next/image";
 import { useState } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 import OffEye from "../../../public/icons/icon-eye-off.svg";
 import Eye from "../../../public/icons/icon-eye.svg";
-import getInputClassName from "../../utils/getInputClassName";
 
 interface InputProps extends React.PropsWithChildren {
   register: UseFormRegisterReturn;
@@ -37,7 +37,7 @@ export default function Input({
         type={type === "password" && showPassword ? "text" : type}
         placeholder={placeholder}
         {...register}
-        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] pr-[40px] outline-none ${getInputClassName(error, touched)}`}
+        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] outline-none ${type === "password" ? "pr-[40px]" : "pr-[10px]"} ${getInputClassName(error, touched)}`}
       />
       {type === "password" && (
         <Image
