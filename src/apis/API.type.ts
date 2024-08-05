@@ -208,10 +208,6 @@ export type getReservation = {
   status?: string;
 };
 
-export type ReservationId = {
-  reservationId: number;
-};
-
 export type ReservationRes = {
   cursorId: number;
   reservations: [
@@ -292,9 +288,6 @@ export type getNotificationsRes = {
     },
   ];
   totalCount: number;
-};
-export type NotificationId = {
-  NotificationId: number;
 };
 
 export type Login = {
