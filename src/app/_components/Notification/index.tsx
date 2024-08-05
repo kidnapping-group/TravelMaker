@@ -1,32 +1,18 @@
+import { getNotificationsRes } from "@/apis/API.type";
 import AlertItem from "@/app/_components/Notification/AlertItem";
 import Image from "next/image";
 
-export type NotificationListResponseData = {
-  totalCount: number;
-  notifications: Array<Notifications>;
-  cursorId: null;
-};
-export type Notifications = {
-  id: number;
-  teamId: string;
-  userId: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: null;
-};
-
-interface NotificationModalProps {
-  data: NotificationListResponseData;
+interface NotificationProps {
+  data: getNotificationsRes;
   onClose: () => void;
 }
 
-function Notification({ data, onClose }: NotificationModalProps) {
+function Notification({ data, onClose }: NotificationProps) {
   const notifications = data?.notifications || [];
 
   return (
     <div className="fixed inset-0 z-50 flex tablet:relative pc:relative">
-      <div className="overflow relative h-full w-full bg-gray-400 px-[14px] py-6 tablet:absolute tablet:top-12px tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute">
+      <div className="overflow tablet:top-12px relative h-full w-full bg-gray-400 px-[14px] py-6 tablet:absolute tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute">
         <div className="flex h-full w-full flex-col gap-4">
           <div className="flex items-center justify-between">
             <p className="text-20px font-bold">알림 {data.totalCount}개</p>
@@ -41,7 +27,12 @@ function Notification({ data, onClose }: NotificationModalProps) {
           </div>
           <div className="flex flex-col gap-2 overflow-y-auto">
             {notifications.map(notification => (
-              <AlertItem key={notification.id} notification={notification} />
+              <AlertItem
+                key={notification.id}
+                id={notification.id}
+                content={notification.content}
+                updatedAt={notification.updatedAt}
+              />
             ))}
           </div>
         </div>
@@ -51,8 +42,3 @@ function Notification({ data, onClose }: NotificationModalProps) {
 }
 
 export default Notification;
-
-
-
-
-
