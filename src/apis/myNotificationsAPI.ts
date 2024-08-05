@@ -1,4 +1,4 @@
-import { NotificationId, getNotifications, getNotificationsRes } from "./API.type";
+import { getNotifications, getNotificationsRes } from "./API.type";
 import axiosInstance from "./axiosInstance";
 
 const myNotificationsAPI = {
@@ -13,7 +13,7 @@ const myNotificationsAPI = {
     return data;
   },
   // 내 알림 삭제
-  delete: async (notificationId: NotificationId) => {
+  delete: async (notificationId: number) => {
     const { data } = await axiosInstance.delete(`/my-notifications/${notificationId}`);
     return data;
   },

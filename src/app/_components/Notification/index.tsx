@@ -10,18 +10,8 @@ function Notification() {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<getNotificationsRes>({
     totalCount: 0,
-    notifications: [
-      {
-        id: 0,
-        teamId: "",
-        userId: 0,
-        content: "",
-        createdAt: "",
-        updatedAt: "",
-        deletedAt: "",
-      },
-    ],
-    cursorId: 0,
+    notifications: [],
+    cursorId: null,
   });
   const [hasNewNotifications, setHasNewNotifications] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
