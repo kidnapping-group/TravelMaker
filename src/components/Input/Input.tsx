@@ -1,4 +1,4 @@
-import getInputClassName from "@/utils/getInputClassName";
+import getInputColorStatus from "@/components/Input/getInputColorStatus";
 import Image from "next/image";
 import { useState } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
@@ -26,7 +26,6 @@ export default function Input({
   touched,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <div className="relative flex flex-col gap-[10px]">
       <label htmlFor={name} className="text-[16px] font-normal leading-[26px] text-black">
@@ -37,7 +36,7 @@ export default function Input({
         type={type === "password" && showPassword ? "text" : type}
         placeholder={placeholder}
         {...register}
-        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] outline-none ${type === "password" ? "pr-[40px]" : "pr-[10px]"} ${getInputClassName(error, touched)}`}
+        className={`h-[58px] w-full rounded-[6px] bg-gray-200 py-[10px] pl-[10px] outline-none ${type === "password" ? "pr-[40px]" : "pr-[10px]"} ${getInputColorStatus(error, touched)}`}
       />
       {type === "password" && (
         <Image
