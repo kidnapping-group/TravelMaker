@@ -3,9 +3,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
-import OffEye from "../../../public/icons/icon-eye-off.svg";
-import Eye from "../../../public/icons/icon-eye.svg";
-
 interface InputProps extends React.PropsWithChildren {
   register: UseFormRegisterReturn;
   type: "text" | "email" | "password" | "number";
@@ -40,8 +37,10 @@ export default function Input({
       />
       {type === "password" && (
         <Image
-          src={showPassword ? Eye : OffEye}
+          src={showPassword ? "/icons/icon-eye.svg" : "/icons/icon-eye-off.svg"}
           alt="toggle visibility"
+          width={24}
+          height={24}
           className="absolute right-[10px] top-[53px] cursor-pointer"
           onClick={() => setShowPassword(!showPassword)}
         />
