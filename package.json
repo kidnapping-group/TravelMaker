@@ -10,6 +10,8 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.21",
+    "@tanstack/react-query-devtools": "^5.51.21",
     "axios": "^1.7.2",
     "js-cookie": "^3.0.5",
     "next": "14.2.5",
