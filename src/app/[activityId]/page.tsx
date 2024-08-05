@@ -3,6 +3,7 @@ import Image from "next/image";
 
 async function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
   const res = await activitiesAPI.getInfo({ id: Number(activityId) });
+
   return (
     <div>
       {activityId}
