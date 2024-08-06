@@ -14,6 +14,7 @@ function Notification() {
     cursorId: null,
   });
   const [hasNewNotifications, setHasNewNotifications] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function Notification() {
       setHasNewNotifications(currentNotification !== prevNotification);
     };
     NotificationData();
-  }, []);
+  }, [refresh]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -50,6 +51,11 @@ function Notification() {
 
   const toggleNotification = () => {
     setIsOpen(prev => !prev);
+  };
+
+  const handleDelete = async (notificationId: number) => {
+    await myNotificationsAPI.delete(notificationId);
+    setRefresh(prev => !prev);
   };
 
   return (
@@ -92,6 +98,7 @@ function Notification() {
                       id={notification.id}
                       content={notification.content}
                       updatedAt={notification.updatedAt}
+                      onClick={handleDelete}
                     />
                   ))
                 ) : (

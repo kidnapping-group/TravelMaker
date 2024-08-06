@@ -1,6 +1,5 @@
 "use client";
 
-import myNotificationsAPI from "@/apis/myNotificationsAPI";
 import formatTime from "@/utils/formatTime";
 import Image from "next/image";
 
@@ -8,6 +7,7 @@ interface AlertData {
   id: number;
   content: string;
   updatedAt: string;
+  onClick: (id: number) => void;
 }
 
 const contentStatus = (content: string): { text: JSX.Element[]; color: string } => {
@@ -25,19 +25,19 @@ const contentStatus = (content: string): { text: JSX.Element[]; color: string } 
     color = "green-500";
   }
   const text = [
-    <span key='1'>{activityName} </span>,
-    <span key='2' className={`text-${color} font-bold`}>{status}</span>,
-    <span key='3'>{conclusion}</span>,
+    <span key="1">{activityName} </span>,
+    <span key="2" className={`text-${color} font-bold`}>
+      {status}
+    </span>,
+    <span key="3">{conclusion}</span>,
   ];
 
   return { text, color };
 };
 
-function AlertItem({ id, content, updatedAt }: AlertData) {
+function AlertItem({ id, content, updatedAt, onClick }: AlertData) {
   const status = contentStatus(content);
-  const handleDelete = async (notificationId: number) => {
-    await myNotificationsAPI.delete(notificationId);
-  };
+
   return (
     <div className="flex flex-col gap-1 rounded-[5px] border bg-white px-4 py-3 text-md tablet:h-[126px] tablet:w-[328px]">
       <div className="flex items-center justify-between">
@@ -47,7 +47,7 @@ function AlertItem({ id, content, updatedAt }: AlertData) {
           width={24}
           height={24}
           alt="알람삭제"
-          onClick={() => handleDelete(id)}
+          onClick={() => onClick(id)}
         />
       </div>
       <p>{status.text}</p>
