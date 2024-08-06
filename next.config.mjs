@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	swcMinify: true, // SWC를 사용하여 코드 축소를 활성화
-	reactStrictMode: true, // React 엄격 모드 설정
+  swcMinify: true,
+  reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "sprint-fe-project.s3.ap-northeast-2.amazonaws.com",
+        port: "",
+        pathname: "/globalnomad/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
