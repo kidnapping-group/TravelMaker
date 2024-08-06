@@ -275,6 +275,7 @@ export type getNotifications = {
 };
 
 export type getNotificationsRes = {
+
   cursorId: number | null;
   notifications: {
     id: number;
