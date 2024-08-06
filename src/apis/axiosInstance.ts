@@ -44,7 +44,8 @@ axiosInstance.interceptors.response.use(
         Cookies.set("refreshToken", refreshToken);
         Cookies.set("accessToken", accessToken);
         prevRequest.headers.Authorization = `Bearer ${accessToken}`;
-        return await axiosInstance(prevRequest);
+        const response = await axiosInstance(prevRequest);
+        return response;
       } catch (refreshError) {
         handleAxiosError(refreshError);
         return Promise.reject(refreshError);
