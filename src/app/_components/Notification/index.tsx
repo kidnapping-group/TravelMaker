@@ -53,25 +53,24 @@ function Notification() {
   };
 
   return (
-    <>
-      <div className="relative inline-block">
-        <Image
-          className="cursor-pointer tablet:z-30"
-          src="/icons/icon-notification.svg"
-          width={24}
-          height={24}
-          alt="알람"
-          onClick={toggleNotification}
-        />
-        {hasNewNotifications && (
-          <div className="bg-red-500 absolute right-0 top-0 h-2 w-2 rounded-full" />
-        )}
-      </div>
+    <div className="relative inline-block">
+      <Image
+        className="cursor-pointer tablet:z-30"
+        src="/icons/icon-notification.svg"
+        width={24}
+        height={24}
+        alt="알람"
+        onClick={toggleNotification}
+      />
+      {hasNewNotifications && (
+        <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500" />
+      )}
+
       {isOpen && (
-        <div className="fixed inset-0 mx-auto flex max-w-[1224px] tablet:fixed pc:fixed">
+        <div className="fixed inset-0 mx-auto flex max-w-[1224px] tablet:absolute tablet:left-[-340px] tablet:top-[35px]">
           <div
             ref={notificationRef}
-            className="overflow relative h-full w-full bg-gray-400 px-[14px] py-6 tablet:absolute tablet:right-[150px] tablet:top-[50px] tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute"
+            className="overflow relative h-full w-full bg-gray-400 px-[14px] py-6 tablet:absolute tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute"
           >
             <div className="flex h-full w-full flex-col gap-4">
               <div className="flex items-center justify-between">
@@ -85,7 +84,7 @@ function Notification() {
                   onClick={toggleNotification}
                 />
               </div>
-              <div className="flex flex-col gap-2 overflow-y-auto">
+              <div className="flex h-full flex-col gap-2 overflow-y-auto">
                 {data.notifications.length > 0 ? (
                   data.notifications.map(notification => (
                     <AlertItem
@@ -96,7 +95,7 @@ function Notification() {
                     />
                   ))
                 ) : (
-                  <div className="flex flex-col items-center justify-center gap-5 rounded-[12px] bg-gray-400 tablet:h-[416px] tablet:w-[334px]">
+                  <div className="flex h-full flex-col items-center justify-center gap-5 rounded-[12px] bg-gray-400 tablet:h-[416px] tablet:w-[334px]">
                     <Image
                       src="/icons/icon-exist-notification.svg"
                       width={150}
@@ -111,7 +110,7 @@ function Notification() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
