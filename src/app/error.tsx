@@ -22,7 +22,7 @@ export default function Error({ error }: { error: Error }) {
           {error.message.slice(0, 3)} Error: <span>{error.message.slice(3)}</span>
         </h1>
         {error.message.slice(0, 3) === "404" && <p>페이지를 찾을 수가 없습니다.</p>}
-        <button type="button" onClick={() => router.back()} className="text-primary-500 text-left">
+        <button type="button" onClick={() => router.back()} className="text-left text-primary-500">
           이전 페이지로 돌아가기
         </button>
       </div>
