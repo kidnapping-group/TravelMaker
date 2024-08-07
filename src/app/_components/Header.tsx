@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
-import Notification from "./Notification";
 
 function Header() {
   const segment = useSelectedLayoutSegment();
@@ -17,7 +16,6 @@ function Header() {
           <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
         </Link>
         <div className="flex items-center justify-center gap-6 text-sm font-medium">
-          <Notification />
           <Link href="/signin">로그인</Link>
           <Link href="/signup">회원가입</Link>
         </div>

@@ -8,7 +8,9 @@ function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 60 * 1000,
+        staleTime: 5 * 60 * 1000, // 적절히 설정함
+        gcTime: 10 * 60 * 1000, // staleTime의 값에 따라 적절히 설정함
+        refetchOnWindowFocus: false, // 이거 다른페이지 왓다가 다시 오면 페칭해서 연산 많이먹는거 막았음.
       },
     },
   });
