@@ -38,7 +38,7 @@ function Review({ activityId }: { activityId: string }) {
             <div className="flex flex-col justify-center gap-2">
               <p className="text-2lg font-normal">{ratingToSatisfaction(data.averageRating)}</p>
               <div className="flex gap-1">
-                <Image src="icons/icon_star_on.svg" alt="별" width={16} height={16} />
+                <Image src="icons/Icon_star_on.svg" alt="별" width={16} height={16} />
                 <p>{data.reviews.length}개 후기</p>
               </div>
             </div>
