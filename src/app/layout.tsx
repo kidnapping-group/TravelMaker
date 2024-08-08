@@ -1,4 +1,5 @@
 import Header from "@/app/_components/Header";
+import ReactQueryProviders from "@/contexts/ReactQueryProviders";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -7,6 +8,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Travel Maker",
   description: "여행 만들기",
+  icons: {
+    icon: "./favicon.ico",
+  },
 };
 
 const pretendardFont = localFont({
@@ -22,8 +26,10 @@ function RootLayout({
   return (
     <html lang="en">
       <body className={`${pretendardFont.className} text-black`}>
-        <Header />
-        {children}
+        <ReactQueryProviders>
+          <Header />
+          {children}
+        </ReactQueryProviders>
       </body>
     </html>
   );
