@@ -27,7 +27,7 @@ function NextButton() {
       onClick={scrollNext}
       type="button"
     >
-      <Image src="icons/icon-arrow-next-pagination.svg" width={16} height={16} alt="이전 버튼" />
+      <Image src="icons/icon-arrow-next-pagination.svg" width={16} height={16} alt="다음 버튼" />
     </button>
   );
 }
