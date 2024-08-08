@@ -55,7 +55,7 @@ function Review({ activityId }: { activityId: string }) {
                   <div className="flex gap-2">
                     <p>{item.user.nickname}</p>
                     <div className="border-#112211 border-r" />
-                    <p>{item.updatedAt}</p>
+                    <p>{item.updatedAt.slice(0, 10).split("-").join(".")}</p>
                   </div>
                   <p className="whitespace-normal break-words">{item.content}</p>
                 </div>
