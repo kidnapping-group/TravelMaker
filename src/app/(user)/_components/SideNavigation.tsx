@@ -19,7 +19,7 @@ const navItems = [
     iconActive: "/icons/icon-history-white.svg",
   },
   {
-    href: "/activities",
+    href: "/myactivities",
     label: "내 체험 관리",
     icon: "/icons/icon-setting-black.svg",
     iconActive: "/icons/icon-setting-white.svg",
