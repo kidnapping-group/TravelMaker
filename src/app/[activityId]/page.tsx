@@ -10,7 +10,6 @@ async function ActivityId({ params: { activityId } }: { params: { activityId: st
     queryClient.prefetchQuery(activityIdOptions(activityId)),
     queryClient.prefetchQuery(reviewOptions(activityId)),
   ]);
-
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ActivityIdDetail activityId={activityId} />
