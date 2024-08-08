@@ -6,7 +6,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 
-// 반응형별 마진이랑 서브이미지 grid하자.
 function ActivityIdDetail({ activityId }: { activityId: string }) {
   const { data } = useSuspenseQuery(activityIdOptions(activityId));
   const [imageIndex, setImageIndex] = useState(0);
