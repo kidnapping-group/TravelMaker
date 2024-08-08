@@ -7,7 +7,7 @@ import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 
-// import MyActivityItem from "./_components/MyActivityItem";
+import MyActivityItem from "./_components/MyActivityItem";
 
 const useMyActivities = (size = 20) =>
   useInfiniteQuery<
@@ -33,7 +33,7 @@ function MyActivities() {
 
   return (
     <div className="relative mx-auto h-full w-full max-w-[806px] flex-col items-center justify-center pt-0">
-      <div className="fixed z-10 flex w-full max-w-[800px] items-center justify-between bg-gray-100 pb-6">
+      <div className="fixed z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-6">
         <h1 className="text-3xl font-bold">내 체험 관리</h1>
         <LinkButton href="/myactivities" variant="default" size="medium">
           체험 등록하기
@@ -41,10 +41,29 @@ function MyActivities() {
       </div>
       {data?.pages.length ? (
         <div className="overflow-y-auto pb-[72px] pt-[72px]">
-          <div className="flex flex-col gap-[24px]">
-            {/* {data.pages.map((page, pageIndex) => (
-            <MyActivityItem key={activity.id} activity={activity} />
-          ))} */}
+          <div>
+            {data.pages.map(page => (
+              <div key={crypto.randomUUID()} className="flex flex-col gap-[24px]">
+                {page.activities.map(activity => (
+                  <MyActivityItem key={activity.id} activity={activity} />
+                ))}
+                {page.activities.map(activity => (
+                  <MyActivityItem key={activity.id} activity={activity} />
+                ))}
+                {page.activities.map(activity => (
+                  <MyActivityItem key={activity.id} activity={activity} />
+                ))}
+                {page.activities.map(activity => (
+                  <MyActivityItem key={activity.id} activity={activity} />
+                ))}
+                {page.activities.map(activity => (
+                  <MyActivityItem key={activity.id} activity={activity} />
+                ))}
+                {page.activities.map(activity => (
+                  <MyActivityItem key={activity.id} activity={activity} />
+                ))}
+              </div>
+            ))}
             {isFetchingNextPage && <div>로딩 중...</div>}
           </div>
         </div>
