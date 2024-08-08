@@ -25,7 +25,6 @@ const useMyActivities = (size = 20) =>
   });
 
 function MyActivities() {
-  // const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status, error } = useMyActivities();
   const { data, isFetchingNextPage, status, error } = useMyActivities();
 
   if (status === "pending") return <div>로딩 중...</div>;
@@ -44,21 +43,6 @@ function MyActivities() {
           <div>
             {data.pages.map(page => (
               <div key={crypto.randomUUID()} className="flex flex-col gap-[24px]">
-                {page.activities.map(activity => (
-                  <MyActivityItem key={activity.id} activity={activity} />
-                ))}
-                {page.activities.map(activity => (
-                  <MyActivityItem key={activity.id} activity={activity} />
-                ))}
-                {page.activities.map(activity => (
-                  <MyActivityItem key={activity.id} activity={activity} />
-                ))}
-                {page.activities.map(activity => (
-                  <MyActivityItem key={activity.id} activity={activity} />
-                ))}
-                {page.activities.map(activity => (
-                  <MyActivityItem key={activity.id} activity={activity} />
-                ))}
                 {page.activities.map(activity => (
                   <MyActivityItem key={activity.id} activity={activity} />
                 ))}

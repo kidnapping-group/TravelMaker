@@ -18,15 +18,16 @@ interface activity {
 
 function MyActivityItem({ activity }: { activity: activity }) {
   return (
-    <Link href="/">
-      <div className="mx-auto flex h-[204px] w-[800px] rounded-[24px] bg-white shadow-lg">
-        <Image
-          src={activity.bannerImageUrl}
-          width={204}
-          height={204}
-          alt="배너 이미지"
-          className="rounded-l-[24px]"
-        />
+    <Link href={`/${activity.id}`}>
+      <div className="mx-auto flex h-32 w-full rounded-[24px] bg-white shadow-lg tablet:h-[156px] pc:h-[204px]">
+        <div className="aspect-square h-full">
+          <Image
+            src={activity.bannerImageUrl}
+            fill
+            alt="배너 이미지"
+            className="rounded-l-[24px]"
+          />
+        </div>
         <div className="flex h-full w-[596px] flex-col gap-[6px] px-6 py-[14px]">
           <div className="flex items-center gap-[6px]">
             <Image src="/icons/Icon_star_on.svg" width={19} height={19} alt="star" />
