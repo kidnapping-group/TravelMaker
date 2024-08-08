@@ -5,7 +5,6 @@ import Input from "@/components/Input/Input";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,14 +20,16 @@ function SignIn() {
     resolver: zodResolver(loginSchema),
     mode: "all",
   });
-
   const router = useRouter();
 
-  const onSubmit = useCallback((data: LoginFormData) => {
-    authAPI.login(data);
-    router.push("/");
-  }, []);
-
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      await authAPI.login(data);
+      router.push("/");
+    } catch (error) {
+      alert(error);
+    }
+  };
   return (
     <div>
       <h1>로그인</h1>
