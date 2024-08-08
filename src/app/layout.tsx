@@ -1,5 +1,5 @@
 import Header from "@/app/_components/Header";
-import ReactQueryProviders from "@/contexts/reactQueryProvider";
+import ReactQueryProviders from "@/contexts/ReactQueryProviders";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -8,6 +8,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Travel Maker",
   description: "여행 만들기",
+  icons: {
+    icon: "./favicon.ico",
+  },
 };
 
 const pretendardFont = localFont({

@@ -22,11 +22,12 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
   }
 
   const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+
   return (
-    <div className="flex justify-center gap-10px">
+    <div className="gap-10px flex justify-center">
       <Link
         href={`${pathname}?page=${Math.max(1, currentPage - 1)}`}
-        className="flex h-10 w-10 items-center justify-center rounded-2xl border border-green tablet:h-[55px] tablet:w-[55px]"
+        className="border-green flex h-10 w-10 items-center justify-center rounded-2xl border tablet:h-[55px] tablet:w-[55px]"
       >
         <Image
           src={`/icons/icon-arrow-prev-${currentPage === 1 ? "passive-" : ""}pagination.svg`}
@@ -41,14 +42,14 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
           href={`${pathname}?page=${pageNumber}`}
           className={`${
             currentPage === pageNumber ? "bg-green text-white" : "text-green"
-          } flex h-10 w-10 items-center justify-center rounded-2xl border border-green text-lg font-normal tablet:h-[55px] tablet:w-[55px]`}
+          } border-green flex h-10 w-10 items-center justify-center rounded-2xl border text-lg font-normal tablet:h-[55px] tablet:w-[55px]`}
         >
           {pageNumber}
         </Link>
       ))}
       <Link
         href={`${pathname}?page=${Math.min(totalPages, currentPage + 1)}`}
-        className="flex h-10 w-10 items-center justify-center rounded-2xl border border-green tablet:h-[55px] tablet:w-[55px]"
+        className="border-green flex h-10 w-10 items-center justify-center rounded-2xl border tablet:h-[55px] tablet:w-[55px]"
       >
         <Image
           src={`/icons/icon-arrow-next-${currentPage === totalPages ? "passive-" : ""}pagination.svg`}

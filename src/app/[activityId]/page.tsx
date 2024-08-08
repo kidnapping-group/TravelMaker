@@ -1,16 +1,21 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import Image from "next/image";
+import ActivityIdDetail from "@/app/[activityId]/_components/ActivityIdDetail";
+import Review from "@/app/[activityId]/_components/Review";
+import { activityIdOptions, reviewOptions } from "@/app/[activityId]/activityId";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 async function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
-  // api id로 불러오고 시작해라 리액트쿼리 잘이용해보자 막막하다..
-  // 팀원에게 징징대보자
+  const queryClient = new QueryClient();
 
-  const res = await activitiesAPI.getInfo({ id: Number(activityId) });
+  await Promise.all([
+    queryClient.prefetchQuery(activityIdOptions(activityId)),
+    queryClient.prefetchQuery(reviewOptions(activityId)),
+  ]);
+
   return (
-    <div>
-      {activityId}
-      <Image src={res.bannerImageUrl} alt="fds" width={100} height={100} />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ActivityIdDetail activityId={activityId} />
+      <Review activityId={activityId} />
+    </HydrationBoundary>
   );
 }
 

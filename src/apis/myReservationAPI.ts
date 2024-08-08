@@ -1,5 +1,4 @@
 import {
-  ReservationId,
   ReservationRes,
   getReservation,
   patchReservationRes,
@@ -31,7 +30,7 @@ const myReservationAPI = {
     return response.data;
   },
   // 내 예약 리뷰 작성
-  postReviews: async (reservationId: ReservationId, body: postReviews) => {
+  postReviews: async (reservationId: number, body: postReviews) => {
     const response = await axiosInstance.post<postReviewsRes>(
       `/my-reservations/${reservationId}/reviews`,
       body,
