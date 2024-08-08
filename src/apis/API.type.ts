@@ -275,7 +275,8 @@ export type getNotifications = {
 };
 
 export type getNotificationsRes = {
-  cursorId: number;
+
+  cursorId: number | null;
   notifications: {
     id: number;
     teamId: string;
@@ -283,7 +284,7 @@ export type getNotificationsRes = {
     content: string;
     createdAt: string;
     updatedAt: string;
-    deletedAt: string;
+    deletedAt: string | null;
   }[];
   totalCount: number;
 };

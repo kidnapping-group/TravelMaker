@@ -45,7 +45,7 @@ export default function Input({
           onClick={() => setShowPassword(!showPassword)}
         />
       )}
-      {error && <p className="text-[12px] font-normal leading-[18px] text-red">{error.message}</p>}
+      {error && <p className="text-red text-[12px] font-normal leading-[18px]">{error.message}</p>}
     </div>
   );
 }

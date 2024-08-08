@@ -8,6 +8,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Travel Maker",
   description: "여행 만들기",
+  icons: {
+    icon: "./favicon.ico",
+  },
 };
 
 const pretendardFont = localFont({
