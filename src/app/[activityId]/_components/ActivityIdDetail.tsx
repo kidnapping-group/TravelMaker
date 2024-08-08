@@ -72,7 +72,7 @@ function ActivityIdDetail({ activityId }: { activityId: string }) {
         </div>
       </div>
       <div className="flex gap-3 tablet:mt-8 pc:mt-20 pc:gap-6">
-        <div className="mt-4 flex flex-col justify-center gap-4 tablet:gap-10">
+        <div className="mt-4 flex w-full flex-col justify-center gap-4 tablet:gap-10">
           <div className="border-#112211 hidden border tablet:block" />
           <div className="flex flex-col justify-center gap-4">
             <p className="text-xl font-bold">체험 설명</p>
