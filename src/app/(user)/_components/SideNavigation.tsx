@@ -38,16 +38,14 @@ function SideNavigation() {
 
   return (
     <div>
-      <div className="block md:hidden">
+      <div className="block pc:hidden">
         <div className="fixed left-0 top-[55px] flex w-full justify-around bg-white pt-[10px] text-center">
-          {navItems.map((item) => (
+          {navItems.map(item => (
             <Link
               key={item.label}
               href={item.href}
               className={`border-gray h-[30px] w-full cursor-pointer border-b-2 ${
-                pathname === item.href
-                  ? "border-b-[3px] border-blue-600 font-bold text-blue-600"
-                  : "border-b-[3px] hover:bg-gray-200"
+                pathname === item.href ? "border-b-[3px] border-[blue] font-bold text-[blue]" : ""
               }`}
             >
               {item.label}
@@ -56,9 +54,9 @@ function SideNavigation() {
         </div>
       </div>
 
-      <div className="sticky hidden md:block">
-        <div className="flex w-full min-w-[400px] max-w-[400px] flex-col gap-[5px] rounded-[6px] bg-gray-200 p-4 shadow-md">
-          {navItems.map((item) => {
+      <div className="hidden pc:block">
+        <div className="flex w-[300px] flex-col gap-[5px] rounded-[6px] bg-gray-200 p-4 shadow-md">
+          {navItems.map(item => {
             const isActive = pathname === item.href;
             const isHovered = hovered === item.href;
 
@@ -67,19 +65,13 @@ function SideNavigation() {
                 key={item.label}
                 href={item.href}
                 className={`flex h-[50px] w-full cursor-pointer items-center gap-[14px] rounded-[6px] px-[16px] py-[10px] ${
-                  isActive || isHovered
-                    ? "bg-blue-600 font-semibold text-white"
-                    : "hover:bg-blue-600 hover:text-white focus:bg-blue-700 focus:font-semibold"
+                  isActive || isHovered ? "bg-[blue] font-semibold text-white" : ""
                 }`}
                 onMouseEnter={() => setHovered(item.href)}
                 onMouseLeave={() => setHovered(null)}
               >
                 <Image
-                  src={
-                    isActive || isHovered
-                      ? item.iconActive
-                      : item.icon
-                  }
+                  src={isActive || isHovered ? item.iconActive : item.icon}
                   alt={item.label}
                   width={24}
                   height={24}
