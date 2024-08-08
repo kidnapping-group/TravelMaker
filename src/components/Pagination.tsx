@@ -22,6 +22,7 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
   }
 
   const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
+
   return (
     <div className="gap-10px flex justify-center">
       <Link
