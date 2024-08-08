@@ -9,7 +9,7 @@ import { SwiperContext } from "./Context";
 type SwiperApi = UseEmblaCarouselType[1];
 
 function Swiper({ children }: React.PropsWithChildren) {
-  const [swiperRef, api] = useEmblaCarousel();
+  const [swiperRef, api] = useEmblaCarousel({ align: "start" });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -60,11 +60,11 @@ function Swiper({ children }: React.PropsWithChildren) {
         <div ref={swiperRef} className="overflow-hidden">
           <div className="-ml-2 flex">
             {Children.map(children, child => (
-              <div className="pc:basis-1/4 min-w-0 shrink-0 grow-0 pl-2">{child}</div>
+              <div className="min-w-0 shrink-0 grow-0 pl-2 pc:basis-1/4">{child}</div>
             ))}
           </div>
         </div>
-        <div className="pc:block hidden">
+        <div className="hidden pc:block">
           <PreviousButton />
           <NextButton />
         </div>
