@@ -5,7 +5,7 @@ import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query
 
 async function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
   const queryClient = new QueryClient();
-
+  // 방가 방가!
   await Promise.all([
     queryClient.prefetchQuery(activityIdOptions(activityId)),
     queryClient.prefetchQuery(reviewOptions(activityId)),
