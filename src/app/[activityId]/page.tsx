@@ -1,14 +1,21 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import Image from "next/image";
+import ActivityIdDetail from "@/app/[activityId]/_components/ActivityIdDetail";
+import Review from "@/app/[activityId]/_components/Review";
+import { activityIdOptions, reviewOptions } from "@/app/[activityId]/activityId";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
 async function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
-  const res = await activitiesAPI.getInfo(Number(activityId));
+  const queryClient = new QueryClient();
+
+  await Promise.all([
+    queryClient.prefetchQuery(activityIdOptions(activityId)),
+    queryClient.prefetchQuery(reviewOptions(activityId)),
+  ]);
 
   return (
-    <div>
-      {activityId}
-      <Image src={res.bannerImageUrl} alt="fds" width={100} height={100} />
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ActivityIdDetail activityId={activityId} />
+      <Review activityId={activityId} />
+    </HydrationBoundary>
   );
 }
 
