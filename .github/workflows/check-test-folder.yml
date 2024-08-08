@@ -1,0 +1,34 @@
+name: Check for test folder
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check-test-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Check if any test folder exists
+      id: check
+      run: |
+        if find . -type d -name "test" | grep -q "."; then
+        echo "::set-output name=has-test-folder::true"
+        else
+        echo "::set-output name=has-test-folder::false"
+        fi
+
+    - name: Fail if test folder exists
+      if: steps.check.outputs.has-test-folder == 'true'
+      run: |
+        echo "Error: test folder exists."
+        exit 1
+
+    - name: Success if no test folder
+      if: steps.check.outputs.has-test-folder == 'false'
+      run: echo "No test folder found, check passed."
