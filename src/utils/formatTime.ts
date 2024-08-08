@@ -8,7 +8,7 @@ const formatTime = (updatedAt: string): string => {
   const days = Math.floor(hours / 24);
 
   if (days > 0) {
-      return `${days}일 전`
+    return `${days}일 전`;
   }
   if (hours > 0) {
     return `${hours}시간 전`;

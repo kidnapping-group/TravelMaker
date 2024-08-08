@@ -47,7 +47,7 @@ function Notification() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, data.totalCount]);
 
   const toggleNotification = () => {
     setIsOpen(prev => !prev);
