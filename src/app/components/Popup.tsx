@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { Button, LinkButton } from "@/components/Button";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -20,22 +20,21 @@ function Popup({ text, onCloseButton, onChangeButton }: PopupProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-70">
-      <div className="flex flex-col items-center justify-center">
-        <p>{text}</p>
-        <div className="flex items-center justify-center gap-5">
-          <button type="button" onClick={() => setIsOpen(false)} className="bg-blue p-4">
+    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="flex w-full max-w-[350px] flex-col items-center rounded-[10px] bg-white p-5">
+        <p className="text-lg font-normal">{text}</p>
+        <div className="mt-5 flex w-full justify-center gap-3">
+          <Button
+            size="wide"
+            variant={onChangeButton ? "outline" : "default"}
+            onClick={() => setIsOpen(false)}
+          >
             {onCloseButton}
-          </button>
+          </Button>
           {onChangeButton && (
-            <Link
-              href={`${pathname}?confirm=1`}
-              type="button"
-              onClick={() => setIsOpen(false)}
-              className="bg-pink-400 p-4"
-            >
+            <LinkButton size="wide" href={`${pathname}?confirm=1`} onClick={() => setIsOpen(false)}>
               {onChangeButton}
-            </Link>
+            </LinkButton>
           )}
         </div>
       </div>
