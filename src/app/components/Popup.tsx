@@ -20,10 +20,10 @@ function Popup({ text, onCloseButton, onChangeButton }: PopupProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50 px-4">
       <div className="flex w-full max-w-[350px] flex-col items-center rounded-[10px] bg-white p-5">
-        <p className="text-lg font-medium text-black">{text}</p>
-        <div className="mt-5 flex w-full justify-center gap-3">
+        <p className="py-8 text-lg font-medium text-black">{text}</p>
+        <div className="flex w-full justify-center gap-3">
           <Button
             size="wide"
             variant={onChangeButton ? "outline" : "default"}
