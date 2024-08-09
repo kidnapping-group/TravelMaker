@@ -1,11 +1,12 @@
 "use client";
 
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
+import Popup, { openPopup } from "@/components/Popup";
 import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface activity {
   id: number;
@@ -36,7 +37,8 @@ function ContextMenu({
   };
 
   const handleClickDelete = async () => {
-    await myActivitiesAPI.delete(activityId);
+    openPopup();
+
     onCloseContext();
     queryClient.invalidateQueries({ queryKey: ["myActivities"] });
   };
@@ -63,6 +65,15 @@ function ContextMenu({
 
 function MyActivityItem({ activity }: { activity: activity }) {
   const [isOpen, setIsOpen] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const confirm = searchParams.get("confirm");
+
+  useEffect(() => {
+    if (confirm) {
+      myActivitiesAPI.delete(activity.id);
+    }
+  }, [confirm, router]);
 
   const handleClickMore = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -107,7 +118,7 @@ function MyActivityItem({ activity }: { activity: activity }) {
           </div>
         </div>
       </div>
-
+      <Popup text="예약을 취소하시겠어요?" onCloseButton="아니요" onChangeButton="취소하기" />
       {isOpen && <ContextMenu activityId={activity.id} onCloseContext={() => setIsOpen(false)} />}
     </div>
   );
