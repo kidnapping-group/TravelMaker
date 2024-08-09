@@ -22,7 +22,7 @@ function Popup({ text, onCloseButton, onChangeButton }: PopupProps) {
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex w-full max-w-[350px] flex-col items-center rounded-[10px] bg-white p-5">
-        <p className="text-lg font-normal">{text}</p>
+        <p className="text-lg font-medium text-black">{text}</p>
         <div className="mt-5 flex w-full justify-center gap-3">
           <Button
             size="wide"
