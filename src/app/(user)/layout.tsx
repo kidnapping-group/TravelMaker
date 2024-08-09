@@ -1,4 +1,4 @@
-import SideNavigation from "@/app/(user)/_components/SideNavigation";
+import Navigation from "@/app/(user)/_components/Navigation";
 
 function UserRootLayout({
   children,
@@ -7,12 +7,12 @@ function UserRootLayout({
 }>) {
   return (
     <div className="relative bg-gray-100">
-      <div className="h-100vh fixed inset-0 box-border flex justify-center bg-gray-100 pt-[110px] tablet:pt-[72px]">
-        <div className="relative flex w-full max-w-[1230px] justify-center gap-6">
+      <div className="h-100vh fixed inset-0 box-border flex justify-center bg-gray-100 pt-[110px] pc:pt-[75px]">
+        <div className="relative flex w-full max-w-[1230px] justify-center pc:gap-6">
           <div className="top-[200px]">
-            <SideNavigation />
+            <Navigation />
           </div>
-          <div className="w-full overflow-auto">{children}</div>
+          <div className="flex w-full max-w-[800px] justify-center bg-gray-100">{children}</div>
         </div>
       </div>
     </div>
