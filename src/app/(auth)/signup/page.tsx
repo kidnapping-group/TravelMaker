@@ -55,9 +55,11 @@ function SignUp() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-12">
-      <Image src="/images/logo_big.png" width={340} height={192} alt="메인로고" />
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex w-[640px] flex-col gap-[28px]">
+    <div className="flex w-full max-w-[640px] flex-col items-center gap-12">
+      <Link href="/">
+        <Image src="/images/logo_big.png" width={450} height={192} alt="메인로고" />
+      </Link>
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex w-full flex-col gap-[28px]">
         <Input
           register={register("email")}
           type="email"
@@ -105,11 +107,11 @@ function SignUp() {
         </div>
       </form>
 
-      <div className="flex items-center gap-[37.5px] text-center text-gray-500">
+      {/* <div className="flex items-center gap-[37.5px] text-center text-gray-500">
         <hr className="w-[180px] border-gray-300" />
         <span className="w-[205px] text-xl">SNS 계정으로 회원가입하기</span>
         <hr className="w-[180px] border-gray-300" />
-      </div>
+      </div> */}
 
       <div className="flex justify-center gap-4">
         <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
