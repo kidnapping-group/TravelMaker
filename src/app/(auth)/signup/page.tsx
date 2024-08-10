@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,10 +31,15 @@ function SignUp() {
     resolver: zodResolver(signupSchema),
     mode: "all",
   });
+
   const router = useRouter();
   const [existEmail, setExistEmail] = useState(false);
+  const [confirm, setConfirm] = useState<string | null>(null);
   const searchParams = useSearchParams();
-  const confirm = searchParams.get("confirm");
+
+  useEffect(() => {
+    setConfirm(searchParams.get("confirm"));
+  }, [searchParams]);
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -90,7 +95,7 @@ function SignUp() {
         <Input
           register={register("confirmPassword")}
           type="password"
-          name=" confirmPassword"
+          name="confirmPassword"
           label="비밀번호 확인"
           placeholder="비밀번호를 한번 더 입력해주세요"
           error={errors.confirmPassword}
