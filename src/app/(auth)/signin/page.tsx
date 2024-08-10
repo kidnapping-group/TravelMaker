@@ -76,13 +76,11 @@ function SignIn() {
           </Link>
         </div>
       </form>
-
-      {/* <div className="flex items-center gap-[37.5px] text-center text-gray-500">
-        <hr className="w-[180px] border-gray-300" />
-        <span className="w-[205px] text-xl">SNS 계정으로 로그인하기</span>
-        <hr className="w-[180px] border-gray-300" />
-      </div> */}
-
+      <div className="flex w-full items-center justify-between text-center text-gray-500">
+        <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
+        <span className="text-md tablet:w-[222px] tablet:text-xl">SNS 계정으로 로그인하기</span>
+        <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
+      </div>
       <div className="flex justify-center gap-4">
         <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
           <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 로그인" />
