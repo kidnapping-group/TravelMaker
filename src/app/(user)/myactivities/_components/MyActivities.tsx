@@ -33,13 +33,12 @@ function MyActivities() {
     return (
       <div className="flex flex-col items-center gap-[100px] pt-[200px] text-3xl font-bold">
         <Image
+          width={450}
+          height={450}
           src="/images/spinner.png"
-          width={500}
-          height={500}
           alt="spinner"
-          className="animate-[spin_2s_linear_infinite]"
+          className="animate-[spin_1500ms_linear_infinite]"
         />
-        <p>로딩 중...</p>
       </div>
     );
   if (error) return <div>에러가 발생했습니다.</div>;

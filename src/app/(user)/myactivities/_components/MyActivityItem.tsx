@@ -1,12 +1,12 @@
 "use client";
 
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import Popup, { openPopup } from "@/components/Popup";
-import { useQueryClient } from "@tanstack/react-query";
+import Popup from "@/components/Popup";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import { useState } from "react";
+
+import ContextMenu from "./ContextMeun";
 
 interface activity {
   id: number;
@@ -22,58 +22,9 @@ interface activity {
   createdAt: string;
   updatedAt: string;
 }
-function ContextMenu({
-  activityId,
-  onCloseContext,
-}: {
-  activityId: number;
-  onCloseContext: () => void;
-}) {
-  const router = useRouter();
-  const queryClient = useQueryClient();
-
-  const handleClickEdit = () => {
-    router.push(`/myactivity/edit/${activityId}`);
-  };
-
-  const handleClickDelete = async () => {
-    openPopup();
-
-    onCloseContext();
-    queryClient.invalidateQueries({ queryKey: ["myActivities"] });
-  };
-
-  return (
-    <div className="absolute -bottom-[110px] right-5 z-30 h-[120px] w-[160px] rounded-md border bg-white">
-      <button
-        type="button"
-        className="font-middle flex h-[60px] w-[160px] items-center justify-center rounded-t-md border text-2lg"
-        onClick={handleClickEdit}
-      >
-        수정하기
-      </button>
-      <button
-        type="button"
-        className="font-middle flex h-[60px] w-[160px] items-center justify-center rounded-b-md border text-2lg"
-        onClick={handleClickDelete}
-      >
-        삭제하기
-      </button>
-    </div>
-  );
-}
 
 function MyActivityItem({ activity }: { activity: activity }) {
   const [isOpen, setIsOpen] = useState(false);
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const confirm = searchParams.get("confirm");
-
-  useEffect(() => {
-    if (confirm) {
-      myActivitiesAPI.delete(activity.id);
-    }
-  }, [confirm, router]);
 
   const handleClickMore = (e: React.MouseEvent) => {
     e.preventDefault();
