@@ -418,3 +418,25 @@ export type patchMyActivitiesRes = {
     date: string;
   }[];
 };
+
+export type OauthPostRes = {
+  id: number;
+  provider: string;
+  teamId: string;
+  appKey: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OauthSignRes = {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+    profileImageUrl: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+};

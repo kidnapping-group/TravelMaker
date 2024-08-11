@@ -27,6 +27,7 @@ export default function GoogleRedirect() {
     };
     const { data } = await axios.post(url, bodyData, {
       headers: {
+        // Google OAuth와 같은 서비스에서 토큰 요청 시 작성하는 컨텐츠 타입
         "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
       },
     });
@@ -63,7 +64,7 @@ export default function GoogleRedirect() {
   }, [router]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div> 소셜 로그인 중입니다!</div>;
   }
 
   return null;
