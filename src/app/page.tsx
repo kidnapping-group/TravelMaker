@@ -1,15 +1,14 @@
 import activitiesAPI from "@/apis/activitiesAPI";
+import SearchForm from "@/app/_components/SearchForm";
 import Link from "next/link";
-
-import SearchForm from "./_components/SearchForm";
 
 async function Home() {
   const { activities } = await activitiesAPI.get();
 
   return (
-    <main>
+    <main className="flex flex-col items-center">
       <section className="flex w-full justify-center bg-black bg-opacity-50">
-        <div className="mx-5 flex w-full max-w-[1200px] flex-col gap-8 pb-[60px] pt-[100px]">
+        <div className="mx-5 flex w-full max-w-[1200px] flex-col gap-8 pb-[50px] pt-[100px]">
           <div className="font-bold text-white">
             <h2 className="text-3xl">
               함께 배우면 즐거운
@@ -23,12 +22,16 @@ async function Home() {
           </div>
         </div>
       </section>
-
-      {activities.map(item => (
-        <Link href={`/${item.id}`} key={item.id}>
-          {item.title}
-        </Link>
-      ))}
+      <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col">
+        <section className="flex flex-col">
+          <h2 className="text-2lg font-bold text-black">🔥 인기 체험</h2>
+          {activities.map(item => (
+            <Link href={`/${item.id}`} key={item.id}>
+              {item.title}
+            </Link>
+          ))}
+        </section>
+      </div>
     </main>
   );
 }
