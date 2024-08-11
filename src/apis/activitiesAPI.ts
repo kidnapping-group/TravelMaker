@@ -16,9 +16,12 @@ import axiosInstance from "./axiosInstance";
 
 const activitiesAPI = {
   // 체험 리스트 조회
-  get: async (params: getActivities = { method: "offset" }) => {
+  get: async (params: Omit<getActivities, "method"> & { method?: string } = {}) => {
     const { data } = await axiosInstance.get<getActivitiesRes>("/activities", {
-      params,
+      params: {
+        ...params,
+        method: "offset",
+      },
     });
     return data;
   },

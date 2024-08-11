@@ -1,22 +1,20 @@
 export type getActivitiesRes = {
   cursorId: number;
   totalCount: number;
-  activities: [
-    {
-      id: number;
-      userId: number;
-      title: string;
-      description: string;
-      category: string;
-      price: number;
-      address: string;
-      bannerImageUrl: string;
-      rating: number;
-      reviewCount: number;
-      createdAt: string;
-      updatedAt: string;
-    },
-  ];
+  activities: {
+    id: number;
+    userId: number;
+    title: string;
+    description: string;
+    category: string;
+    price: number;
+    address: string;
+    bannerImageUrl: string;
+    rating: number;
+    reviewCount: number;
+    createdAt: string;
+    updatedAt: string;
+  }[];
 };
 
 export type getActivities = {
@@ -57,20 +55,16 @@ export type postActivitiesRes = {
   createdAt: string;
   updatedAt: string;
   bannerImageUrl: string;
-  subImageUrls: [
-    {
-      id: number;
-      imageUrl: string;
-    },
-  ];
-  schedules: [
-    {
-      endTime: string;
-      startTime: string;
-      date: string;
-      id: number;
-    },
-  ];
+  subImageUrls: {
+    id: number;
+    imageUrl: string;
+  }[];
+  schedules: {
+    endTime: string;
+    startTime: string;
+    date: string;
+    id: number;
+  }[];
 };
 
 export type getActivitiesInfo = {
@@ -86,20 +80,16 @@ export type getActivitiesInfoRes = {
   price: number;
   address: string;
   bannerImageUrl: string;
-  subImages: [
-    {
-      id: number;
-      imageUrl: string;
-    },
-  ];
-  schedules: [
-    {
-      endTime: string;
-      startTime: string;
-      date: string;
-      id: number;
-    },
-  ];
+  subImages: {
+    id: number;
+    imageUrl: string;
+  }[];
+  schedules: {
+    endTime: string;
+    startTime: string;
+    date: string;
+    id: number;
+  }[];
   rating: number;
   reviewCount: number;
   createdAt: string;
@@ -212,28 +202,26 @@ export type getReservation = {
 
 export type ReservationRes = {
   cursorId: number;
-  reservations: [
-    {
+  reservations: {
+    id: number;
+    teamId: string;
+    userId: number;
+    activity: {
+      bannerImageUrl: string;
+      title: string;
       id: number;
-      teamId: string;
-      userId: number;
-      activity: {
-        bannerImageUrl: string;
-        title: string;
-        id: number;
-      };
-      scheduleId: number;
-      status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
-      reviewSubmitted: boolean;
-      totalPrice: number;
-      headCount: number;
-      date: string;
-      startTime: string;
-      endTime: string;
-      createdAt: string;
-      updatedAt: string;
-    },
-  ];
+    };
+    scheduleId: number;
+    status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+    reviewSubmitted: boolean;
+    totalPrice: number;
+    headCount: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+    createdAt: string;
+    updatedAt: string;
+  }[];
   totalCount: number;
 };
 
