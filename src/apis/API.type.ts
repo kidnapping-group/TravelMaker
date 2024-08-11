@@ -127,24 +127,26 @@ export type getActivitiesReviews = {
   size?: number;
 };
 
+export type ActivityReviewUser = {
+  profileImageUrl: string;
+  nickname: string;
+  id: number;
+};
+
+export type ActivityReview = {
+  id: number;
+  user: ActivityReviewUser;
+  activitiesId: number;
+  rating: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type getActivitiesReviewsRes = {
   averageRating: number;
   totalCount: number;
-  reviews: [
-    {
-      id: number;
-      user: {
-        profileImageUrl: string;
-        nickname: string;
-        id: number;
-      };
-      activitiesId: number;
-      rating: number;
-      content: string;
-      createdAt: string;
-      updatedAt: string;
-    },
-  ];
+  reviews: ActivityReview[];
 };
 
 export type postActivitiesReservations = {
