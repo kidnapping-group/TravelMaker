@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import authAPI from "@/apis/authAPI";
 import Input from "@/components/Input/Input";
 import baseSchema from "@/utils/schema";
@@ -14,7 +12,6 @@ type LoginFormData = z.infer<typeof baseSchema>;
 const loginSchema = baseSchema.pick({ email: true, password: true });
 
 function SignIn() {
-  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}`;
   const {
     register,
     handleSubmit,
@@ -64,26 +61,6 @@ function SignIn() {
           Submit
         </button>
       </form>
-      <div className="m-auto mt-[90px] w-full max-w-[460px]">
-        <p className="mt-[24px] text-center text-[16px] font-medium">
-          아직 계정이 없으신가요?
-          <Link href="signIn" className="ml-[12px] text-[16px] text-[#10B981] underline">
-            가입하기
-          </Link>
-        </p>
-        <div className="relative mb-[16px] mt-[48px] text-center before:absolute before:inset-y-1/2 before:left-0 before:z-[-1] before:h-px before:w-full before:bg-[#ffffff]">
-          <p className="bg-background inline-block px-[24px] text-[16px]">OR</p>
-        </div>
-        <div className="flex items-center justify-between">
-          <p className="text-[16px] font-medium">간편 로그인하기</p>
-          <div className="flex gap-3">
-            <Link href={GOOGLE_AUTH_URL}>
-              <Image src="/images/google.png" alt="구글" width={42} height={42} />
-            </Link>
-            <Image src="/images/kakaotalk.png" alt="카카오" width={42} height={42} />
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
