@@ -9,28 +9,27 @@ interface ScheduleItem {
   id: number;
 }
 
-// props의 타입을 정의합니다.
 interface CalendarProps {
   scheduleData: ScheduleItem[];
   setSelectedDate: (date: string) => void;
 }
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
 
 function Calendar({ scheduleData, setSelectedDate }: CalendarProps) {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
@@ -67,6 +66,7 @@ function Calendar({ scheduleData, setSelectedDate }: CalendarProps) {
       return `${baseClasses} text-primary-400 bg-gray-200 hover:bg-primary-400 hover:text-gray-700`;
     return `${baseClasses} hover:bg-primary-400`;
   };
+
   return (
     <div className="mx-auto w-80 overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between px-4 pt-2">

@@ -1,31 +1,33 @@
-import ActivityIdDetail from "@/app/[activityId]/_components/ActivityIdDetail";
+import Contents from "@/app/[activityId]/_components/Contents";
+import Header from "@/app/[activityId]/_components/Header";
+import Images from "@/app/[activityId]/_components/Images";
+import MobileFooter from "@/app/[activityId]/_components/MobileFooter";
 import ReservationModal from "@/app/[activityId]/_components/ReservationModal";
+import ReservationSteps from "@/app/[activityId]/_components/ReservationSteps";
 import Review from "@/app/[activityId]/_components/Review";
-import { activityIdOptions, reviewOptions } from "@/app/[activityId]/activityId";
-import { openModal } from "@/components/Modal";
-import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import { ActivityIdProvider } from "@/app/[activityId]/_contexts/ActivityIdContext";
 
 async function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
-  const queryClient = new QueryClient();
-
-  await Promise.all([
-    queryClient.prefetchQuery(activityIdOptions(activityId)),
-    queryClient.prefetchQuery(reviewOptions(activityId)),
-  ]);
-
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ActivityIdDetail activityId={activityId} />
-      <Review activityId={activityId} />
-      <ReservationModal activityId={activityId} />
-      <button
-        onClick={openModal}
-        type="button"
-        className="sticky bottom-0 w-full bg-primary-400 py-5"
-      >
-        예약하기
-      </button>
-    </HydrationBoundary>
+    <ActivityIdProvider activityId={activityId}>
+      <div className="mx-auto flex max-w-[1200px] flex-col justify-center">
+        <Header />
+        <Images />
+        <div className="flex tablet:mt-12 pc:mt-24">
+          <div className="flex-grow">
+            <Contents />
+            <Review />
+          </div>
+          <div>
+            <div className="sticky right-0 top-14 hidden tablet:block">
+              <ReservationSteps />
+            </div>
+          </div>
+        </div>
+        <ReservationModal />
+        <MobileFooter />
+      </div>
+    </ActivityIdProvider>
   );
 }
 

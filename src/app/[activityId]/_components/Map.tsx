@@ -7,6 +7,7 @@ const containerStyle: React.CSSProperties = {
 };
 
 function Map({ address }: { address: string }) {
+  if (!address) return null;
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_MAP_API_KEY || "",
