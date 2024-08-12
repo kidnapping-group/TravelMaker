@@ -6,7 +6,7 @@ import {
   getFloorAverageRating,
   getRatingToSatisfaction,
 } from "@/app/[activityId]/_utils/getCommentData";
-import { commentOptions } from "@/app/[activityId]/activityId";
+import { commentOptions } from "@/app/[activityId]/queryOptions";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 const useGetCommentReviewViewModel = () => {

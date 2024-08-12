@@ -26,7 +26,7 @@ function ReservationSteps() {
   };
 
   return (
-    <div className="px-4 text-2lg font-bold">
+    <div className="bg-white px-4 text-2lg font-bold tablet:rounded-lg">
       <h1 className="hidden text-[28px] font-bold tablet:block">{totalPrice}</h1>
       <FreeReservationTime reservationTimes={reservationTimes} />
       <Calendar setSelectedDate={setSelectedDate} scheduleData={schedules} />

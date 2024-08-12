@@ -5,7 +5,7 @@ import {
   getActivityReservationTime,
   getActivitySchedules,
 } from "@/app/[activityId]/_utils/getActivityData";
-import { activityIdOptions } from "@/app/[activityId]/activityId";
+import { activityIdOptions } from "@/app/[activityId]/queryOptions";
 import formatKoreanWon from "@/utils/formatKoreanWon";
 import { useSuspenseQuery } from "@tanstack/react-query";
 

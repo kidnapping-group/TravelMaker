@@ -1,10 +1,9 @@
-// queryOptions.ts
 import activitiesAPI from "@/apis/activitiesAPI";
 import { queryOptions } from "@tanstack/react-query";
 
 export const getActivityQueryKey = (activityId: string) => ["activity", activityId];
 
-export const getCommentQueryKey = (activityId: string) => ["", activityId];
+export const getCommentQueryKey = (activityId: string) => ["comment", activityId];
 
 export const activityIdOptions = (activityId: string) =>
   queryOptions({
@@ -15,7 +14,7 @@ export const activityIdOptions = (activityId: string) =>
 
 export const commentOptions = (activityId: string) =>
   queryOptions({
-    queryKey: ["comment", activityId],
+    queryKey: getCommentQueryKey(activityId),
     queryFn: () => activitiesAPI.getReview({ id: Number(activityId) }),
     enabled: !!activityId,
   });

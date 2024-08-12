@@ -8,9 +8,11 @@ function ReservationModal() {
   const { formattedPrice } = useGetActivityFooterViewModel();
 
   return (
-    <Modal title={`${formattedPrice} / 인`}>
-      <ReservationSteps />
-    </Modal>
+    <div className="tablet:hidden">
+      <Modal title={`${formattedPrice} / 인`}>
+        <ReservationSteps />
+      </Modal>
+    </div>
   );
 }
 

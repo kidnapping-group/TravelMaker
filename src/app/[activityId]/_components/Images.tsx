@@ -9,8 +9,8 @@ function Images() {
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
-    <div className="mx-auto flex justify-center gap-1 tablet:justify-normal">
-      <div className="relative h-[310px] w-[375px] tablet:w-[345px] pc:h-[534px] pc:w-[595px]">
+    <div className="-mx-6 flex justify-center tablet:mx-auto tablet:justify-normal tablet:gap-1 pc:gap-2">
+      <div className="relative h-[310px] w-[595px] tablet:w-[345px] pc:h-[534px] pc:w-[595px]">
         <Image
           src={totalImages[imageIndex]}
           alt={`${title} 배경 사진`}
@@ -34,7 +34,7 @@ function Images() {
           <Image src="icons/icon-next.svg" alt="다음 사진" width={24} height={47} />
         </button>
       </div>
-      <div className="hidden tablet:grid tablet:grid-cols-2 tablet:grid-rows-2 tablet:gap-1">
+      <div className="hidden tablet:grid tablet:grid-cols-2 tablet:grid-rows-2 tablet:gap-1 pc:gap-2">
         {subImages.map(item => (
           <div key={item.id} className="relative h-[152px] w-[170px] pc:h-[264px] pc:w-[294px]">
             <Image

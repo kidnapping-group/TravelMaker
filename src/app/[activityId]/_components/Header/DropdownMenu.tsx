@@ -1,12 +1,20 @@
 "use Client";
 
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-function DropdownMenu() {
+function DropdownMenu({ activityId }: { activityId: string }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const handleDelete = async (id: string) => {
+    await myActivitiesAPI.delete(Number(id));
+    router.push("activity");
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -30,17 +38,18 @@ function DropdownMenu() {
         <div className="absolute right-0 z-10 mt-2 w-48 rounded-md bg-white shadow-lg">
           <div className="py-1">
             <Link
-              href="signin"
+              href="myactivities/add"
               className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >
               수정하기
             </Link>
-            <Link
-              href="signup"
+            <button
+              onClick={() => handleDelete(activityId)}
+              type="button"
               className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >
               삭제하기
-            </Link>
+            </button>
           </div>
         </div>
       )}

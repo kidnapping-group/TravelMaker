@@ -6,7 +6,7 @@ import {
   getActivityReviewCount,
   getActivityTitle,
 } from "@/app/[activityId]/_utils/getActivityData";
-import { activityIdOptions } from "@/app/[activityId]/activityId";
+import { activityIdOptions } from "@/app/[activityId]/queryOptions";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 const useGetActivityHeaderViewModel = () => {
@@ -19,6 +19,7 @@ const useGetActivityHeaderViewModel = () => {
     rating: getActivityRating(data),
     reviewCount: getActivityReviewCount(data),
     address: getActivityAddress(data),
+    activityId,
   };
 };
 

@@ -3,7 +3,7 @@ import {
   getActivityAddress,
   getActivityDescription,
 } from "@/app/[activityId]/_utils/getActivityData";
-import { activityIdOptions } from "@/app/[activityId]/activityId";
+import { activityIdOptions } from "@/app/[activityId]/queryOptions";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 const useGetActivityContentsViewModel = () => {
