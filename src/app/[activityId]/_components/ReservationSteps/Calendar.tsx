@@ -68,7 +68,7 @@ function Calendar({ scheduleData, setSelectedDate }: CalendarProps) {
   };
 
   return (
-    <div className="mx-auto w-80 overflow-hidden rounded-lg border">
+    <div className="mx-auto mt-4 w-80 overflow-hidden rounded-lg border">
       <div className="flex items-center justify-between px-4 pt-2">
         <button type="button" onClick={() => changeMonth(-1)}>
           &laquo;
