@@ -2,7 +2,11 @@ import Navigation from "@/app/(user)/_components/Navigation";
 import Cookies from "js-cookie";
 import { redirect } from "next/navigation";
 
-function UserRootLayout({ children }: { children: React.ReactNode }) {
+function UserRootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   const accessToken = Cookies.get("accessToken");
 
   if (!accessToken) {
