@@ -20,9 +20,9 @@ export type getActivitiesRes = {
 export type getActivities = {
   method?: "offset";
   cursorId?: number | null;
-  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙" | null;
   keyword?: string | null;
-  sort?: "most_reviewed" | "price_asc" | "price_asc" | "latest";
+  sort?: "most_reviewed" | "price_asc" | "price_dasc" | "latest" | null;
   page?: number;
   size?: number;
 };
