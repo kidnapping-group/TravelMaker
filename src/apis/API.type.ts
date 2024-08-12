@@ -20,16 +20,16 @@ export type getActivitiesRes = {
 export type getActivities = {
   method?: "offset";
   cursorId?: number | null;
-  category?: string | null;
+  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙" | null;
   keyword?: string | null;
-  sort?: string | null;
+  sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest" | null;
   page?: number;
   size?: number;
 };
 
 export type postActivities = {
   title: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   description: string;
   address: string;
   price: number;
@@ -47,7 +47,7 @@ export type postActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   price: number;
   address: string;
   rating: number;
@@ -76,7 +76,7 @@ export type getActivitiesInfoRes = {
   userId: number;
   title: string;
   description: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   price: number;
   address: string;
   bannerImageUrl: string;
@@ -197,7 +197,7 @@ export type postUsersImageRes = {
 export type getReservation = {
   cursorId?: string;
   size?: number;
-  status?: string;
+  status?: "pending" | "confirmed" | "declined" | "canceled" | "completed";
 };
 
 export type ReservationRes = {
@@ -231,7 +231,7 @@ export type patchReservationRes = {
   userId: number;
   activityId: number;
   scheduleId: number;
-  status: string;
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -331,7 +331,7 @@ export type getMyReservation = {
   cursorId?: number;
   size?: number;
   scheduleId: number;
-  status: string;
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
 };
 
 export type getMyReservationRes = {
@@ -344,7 +344,7 @@ export type getMyReservationRes = {
     teamId: string;
     activityId: number;
     scheduleId: number;
-    status: string;
+    status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
     reviewSubmitted: boolean;
     totalPrice: number;
     headCount: number;
@@ -368,7 +368,7 @@ export type patchMyReservationRes = {
   userId: number;
   activityId: number;
   scheduleId: number;
-  status: string;
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -381,7 +381,7 @@ export type patchMyReservationRes = {
 
 export type patchMyActivities = {
   title: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   description: string;
   price: number;
   address: string;
@@ -401,7 +401,7 @@ export type patchMyActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   price: number;
   address: string;
   bannerImageUrl: string;
@@ -421,4 +421,26 @@ export type patchMyActivitiesRes = {
     }[];
     date: string;
   }[];
+};
+
+export type OauthPostRes = {
+  id: number;
+  provider: string;
+  teamId: string;
+  appKey: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OauthSignRes = {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+    profileImageUrl: string;
+    createdAt: string;
+    updatedAt: string;
+  };
 };
