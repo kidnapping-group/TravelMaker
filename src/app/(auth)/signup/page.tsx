@@ -4,17 +4,15 @@ import authAPI from "@/apis/authAPI";
 import usersAPI from "@/apis/usersAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
-import Popup, { openPopup } from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type LoginFormData = z.infer<typeof baseSchema>;
+type SingUpFormData = z.infer<typeof baseSchema>;
 const signupSchema = baseSchema
   .pick({ email: true, nickname: true, password: true, confirmPassword: true })
   .refine(data => data.password === data.confirmPassword, {
@@ -27,36 +25,22 @@ function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, touchedFields },
-  } = useForm<LoginFormData>({
+  } = useForm<SingUpFormData>({
     resolver: zodResolver(signupSchema),
     mode: "all",
   });
 
   const router = useRouter();
-  const [existEmail, setExistEmail] = useState(false);
-  const [confirm, setConfirm] = useState<string | null>(null);
-  const searchParams = useSearchParams();
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&scope=profile_nickname,profile_image`;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}`;
 
-  useEffect(() => {
-    setConfirm(searchParams.get("confirm"));
-  }, [searchParams]);
-
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      const { email, nickname, password } = data;
-      const postData = { email, nickname, password };
-      await usersAPI.postSingup(postData);
-      openPopup();
-      if (confirm) {
-        const loginData = { email, password };
-        await authAPI.login(loginData);
-      } else {
-        router.push("/singin");
-      }
-    } catch (error) {
-      setExistEmail(true);
-      openPopup();
-    }
+  const onSubmit = async (data: SingUpFormData) => {
+    const { email, nickname, password } = data;
+    const postData = { email, nickname, password };
+    await usersAPI.postSingup(postData);
+    const loginData = { email, password };
+    await authAPI.login(loginData);
+    router.push("/");
   };
 
   return (
@@ -117,22 +101,20 @@ function SignUp() {
         <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
       </div>
       <div className="flex justify-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+        <Link
+          href={GOOGLE_AUTH_URL}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
+        >
           <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 회원가입" />
-        </div>
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+        </Link>
+
+        <Link
+          href={KAKAO_AUTH_URL}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
+        >
           <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 회원가입" />
-        </div>
+        </Link>
       </div>
-      {existEmail ? (
-        <Popup text="이메일이 이미 존재합니다." onCloseButton="확인" />
-      ) : (
-        <Popup
-          text="회원가입이 완료되었습니다. 자동으로 로그인할까요?"
-          onChangeButton="로그인하기"
-          onCloseButton="취소"
-        />
-      )}
     </div>
   );
 }
