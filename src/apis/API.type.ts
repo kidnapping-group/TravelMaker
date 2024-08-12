@@ -22,7 +22,7 @@ export type getActivities = {
   cursorId?: number | null;
   category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙" | null;
   keyword?: string | null;
-  sort?: "most_reviewed" | "price_asc" | "price_dasc" | "latest" | null;
+  sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest" | null;
   page?: number;
   size?: number;
 };
