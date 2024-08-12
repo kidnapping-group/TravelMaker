@@ -26,8 +26,11 @@ function ReservationSteps() {
   };
 
   return (
-    <div className="bg-white px-4 text-2lg font-bold tablet:rounded-lg">
-      <h1 className="hidden text-[28px] font-bold tablet:block">{totalPrice}</h1>
+    <div className="bg-white px-4 text-2lg font-bold tablet:rounded-lg tablet:pt-4">
+      <h1 className="hidden items-center text-[28px] font-bold tablet:flex">
+        {totalPrice}
+        <span className="text-lg font-normal">&nbsp;/ 인</span>
+      </h1>
       <FreeReservationTime reservationTimes={reservationTimes} />
       <Calendar setSelectedDate={setSelectedDate} scheduleData={schedules} />
       <TotalMoney population={population} populationActions={populationActions} price={price} />

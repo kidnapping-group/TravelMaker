@@ -1,13 +1,31 @@
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import { useActivityId } from "@/app/[activityId]/_contexts/ActivityIdContext";
+import useDeleteActivityMutation from "@/app/[activityId]/_hooks/useDeleteActivityMutation";
+import { useEffect, useRef, useState } from "react";
 
 const useControlDropdownMenu = () => {
-  const handleDelete = async () => {
-    const { activityId } = useActivityId();
-    await myActivitiesAPI.delete(Number(activityId));
+  const { deleteActivityMutation } = useDeleteActivityMutation();
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleDelete = (id: string) => {
+    deleteActivityMutation.mutate(id);
   };
 
-  return { handleDelete };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleDropdown = () => setIsOpen(!isOpen);
+
+  return { isOpen, dropdownRef, toggleDropdown, handleDelete };
 };
 
 export default useControlDropdownMenu;

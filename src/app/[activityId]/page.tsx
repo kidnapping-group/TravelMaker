@@ -19,7 +19,7 @@ async function ActivityId({ params: { activityId } }: { params: { activityId: st
               <Contents />
               <Review />
             </div>
-            <div className="sticky right-0 top-14 hidden tablet:block">
+            <div className="sticky right-0 top-20 hidden h-fit tablet:block">
               <ReservationSteps />
             </div>
           </div>

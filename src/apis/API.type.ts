@@ -1,35 +1,37 @@
+export type Activities = {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export type getActivitiesRes = {
   cursorId: number;
   totalCount: number;
-  activities: {
-    id: number;
-    userId: number;
-    title: string;
-    description: string;
-    category: string;
-    price: number;
-    address: string;
-    bannerImageUrl: string;
-    rating: number;
-    reviewCount: number;
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  activities: Activities[];
 };
 
 export type getActivities = {
   method?: "offset";
   cursorId?: number | null;
-  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙" | null;
+  category?: string | null;
   keyword?: string | null;
-  sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest" | null;
+  sort?: string | null;
   page?: number;
   size?: number;
 };
 
 export type postActivities = {
   title: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   description: string;
   address: string;
   price: number;
@@ -47,7 +49,7 @@ export type postActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   price: number;
   address: string;
   rating: number;
@@ -76,7 +78,7 @@ export type getActivitiesInfoRes = {
   userId: number;
   title: string;
   description: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   price: number;
   address: string;
   bannerImageUrl: string;
@@ -197,7 +199,7 @@ export type postUsersImageRes = {
 export type getReservation = {
   cursorId?: string;
   size?: number;
-  status?: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status?: string;
 };
 
 export type ReservationRes = {
@@ -231,7 +233,7 @@ export type patchReservationRes = {
   userId: number;
   activityId: number;
   scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status: string;
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -331,7 +333,7 @@ export type getMyReservation = {
   cursorId?: number;
   size?: number;
   scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status: string;
 };
 
 export type getMyReservationRes = {
@@ -344,7 +346,7 @@ export type getMyReservationRes = {
     teamId: string;
     activityId: number;
     scheduleId: number;
-    status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+    status: string;
     reviewSubmitted: boolean;
     totalPrice: number;
     headCount: number;
@@ -368,7 +370,7 @@ export type patchMyReservationRes = {
   userId: number;
   activityId: number;
   scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status: string;
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -381,7 +383,7 @@ export type patchMyReservationRes = {
 
 export type patchMyActivities = {
   title: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   description: string;
   price: number;
   address: string;
@@ -401,7 +403,7 @@ export type patchMyActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   price: number;
   address: string;
   bannerImageUrl: string;
@@ -421,26 +423,4 @@ export type patchMyActivitiesRes = {
     }[];
     date: string;
   }[];
-};
-
-export type OauthPostRes = {
-  id: number;
-  provider: string;
-  teamId: string;
-  appKey: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type OauthSignRes = {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    id: number;
-    email: string;
-    nickname: string;
-    profileImageUrl: string;
-    createdAt: string;
-    updatedAt: string;
-  };
 };

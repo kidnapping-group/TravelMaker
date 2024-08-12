@@ -1,37 +1,15 @@
-"use Client";
+"use client";
 
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
+import useControlDropdownMenu from "@/app/[activityId]/_hooks/useControlDropdownMenu";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 
 function DropdownMenu({ activityId }: { activityId: string }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-
-  const handleDelete = async (id: string) => {
-    await myActivitiesAPI.delete(Number(id));
-    router.push("activity");
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
+  const { isOpen, dropdownRef, toggleDropdown, handleDelete } = useControlDropdownMenu();
+  // 준혁님 도와주세요 ㅠㅠㅠisError를 못가져와요
   return (
     <div className="relative" ref={dropdownRef}>
-      <button type="button" onClick={() => setIsOpen(!isOpen)}>
+      <button type="button" onClick={toggleDropdown}>
         <Image src="/icons/icon-meatball.svg" alt="수정, 삭제 버튼보기" width={40} height={40} />
       </button>
       {isOpen && (
