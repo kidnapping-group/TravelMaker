@@ -3,7 +3,7 @@ import axiosInstance from "./axiosInstance";
 
 const userAPI = {
   // 회원가입
-  postSingup: async (body: postUsers) => {
+  postSignup: async (body: postUsers) => {
     const { data } = await axiosInstance.post<UsersRes>("/users", body);
     return data;
   },
