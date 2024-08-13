@@ -148,9 +148,9 @@ export type BaseActivitiesRes = {
   schedules: Schedules[];
 };
 
-export type getActivitiesInfoRes = Omit<ReservationBase, "subImageUrls">;
+export type getActivitiesInfoRes = Omit<BaseActivitiesRes, "subImageUrls">;
 
-export type postActivitiesRes = Omit<ReservationBase, "subImages">;
+export type postActivitiesRes = Omit<BaseActivitiesRes, "subImages">;
 
 export type getActivitiesInfo = {
   id: number;
