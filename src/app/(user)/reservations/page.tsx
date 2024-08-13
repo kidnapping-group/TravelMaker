@@ -3,7 +3,8 @@ import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query
 
 import MyReservations from "./_components/MyReservations";
 
-async function Reservations({ status = undefined }) {
+async function Reservations() {
+  const status = undefined;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -14,7 +15,7 @@ async function Reservations({ status = undefined }) {
   return (
     <div>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <MyReservations initialStatus={status} />
+        <MyReservations />
       </HydrationBoundary>
     </div>
   );
