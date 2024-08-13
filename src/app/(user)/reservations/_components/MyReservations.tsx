@@ -7,6 +7,8 @@ import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useState } from "react";
 
+import MyReservationItem from "./MyReservationItem";
+
 function MyReservations() {
   const menuItems = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
   const [status, setStatus] = useState<string | undefined>(undefined);
@@ -62,13 +64,11 @@ function MyReservations() {
         />
       </div>
       {hasReservations ? (
-        <div className="h-full overflow-y-auto pb-[72px] pt-[72px]">
+        <div className="h-full overflow-y-auto py-20">
           {data?.pages.map(page => (
             <div className="flex flex-col gap-[24px]" key={crypto.randomUUID()}>
               {page.reservations.map(reservation => (
-                <div className="w-[800px]" key={reservation.id}>
-                  {reservation.id}
-                </div>
+                <MyReservationItem key={reservation.id} reservation={reservation} />
               ))}
             </div>
           ))}
