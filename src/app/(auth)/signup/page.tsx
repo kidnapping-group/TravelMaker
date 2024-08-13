@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type SingUpFormData = z.infer<typeof baseSchema>;
+type SignUpFormData = z.infer<typeof baseSchema>;
 const signupSchema = baseSchema
   .pick({ email: true, nickname: true, password: true, confirmPassword: true })
   .refine(data => data.password === data.confirmPassword, {
@@ -25,7 +25,7 @@ function SignUp() {
     register,
     handleSubmit,
     formState: { errors, isValid, touchedFields },
-  } = useForm<SingUpFormData>({
+  } = useForm<SignUpFormData>({
     resolver: zodResolver(signupSchema),
     mode: "all",
   });
@@ -34,10 +34,10 @@ function SignUp() {
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&scope=profile_nickname,profile_image`;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI}`;
 
-  const onSubmit = async (data: SingUpFormData) => {
+  const onSubmit = async (data: SignUpFormData) => {
     const { email, nickname, password } = data;
     const postData = { email, nickname, password };
-    await usersAPI.postSingup(postData);
+    await usersAPI.postSignup(postData);
     const loginData = { email, password };
     await authAPI.login(loginData);
     router.push("/");
@@ -86,7 +86,7 @@ function SignUp() {
           touched={touchedFields.confirmPassword}
         />
         <Button size="wide" disabled={!isValid}>
-          회원가입 하기
+          회원가입
         </Button>
         <div className="-mt-1 text-center">
           회원이신가요?{" "}
