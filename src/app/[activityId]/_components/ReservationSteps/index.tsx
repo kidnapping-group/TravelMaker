@@ -31,7 +31,7 @@ function ReservationSteps() {
         {totalPrice}
         <span className="text-lg font-normal">&nbsp;/ 인</span>
       </h1>
-      <Calendar setSelectedDate={setSelectedDate} scheduleData={schedules} />
+      <Calendar scheduleData={schedules} setSelectedDate={setSelectedDate} />
       <FreeReservationTime reservationTimes={reservationTimes} />
       <TotalMoney population={population} populationActions={populationActions} price={price} />
       <ReservationButton submitReservation={submitReservation} />
