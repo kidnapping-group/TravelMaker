@@ -2,6 +2,7 @@ import { getActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
 import Link from "next/link";
 
+import SearchForm from "../_components/SearchForm";
 import ShortActivityCard from "../_components/ShortActivityCard";
 
 interface Props {
@@ -27,7 +28,9 @@ async function Page({ searchParams }: Props) {
   return (
     <main className="flex flex-col items-center px-5">
       <div className="flex w-full max-w-[1200px] flex-col">
-        <div>SearchForm이 들어갈 자리</div>
+        <div className="py-5">
+          <SearchForm placeholder="내가 원하는 체험은" />
+        </div>
         <div className="w-full">
           <h2 className="text-xl font-bold">
             &lsquo;{searchParams.keyword}&rsquo; 검색 결과 {totalCount}개
