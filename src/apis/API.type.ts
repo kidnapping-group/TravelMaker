@@ -9,7 +9,7 @@ export type User = {
 
 export type ReviewUser = Omit<User, "email" | "createdAt" | "updatedAt">;
 
-export type reviews = {
+export type Reviews = {
   id: number;
   user: ReviewUser;
   activitiesId: number;
@@ -18,7 +18,7 @@ export type reviews = {
   createdAt: string;
   updatedAt: string;
 };
-export type activities = {
+export type Activities = {
   id: number;
   userId: number;
   title: string;
@@ -33,21 +33,21 @@ export type activities = {
   updatedAt: string;
 };
 
-export type schedulesToAdd = Omit<schedules, "id">;
+export type SchedulesToAdd = Omit<Schedules, "id">;
 
-export type schedules = {
+export type Schedules = {
   endTime: string;
   startTime: string;
   date: string;
   id: number;
 };
 
-export type subImageUrls = {
+export type SubImageUrls = {
   id: number;
   imageUrl: string;
 };
 
-export type times = {
+export type Times = {
   endTime: string;
   startTime: string;
   id: number;
@@ -77,17 +77,17 @@ export type ReservationBase = {
   createdAt: string;
   updatedAt: string;
 };
-export type reservations = Omit<ReservationBase, "nickname" | "activityId">;
+export type Reservations = Omit<ReservationBase, "nickname" | "activityId">;
 
 export type MyReservation = Omit<ReservationBase, "activity">;
 
-export type reservationsStatus = {
+export type ReservationsStatus = {
   pending: number;
   confirmed: number;
   completed: number;
 };
 
-export type notifications = {
+export type Notifications = {
   id: number;
   teamId: string;
   userId: number;
@@ -100,7 +100,7 @@ export type notifications = {
 export type getActivitiesRes = {
   cursorId: number;
   totalCount: number;
-  activities: activities[];
+  activities: Activities[];
 };
 
 export type StatusCount = {
@@ -125,7 +125,7 @@ export type postActivities = {
   description: string;
   address: string;
   price: number;
-  schedules: schedulesToAdd[];
+  schedules: SchedulesToAdd[];
   bannerImageUrl: string;
   subImageUrls: string[];
 };
@@ -143,9 +143,9 @@ export type BaseActivitiesRes = {
   createdAt: string;
   updatedAt: string;
   bannerImageUrl: string;
-  subImageUrls: subImageUrls[];
-  subImages: subImageUrls[];
-  schedules: schedules[];
+  subImageUrls: SubImageUrls[];
+  subImages: SubImageUrls[];
+  schedules: Schedules[];
 };
 
 export type getActivitiesInfoRes = Omit<ReservationBase, "subImageUrls">;
@@ -164,7 +164,7 @@ export type getActivitiesSchedule = {
 
 export type getActivitiesScheduleRes = {
   date: string;
-  times: times[];
+  times: Times[];
 };
 
 export type getActivitiesReviews = {
@@ -176,7 +176,7 @@ export type getActivitiesReviews = {
 export type getActivitiesReviewsRes = {
   averageRating: number;
   totalCount: number;
-  reviews: reviews[];
+  reviews: Reviews[];
 };
 
 export type postActivitiesReservations = {
@@ -233,7 +233,7 @@ export type getReservation = {
 
 export type ReservationRes = {
   cursorId: number;
-  reservations: reservations[];
+  reservations: Reservations[];
   totalCount: number;
 };
 
@@ -263,7 +263,7 @@ export type getNotifications = {
 
 export type getNotificationsRes = {
   cursorId: number | null;
-  notifications: notifications[];
+  notifications: Notifications[];
   totalCount: number;
 };
 
@@ -286,7 +286,7 @@ export type getReservationMonth = {
 
 export type getReservationMonthRes = {
   date: string;
-  reservations: reservationsStatus;
+  reservations: ReservationsStatus;
 };
 
 export type getReservationDate = {
@@ -333,7 +333,7 @@ export type patchMyActivities = {
   subImageIdsToRemove: number[];
   subImageUrlsToAdd: string[];
   scheduleIdsToRemove: number[];
-  schedulesToAdd: schedulesToAdd[];
+  schedulesToAdd: SchedulesToAdd[];
 };
 
 export type patchMyActivitiesRes = {
@@ -349,7 +349,7 @@ export type patchMyActivitiesRes = {
   reviewCount: number;
   createdAt: string;
   updatedAt: string;
-  subImages: subImageUrls[];
+  subImages: SubImageUrls[];
   schedules: patchMyActivitiesSchedules[];
 };
 
