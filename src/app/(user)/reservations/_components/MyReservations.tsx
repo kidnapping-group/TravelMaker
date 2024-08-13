@@ -53,9 +53,9 @@ function MyReservations() {
 
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
-    <div className="relative mx-auto h-full w-full max-w-[806px] flex-col items-center justify-center pt-0">
-      <div className="fixed z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-6">
-        <h1 className="text-3xl font-bold">내 체험 관리</h1>
+    <div className="relative h-full w-full max-w-[800x] flex-col items-center justify-center px-4">
+      <div className="z-10 flex w-full max-w-[768px] items-start justify-between bg-gray-100 pb-6">
+        <h1 className="text-3xl font-bold">예약 내역</h1>
         <Dropdown
           menuItems={menuItems}
           type="round"
@@ -64,14 +64,16 @@ function MyReservations() {
         />
       </div>
       {hasReservations ? (
-        <div className="h-full overflow-y-auto py-20">
-          {data?.pages.map(page => (
-            <div className="flex flex-col gap-[24px]" key={crypto.randomUUID()}>
-              {page.reservations.map(reservation => (
-                <MyReservationItem key={reservation.id} reservation={reservation} />
-              ))}
-            </div>
-          ))}
+        <div className="h-full pb-20">
+          <div className="h-full overflow-y-auto">
+            {data?.pages.map(page => (
+              <div className="flex flex-col gap-[24px]" key={crypto.randomUUID()}>
+                {page.reservations.map(reservation => (
+                  <MyReservationItem key={reservation.id} reservation={reservation} />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="flex h-full flex-col items-center justify-center tablet:w-[800px]">
