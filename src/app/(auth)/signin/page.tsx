@@ -1,10 +1,15 @@
 "use client";
 
 import authAPI from "@/apis/authAPI";
+import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
+import Popup, { openPopup } from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,19 +26,28 @@ function SignIn() {
     mode: "all",
   });
   const router = useRouter();
+  const [passwordWrong, setPasswordWrong] = useState(false);
 
   const onSubmit = async (data: LoginFormData) => {
     try {
       await authAPI.login(data);
       router.push("/");
     } catch (error) {
-      alert(error);
+      let err = String(error);
+      if (err === "비밀번호가 일치하지 않습니다.") {
+        setPasswordWrong(true);
+        openPopup();
+      } else {
+        setPasswordWrong(false);
+        openPopup();
+      }
     }
   };
+
   return (
-    <div>
-      <h1>로그인</h1>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex w-[400px] flex-col gap-[10px]">
+    <div className="flex w-full max-w-[640px] flex-col items-center gap-12">
+      <Image src="/images/logo_big.png" width={340} height={192} alt="메인로고" />
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex w-full flex-col gap-[28px]">
         <Input
           register={register("email")}
           type="email"
@@ -43,7 +57,6 @@ function SignIn() {
           error={errors.email}
           touched={touchedFields.email}
         />
-
         <Input
           register={register("password")}
           type="password"
@@ -53,14 +66,38 @@ function SignIn() {
           error={errors.password}
           touched={touchedFields.password}
         />
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="hover:bg-blue-700 h-[45px] w-full rounded-[10px] bg-blue-500 text-[14px] font-semibold leading-[24px] text-white disabled:bg-gray-300"
-        >
-          Submit
-        </button>
+        <Button size="wide" disabled={!isValid}>
+          로그인하기
+        </Button>
+        <div className="-mt-1 text-center">
+          회원이 아니신가요?{" "}
+          <Link href="/signup">
+            <span className="text-blue-500 underline">회원가입</span>
+          </Link>
+        </div>
       </form>
+      <div className="flex w-full items-center justify-between text-center text-gray-500">
+        <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
+        <span className="text-md tablet:w-[222px] tablet:text-xl">SNS 계정으로 로그인하기</span>
+        <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
+      </div>
+      <div className="flex justify-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+          <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 로그인" />
+        </div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+          <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 로그인" />
+        </div>
+      </div>
+      {passwordWrong ? (
+        <Popup text="비밀번호가 틀렸습니다." onCloseButton="확인" />
+      ) : (
+        <Popup
+          text="유저정보가 존재하지 않습니다.회원가입 페이지로 이동할까요?"
+          onCloseButton="아니요"
+          onChangeButton="네"
+        />
+      )}
     </div>
   );
 }
