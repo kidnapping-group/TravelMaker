@@ -10,7 +10,7 @@ function KakaoRedirect() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { alreadyExistKakaoUser, socialSignupFail, socialLoginSuccess } = kakaoSocialStatusStore();
-
+  const domain = `${window.location.origin}/social/kakao`;
   // 랜덤 문자열 생성 함수
   const generateRandomName = (length: number = 32): string =>
     crypto.randomBytes(length).toString("hex");
@@ -43,7 +43,7 @@ function KakaoRedirect() {
               const updatedState = kakaoSocialStatusStore.getState().alreadyExistKakaoUser;
               if (updatedState) {
                 router.push(
-                  `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI}&scope=profile_nickname,profile_image`,
+                  `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${domain}&scope=profile_nickname,profile_image`,
                 );
               }
             }, 0);

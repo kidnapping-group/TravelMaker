@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 export default function GoogleRedirect() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const domain = `${window.location.origin}/social/google`;
 
   // 랜덤 문자열 생성 함수
   const generateRandomName = useCallback(
@@ -24,7 +25,7 @@ export default function GoogleRedirect() {
       grant_type: "authorization_code",
       client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
       client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || "",
-      redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI || "",
+      redirect_uri: domain || "",
       code,
     });
 
