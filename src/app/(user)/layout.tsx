@@ -20,7 +20,7 @@ function UserRootLayout({
           <div className="top-[200px]">
             <Navigation />
           </div>
-          <div className="flex w-full max-w-[800px] justify-center bg-gray-300">{children}</div>
+          <div className="flex w-full max-w-[800px] justify-center bg-gray-100">{children}</div>
         </div>
       </div>
     </div>
