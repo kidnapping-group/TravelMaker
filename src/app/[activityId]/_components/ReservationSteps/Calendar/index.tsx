@@ -6,7 +6,7 @@ import { useState } from "react";
 
 interface CalendarProps {
   scheduleData: ScheduleItem[];
-  setSelectedDate: (date: string) => void;
+  setSelectedDate: (date: string, hasReservation: boolean) => void;
 }
 
 function Calendar({ scheduleData, setSelectedDate }: CalendarProps) {
@@ -17,9 +17,9 @@ function Calendar({ scheduleData, setSelectedDate }: CalendarProps) {
     setCurrentDate(date => new Date(date.getFullYear(), date.getMonth() + increment, 1));
   };
 
-  const handleDateSelection = (formattedDate: string) => {
-    setSelectedDay(formattedDate);
-    setSelectedDate(formattedDate);
+  const handleDateSelection = (formattedDate: string, hasReservation: boolean) => {
+    setSelectedDay(hasReservation ? formattedDate : null);
+    setSelectedDate(formattedDate, hasReservation);
   };
 
   return (

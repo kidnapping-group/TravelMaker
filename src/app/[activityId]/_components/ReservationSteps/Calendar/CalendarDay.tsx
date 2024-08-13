@@ -6,7 +6,7 @@ export interface CalendarDayProps {
   isCurrentMonth: boolean;
   hasReservation: boolean;
   isSelected: boolean;
-  setSelectedDate: (date: string) => void;
+  setSelectedDate: (date: string, hasReservation: boolean) => void;
 }
 
 function CalendarDay({
@@ -21,7 +21,7 @@ function CalendarDay({
     <button
       type="button"
       className={getDateClasses(isCurrentMonth, hasReservation, isSelected)}
-      onClick={() => hasReservation && setSelectedDate(formattedDate)}
+      onClick={() => setSelectedDate(formattedDate, hasReservation)}
     >
       {date.getDate()}
     </button>
