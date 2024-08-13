@@ -1,23 +1,26 @@
 "use client";
 
 import useGetActivityImageViewModel from "@/app/[activityId]/_hooks/useGetActivityImagesViewModel";
+import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import { useState } from "react";
 
 function Images() {
   const { title, subImages, totalImages } = useGetActivityImageViewModel();
+  const [errorImage] = useImageError(["/images/noImage.png"]);
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
     <div className="-mx-6 flex justify-center tablet:mx-auto tablet:justify-normal tablet:gap-1 pc:gap-2">
       <div className="relative h-[310px] w-[595px] tablet:w-[345px] pc:h-[534px] pc:w-[595px]">
         <Image
-          src={totalImages[imageIndex]}
+          src={errorImage.src || totalImages[imageIndex]}
           alt={`${title} 배경 사진`}
           fill
           style={{
             objectFit: "cover",
           }}
+          onError={errorImage.onError}
         />
         <button
           type="button"
@@ -38,12 +41,13 @@ function Images() {
         {subImages.map(item => (
           <div key={item.id} className="relative h-[152px] w-[170px] pc:h-[264px] pc:w-[294px]">
             <Image
-              src={item.imageUrl}
+              src={errorImage.src || item.imageUrl}
               alt={`${title} 서브 사진`}
               fill
               style={{
                 objectFit: "cover",
               }}
+              onError={errorImage.onError}
             />
           </div>
         ))}
