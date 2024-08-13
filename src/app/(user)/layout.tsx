@@ -1,18 +1,17 @@
 import Navigation from "@/app/(user)/_components/Navigation";
-
-// import Cookies from "js-cookie";
-// import { redirect } from "next/navigation";
+import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 function UserRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const accessToken = Cookies.get("accessToken");
+  const accessToken = Cookies.get("accessToken");
 
-  // if (!accessToken) {
-  //   redirect("/signin");
-  // }
+  if (!accessToken) {
+    redirect("/signin");
+  }
 
   return (
     <div className="relative bg-gray-100">
