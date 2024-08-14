@@ -9,7 +9,7 @@ function page() {
     <div>
       <div className="flex flex-col">
         <button type="button" onClick={() => openPopup("민첩")} className="text-red-500">
-          민첩
+          {`민첩\nfd`}
         </button>
         <button type="button" onClick={() => openPopup("지능")} className="text-blue-500">
           지능
@@ -17,7 +17,7 @@ function page() {
       </div>
       <Popup
         id="민첩"
-        text="민첩한 팝업"
+        text={`민첩한 김민재는 최고일까다.\n둔한 김민재는 별로일까다.`}
         leftButton="왼쪽 버튼"
         onChangeLeftButton={() => closePopup("민첩")}
       />
