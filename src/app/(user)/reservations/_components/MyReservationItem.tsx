@@ -2,10 +2,12 @@
 
 import myReservationAPI from "@/apis/myReservationAPI";
 import { Button } from "@/components/Button";
+import Modal, { openModal } from "@/components/Modal";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import Image from "next/image";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
+import Review from "./review/page";
 
 interface reservation {
   id: number;
@@ -109,10 +111,7 @@ function MyReservationItem({ reservation }: { reservation: reservation }) {
               </Button>
             )}
             {reservation.status === "completed" && !reservation.reviewSubmitted && (
-              <Button
-                size={size}
-                //  onClick={handleOpenReviewModal}
-              >
+              <Button size={size} onClick={openModal}>
                 후기 작성
               </Button>
             )}
@@ -129,6 +128,9 @@ function MyReservationItem({ reservation }: { reservation: reservation }) {
           rightButton="아니요"
           onChangeRightButton={() => closePopup(`cancel-${reservation.id}`)}
         />
+        <Modal title="후기 작성">
+          <Review reservation={reservation} />,
+        </Modal>
       </div>
     </div>
   );
