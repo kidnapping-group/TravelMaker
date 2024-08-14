@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 const baseSchema = z.object({
-  name: z
+  nickname: z
     .string()
     .min(2, "이름을 입력해주세요")
     .max(10, "10자 이하로 작성해주세요")
@@ -20,6 +20,7 @@ const baseSchema = z.object({
     z.number().min(0, "0이상의 숫자만 입력해주세요"),
   ),
   textarea: z.string().max(500, "500자 이하로 작성해주세요"),
+  profileImageUrl: z.any(),
 });
 
 export default baseSchema;
