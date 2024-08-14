@@ -1,53 +1,141 @@
+export type User = {
+  id: string;
+  email: string;
+  nickname: string;
+  profileImageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ReviewUser = Omit<User, "email" | "createdAt" | "updatedAt">;
+
+export type Reviews = {
+  id: number;
+  user: ReviewUser;
+  activitiesId: number;
+  rating: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Activities = {
+  id: number;
+  userId: number;
+  title: string;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type SchedulesToAdd = Omit<Schedules, "id">;
+
+export type Schedules = {
+  endTime: string;
+  startTime: string;
+  date: string;
+  id: number;
+};
+
+export type SubImageUrls = {
+  id: number;
+  imageUrl: string;
+};
+
+export type Times = {
+  endTime: string;
+  startTime: string;
+  id: number;
+};
+
+export type ReservationActivity = {
+  bannerImageUrl: string;
+  title: string;
+  id: number;
+};
+
+export type ReservationBase = {
+  id: number;
+  nickname: string;
+  teamId: string;
+  userId: number;
+  activity: ReservationActivity;
+  activityId: number;
+  scheduleId: number;
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  reviewSubmitted: boolean;
+  totalPrice: number;
+  headCount: number;
+  date: string;
+  startTime: string;
+  endTime: string;
+  createdAt: string;
+  updatedAt: string;
+};
+export type Reservations = Omit<ReservationBase, "nickname" | "activityId">;
+
+export type MyReservation = Omit<ReservationBase, "activity">;
+
+export type ReservationsStatus = {
+  pending: number;
+  confirmed: number;
+  completed: number;
+};
+
+export type Notifications = {
+  id: number;
+  teamId: string;
+  userId: number;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+};
+
 export type getActivitiesRes = {
   cursorId: number;
   totalCount: number;
-  activities: {
-    id: number;
-    userId: number;
-    title: string;
-    description: string;
-    category: string;
-    price: number;
-    address: string;
-    bannerImageUrl: string;
-    rating: number;
-    reviewCount: number;
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  activities: Activities[];
+};
+
+export type StatusCount = {
+  declined: number;
+  confirmed: number;
+  pending: number;
 };
 
 export type getActivities = {
   method?: "offset";
   cursorId?: number | null;
-  category?: string | null;
+  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙" | null;
   keyword?: string | null;
-  sort?: string | null;
+  sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest" | null;
   page?: number;
   size?: number;
 };
 
 export type postActivities = {
   title: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   description: string;
   address: string;
   price: number;
-  schedules: {
-    endTime: string;
-    startTime: string;
-    date: string;
-  }[];
+  schedules: SchedulesToAdd[];
   bannerImageUrl: string;
   subImageUrls: string[];
 };
 
-export type postActivitiesRes = {
+export type BaseActivitiesRes = {
   id: number;
   userId: number;
   title: string;
   description: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   price: number;
   address: string;
   rating: number;
@@ -55,45 +143,17 @@ export type postActivitiesRes = {
   createdAt: string;
   updatedAt: string;
   bannerImageUrl: string;
-  subImageUrls: {
-    id: number;
-    imageUrl: string;
-  }[];
-  schedules: {
-    endTime: string;
-    startTime: string;
-    date: string;
-    id: number;
-  }[];
+  subImageUrls: SubImageUrls[];
+  subImages: SubImageUrls[];
+  schedules: Schedules[];
 };
+
+export type getActivitiesInfoRes = Omit<BaseActivitiesRes, "subImageUrls">;
+
+export type postActivitiesRes = Omit<BaseActivitiesRes, "subImages">;
 
 export type getActivitiesInfo = {
   id: number;
-};
-
-export type getActivitiesInfoRes = {
-  id: number;
-  userId: number;
-  title: string;
-  description: string;
-  category: string;
-  price: number;
-  address: string;
-  bannerImageUrl: string;
-  subImages: {
-    id: number;
-    imageUrl: string;
-  }[];
-  schedules: {
-    endTime: string;
-    startTime: string;
-    date: string;
-    id: number;
-  }[];
-  rating: number;
-  reviewCount: number;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type getActivitiesSchedule = {
@@ -104,11 +164,7 @@ export type getActivitiesSchedule = {
 
 export type getActivitiesScheduleRes = {
   date: string;
-  times: {
-    endTime: string;
-    startTime: string;
-    id: number;
-  }[];
+  times: Times[];
 };
 
 export type getActivitiesReviews = {
@@ -120,19 +176,7 @@ export type getActivitiesReviews = {
 export type getActivitiesReviewsRes = {
   averageRating: number;
   totalCount: number;
-  reviews: {
-    id: number;
-    user: {
-      profileImageUrl: string;
-      nickname: string;
-      id: number;
-    };
-    activitiesId: number;
-    rating: number;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  reviews: Reviews[];
 };
 
 export type postActivitiesReservations = {
@@ -171,15 +215,6 @@ export type postUsers = {
   password: string;
 };
 
-export type UsersRes = {
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-};
-
 export type patchUsers = {
   nickname: string;
   profileImageUrl: string;
@@ -193,50 +228,16 @@ export type postUsersImageRes = {
 export type getReservation = {
   cursorId?: string;
   size?: number;
-  status?: string;
+  status?: "pending" | "confirmed" | "declined" | "canceled" | "completed";
 };
 
 export type ReservationRes = {
   cursorId: number;
-  reservations: {
-    id: number;
-    teamId: string;
-    userId: number;
-    activity: {
-      bannerImageUrl: string;
-      title: string;
-      id: number;
-    };
-    scheduleId: number;
-    status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
-    reviewSubmitted: boolean;
-    totalPrice: number;
-    headCount: number;
-    date: string;
-    startTime: string;
-    endTime: string;
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  reservations: Reservations[];
   totalCount: number;
 };
 
-export type patchReservationRes = {
-  id: number;
-  teamId: string;
-  userId: number;
-  activityId: number;
-  scheduleId: number;
-  status: string;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
-};
+export type patchReservationRes = Omit<ReservationBase, "nickname" | "activity">;
 
 export type postReviews = {
   rating: number;
@@ -262,15 +263,7 @@ export type getNotifications = {
 
 export type getNotificationsRes = {
   cursorId: number | null;
-  notifications: {
-    id: number;
-    teamId: string;
-    userId: number;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    deletedAt: string | null;
-  }[];
+  notifications: Notifications[];
   totalCount: number;
 };
 
@@ -278,15 +271,9 @@ export type Login = {
   email: string;
   password: string;
 };
+
 export type LoginRes = {
-  user: {
-    id: string;
-    email: string;
-    nickname: string;
-    profileImageUrl: string;
-    createdAt: string;
-    updatedAt: string;
-  };
+  user: User;
   refreshToken: string;
   accessToken: string;
 };
@@ -299,11 +286,7 @@ export type getReservationMonth = {
 
 export type getReservationMonthRes = {
   date: string;
-  reservations: {
-    pending: number;
-    confirmed: number;
-    completed: number;
-  };
+  reservations: ReservationsStatus;
 };
 
 export type getReservationDate = {
@@ -315,11 +298,7 @@ export type getReservationDateRes = {
   scheduleId: number;
   startTime: string;
   endTime: string;
-  count: {
-    declined: number;
-    confirmed: number;
-    pending: number;
-  };
+  count: StatusCount;
 };
 
 export type getMyReservation = {
@@ -327,29 +306,13 @@ export type getMyReservation = {
   cursorId?: number;
   size?: number;
   scheduleId: number;
-  status: string;
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
 };
 
 export type getMyReservationRes = {
   cursorId: number;
   totalCount: number;
-  reservations: {
-    id: number;
-    nickname: string;
-    userId: number;
-    teamId: string;
-    activityId: number;
-    scheduleId: number;
-    status: string;
-    reviewSubmitted: boolean;
-    totalPrice: number;
-    headCount: number;
-    date: string;
-    startTime: string;
-    endTime: string;
-    createdAt: string;
-    updatedAt: string;
-  }[];
+  reservations: MyReservation[];
 };
 
 export type patchMyReservation = {
@@ -358,26 +321,11 @@ export type patchMyReservation = {
   status: "declined" | "pending" | "confirmed";
 };
 
-export type patchMyReservationRes = {
-  id: number;
-  teamId: string;
-  userId: number;
-  activityId: number;
-  scheduleId: number;
-  status: string;
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
-};
+export type patchMyReservationRes = Omit<ReservationBase, "nickname" | "activityId">;
 
 export type patchMyActivities = {
   title: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   description: string;
   price: number;
   address: string;
@@ -385,11 +333,7 @@ export type patchMyActivities = {
   subImageIdsToRemove: number[];
   subImageUrlsToAdd: string[];
   scheduleIdsToRemove: number[];
-  schedulesToAdd: {
-    date: string;
-    startTime: string;
-    endTime: string;
-  }[];
+  schedulesToAdd: SchedulesToAdd[];
 };
 
 export type patchMyActivitiesRes = {
@@ -397,7 +341,7 @@ export type patchMyActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: string;
+  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
   price: number;
   address: string;
   bannerImageUrl: string;
@@ -405,16 +349,23 @@ export type patchMyActivitiesRes = {
   reviewCount: number;
   createdAt: string;
   updatedAt: string;
-  subImages: {
-    imageUrl: string;
-    id: number;
-  }[];
-  schedules: {
-    times: {
-      endTime: string;
-      startTime: string;
-      id: number;
-    }[];
-    date: string;
-  }[];
+  subImages: SubImageUrls[];
+  schedules: patchMyActivitiesSchedules[];
+};
+
+export type patchMyActivitiesSchedules = getActivitiesScheduleRes;
+
+export type OauthPostRes = {
+  id: number;
+  provider: string;
+  teamId: string;
+  appKey: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type OauthSignRes = {
+  accessToken: string;
+  refreshToken: string;
+  user: User;
 };
