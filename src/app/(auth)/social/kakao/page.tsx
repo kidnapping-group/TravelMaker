@@ -10,7 +10,7 @@ function KakaoRedirect() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const { alreadyExistKakaoUser, socialSignupFail, socialLoginSuccess } = kakaoSocialStatusStore();
-  const domain = `${window.location.origin}/social/kakao`;
+  const domain = `${process.env.NEXT_PUBLIC_URL}/social/kakao`;
   // 랜덤 문자열 생성 함수
   const generateRandomName = (length: number = 32): string =>
     crypto.randomBytes(length).toString("hex");

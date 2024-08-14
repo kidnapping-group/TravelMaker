@@ -9,7 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 export default function GoogleRedirect() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const domain = `${window.location.origin}/social/google`;
+  const domain = `${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   // 랜덤 문자열 생성 함수
   const generateRandomName = useCallback(
