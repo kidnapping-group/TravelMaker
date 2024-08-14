@@ -1,7 +1,7 @@
 import authAPI from "@/apis/authAPI";
 import userAPI from "@/apis/usersAPI";
-import useAuthStore from "@/app/store/useAuthStore";
 import { openPopup } from "@/components/Popup";
+import useAuthStore from "@/store/useAuthStore";
 import baseSchema from "@/utils/schema";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
