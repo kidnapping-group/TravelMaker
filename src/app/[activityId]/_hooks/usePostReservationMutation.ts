@@ -18,7 +18,7 @@ const usePostReservationMutation = (
       });
     },
     onSuccess: () => {
-      openPopup();
+      openPopup("reservation");
     },
   });
 

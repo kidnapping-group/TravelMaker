@@ -10,7 +10,7 @@ function Header() {
   if (segment === "(auth)") return <div />;
 
   return (
-    <div className="sticky top-0 z-10 bg-white">
+    <div className="sticky top-0 z-50 bg-white">
       <div className="mx-auto flex max-w-[1224px] items-center justify-between px-6">
         <Link href="/">
           <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />

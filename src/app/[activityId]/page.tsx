@@ -6,7 +6,6 @@ import ReservationModal from "@/app/[activityId]/_components/ReservationModal";
 import ReservationSteps from "@/app/[activityId]/_components/ReservationSteps";
 import Review from "@/app/[activityId]/_components/Review";
 import { ActivityIdProvider } from "@/app/[activityId]/_contexts/ActivityIdContext";
-import Popup from "@/components/Popup";
 import { redirect } from "next/navigation";
 
 interface ActivityIdParams {
@@ -34,11 +33,6 @@ function ActivityId({ params: { activityId }, searchParams }: ActivityIdParams) 
             </div>
           </div>
           <ReservationModal />
-          <Popup
-            text="예약을 성공했습니다. 예약 페이지로 이동 하겠습니까?"
-            onCloseButton="아니요"
-            onChangeButton="이동하기"
-          />
         </div>
         <MobileFooter />
       </ActivityIdProvider>
