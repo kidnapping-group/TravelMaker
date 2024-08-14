@@ -1,8 +1,9 @@
+'use client'
+
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import { openPopup } from "@/components/Popup";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/router";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 function ContextMenu({

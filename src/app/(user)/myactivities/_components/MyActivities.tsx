@@ -43,15 +43,15 @@ function MyActivities() {
     );
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
-    <div className="relative mx-auto h-full w-full max-w-[806px] flex-col items-center justify-center pt-0">
-      <div className="fixed z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-6">
+    <div className="relative mx-auto h-full w-full max-w-[806px] flex-col items-center justify-center px-4">
+      <div className="z-10 flex max-w-[800px] flex-grow items-start justify-between bg-gray-100 pb-6">
         <h1 className="text-3xl font-bold">내 체험 관리</h1>
         <LinkButton href="/myactivities/register" variant="default" size="medium">
           체험 등록하기
         </LinkButton>
       </div>
       {hasActivities ? (
-        <div className="h-full overflow-y-auto pb-[72px] pt-[72px]">
+        <div className="h-full overflow-y-auto pb-[72px]">
           <div>
             {data.pages.map(page => (
               <div key={crypto.randomUUID()} className="flex flex-col gap-[24px]">
