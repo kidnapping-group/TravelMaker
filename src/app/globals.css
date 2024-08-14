@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  white-space: pre-line;
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
