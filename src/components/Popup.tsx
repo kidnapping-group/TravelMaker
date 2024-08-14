@@ -1,10 +1,10 @@
 "use client";
 
-import { Button, LinkButton } from "@/components/Button";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Button } from "@/components/Button";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface PopupProps {
+  id: string;
   text: string;
   leftButton: string;
   onChangeLeftButton: () => void;
@@ -12,9 +12,10 @@ interface PopupProps {
   onChangeRightButton?: () => void;
 }
 
-let popupToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
+const popupControls: { [key: string]: (isOpeㅇn: boolean) => void } = {};
 
 function Popup({
+  id,
   text,
   leftButton,
   onChangeLeftButton,
@@ -22,8 +23,25 @@ function Popup({
   onChangeRightButton,
 }: PopupProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  popupToggle = setIsOpen;
+
+  const controlRef = useRef((e: boolean) => setIsOpen(e));
+
+  useEffect(() => {
+    popupControls[id] = controlRef.current;
+    return () => {
+      delete popupControls[id];
+    };
+  }, [id]);
+
+  const handleLeftButtonClick = useCallback(() => {
+    onChangeLeftButton();
+    setIsOpen(false);
+  }, [onChangeLeftButton]);
+
+  const handleRightButtonClick = useCallback(() => {
+    onChangeRightButton?.();
+    setIsOpen(false);
+  }, [onChangeRightButton]);
 
   if (!isOpen) return null;
 
@@ -35,14 +53,14 @@ function Popup({
           <Button
             size="wide"
             variant={rightButton ? "outline" : "default"}
-            onClick={onChangeLeftButton}
+            onClick={handleLeftButtonClick}
           >
             {leftButton}
           </Button>
           {rightButton && (
-            <LinkButton size="wide" href={`${pathname}?confirm=1`} onClick={onChangeRightButton}>
+            <Button size="wide" variant="outline" onClick={handleRightButtonClick}>
               {rightButton}
-            </LinkButton>
+            </Button>
           )}
         </div>
       </div>
@@ -50,6 +68,12 @@ function Popup({
   );
 }
 
-export const openPopup = () => popupToggle?.(true);
-export const closePopup = () => popupToggle?.(false);
+export const openPopup = (id: string) => {
+  popupControls[id]?.(true);
+};
+
+export const closePopup = (id: string) => {
+  popupControls[id]?.(false);
+};
+
 export default Popup;
