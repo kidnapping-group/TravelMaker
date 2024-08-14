@@ -29,7 +29,7 @@ async function Home() {
         </div>
       </section>
 
-      <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col">
+      <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col px-5">
         <section className="flex flex-col">
           <h2 className="py-3 text-2lg font-bold text-black">실시간 인기 체험</h2>
           <Swiper>
