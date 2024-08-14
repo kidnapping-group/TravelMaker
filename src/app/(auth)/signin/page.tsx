@@ -1,15 +1,13 @@
 "use client";
 
-import authAPI from "@/apis/authAPI";
+import useLogin from "@/app/(auth)/signin/hooks/useLogin";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
-import Popup, { openPopup } from "@/components/Popup";
+import Popup from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -25,23 +23,10 @@ function SignIn() {
     resolver: zodResolver(loginSchema),
     mode: "all",
   });
-  const router = useRouter();
-  const [passwordWrong, setPasswordWrong] = useState(false);
+  const { login, isPasswordWrong } = useLogin();
 
   const onSubmit = async (data: LoginFormData) => {
-    try {
-      await authAPI.login(data);
-      router.push("/");
-    } catch (error) {
-      let err = String(error);
-      if (err === "비밀번호가 일치하지 않습니다.") {
-        setPasswordWrong(true);
-        openPopup();
-      } else {
-        setPasswordWrong(false);
-        openPopup();
-      }
-    }
+    await login(data);
   };
 
   return (
@@ -89,7 +74,7 @@ function SignIn() {
           <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 로그인" />
         </div>
       </div>
-      {passwordWrong ? (
+      {isPasswordWrong ? (
         <Popup text="비밀번호가 틀렸습니다." onCloseButton="확인" />
       ) : (
         <Popup
