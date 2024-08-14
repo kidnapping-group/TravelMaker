@@ -17,7 +17,7 @@ function LongActivityCard({ bannerImageUrl, title, price, rating, reviewCount }:
       </div>
       <div className="z-10 mx-1 flex flex-col gap-2 text-white">
         <div className="flex items-center gap-1 text-md font-semibold">
-          <Image src="/icons/icon_star_on.svg" alt="별 아이콘" height={16} width={16} />
+          <Image src="/icons/star.svg" alt="별 아이콘" height={16} width={16} />
           <p>{rating.toFixed(1)}</p>
           <p>({reviewCount})</p>
         </div>
