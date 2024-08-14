@@ -40,10 +40,10 @@ const socialLoginStore = create<SocialLoginStoreType>()(
         }),
     }),
     {
-      name: "social-login-store", // 쿠키에 저장될 키 이름
+      name: "social-login-store",
       getStorage: () => ({
         getItem: name => Cookies.get(name) || null,
-        setItem: (name, value) => Cookies.set(name, value, { expires: 7 }), // 쿠키 유효기간 7일
+        setItem: (name, value) => Cookies.set(name, value, { expires: 7 }),
         removeItem: name => Cookies.remove(name),
       }),
     },
