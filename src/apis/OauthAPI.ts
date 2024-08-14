@@ -1,3 +1,4 @@
+import socialLoginStore from "@/store/socialLoginStore";
 import Cookies from "js-cookie";
 
 import { OauthPostRes, OauthSignRes } from "./API.type";
@@ -18,6 +19,14 @@ const OauthAPI = {
     const { accessToken, refreshToken } = data;
     Cookies.set("accessToken", accessToken);
     Cookies.set("refreshToken", refreshToken);
+    socialLoginStore.getState().socialLogin({
+      id: data.user.id,
+      email: data.user.email,
+      nickname: data.user.nickname,
+      profileImageUrl: data.user.profileImageUrl,
+      createdAt: data.user.createdAt,
+      updatedAt: data.user.updatedAt,
+    });
     return data;
   },
   postSignin: async (
@@ -28,6 +37,14 @@ const OauthAPI = {
     const { accessToken, refreshToken } = data;
     Cookies.set("accessToken", accessToken);
     Cookies.set("refreshToken", refreshToken);
+    socialLoginStore.getState().socialLogin({
+      id: data.user.id,
+      email: data.user.email,
+      nickname: data.user.nickname,
+      profileImageUrl: data.user.profileImageUrl,
+      createdAt: data.user.createdAt,
+      updatedAt: data.user.updatedAt,
+    });
     return data;
   },
 };
