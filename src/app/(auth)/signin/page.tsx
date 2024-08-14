@@ -3,13 +3,12 @@
 import authAPI from "@/apis/authAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
-import Popup, { openPopup } from "@/components/Popup";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,7 +25,6 @@ function SignIn() {
     mode: "all",
   });
   const router = useRouter();
-  const [passwordWrong, setPasswordWrong] = useState(false);
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -35,11 +33,9 @@ function SignIn() {
     } catch (error) {
       let err = String(error);
       if (err === "비밀번호가 일치하지 않습니다.") {
-        setPasswordWrong(true);
-        openPopup();
+        openPopup("password");
       } else {
-        setPasswordWrong(false);
-        openPopup();
+        openPopup("unknownUser");
       }
     }
   };
@@ -89,15 +85,20 @@ function SignIn() {
           <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 로그인" />
         </div>
       </div>
-      {passwordWrong ? (
-        <Popup text="비밀번호가 틀렸습니다." onCloseButton="확인" />
-      ) : (
-        <Popup
-          text="유저정보가 존재하지 않습니다.회원가입 페이지로 이동할까요?"
-          onCloseButton="아니요"
-          onChangeButton="네"
-        />
-      )}
+      <Popup
+        id="password"
+        text="비밀번호가 틀렸습니다."
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("password")}
+      />
+      <Popup
+        id="unknownUser"
+        text="유저정보가 존재하지 않습니다.회원가입 페이지로 이동할까요?"
+        leftButton="아니요"
+        onChangeLeftButton={() => closePopup("unknownUser")}
+        rightButton="네"
+        onChangeRightButton={() => router.push("/signup")}
+      />
     </div>
   );
 }
