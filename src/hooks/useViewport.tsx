@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 type ViewPort = "pc" | "tablet" | "mobile";
 
 const useViewport = () => {
-  const [viewport, setViewport] = useState<ViewPort>("tablet");
+  const [viewport, setViewport] = useState<ViewPort>("pc");
 
   useEffect(() => {
     const handleResize = () => {
