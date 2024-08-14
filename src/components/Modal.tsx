@@ -49,4 +49,6 @@ function Modal({ children, title }: ModalProps) {
 }
 
 export const openModal = () => modalToggle?.(true);
+export const closeModal = () => modalToggle?.(false);
+
 export default Modal;
