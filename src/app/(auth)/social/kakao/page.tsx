@@ -27,7 +27,7 @@ function KakaoRedirect() {
         const data = {
           nickname,
           token: code,
-          redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI || "",
+          redirectUri: domain || "",
         };
         try {
           const response = await OauthAPI.postSignup("kakao", data);
@@ -54,7 +54,7 @@ function KakaoRedirect() {
       if (code && alreadyExistKakaoUser) {
         const data = {
           token: code,
-          redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI || "",
+          redirectUri: domain || "",
         };
         const response = await OauthAPI.postSignin("kakao", data);
         if (response) {
