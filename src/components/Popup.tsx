@@ -12,7 +12,7 @@ interface PopupProps {
   onChangeRightButton?: () => void;
 }
 
-const popupControls: { [key: string]: (isOpeㅇn: boolean) => void } = {};
+const popupControls: { [key: string]: (isOpen: boolean) => void } = {};
 
 function Popup({
   id,
