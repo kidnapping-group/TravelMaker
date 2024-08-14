@@ -52,7 +52,7 @@ function Popup({
         <div className="flex w-full justify-center gap-3">
           <Button
             size="wide"
-            variant={rightButton ? "outline" : "default"}
+            variant={rightButton ? "default" : "outline"}
             onClick={handleLeftButtonClick}
           >
             {leftButton}

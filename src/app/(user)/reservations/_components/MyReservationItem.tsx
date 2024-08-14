@@ -1,7 +1,8 @@
 "use client";
 
+import myReservationAPI from "@/apis/myReservationAPI";
 import { Button } from "@/components/Button";
-import Popup from "@/components/Popup";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 import Image from "next/image";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
@@ -60,6 +61,9 @@ function MyReservationItem({ reservation }: { reservation: reservation }) {
     completed: "text-gray-400",
     confirmed: "text-orange-500",
   };
+  const handleCancelReservation = async () => {
+    await myReservationAPI.patch(reservation.id);
+  };
 
   return (
     <div className="relative">
@@ -99,7 +103,7 @@ function MyReservationItem({ reservation }: { reservation: reservation }) {
               <Button
                 variant="outline"
                 size={size}
-                // onClick={handleCancelReservation}
+                onClick={() => openPopup(`cancel-${reservation.id}`)}
               >
                 예약 취소
               </Button>
@@ -117,7 +121,14 @@ function MyReservationItem({ reservation }: { reservation: reservation }) {
             )}
           </div>
         </div>
-        <Popup text="예약을 취소하시겠어요?" onCloseButton="아니요" onChangeButton="취소하기" />
+        <Popup
+          id={`cancel-${reservation.id}`}
+          text="예약을 취소하겠어요?"
+          leftButton="취소하기"
+          onChangeLeftButton={handleCancelReservation}
+          rightButton="아니요"
+          onChangeRightButton={() => closePopup(`cancel-${reservation.id}`)}
+        />
       </div>
     </div>
   );

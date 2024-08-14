@@ -67,10 +67,7 @@ function MyReservations() {
         <div className="h-full w-full flex-grow">
           <div className="h-full">
             {data?.pages.map(page => (
-              <div
-                className="flex h-full flex-col gap-[24px] overflow-y-auto"
-                key={crypto.randomUUID()}
-              >
+              <div className="flex h-full flex-col gap-[24px] overflow-y-auto" key={page.cursorId}>
                 {page.reservations.map(reservation => (
                   <MyReservationItem key={reservation.id} reservation={reservation} />
                 ))}
