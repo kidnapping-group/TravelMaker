@@ -17,7 +17,7 @@ function ShortActivityCard({ bannerImageUrl, title, price, rating, reviewCount }
       </div>
       <div className="mx-1 flex flex-col gap-1">
         <div className="flex items-center gap-[2px] text-xs font-semibold">
-          <Image src="/icons/icon_star_on.svg" alt="별 아이콘" height={14} width={14} />
+          <Image src="icons/star.svg" alt="별 아이콘" height={14} width={14} />
           <p>{rating.toFixed(1)}</p>
           <p className="text-gray-400">({reviewCount})</p>
         </div>
