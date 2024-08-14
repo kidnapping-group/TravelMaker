@@ -59,7 +59,7 @@ function MyActivityItem({ activity }: { activity: activity }) {
               <Image
                 className="cursor-pointer"
                 onClick={handleClickMore}
-                src="/icons/icon_moresee.svg"
+                src="/icons/Icon_moresee.svg"
                 width={40}
                 height={40}
                 alt="수정삭제버튼"
