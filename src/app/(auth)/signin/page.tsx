@@ -26,6 +26,9 @@ function SignIn() {
   });
   const router = useRouter();
 
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/kakao&scope=profile_nickname,profile_image`;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
+
   const onSubmit = async (data: LoginFormData) => {
     try {
       await authAPI.login(data);
@@ -78,12 +81,18 @@ function SignIn() {
         <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
       </div>
       <div className="flex justify-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+        <Link
+          href={GOOGLE_AUTH_URL}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
+        >
           <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 로그인" />
-        </div>
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+        </Link>
+        <Link
+          href={KAKAO_AUTH_URL}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
+        >
           <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 로그인" />
-        </div>
+        </Link>
       </div>
       <Popup
         id="password"
