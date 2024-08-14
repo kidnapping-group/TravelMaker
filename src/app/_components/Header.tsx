@@ -6,6 +6,7 @@ import { useSelectedLayoutSegment } from "next/navigation";
 
 function Header() {
   const segment = useSelectedLayoutSegment();
+
   if (segment === "(auth)") return <div />;
 
   return (
