@@ -10,13 +10,13 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "embla-carousel-react": "^8.1.8",
     "@hookform/resolvers": "^3.9.0",
     "@react-google-maps/api": "^2.19.3",
     "@tanstack/react-query": "^5.51.21",
     "@tanstack/react-query-devtools": "^5.51.21",
     "@types/google.maps": "^3.55.12",
     "axios": "^1.7.2",
-    "embla-carousel-react": "^8.1.8",
     "js-cookie": "^3.0.5",
     "next": "14.2.5",
     "pnpm": "^9.6.0",
