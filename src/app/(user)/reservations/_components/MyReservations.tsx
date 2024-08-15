@@ -10,30 +10,27 @@ import { useState } from "react";
 import MyReservationItem from "./MyReservationItem";
 
 function MyReservations() {
-  const menuItems = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
+  let size = 10;
+  const menuItems = ["전체보기", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
+  const menuItemsStatus = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
   const [status, setStatus] = useState<string | undefined>(undefined);
-
-  const MyReservation = (size = 10) =>
-    useInfiniteQuery<
-      ReservationRes,
-      Error,
-      InfiniteData<ReservationRes>,
-      [string, number, string | null],
-      number | undefined
-    >({
-      queryKey: ["myReservations", size, status ?? null],
-      queryFn: ({ pageParam }: { pageParam?: number }) =>
-        myReservationAPI.get({ cursorId: pageParam, size, status: status || undefined }),
-      initialPageParam: undefined,
-      getNextPageParam: lastBatch => lastBatch.cursorId,
-    });
-  const { data, isLoading, error } = MyReservation();
+  const { data, isLoading, error } = useInfiniteQuery<
+    ReservationRes,
+    Error,
+    InfiniteData<ReservationRes>,
+    [string, number, string | null],
+    number | undefined
+  >({
+    queryKey: ["myReservations", size, status ?? null],
+    queryFn: ({ pageParam }: { pageParam?: number }) =>
+      myReservationAPI.get({ cursorId: pageParam, size, status: status || undefined }),
+    initialPageParam: undefined,
+    getNextPageParam: lastBatch => lastBatch.cursorId,
+  });
   const handleSelectStatus = (selectStatus: string) => {
-    if (selectStatus === "all") {
-      setStatus(undefined);
-    } else {
-      setStatus(selectStatus);
-    }
+    const selectedIndex = menuItems.indexOf(selectStatus);
+    const correspondingStatus = menuItemsStatus[selectedIndex] || "all";
+    setStatus(correspondingStatus === "all" ? undefined : correspondingStatus);
   };
 
   const hasReservations = data?.pages.some(page => page.reservations.length > 0);
