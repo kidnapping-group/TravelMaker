@@ -57,7 +57,7 @@ function DropdownMenu({ activityId }: { activityId: string }) {
         leftButton="확인"
         onChangeLeftButton={() => closePopup("reservationImpossible")}
       />
-      <div className="relative z-10" ref={dropdownRef}>
+      <div className="relative z-[2]" ref={dropdownRef}>
         <button type="button" onClick={toggleDropdown}>
           <Image src="/icons/icon-meatball.svg" alt="수정, 삭제 버튼보기" width={40} height={40} />
         </button>
