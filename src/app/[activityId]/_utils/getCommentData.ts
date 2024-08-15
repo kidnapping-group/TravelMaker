@@ -1,4 +1,4 @@
-import { ActivityReview, getActivitiesReviewsRes } from "@/apis/API.type";
+import { Reviews, getActivitiesReviewsRes } from "@/apis/API.type";
 
 const satisfactionRatings: { [key: number]: string } = {
   1: "매우 불만족",
@@ -30,29 +30,29 @@ export const getCommentAverageRating = (data: getActivitiesReviewsRes) => {
   return data?.averageRating;
 };
 
-export const getCommentReviewUserProfileImg = (data: ActivityReview) => {
+export const getCommentReviewUserProfileImg = (data: Reviews) => {
   if (!data?.user?.profileImageUrl) return "";
   return data?.user?.profileImageUrl;
 };
 
-export const getCommentReviewUserNickname = (data: ActivityReview) => {
+export const getCommentReviewUserNickname = (data: Reviews) => {
   if (!data?.user?.nickname) return "";
   return data?.user?.nickname;
 };
 
-export const getCommentReviewUpdatedAt = (data: ActivityReview) => {
+export const getCommentReviewUpdatedAt = (data: Reviews) => {
   if (!data?.updatedAt) return "";
   return data?.updatedAt;
 };
 
-export const getCommentReviewFormatUpdatedAt = (data: ActivityReview) => {
+export const getCommentReviewFormatUpdatedAt = (data: Reviews) => {
   const updated = getCommentReviewUpdatedAt(data);
   const reviewUpdated = updated.slice(0, 10).split("-").join(".");
 
   return reviewUpdated;
 };
 
-export const getCommentReviewContent = (data: ActivityReview) => {
+export const getCommentReviewContent = (data: Reviews) => {
   if (!data?.content) return "";
   return data?.content;
 };
