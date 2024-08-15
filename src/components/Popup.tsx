@@ -1,40 +1,66 @@
 "use client";
 
-import { Button, LinkButton } from "@/components/Button";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { Button } from "@/components/Button";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface PopupProps {
+  id: string;
   text: string;
-  onCloseButton: string;
-  onChangeButton?: string;
+  leftButton: string;
+  onChangeLeftButton: () => void;
+  rightButton?: string;
+  onChangeRightButton?: () => void;
 }
 
-let popupToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
+const popupControls: { [key: string]: (isOpen: boolean) => void } = {};
 
-function Popup({ text, onCloseButton, onChangeButton }: PopupProps) {
+function Popup({
+  id,
+  text,
+  leftButton,
+  onChangeLeftButton,
+  rightButton,
+  onChangeRightButton,
+}: PopupProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  popupToggle = setIsOpen;
+
+  const controlRef = useRef((e: boolean) => setIsOpen(e));
+
+  useEffect(() => {
+    popupControls[id] = controlRef.current;
+    return () => {
+      delete popupControls[id];
+    };
+  }, [id]);
+
+  const handleLeftButtonClick = useCallback(() => {
+    onChangeLeftButton();
+    setIsOpen(false);
+  }, [onChangeLeftButton]);
+
+  const handleRightButtonClick = useCallback(() => {
+    onChangeRightButton?.();
+    setIsOpen(false);
+  }, [onChangeRightButton]);
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50 px-4">
       <div className="flex w-full max-w-[350px] flex-col items-center rounded-[10px] bg-white p-5">
-        <p className="py-8 text-lg font-medium text-black">{text}</p>
+        <p className="py-8 text-center text-lg font-medium text-black">{text}</p>
         <div className="flex w-full justify-center gap-3">
           <Button
             size="wide"
-            variant={onChangeButton ? "outline" : "default"}
-            onClick={() => setIsOpen(false)}
+            variant={rightButton ? "outline" : "default"}
+            onClick={handleLeftButtonClick}
           >
-            {onCloseButton}
+            {leftButton}
           </Button>
-          {onChangeButton && (
-            <LinkButton size="wide" href={`${pathname}?confirm=1`} onClick={() => setIsOpen(false)}>
-              {onChangeButton}
-            </LinkButton>
+          {rightButton && (
+            <Button size="wide" variant="outline" onClick={handleRightButtonClick}>
+              {rightButton}
+            </Button>
           )}
         </div>
       </div>
@@ -42,5 +68,12 @@ function Popup({ text, onCloseButton, onChangeButton }: PopupProps) {
   );
 }
 
-export const openPopup = () => popupToggle?.(true);
+export const openPopup = (id: string) => {
+  popupControls[id]?.(true);
+};
+
+export const closePopup = (id: string) => {
+  popupControls[id]?.(false);
+};
+
 export default Popup;
