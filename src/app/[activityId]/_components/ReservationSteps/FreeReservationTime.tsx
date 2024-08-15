@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 function FreeReservationTime({ reservationTimes }: { reservationTimes: string[][] }) {
+  const [selectTime, setSelectTime] = useState(false);
+
   return (
     <div>
       <h2 className="mt-4">예약 가능한 시간</h2>
@@ -7,7 +11,8 @@ function FreeReservationTime({ reservationTimes }: { reservationTimes: string[][
           <button
             key={crypto.randomUUID()}
             type="button"
-            className="flex h-11 w-28 items-center justify-center rounded-lg border border-primary-400 text-lg font-medium text-primary-400 focus:bg-primary-400 focus:text-white"
+            onClick={() => setSelectTime(true)}
+            className={`flex h-11 w-28 items-center justify-center rounded-lg border border-primary-400 text-lg font-medium text-primary-400 ${selectTime && "focus:bg-primary-400 focus:text-white"}`}
           >
             {item.join("~")}
           </button>
