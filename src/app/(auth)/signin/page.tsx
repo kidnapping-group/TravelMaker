@@ -8,7 +8,7 @@ import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,14 +26,16 @@ function SignIn() {
     mode: "all",
   });
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const expiredRefreshToken = searchParams.get("expiredRefreshToken");
 
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const expiredRefreshToken = searchParams.get("expiredRefreshToken");
+
     if (expiredRefreshToken === "true") {
       openPopup("signin");
     }
-  }, [expiredRefreshToken]);
+  }, []);
+
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/kakao&scope=profile_nickname,profile_image`;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
 
