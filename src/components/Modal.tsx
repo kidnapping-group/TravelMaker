@@ -42,7 +42,7 @@ function Modal({ children, title }: ModalProps) {
             <Image width={40} height={40} alt="창 닫기" src="/icons/icon-close-black.svg" />
           </button>
         </div>
-        <div className="pc:max-h-[510px]">{children}</div>
+        <div className="max-h-[600px]">{children}</div>
       </div>
     </div>
   );
