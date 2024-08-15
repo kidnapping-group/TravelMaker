@@ -1,4 +1,4 @@
-import { ActivityReview } from "@/apis/API.type";
+import { Reviews } from "@/apis/API.type";
 import {
   getCommentReviewContent,
   getCommentReviewFormatUpdatedAt,
@@ -6,7 +6,7 @@ import {
   getCommentReviewUserProfileImg,
 } from "@/app/[activityId]/_utils/getCommentData";
 
-const useGetCommentItemViewModel = (review: ActivityReview) => ({
+const useGetCommentItemViewModel = (review: Reviews) => ({
   userProfileImg: getCommentReviewUserProfileImg(review),
   reviewUpdated: getCommentReviewFormatUpdatedAt(review),
   reviewContent: getCommentReviewContent(review),
