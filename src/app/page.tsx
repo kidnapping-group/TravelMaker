@@ -13,8 +13,8 @@ async function Home() {
 
   return (
     <main className="flex flex-col items-center">
-      <section className="flex w-full justify-center bg-black bg-opacity-50">
-        <div className="mx-5 flex w-full max-w-[1200px] flex-col gap-8 pb-[50px] pt-[100px]">
+      <section className="flex w-full justify-center bg-black bg-opacity-50 px-5 pc:px-10">
+        <div className="flex w-full max-w-[1200px] flex-col gap-8 pb-[50px] pt-[100px]">
           <div className="font-bold text-white">
             <h2 className="text-3xl">
               함께 배우면 즐거운
@@ -29,8 +29,8 @@ async function Home() {
         </div>
       </section>
 
-      <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col px-5">
-        <section className="flex flex-col">
+      <div className="flex w-full justify-center px-5 pc:px-10">
+        <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col gap-5">
           <h2 className="py-3 text-2lg font-bold text-black">실시간 인기 체험</h2>
           <Swiper>
             {popularActivities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
@@ -45,7 +45,7 @@ async function Home() {
               </Link>
             ))}
           </Swiper>
-        </section>
+        </div>
       </div>
     </main>
   );
