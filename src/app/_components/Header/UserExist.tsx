@@ -1,0 +1,46 @@
+import Dropdown from "@/app/_components/Header/Dropdown";
+import Notification from "@/app/_components/Notification";
+import useDropdownToggle from "@/hooks/useDropdownToggle";
+import { UserInfo } from "@/store/socialLoginStore";
+import deleteUserInfo from "@/utils/deleteUserInfo";
+import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
+
+interface UserExistProps {
+  userInfo: UserInfo;
+  setUserInfo: Dispatch<SetStateAction<UserInfo | undefined>>;
+}
+
+function UserExist({ userInfo, setUserInfo }: UserExistProps) {
+  const { isOpen, dropdownToggle, dropdownRef } = useDropdownToggle();
+
+  const handleLogout = () => {
+    deleteUserInfo();
+    setUserInfo(undefined);
+  };
+
+  return (
+    <div className="relative flex items-center justify-center gap-6 text-sm font-medium">
+      <Notification />
+      <div className="h-8 border-r border-[#DDDDDD]" />
+      <div ref={dropdownRef}>
+        <button type="button" onClick={dropdownToggle} className="flex items-center gap-2">
+          <div className="relative h-8 w-8 rounded-full">
+            <Image
+              src={userInfo?.profileImageUrl || "/icons/noProfile.svg"}
+              alt="프로필 사진"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
+          <div>
+            {userInfo?.nickname}
+            {isOpen && <Dropdown onLogout={handleLogout} />}
+          </div>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+export default UserExist;
