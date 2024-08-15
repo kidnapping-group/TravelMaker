@@ -2,6 +2,7 @@
 
 import DropdownMenuPopup from "@/app/[activityId]/_components/Header/DropdownMenuPopup";
 import useControlDropdownMenu from "@/app/[activityId]/_hooks/useControlDropdownMenu";
+import useControlPopup from "@/app/[activityId]/_hooks/useControlPopup";
 import { openPopup } from "@/components/Popup";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,16 +10,8 @@ import { useRouter } from "next/navigation";
 
 function DropdownMenu({ activityId }: { activityId: string }) {
   const router = useRouter();
-  const {
-    isOpen,
-    setIsOpen,
-    dropdownRef,
-    toggleDropdown,
-    handleDelete,
-    isReservation,
-    isUser,
-    userId,
-  } = useControlDropdownMenu();
+  const { isOpen, setIsOpen, dropdownRef, toggleDropdown, handleDelete } = useControlDropdownMenu();
+  const { isReservation, isUser, userId } = useControlPopup();
 
   const createPopupType = () => {
     if (!userId) {
