@@ -1,5 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
+import { redirect } from "next/navigation";
 
 import handleAxiosError from "./ApiError";
 
@@ -47,8 +48,10 @@ axiosInstance.interceptors.response.use(
         const response = await axiosInstance(prevRequest);
         return response;
       } catch (refreshError) {
-        handleAxiosError(refreshError);
-        return Promise.reject(refreshError);
+        Cookies.remove("refreshToken");
+        Cookies.remove("accessToken");
+        Cookies.remove("social-login-store");
+        redirect("/signin?expiredRefreshToken=true");
       }
     }
     handleAxiosError(error);

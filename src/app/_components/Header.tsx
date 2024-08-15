@@ -1,13 +1,26 @@
 "use client";
 
+import { Button } from "@/components/Button";
+
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { useRouter, useSelectedLayoutSegment } from "next/navigation";
+
+// js-cookie import
 
 function Header() {
   const segment = useSelectedLayoutSegment();
+  const router = useRouter();
 
   if (segment === "(auth)") return <div />;
+
+  const handleLogout = async () => {
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+    Cookies.remove("social-login-store");
+    router.push("/");
+  };
 
   return (
     <div className="sticky top-0 z-10 bg-white">
@@ -16,6 +29,10 @@ function Header() {
           <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
         </Link>
         <div className="flex items-center justify-center gap-6 text-sm font-medium">
+          <Button size="small" variant="default" onClick={handleLogout}>
+            로그아웃
+          </Button>
+
           <Link href="/signin">로그인</Link>
           <Link href="/signup">회원가입</Link>
         </div>
