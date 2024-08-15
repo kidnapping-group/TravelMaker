@@ -15,11 +15,17 @@ function DropdownMenu({ activityId }: { activityId: string }) {
     toggleDropdown,
     handleDelete,
     isReservation,
-    isMyActivityId,
+    isUser,
+    userId,
   } = useControlDropdownMenu();
 
   const createPopupType = () => {
-    if (!isMyActivityId) {
+    if (!userId) {
+      openPopup("noUser");
+      return;
+    }
+
+    if (!isUser) {
       openPopup("noMyActivity");
     } else if (isReservation) {
       openPopup("reservationPossible");
@@ -37,6 +43,14 @@ function DropdownMenu({ activityId }: { activityId: string }) {
 
   return (
     <>
+      <Popup
+        id="noUser"
+        text="로그인 후에 삭제가 가능합니다."
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("noUser")}
+        rightButton="로그인"
+        onChangeRightButton={() => router.push("/signin")}
+      />
       <Popup
         id="noMyActivity"
         text="본인의 체험만 삭제가 가능합니다."

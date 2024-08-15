@@ -45,6 +45,11 @@ export const getActivityPrice = (data: getActivitiesInfoRes) => {
   return data?.price;
 };
 
+export const getActivityUserId = (data: getActivitiesInfoRes) => {
+  if (!data?.userId) return 0;
+  return data?.userId;
+};
+
 export const getActivityTotalImages = (data: getActivitiesInfoRes) => {
   const bannerImage = getActivityBannerImage(data);
   const subImages = getActivitySubImages(data);

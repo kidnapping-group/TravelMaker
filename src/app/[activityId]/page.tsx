@@ -6,17 +6,8 @@ import ReservationModal from "@/app/[activityId]/_components/ReservationModal";
 import ReservationSteps from "@/app/[activityId]/_components/ReservationSteps";
 import Review from "@/app/[activityId]/_components/Review";
 import { ActivityIdProvider } from "@/app/[activityId]/_contexts/ActivityIdContext";
-import { redirect } from "next/navigation";
 
-interface ActivityIdParams {
-  params: { activityId: string };
-  searchParams: Record<string, string | string[]>;
-}
-
-function ActivityId({ params: { activityId }, searchParams }: ActivityIdParams) {
-  if (searchParams.confirm) {
-    redirect("reservation");
-  }
+function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
   return (
     <div className="bg-primary-50">
       <ActivityIdProvider activityId={activityId}>
