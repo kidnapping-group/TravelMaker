@@ -1,67 +1,37 @@
 "use client";
 
+import { Reservations } from "@/apis/API.type";
 import myReservationAPI from "@/apis/myReservationAPI";
 import { Button } from "@/components/Button";
 import Modal, { openModal } from "@/components/Modal";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import Link from "next/link";
-import { useMediaQuery } from "react-responsive";
+
 import Review from "./review/Review";
 
-interface reservation {
-  id: number;
-  teamId: string;
-  userId: number;
-  activity: {
-    bannerImageUrl: string;
-    title: string;
-    id: number;
-  };
-  scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
-  reviewSubmitted: boolean;
-  totalPrice: number;
-  headCount: number;
-  date: string;
-  startTime: string;
-  endTime: string;
-  createdAt: string;
-  updatedAt: string;
-}
+function MyReservationItem({ reservation }: { reservation: Reservations }) {
+  const { isMobile, isTablet, isPc } = useMediaQuery();
 
-function MyReservationItem({ reservation }: { reservation: reservation }) {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1199 });
+  let size: "small" | "medium" | "large" = "small";
 
-  let size: "small" | "medium" | "large";
-
-  switch (true) {
-    case isMobile:
-      size = "small";
-      break;
-    case isTablet:
-      size = "medium";
-      break;
-    default:
-      size = "large";
-      break;
+  if (isMobile) {
+    size = "small";
+  }
+  if (isTablet) {
+    size = "medium";
+  }
+  if (isPc) {
+    size = "large";
   }
 
-  const statusTitles = {
-    pending: "예약 신청",
-    canceled: "예약 취소",
-    declined: "예약 거절",
-    completed: "체험 완료",
-    confirmed: "예약 승인",
-  };
-
-  const statusStyle = {
-    pending: "text-blue-500",
-    canceled: "text-gray-200",
-    declined: "text-red-500",
-    completed: "text-gray-400",
-    confirmed: "text-orange-500",
+  const status = {
+    pending: { title: "예약 신청", style: "text-blue-500" },
+    canceled: { title: "예약 취소", style: "text-gray-200" },
+    declined: { title: "예약 거절", style: "text-red-500" },
+    completed: { title: "체험 완료", style: "text-gray-400" },
+    confirmed: { title: "예약 승인", style: "text-orange-500" },
   };
   const handleCancelReservation = async () => {
     await myReservationAPI.patch(reservation.id);
@@ -85,8 +55,10 @@ function MyReservationItem({ reservation }: { reservation: reservation }) {
           </Link>
         </div>
         <div className="flex flex-grow flex-col py-[9px] pl-2 pr-[15px] tablet:py-[12px] tablet:pl-3 tablet:pr-[18px] pc:px-6 pc:py-[21px]">
-          <p className={`text-md font-bold ${statusStyle[reservation.status]} py-[1px] pc:text-lg`}>
-            {statusTitles[reservation.status]}
+          <p
+            className={`text-md font-bold ${status[reservation.status].style} py-[1px] pc:text-lg`}
+          >
+            {status[reservation.status].title}
           </p>
           <Link href={`/${reservation.activity.id}`}>
             <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap py-[1px] text-md font-bold hover:underline tablet:text-lg pc:py-2 pc:text-xl">
