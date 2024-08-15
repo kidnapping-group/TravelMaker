@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMediaQuery } from "react-responsive";
 
-import Review from "./review/page";
+import Review from "./review/Review";
 
 function MyReservationItem({ reservation }: { reservation: Reservations }) {
   const isMobile = useMediaQuery({ maxWidth: 767 });
