@@ -4,8 +4,8 @@ import SearchForm from "@/app/_components/SearchForm";
 async function Home() {
   return (
     <main className="flex flex-col items-center">
-      <section className="flex w-full justify-center bg-black bg-opacity-50">
-        <div className="flex w-full max-w-[1200px] flex-col gap-8 px-5 pb-[50px] pt-[100px]">
+      <section className="flex w-full justify-center bg-black bg-opacity-50 px-5 pc:px-10">
+        <div className="flex w-full max-w-[1200px] flex-col gap-8 pb-[50px] pt-[100px]">
           <div className="font-bold text-white">
             <h2 className="text-3xl">
               함께 배우면 즐거운
@@ -20,7 +20,7 @@ async function Home() {
         </div>
       </section>
 
-      <div className="flex w-full justify-center px-5">
+      <div className="flex w-full justify-center px-5 pc:px-10">
         <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col gap-5">
           <ActivitySection title="새로 오픈한 체험" sort="latest" />
           <ActivitySection title="일상을 풍요롭게 만드는 특별한 경험 🎨🎶" category="arts" />
