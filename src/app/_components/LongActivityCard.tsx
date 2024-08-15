@@ -22,8 +22,8 @@ function LongActivityCard({ bannerImageUrl, title, price, rating, reviewCount }:
           <p>({reviewCount})</p>
         </div>
         <h3 className="line-clamp-2 h-16 text-xl font-bold">{title}</h3>
-        <p className="text-md font-medium text-gray-400">
-          <strong className="font-bold text-white">₩ {price.toLocaleString()}</strong> / 인
+        <p className="text-md font-medium">
+          <strong className="font-bold">₩ {price.toLocaleString()}</strong> / 인
         </p>
       </div>
     </article>
