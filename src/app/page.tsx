@@ -1,16 +1,7 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import BigActivityCard from "@/app/_components/BigActivityCard";
+import BigActivitySection from "@/app/_components/BigActivitySection";
 import SearchForm from "@/app/_components/SearchForm";
-import Swiper from "@/components/Swiper";
-import Link from "next/link";
 
 async function Home() {
-  const { activities: popularActivities } = await activitiesAPI.get({
-    sort: "most_reviewed",
-    page: 1,
-    size: 10,
-  });
-
   return (
     <main className="flex flex-col items-center">
       <section className="flex w-full justify-center bg-black bg-opacity-50 px-5 pc:px-10">
@@ -31,20 +22,7 @@ async function Home() {
 
       <div className="flex w-full justify-center px-5 pc:px-10">
         <div className="mb-[100px] mt-[50px] flex w-full max-w-[1200px] flex-col gap-5">
-          <h2 className="py-3 text-2lg font-bold text-black">실시간 인기 체험</h2>
-          <Swiper>
-            {popularActivities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
-              <Link href={`/${id}`} key={id}>
-                <BigActivityCard
-                  bannerImageUrl={bannerImageUrl}
-                  title={title}
-                  price={price}
-                  rating={rating}
-                  reviewCount={reviewCount}
-                />
-              </Link>
-            ))}
-          </Swiper>
+          <BigActivitySection title="실시간 인기 체험" sort="most_reviewed" />
         </div>
       </div>
     </main>
