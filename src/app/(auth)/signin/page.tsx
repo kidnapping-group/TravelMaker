@@ -3,13 +3,12 @@
 import authAPI from "@/apis/authAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
-import Popup, { openPopup } from "@/components/Popup";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -26,7 +25,9 @@ function SignIn() {
     mode: "all",
   });
   const router = useRouter();
-  const [passwordWrong, setPasswordWrong] = useState(false);
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/kakao&scope=profile_nickname,profile_image`;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   const onSubmit = async (data: LoginFormData) => {
     try {
@@ -35,11 +36,9 @@ function SignIn() {
     } catch (error) {
       let err = String(error);
       if (err === "비밀번호가 일치하지 않습니다.") {
-        setPasswordWrong(true);
-        openPopup();
+        openPopup("password");
       } else {
-        setPasswordWrong(false);
-        openPopup();
+        openPopup("unknownUser");
       }
     }
   };
@@ -82,22 +81,33 @@ function SignIn() {
         <hr className="w-[100px] border-gray-300 tablet:w-[180px]" />
       </div>
       <div className="flex justify-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+        <Link
+          href={GOOGLE_AUTH_URL}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
+        >
           <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 로그인" />
-        </div>
-        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300">
+        </Link>
+        <Link
+          href={KAKAO_AUTH_URL}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
+        >
           <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 로그인" />
-        </div>
+        </Link>
       </div>
-      {passwordWrong ? (
-        <Popup text="비밀번호가 틀렸습니다." onCloseButton="확인" />
-      ) : (
-        <Popup
-          text="유저정보가 존재하지 않습니다.회원가입 페이지로 이동할까요?"
-          onCloseButton="아니요"
-          onChangeButton="네"
-        />
-      )}
+      <Popup
+        id="password"
+        text="비밀번호가 틀렸습니다."
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("password")}
+      />
+      <Popup
+        id="unknownUser"
+        text="유저정보가 존재하지 않습니다.회원가입 페이지로 이동할까요?"
+        leftButton="아니요"
+        onChangeLeftButton={() => closePopup("unknownUser")}
+        rightButton="네"
+        onChangeRightButton={() => router.push("/signup")}
+      />
     </div>
   );
 }
