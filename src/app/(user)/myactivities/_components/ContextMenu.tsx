@@ -1,10 +1,8 @@
-'use client'
+"use client";
 
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import { openPopup } from "@/components/Popup";
 import { useQueryClient } from "@tanstack/react-query";
-import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 function ContextMenu({
   activityId,
@@ -15,21 +13,13 @@ function ContextMenu({
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const searchParams = useSearchParams();
-  const confirm = searchParams.get("confirm");
-
-  useEffect(() => {
-    if (confirm) {
-      myActivitiesAPI.delete(activityId);
-    }
-  }, [confirm]);
 
   const handleClickEdit = () => {
     router.push(`/myactivity/edit/${activityId}`);
   };
 
   const handleClickDelete = async () => {
-    openPopup();
+    openPopup("cancel");
 
     onCloseContext();
     queryClient.invalidateQueries({ queryKey: ["myActivities"] });
