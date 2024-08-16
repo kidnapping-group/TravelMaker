@@ -7,26 +7,23 @@ import Modal, { openModal } from "@/components/Modal";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import Image from "next/image";
 import Link from "next/link";
-import { useMediaQuery } from "react-responsive";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 import Review from "./review/Review";
 
 function MyReservationItem({ reservation }: { reservation: Reservations }) {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1199 });
+  const { isMobile, isTablet, isPc } = useMediaQuery();
 
-  let size: "small" | "medium" | "large";
+  let size: "small" | "medium" | "large" = "small";
 
-  switch (true) {
-    case isMobile:
-      size = "small";
-      break;
-    case isTablet:
-      size = "medium";
-      break;
-    default:
-      size = "large";
-      break;
+  if (isMobile) {
+    size = "small";
+  }
+  if (isTablet) {
+    size = "medium";
+  }
+  if (isPc) {
+    size = "large";
   }
 
   const statusTitles = {
