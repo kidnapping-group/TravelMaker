@@ -1,5 +1,5 @@
 import Navigation from "@/app/(user)/_components/Navigation";
-import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 function UserRootLayout({
@@ -7,7 +7,7 @@ function UserRootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = cookies().get("accessToken");
 
   if (!accessToken) {
     redirect("/signin");
@@ -20,7 +20,7 @@ function UserRootLayout({
           <div className="top-[200px]">
             <Navigation />
           </div>
-          <div className="flex w-full max-w-[800px] justify-center bg-gray-300">{children}</div>
+          <div className="flex w-full max-w-[800px] justify-center bg-gray-100">{children}</div>
         </div>
       </div>
     </div>
