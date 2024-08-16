@@ -1,5 +1,5 @@
 import activitiesAPI from "@/apis/activitiesAPI";
-import ShortActivityCard from "@/app/_components/ShortActivityCard";
+import ActivityCard from "@/app/_components/ActivityCard";
 import Swiper from "@/components/Swiper";
 import Link from "next/link";
 
@@ -40,7 +40,7 @@ async function ActivitySection({
         <Swiper>
           {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
             <Link href={`/${id}`} key={id}>
-              <ShortActivityCard
+              <ActivityCard
                 bannerImageUrl={bannerImageUrl}
                 title={title}
                 price={price}
