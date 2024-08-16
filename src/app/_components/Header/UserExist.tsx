@@ -20,7 +20,7 @@ function UserExist({ userInfo, setUserInfo }: UserExistProps) {
   };
 
   return (
-    <div className="relative flex items-center justify-center gap-6 text-sm font-medium">
+    <div className="relative flex items-center justify-center gap-3 text-sm font-medium tablet:gap-6">
       <Notification />
       <div className="h-8 border-r border-[#DDDDDD]" />
       <div ref={dropdownRef}>
