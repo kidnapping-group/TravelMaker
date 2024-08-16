@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface Props {
+interface ActivityCardProps {
   bannerImageUrl: string;
   title: string;
   price: number;
@@ -8,7 +8,7 @@ interface Props {
   reviewCount: number;
 }
 
-function ActivityCard({ bannerImageUrl, title, price, rating, reviewCount }: Props) {
+function ActivityCard({ bannerImageUrl, title, price, rating, reviewCount }: ActivityCardProps) {
   return (
     <article className="relative flex w-[240px] flex-col gap-4 pb-2 pc:w-auto">
       <div className="group relative aspect-video w-full overflow-hidden rounded-[10px]">

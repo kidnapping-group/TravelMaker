@@ -3,7 +3,7 @@ import ActivityCard from "@/app/_components/ActivityCard";
 import Swiper from "@/components/Swiper";
 import Link from "next/link";
 
-interface Props {
+interface ActivitySectionProps {
   title: string;
   category?: "arts" | "food" | "sports" | "tour" | "sightseeing" | "wellbeing";
   keyword?: string;
@@ -24,7 +24,7 @@ async function ActivitySection({
   category,
   keyword,
   sort = "most_reviewed",
-}: Props) {
+}: ActivitySectionProps) {
   const { activities, totalCount } = await activitiesAPI.get({
     category: category && categoryTitle[category],
     keyword,
