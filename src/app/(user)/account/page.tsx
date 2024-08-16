@@ -1,9 +1,11 @@
 "use client";
 
 import userAPI from "@/apis/usersAPI";
+import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,40 +28,85 @@ const accountSchema = baseSchema
   });
 
 function Account() {
+  const [profileImage, setProfileImage] = useState<string>("");
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, touchedFields },
+    reset,
   } = useForm<AccountFormData>({
     resolver: zodResolver(accountSchema),
     mode: "all",
   });
 
-  const [userData, setUserData] = useState<UserData>({
-    nickname: "",
-    email: "",
-    profileImageUrl: "",
+  const { data: userData, refetch } = useQuery<UserData>({
+    queryKey: ["userData"],
+    queryFn: userAPI.getUsers,
   });
 
+  const userDataPatchMutation = useMutation({
+    mutationFn: userAPI.patchUsers,
+  });
+
+  const imagePostMutation = useMutation({
+    mutationFn: userAPI.postUsersImage,
+    onSuccess: () => {
+      refetch();
+    },
+  });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("image", file);
+
+      imagePostMutation.mutate(formData, {
+        onSuccess: data => {
+          const imageUrl = data.profileImageUrl;
+          setProfileImage(imageUrl);
+        },
+      });
+    }
+  };
+
+  const handleImageReset = async () => {
+    const response = await fetch("/images/defaultProfile.png");
+    const blob = await response.blob();
+    const defaultFile = new File([blob], "defaultProfile.png", { type: "image/png" });
+
+    const formData = new FormData();
+    formData.append("image", defaultFile);
+
+    imagePostMutation.mutate(formData, {
+      onSuccess: data => {
+        const imageUrl = data.profileImageUrl;
+        setProfileImage(imageUrl);
+      },
+    });
+  };
+
   const onSubmit = async (data: AccountFormData) => {
-    await userAPI.patchUsers({
+    userDataPatchMutation.mutate({
       nickname: data?.nickname,
       newPassword: data?.password,
-      profileImageUrl: data?.profileImageUrl,
+      profileImageUrl: profileImage,
     });
   };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const data = await userAPI.getUsers();
-      setUserData({
-        nickname: data.nickname,
-        email: data.email,
-        profileImageUrl: data.profileImageUrl,
-      });
-    };
-    fetchUserData();
-  }, []);
+    if (userData?.profileImageUrl === null) {
+      setProfileImage("/images/defaultProfile.png");
+    } else {
+      setProfileImage(userData?.profileImageUrl || "/images/defaultProfile.png");
+    }
+    reset({
+      nickname: "",
+      password: "",
+      confirmPassword: "",
+    });
+  }, [userData, reset]);
 
   return (
     <div>
@@ -67,16 +114,18 @@ function Account() {
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-[400px] flex-col gap-[10px] tablet:w-[700px] pc:w-[700px]"
       >
-        <div className="flex items-center gap-[100px]">
+        <div className="flex items-center gap-[80px] tablet:gap-[100px] pc:gap-[100px]">
           <ProfileEditor
-            profileImageUrl={userData.profileImageUrl}
             register={register("profileImageUrl")}
+            profileImage={profileImage}
+            handleImageChange={handleImageChange}
+            handleImageReset={handleImageReset}
           />
           <div className="flex flex-col">
             <h1 className="text-[30px] font-semibold text-primary-600 tablet:text-[40px] pc:text-[40px]">
-              {userData.nickname}
+              {userData?.nickname || "닉네임"}
             </h1>
-            <p className="text-[20px] text-primary-600">{userData.email}</p>
+            <p className="text-[20px] text-primary-600">{userData?.email || "이메일"}</p>
           </div>
         </div>
 
@@ -109,13 +158,9 @@ function Account() {
           error={errors.confirmPassword}
           touched={touchedFields.confirmPassword}
         />
-        <button
-          type="submit"
-          disabled={!isValid}
-          className="hover:bg-blue-700 focus: mt-[30px] h-[45px] w-[120px] justify-end rounded-[10px] bg-blue-500 text-[14px] font-semibold leading-[24px] text-white outline-primary-600 focus:bg-primary-600 disabled:bg-gray-300"
-        >
+        <Button type="submit" size="medium" disabled={!isValid}>
           수정
-        </button>
+        </Button>
       </form>
     </div>
   );

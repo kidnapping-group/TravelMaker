@@ -1,60 +1,64 @@
-import userAPI from "@/apis/usersAPI";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {
-  profileImageUrl: string | null;
+  profileImage: string | null;
   register: UseFormRegisterReturn;
+  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImageReset: () => void;
 }
 
-function ProfileEditor({ profileImageUrl, register }: Props) {
+function ProfileEditor({ register, profileImage, handleImageChange, handleImageReset }: Props) {
+  const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<string | null>(profileImageUrl);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const toggleButtons = () => {
+    setIsOpen(!isOpen);
+  };
 
   const handleInputClick = () => inputRef.current?.click();
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append("image", file);
-
-      try {
-        const response = await userAPI.postUsersImage(formData);
-
-        const imageUrl = response.profileImageUrl;
-        setImage(imageUrl);
-
-        // eslint-disable-next-line no-console
-        console.log("업로드된 이미지 URL:", imageUrl);
-        register.onChange(e);
-      } catch (error) {
-        // cosole.error("이미지 업로드 실패:", error);
-      }
-    }
-  };
-
-  const handleImageReset = () => {
-    setImage(null);
-
+  const handleResetAndClearInput = () => {
+    handleImageReset();
     if (inputRef.current) {
       inputRef.current.value = "";
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative h-[130px] w-[130px] rounded-full tablet:h-[200px] tablet:w-[200px] pc:h-[200px] pc:w-[200px]">
+    <div
+      ref={containerRef}
+      className="relative h-[130px] w-[130px] rounded-full tablet:h-[200px] tablet:w-[200px] pc:h-[200px] pc:w-[200px]"
+    >
       <Image
-        src={image || "/icons/icon-profile.svg"}
-        alt={image ? "업로드 이미지" : "기본 이미지"}
+        src={profileImage || "/images/defaultProfile.png"}
+        alt={profileImage ? "업로드 이미지" : "기본 이미지"}
         width={200}
         height={200}
         priority
-        className="h-[100px] w-[100px] rounded-full tablet:h-[200px] tablet:w-[200px] pc:h-[200px] pc:w-[200px]"
+        className="h-[120px] w-[120px] rounded-full tablet:h-[200px] tablet:w-[200px] pc:h-[200px] pc:w-[200px]"
       />
       <div className="absolute bottom-0 right-0">
-        <button type="button" className="rounded-full bg-primary-600 p-4">
+        <button
+          type="button"
+          className="rounded-full bg-primary-600 p-4 hover:bg-primary-800"
+          onClick={toggleButtons}
+        >
           <Image
             src="/icons/icon-setting-white.svg"
             alt="프로필 수정 더보기 아이콘"
@@ -66,7 +70,11 @@ function ProfileEditor({ profileImageUrl, register }: Props) {
 
         <button
           type="button"
-          className="absolute left-[80px] top-[-60px] h-[50px] w-[50px] rounded-full bg-primary-500 p-4"
+          className={`absolute left-[65px] top-[-20px] h-[50px] w-[50px] rounded-full bg-primary-500 p-4 transition-all duration-300 ease-in-out hover:bg-primary-700 ${
+            isOpen
+              ? "translate-x-[10px] translate-y-[-40px] scale-100 opacity-100"
+              : "scale-50 opacity-0"
+          }`}
           onClick={handleInputClick}
         >
           <Image
@@ -88,8 +96,12 @@ function ProfileEditor({ profileImageUrl, register }: Props) {
 
         <button
           type="button"
-          className="absolute left-[80px] top-[10px] h-[50px] w-[50px] rounded-full bg-primary-500 p-4"
-          onClick={handleImageReset}
+          className={`absolute left-[65px] top-[40px] h-[50px] w-[50px] rounded-full bg-primary-500 p-4 transition-all duration-300 ease-in-out hover:bg-primary-700 ${
+            isOpen
+              ? "translate-x-[10px] translate-y-[-30px] scale-100 opacity-100"
+              : "scale-50 opacity-0"
+          }`}
+          onClick={handleResetAndClearInput}
         >
           <Image
             src="/icons/icon-back.svg"
