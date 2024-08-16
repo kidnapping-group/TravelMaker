@@ -1,5 +1,5 @@
 import activitiesAPI from "@/apis/activitiesAPI";
-import LongActivityCard from "@/app/_components/LongActivityCard";
+import BigActivityCard from "@/app/_components/BigActivityCard";
 import SearchForm from "@/app/_components/SearchForm";
 import Swiper from "@/components/Swiper";
 import Link from "next/link";
@@ -35,7 +35,7 @@ async function Home() {
           <Swiper>
             {popularActivities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
               <Link href={`/${id}`} key={id}>
-                <LongActivityCard
+                <BigActivityCard
                   bannerImageUrl={bannerImageUrl}
                   title={title}
                   price={price}

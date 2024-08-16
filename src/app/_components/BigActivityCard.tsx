@@ -8,7 +8,7 @@ interface Props {
   reviewCount: number;
 }
 
-function LongActivityCard({ bannerImageUrl, title, price, rating, reviewCount }: Props) {
+function BigActivityCard({ bannerImageUrl, title, price, rating, reviewCount }: Props) {
   return (
     <article className="group relative flex aspect-square w-[240px] flex-col justify-end overflow-hidden rounded-[10px] p-5 pc:w-auto">
       <div>
@@ -30,4 +30,4 @@ function LongActivityCard({ bannerImageUrl, title, price, rating, reviewCount }:
   );
 }
 
-export default LongActivityCard;
+export default BigActivityCard;
