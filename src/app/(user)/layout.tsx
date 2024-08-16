@@ -12,6 +12,7 @@ function UserRootLayout({
   if (!accessToken) {
     redirect("/signin");
   }
+
   return (
     <div className="relative bg-gray-100">
       <div className="h-100vh fixed inset-0 box-border flex justify-center bg-gray-100 pt-[110px] pc:pt-[75px]">
@@ -19,10 +20,11 @@ function UserRootLayout({
           <div className="top-[200px]">
             <Navigation />
           </div>
-          <div className="flex w-full max-w-[800px] justify-center bg-gray-300">{children}</div>
+          <div className="flex w-full max-w-[800px] justify-center bg-gray-100">{children}</div>
         </div>
       </div>
     </div>
   );
 }
+
 export default UserRootLayout;
