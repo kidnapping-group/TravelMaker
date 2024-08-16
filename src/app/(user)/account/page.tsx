@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import ProfileUploader from "../_components/ProfileUploader";
+import ProfileEditor from "../_components/ProfileEditor";
 
 type UserData = {
   nickname: string;
@@ -68,7 +68,7 @@ function Account() {
         className="flex w-[400px] flex-col gap-[10px] tablet:w-[700px] pc:w-[700px]"
       >
         <div className="flex items-center gap-[100px]">
-          <ProfileUploader
+          <ProfileEditor
             profileImageUrl={userData.profileImageUrl}
             register={register("profileImageUrl")}
           />

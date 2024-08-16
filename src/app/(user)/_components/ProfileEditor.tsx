@@ -8,7 +8,7 @@ interface Props {
   register: UseFormRegisterReturn;
 }
 
-function ProfileUploader({ profileImageUrl, register }: Props) {
+function ProfileEditor({ profileImageUrl, register }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [image, setImage] = useState<string | null>(profileImageUrl);
 
@@ -104,4 +104,4 @@ function ProfileUploader({ profileImageUrl, register }: Props) {
   );
 }
 
-export default ProfileUploader;
+export default ProfileEditor;
