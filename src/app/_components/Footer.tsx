@@ -1,35 +1,26 @@
-import Image from 'next/image';
-import Link from 'next/link';
-
 function Footer() {
   return (
-    <footer className="bg-green text-white pt-8 pb-16 h-40 ">
-        <div className="flex mx-auto items-center justify-center flex-col gap-y-6 tablet:flex-row gap-x-14 pc:gap-x-96">
-            <div className="flex flex-row gap-x-3 tablet:gap-x-14 pc:gap-x-96">
-                <div>&copy;TravelMaker-2024</div>
-                <div className="flex flex-row gap-x-7">
-                    <div>Privacy Policy</div>
-                    <div>FAQ</div>
-                </div>
-            </div>
-            <div className="flex flex-row gap-x-3">
-                <Link href="https://www.facebook.com">
-                    <Image src="/icons/icon-facebook.svg" width={20} height={20} alt="페이스북" priority/>
-                </Link>
-                <Link href="https://x.com/?lang=ko">
-                    <Image src="/icons/icon-twitter.svg" width={20} height={20} alt="트위터" priority/>
-                </Link>
-                <Link href="https://www.youtube.com/">
-                    <Image src="/icons/icon-youtube.svg" width={20} height={20} alt="유튜브" priority/>
-                </Link>
-                <Link href="https://www.instagram.com/">
-                    <Image src="/icons/icon-instagram.svg" width={20} height={20} alt="인스타그램" priority/>
-                </Link>
-            </div>
+    <footer className="flex w-full justify-center bg-gray-100 px-5 pb-16 pt-10 text-xs text-gray-400 pc:px-10">
+      <div className="flex w-full max-w-[1200px] flex-col">
+        <p className="font-medium text-gray-500">주식회사 유괴단</p>
+        <p>주소 : 서울특별시 을지로3가역 12번 출구 하얀 봉고차</p>
+        <div className="flex gap-4">
+          <p>고객센터 : 오후 10시 ~ 오전 6시 (주말, 공휴일 포함)</p>
+          <p>
+            연락처 :{" "}
+            <a href="https://github.com/kidnapping-group" target="_blank">
+              github.com/kidnapping-group
+            </a>
+          </p>
         </div>
-        
+        <p>
+          유괴단은 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 상품, 상품정보, 거래에 관한
+          의무와 책임은 판매자에게 있습니다.
+        </p>
+        <p className="mt-5">Copyright KIDNAP Corp. All rights cunningly taken.</p>
+      </div>
     </footer>
   );
-};
+}
 
 export default Footer;
