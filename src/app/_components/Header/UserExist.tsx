@@ -12,7 +12,7 @@ interface UserExistProps {
 }
 
 function UserExist({ userInfo, setUserInfo }: UserExistProps) {
-  const { isOpen, dropdownToggle, dropdownRef } = useDropdownToggle();
+  const { isOpen, toggleDropdown, dropdownRef } = useDropdownToggle();
 
   const handleLogout = () => {
     deleteUserInfo();
@@ -24,7 +24,7 @@ function UserExist({ userInfo, setUserInfo }: UserExistProps) {
       <Notification />
       <div className="h-8 border-r border-[#DDDDDD]" />
       <div ref={dropdownRef}>
-        <button type="button" onClick={dropdownToggle} className="flex items-center gap-2">
+        <button type="button" onClick={toggleDropdown} className="flex items-center gap-2">
           <div className="relative h-8 w-8 rounded-full">
             <Image
               src={userInfo?.profileImageUrl || "/icons/noProfile.svg"}

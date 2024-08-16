@@ -1,6 +1,6 @@
 "use server";
 
-import HeaderLayout from "@/app/_components/Header/HeaderLayout";
+import DynamicHeader from "@/app/_components/Header/DynamicHeader";
 import getUserInfoFromCookie from "@/utils/getUserInfoFromCookie";
 
 function Header() {
@@ -9,7 +9,7 @@ function Header() {
 
   return (
     <div className="sticky top-0 z-20 bg-white">
-      <HeaderLayout initialUserInfo={userInfo} />
+      <DynamicHeader initialUserInfo={userInfo} />
     </div>
   );
 }

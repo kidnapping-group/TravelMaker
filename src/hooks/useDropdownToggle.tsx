@@ -4,7 +4,7 @@ const useDropdownToggle = () => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const dropdownToggle = () => {
+  const toggleDropdown = () => {
     setIsOpen(prev => !prev);
   };
 
@@ -20,7 +20,7 @@ const useDropdownToggle = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  return { isOpen, dropdownToggle, dropdownRef };
+  return { isOpen, toggleDropdown, dropdownRef };
 };
 
 export default useDropdownToggle;

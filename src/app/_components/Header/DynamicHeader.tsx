@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useSelectedLayoutSegment } from "next/navigation";
 import { useEffect, useState } from "react";
 
-function HeaderLayout({ initialUserInfo }: { initialUserInfo?: UserInfo }) {
+function DynamicHeader({ initialUserInfo }: { initialUserInfo?: UserInfo }) {
   const segment = useSelectedLayoutSegment();
   const [userInfo, setUserInfo] = useState<UserInfo | undefined>(initialUserInfo);
 
@@ -30,4 +30,4 @@ function HeaderLayout({ initialUserInfo }: { initialUserInfo?: UserInfo }) {
   );
 }
 
-export default HeaderLayout;
+export default DynamicHeader;
