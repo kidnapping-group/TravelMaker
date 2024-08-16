@@ -9,16 +9,28 @@ const useMediaQuery = () => {
   const [isPc, setIsPc] = useState(false);
 
   useEffect(() => {
-    const updateMediaQuery = () => {
-      const width = window.innerWidth;
-      setIsMobile(width < 768);
-      setIsTablet(width >= 768 && width < 1200);
-      setIsPc(width >= 1200);
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+    const tabletQuery = window.matchMedia("(min-width: 768px) and (max-width: 1199px)");
+    const pcQuery = window.matchMedia("(min-width: 1200px)");
+
+    const updateMatches = () => {
+      setIsMobile(mobileQuery.matches);
+      setIsTablet(tabletQuery.matches);
+      setIsPc(pcQuery.matches);
     };
-    updateMediaQuery();
-    window.addEventListener("resize", updateMediaQuery);
+
+    // 초기 상태 설정
+    updateMatches();
+
+    // change 이벤트 리스너 추가
+    mobileQuery.addEventListener("change", updateMatches);
+    tabletQuery.addEventListener("change", updateMatches);
+    pcQuery.addEventListener("change", updateMatches);
+
     return () => {
-      window.removeEventListener("resize", updateMediaQuery);
+      mobileQuery.removeEventListener("change", updateMatches);
+      tabletQuery.removeEventListener("change", updateMatches);
+      pcQuery.removeEventListener("change", updateMatches);
     };
   }, []);
 
