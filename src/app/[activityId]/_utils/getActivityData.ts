@@ -73,5 +73,19 @@ export const getActivityReservationTime = (data: getActivitiesInfoRes, selectedD
 export const getActivityReservationId = (data: getActivitiesInfoRes, selectedDate: string) => {
   const schedules = getActivitySchedules(data);
   const reservationId = schedules.find(item => item.date === selectedDate)?.id || null;
+
   return reservationId;
+};
+
+export const getActivitySchedulesTime = (
+  data: getActivitiesInfoRes,
+  selectedTime: string | null,
+) => {
+  if (selectedTime === null) return null;
+  const schedules = getActivitySchedules(data);
+  const [startTime, endTime] = selectedTime.split("~");
+  const scheduleTime =
+    schedules.find(item => item.startTime === startTime && item.endTime === endTime)?.id || null;
+
+  return scheduleTime;
 };

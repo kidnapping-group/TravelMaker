@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-function FreeReservationTime({ reservationTimes }: { reservationTimes: string[][] }) {
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+interface FreeReservationTimeProps {
+  reservationTimes: string[][];
+  selectedTime: string | null;
+  setSelectedTime: Dispatch<SetStateAction<string | null>>;
+}
 
+function FreeReservationTime({
+  reservationTimes,
+  selectedTime,
+  setSelectedTime,
+}: FreeReservationTimeProps) {
   const handleTimeSelection = (time: string) => {
     setSelectedTime(time === selectedTime ? null : time);
   };

@@ -1,6 +1,6 @@
 import { useActivityId } from "@/app/[activityId]/_contexts/ActivityIdContext";
 import { getActivitySchedules, getActivityUserId } from "@/app/[activityId]/_utils/getActivityData";
-import getCookiesUserID from "@/app/[activityId]/_utils/getCookiesUserId";
+import { getCookiesAccessToken, getCookiesUserID } from "@/app/[activityId]/_utils/getCookies";
 import isReservationAvailable from "@/app/[activityId]/_utils/isReservationAvailable";
 import { activityIdOptions } from "@/app/[activityId]/queryOptions";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -11,11 +11,14 @@ const useControlPopup = () => {
   const schedules = getActivitySchedules(data);
   const activityUserId = getActivityUserId(data);
   const userId = getCookiesUserID();
+  const accessToken = getCookiesAccessToken();
 
   return {
     isReservation: isReservationAvailable(schedules),
     isUser: activityUserId === userId,
     userId,
+    accessToken,
+    isLogin: accessToken && userId,
   };
 };
 

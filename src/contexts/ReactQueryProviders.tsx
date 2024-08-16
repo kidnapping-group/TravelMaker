@@ -15,7 +15,7 @@ function makeQueryClient() {
     },
   });
 }
-crypto.randomUUID();
+
 let browserQueryClient: QueryClient | undefined;
 
 function getQueryClient() {

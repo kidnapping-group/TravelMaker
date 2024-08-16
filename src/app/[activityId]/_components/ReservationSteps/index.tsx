@@ -12,13 +12,14 @@ import { useState } from "react";
 
 function ReservationSteps() {
   const { activityId } = useActivityId();
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
   const { population, populationActions } = useActivityPopulation();
-  const { reservationTimes, reservationId, schedules, price, totalPrice } =
-    useGetActivityReservationStepsViewModel(selectedDate);
+  const { reservationTimes, reservationId, schedules, price, totalPrice, scheduleTime } =
+    useGetActivityReservationStepsViewModel(selectedDate, selectedTime);
   const { postReservationMutation } = usePostReservationMutation(
     activityId,
-    reservationId,
+    scheduleTime,
     population,
   );
 
@@ -27,7 +28,6 @@ function ReservationSteps() {
   };
 
   const submitReservation = () => {
-    if (reservationId === null) return;
     postReservationMutation.mutate();
   };
 
@@ -38,9 +38,15 @@ function ReservationSteps() {
         <span className="text-lg font-normal">&nbsp;/ 인</span>
       </h1>
       <Calendar scheduleData={schedules} setSelectedDate={handleDateSelection} />
-      {selectedDate && <FreeReservationTime reservationTimes={reservationTimes} />}
+      {selectedDate && (
+        <FreeReservationTime
+          reservationTimes={reservationTimes}
+          selectedTime={selectedTime}
+          setSelectedTime={setSelectedTime}
+        />
+      )}
       <TotalMoney population={population} populationActions={populationActions} price={price} />
-      <ReservationButton submitReservation={submitReservation} />
+      <ReservationButton submitReservation={submitReservation} reservationId={reservationId} />
     </div>
   );
 }

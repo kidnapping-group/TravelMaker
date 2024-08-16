@@ -3,17 +3,23 @@ import { Button } from "@/components/Button";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { useRouter } from "next/navigation";
 
-function ReservationButton({ submitReservation }: { submitReservation: () => void }) {
+interface ReservationButtonProps {
+  submitReservation: () => void;
+  reservationId: number | null;
+}
+
+function ReservationButton({ submitReservation, reservationId }: ReservationButtonProps) {
   const router = useRouter();
-  const { isReservation, userId } = useControlPopup();
+  const { isReservation, isLogin } = useControlPopup();
 
   const createReservationPopup = () => {
-    if (!userId) {
+    if (!isLogin) {
       openPopup("reservationNoUser");
     } else if (isReservation) {
       openPopup("reservationEndActivity");
+    } else if (!reservationId) {
+      openPopup("reservationIdNull");
     } else {
-      openPopup("reservationSuccess");
       submitReservation();
     }
   };
@@ -33,6 +39,20 @@ function ReservationButton({ submitReservation }: { submitReservation: () => voi
         text="해당 날짜는 이미 체험이 종료됬습니다."
         leftButton="확인"
         onChangeLeftButton={() => closePopup("reservationEndActivity")}
+      />
+      <Popup
+        id="reservationIdNull"
+        text="해당 날짜는 예약 가능한 시간이 없습니다."
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("reservationIdNull")}
+      />
+      <Popup
+        id="reservationAlready"
+        text={`이미 등록된 예약입니다.\n예약 페이지로 이동 하겠습니까?`}
+        leftButton="거절한다"
+        onChangeLeftButton={() => closePopup("reservationAlready")}
+        rightButton="이동하기"
+        onChangeRightButton={() => router.push("/reservations")}
       />
       <Popup
         id="reservationSuccess"

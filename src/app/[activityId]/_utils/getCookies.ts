@@ -15,7 +15,7 @@ interface SocialLoginStore {
   version: number;
 }
 
-const getCookiesUserID = (): number | null => {
+export const getCookiesUserID = (): number | null => {
   const data = Cookies.get("social-login-store");
   if (data) {
     const parseData: SocialLoginStore = JSON.parse(data);
@@ -24,4 +24,10 @@ const getCookiesUserID = (): number | null => {
   return null;
 };
 
-export default getCookiesUserID;
+export const getCookiesAccessToken = (): string | null => {
+  const data = Cookies.get("accessToken");
+  if (data) {
+    return data;
+  }
+  return null;
+};
