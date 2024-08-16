@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface Props {
+interface BigActivityCardProps {
   bannerImageUrl: string;
   title: string;
   price: number;
@@ -8,7 +8,13 @@ interface Props {
   reviewCount: number;
 }
 
-function BigActivityCard({ bannerImageUrl, title, price, rating, reviewCount }: Props) {
+function BigActivityCard({
+  bannerImageUrl,
+  title,
+  price,
+  rating,
+  reviewCount,
+}: BigActivityCardProps) {
   return (
     <article className="group relative flex aspect-square w-[240px] flex-col justify-end overflow-hidden rounded-[10px] p-5 pc:w-auto">
       <div>
