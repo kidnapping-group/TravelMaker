@@ -55,7 +55,9 @@ function SignIn() {
 
   return (
     <div className="flex w-full max-w-[640px] flex-col items-center gap-12">
-      <Image src="/images/logo_big.png" width={340} height={192} alt="메인로고" />
+      <Link href="/">
+        <Image src="/images/logo_big.png" width={340} height={192} alt="메인로고" />
+      </Link>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-2 flex w-full flex-col gap-[28px]">
         <Input
           register={register("email")}
