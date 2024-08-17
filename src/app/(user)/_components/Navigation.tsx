@@ -1,6 +1,6 @@
 "use client";
 
-import useViewport from "@/hooks/useViewport";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -97,14 +97,12 @@ function SideNavigation({ pathname, hovered, setHovered }: DesktoNavProps) {
 function Navigation() {
   const pathname = usePathname();
   const [hovered, setHovered] = useState<string | null>(null);
-  const viewport = useViewport();
+  const { isMobile, isTablet, isPc } = useMediaQuery();
 
   return (
     <div>
-      {(viewport === "mobile" || viewport === "tablet") && <TopNavigation pathname={pathname} />}
-      {viewport === "pc" && (
-        <SideNavigation pathname={pathname} hovered={hovered} setHovered={setHovered} />
-      )}
+      {(isMobile || isTablet) && <TopNavigation pathname={pathname} />}
+      {isPc && <SideNavigation pathname={pathname} hovered={hovered} setHovered={setHovered} />}
     </div>
   );
 }
