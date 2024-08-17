@@ -17,7 +17,7 @@ function Review() {
         </div>
       </div>
       <div className="my-16">
-        {totalCount !== 0 && <Pagination totalCount={totalCount} pageSize={3} />}
+        {totalCount > 3 && <Pagination totalCount={totalCount} pageSize={3} />}
       </div>
     </div>
   );

@@ -11,14 +11,11 @@ import { useRouter } from "next/navigation";
 function DropdownMenu({ activityId }: { activityId: string }) {
   const router = useRouter();
   const { isOpen, setIsOpen, dropdownRef, toggleDropdown, handleDelete } = useControlDropdownMenu();
-  const { isReservation, isUser, userId } = useControlPopup();
+  const { isReservation, isUser } = useControlPopup();
+
+  if (!isUser) return null;
 
   const createPopupType = () => {
-    if (!userId) {
-      openPopup("noUser");
-      return;
-    }
-
     if (!isUser) {
       openPopup("noMyActivity");
     } else if (isReservation) {

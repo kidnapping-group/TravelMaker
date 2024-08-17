@@ -10,7 +10,7 @@ function MobileFooter() {
   return (
     <div className="sticky bottom-0 flex items-center justify-between bg-white p-2 px-4 tablet:hidden">
       <p className="text-xl font-bold">
-        {formattedPrice} / <span className="text-2lg font-medium text-primary-800">1명</span>
+        {formattedPrice} / <span className="text-2lg font-medium text-primary-800">인</span>
       </p>
       <Button size="medium" onClick={openModal}>
         예약하기

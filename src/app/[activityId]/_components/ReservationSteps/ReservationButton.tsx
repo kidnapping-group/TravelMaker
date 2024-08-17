@@ -49,7 +49,7 @@ function ReservationButton({ submitReservation, reservationId }: ReservationButt
       <Popup
         id="reservationAlready"
         text={`이미 등록된 예약입니다.\n예약 페이지로 이동 하겠습니까?`}
-        leftButton="거절한다"
+        leftButton="아니요"
         onChangeLeftButton={() => closePopup("reservationAlready")}
         rightButton="이동하기"
         onChangeRightButton={() => router.push("/reservations")}
@@ -57,7 +57,7 @@ function ReservationButton({ submitReservation, reservationId }: ReservationButt
       <Popup
         id="reservationSuccess"
         text={`예약을 성공했습니다.\n예약 페이지로 이동 하겠습니까?`}
-        leftButton="거절한다"
+        leftButton="아니요"
         onChangeLeftButton={() => closePopup("reservationSuccess")}
         rightButton="이동하기"
         onChangeRightButton={() => router.push("/reservations")}

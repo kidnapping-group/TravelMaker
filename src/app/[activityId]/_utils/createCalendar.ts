@@ -1,9 +1,4 @@
-export interface ScheduleItem {
-  endTime: string;
-  startTime: string;
-  date: string;
-  id: number;
-}
+import { Schedules } from "@/apis/API.type";
 
 export const monthNames = [
   "January",
@@ -27,7 +22,7 @@ export const formatDate = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
-export const getDaysArray = (currentDate: Date, scheduleData: ScheduleItem[]) => {
+export const getDaysArray = (currentDate: Date, scheduleData: Schedules[]) => {
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
   const firstDay = new Date(year, month, 1).getDay();

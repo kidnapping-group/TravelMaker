@@ -1,11 +1,12 @@
 "use client";
 
+import { Schedules } from "@/apis/API.type";
 import CalendarDay from "@/app/[activityId]/_components/ReservationSteps/Calendar/CalendarDay";
-import { ScheduleItem, getDaysArray, monthNames } from "@/app/[activityId]/_utils/createCalendar";
+import { getDaysArray, monthNames } from "@/app/[activityId]/_utils/createCalendar";
 import { useState } from "react";
 
 interface CalendarProps {
-  scheduleData: ScheduleItem[];
+  scheduleData: Schedules[];
   setSelectedDate: (date: string, hasReservation: boolean) => void;
 }
 

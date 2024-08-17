@@ -1,6 +1,6 @@
 import { getDateClasses } from "@/app/[activityId]/_utils/createCalendar";
 
-export interface CalendarDayProps {
+interface CalendarDayProps {
   date: Date;
   formattedDate: string;
   isCurrentMonth: boolean;
