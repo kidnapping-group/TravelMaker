@@ -167,6 +167,7 @@ function Account() {
           placeholder="비밀번호를 입력해주세요"
           error={errors.password}
           touched={touchedFields.password}
+          disabled={isDisabled}
         />
 
         <Input
@@ -177,6 +178,7 @@ function Account() {
           placeholder="비밀번호를 한번 더 입력해주세요"
           error={errors.confirmPassword}
           touched={touchedFields.confirmPassword}
+          disabled={isDisabled}
         />
 
         <Button type="submit" size="medium" disabled={!isValid}>
