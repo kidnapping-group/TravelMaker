@@ -3,6 +3,7 @@
 import userAPI from "@/apis/usersAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
+import socialLoginStore from "@/store/socialLoginStore";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -13,14 +14,19 @@ import { z } from "zod";
 import ProfileEditor from "../_components/ProfileEditor";
 
 type UserData = {
-  nickname: string;
-  email: string;
-  profileImageUrl: string | null;
+  nickname?: string;
+  email?: string;
+  profileImageUrl?: string | null;
 };
 
-type AccountFormData = z.infer<typeof accountSchema>;
+type AccountFormData = z.infer<typeof commonAccountSchema>;
 
-const accountSchema = baseSchema
+const socialAccountSchema = baseSchema.pick({
+  nickname: true,
+  profileImageUrl: true,
+});
+
+const commonAccountSchema = baseSchema
   .pick({ nickname: true, password: true, confirmPassword: true, profileImageUrl: true })
   .refine(data => data.confirmPassword === data.password, {
     message: "비밀번호가 일치하지 않습니다",
@@ -29,14 +35,21 @@ const accountSchema = baseSchema
 
 function Account() {
   const [profileImage, setProfileImage] = useState<string>("");
+  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+
+  const { social } = socialLoginStore(state => ({
+    social: state.social,
+  }));
+
+  const selectedSchema = isDisabled ? socialAccountSchema : commonAccountSchema;
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, touchedFields },
+    formState: { errors, touchedFields, isValid },
     reset,
   } = useForm<AccountFormData>({
-    resolver: zodResolver(accountSchema),
+    resolver: zodResolver(selectedSchema),
     mode: "all",
   });
 
@@ -47,6 +60,9 @@ function Account() {
 
   const userDataPatchMutation = useMutation({
     mutationFn: userAPI.patchUsers,
+    onSuccess: () => {
+      refetch();
+    },
   });
 
   const imagePostMutation = useMutation({
@@ -94,6 +110,10 @@ function Account() {
       profileImageUrl: profileImage,
     });
   };
+
+  useEffect(() => {
+    setIsDisabled(social);
+  }, [social]);
 
   useEffect(() => {
     if (userData?.profileImageUrl === null) {
@@ -158,6 +178,7 @@ function Account() {
           error={errors.confirmPassword}
           touched={touchedFields.confirmPassword}
         />
+
         <Button type="submit" size="medium" disabled={!isValid}>
           수정
         </Button>
