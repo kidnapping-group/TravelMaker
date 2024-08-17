@@ -2,21 +2,21 @@ import Dropdown from "@/app/_components/Header/Dropdown";
 import Notification from "@/app/_components/Notification";
 import useDropdownToggle from "@/hooks/useDropdownToggle";
 import { UserInfo } from "@/store/socialLoginStore";
-import deleteUserInfo from "@/utils/deleteUserInfo";
+import logout from "@/utils/logout";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 
 interface UserExistProps {
   userInfo: UserInfo;
-  setUserInfo: Dispatch<SetStateAction<UserInfo | undefined>>;
+  setUserInfo: Dispatch<SetStateAction<UserInfo | null>>;
 }
 
 function UserExist({ userInfo, setUserInfo }: UserExistProps) {
   const { isOpen, toggleDropdown, dropdownRef } = useDropdownToggle();
 
   const handleLogout = () => {
-    deleteUserInfo();
-    setUserInfo(undefined);
+    logout();
+    setUserInfo(null);
   };
 
   return (

@@ -3,18 +3,26 @@
 import UserExist from "@/app/_components/Header/UserExist";
 import UserNotExist from "@/app/_components/Header/UserNotExist";
 import { UserInfo } from "@/store/socialLoginStore";
+import getUserInfoFromCookie from "@/utils/getUserInfoFromCookie";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
+import { usePathname, useSearchParams, useSelectedLayoutSegment } from "next/navigation";
 import { useEffect, useState } from "react";
 
-function DynamicHeader({ initialUserInfo }: { initialUserInfo?: UserInfo }) {
+function DynamicHeader({ initialUserInfo }: { initialUserInfo: UserInfo | null }) {
   const segment = useSelectedLayoutSegment();
-  const [userInfo, setUserInfo] = useState<UserInfo | undefined>(initialUserInfo);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [userInfo, setUserInfo] = useState<UserInfo | null>(initialUserInfo);
 
   useEffect(() => {
-    setUserInfo(initialUserInfo);
-  }, [initialUserInfo]);
+    const loadUserInfo = async () => {
+      const LoginState = await getUserInfoFromCookie();
+      if (!LoginState?.state) return;
+      setUserInfo(LoginState.state);
+    };
+    loadUserInfo();
+  }, [pathname, searchParams]);
 
   if (segment === "(auth)") return <div />;
 
@@ -24,7 +32,11 @@ function DynamicHeader({ initialUserInfo }: { initialUserInfo?: UserInfo }) {
         <Link href="/">
           <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
         </Link>
-        {userInfo ? <UserExist userInfo={userInfo} setUserInfo={setUserInfo} /> : <UserNotExist />}
+        {userInfo?.id ? (
+          <UserExist userInfo={userInfo} setUserInfo={setUserInfo} />
+        ) : (
+          <UserNotExist />
+        )}
       </div>
     </div>
   );
