@@ -27,10 +27,10 @@ function UserExist({ userInfo, setUserInfo }: UserExistProps) {
         <button type="button" onClick={toggleDropdown} className="flex items-center gap-2">
           <div className="relative h-8 w-8 rounded-full">
             <Image
+              className="object-cover"
               src={userInfo?.profileImageUrl || "/icons/noProfile.svg"}
               alt="프로필 사진"
               fill
-              style={{ objectFit: "cover" }}
             />
           </div>
           <div>
