@@ -145,7 +145,7 @@ function Account() {
             <h1 className="text-[30px] font-semibold text-primary-600 tablet:text-[40px] pc:text-[40px]">
               {userData?.nickname || "닉네임"}
             </h1>
-            <p className="text-[20px] text-primary-600">{userData?.email || "이메일"}</p>
+            <p className="text-[15px] text-primary-600">{userData?.email || "이메일"}</p>
           </div>
         </div>
 
