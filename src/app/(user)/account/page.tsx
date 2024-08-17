@@ -3,6 +3,7 @@
 import userAPI from "@/apis/usersAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 import socialLoginStore from "@/store/socialLoginStore";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,6 +62,7 @@ function Account() {
   const userDataPatchMutation = useMutation({
     mutationFn: userAPI.patchUsers,
     onSuccess: () => {
+      openPopup("changeUserData");
       refetch();
     },
   });
@@ -185,6 +187,12 @@ function Account() {
           수정
         </Button>
       </form>
+      <Popup
+        id="changeUserData"
+        text="내 정보 수정 완료!"
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("changeUserData")}
+      />
     </div>
   );
 }
