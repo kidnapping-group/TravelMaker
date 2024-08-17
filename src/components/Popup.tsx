@@ -58,7 +58,7 @@ function Popup({
             {leftButton}
           </Button>
           {rightButton && (
-            <Button size="wide" variant="outline" onClick={handleRightButtonClick}>
+            <Button size="wide" variant="default" onClick={handleRightButtonClick}>
               {rightButton}
             </Button>
           )}
