@@ -121,7 +121,7 @@ export type getActivities = {
 
 export type postActivities = {
   title: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   description: string;
   address: string;
   price: number;
@@ -206,7 +206,7 @@ export type postActivitiesImage = {
 };
 
 export type postActivitiesImageRes = {
-  activitiesImageUrl: string;
+  activityImageUrl: string;
 };
 
 export type postUsers = {
