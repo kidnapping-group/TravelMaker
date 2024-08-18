@@ -5,11 +5,11 @@ import Link from "next/link";
 import SearchForm from "../_components/SearchForm";
 import ShortActivityCard from "../_components/ShortActivityCard";
 
-interface Props {
+interface SearchPageProps {
   searchParams: Pick<getActivities, "keyword" | "category" | "sort" | "page">;
 }
 
-async function Page({ searchParams }: Props) {
+async function SearchPage({ searchParams }: SearchPageProps) {
   const { keyword, category, sort = "most_reviewed", page = 1 } = searchParams;
   const pageSize = 12;
 
@@ -65,4 +65,4 @@ async function Page({ searchParams }: Props) {
   );
 }
 
-export default Page;
+export default SearchPage;
