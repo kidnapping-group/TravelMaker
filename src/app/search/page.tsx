@@ -12,17 +12,13 @@ async function SearchPage({ searchParams }: SearchPageProps) {
   const { keyword, category, sort = "most_reviewed", page = 1 } = searchParams;
   const pageSize = 12;
 
-  const emptyResult = { totalCount: 0, activities: [] };
-
-  const { totalCount, activities } = await (keyword
-    ? activitiesAPI.get({
-        keyword,
-        category,
-        sort,
-        page,
-        size: pageSize,
-      })
-    : emptyResult);
+  const { totalCount, activities } = await activitiesAPI.get({
+    keyword,
+    category,
+    sort,
+    page,
+    size: pageSize,
+  });
 
   return (
     <main className="flex flex-col items-center px-5">
