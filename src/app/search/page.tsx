@@ -1,9 +1,8 @@
 import { getActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
+import ActivityCard from "@/app/_components/ActivityCard";
+import SearchForm from "@/app/_components/SearchForm";
 import Link from "next/link";
-
-import SearchForm from "../_components/SearchForm";
-import ShortActivityCard from "../_components/ShortActivityCard";
 
 interface SearchPageProps {
   searchParams: Pick<getActivities, "keyword" | "category" | "sort" | "page">;
@@ -43,7 +42,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
                   key={id}
                 >
                   <Link href={`/${id}`}>
-                    <ShortActivityCard
+                    <ActivityCard
                       bannerImageUrl={bannerImageUrl}
                       title={title}
                       price={price}
