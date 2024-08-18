@@ -1,6 +1,10 @@
+"use client";
+
+import useEmblaCarousel from "embla-carousel-react";
 import { createContext, useContext } from "react";
 
 type SwiperContextProps = {
+  swiperRef: ReturnType<typeof useEmblaCarousel>[0];
   scrollPrev: () => void;
   scrollNext: () => void;
   canScrollPrev: boolean;
