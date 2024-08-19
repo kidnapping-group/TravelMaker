@@ -2,6 +2,7 @@ import { getActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
 import ActivityCard from "@/app/_components/ActivityCard";
 import SearchForm from "@/app/_components/SearchForm";
+import Pagination from "@/components/Pagination";
 import Link from "next/link";
 
 import SortDropdown from "./_components/SortDropdown";
@@ -44,7 +45,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
           </div>
 
           {activities.length > 0 ? (
-            <div className="-ml-3 mt-3 flex flex-wrap tablet:-ml-5">
+            <div className="-ml-3 mt-3 flex flex-wrap justify-center tablet:-ml-5">
               {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
                 <div
                   className="mb-3 basis-1/2 pl-3 tablet:mb-5 tablet:basis-1/3 tablet:pl-5 pc:basis-1/4"
@@ -61,6 +62,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
                   </Link>
                 </div>
               ))}
+              <Pagination totalCount={totalCount} pageSize={pageSize} />
             </div>
           ) : (
             <div className="my-20 flex justify-center text-lg font-medium text-gray-400">
