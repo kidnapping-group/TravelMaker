@@ -36,7 +36,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
 
       <section className="flex w-full max-w-[1200px] flex-col gap-3 pb-[100px]">
         <h2 className="text-xl font-bold">
-          &lsquo;{searchParams.keyword}&rsquo; 검색 결과 {totalCount}개
+          &lsquo;{keyword}&rsquo; 검색 결과 {totalCount}개
         </h2>
 
         <div className="flex items-center justify-between">
