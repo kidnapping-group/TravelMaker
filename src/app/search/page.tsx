@@ -8,13 +8,17 @@ import Link from "next/link";
 import SortDropdown from "./_components/SortDropdown";
 import TabList from "./_components/TabList";
 
+const TAB_LIST = ["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"];
+const DEFAULT_SORT = "most_reviewed";
+const PAGE_SIZE = 12;
+
 interface SearchPageProps {
   searchParams: Pick<getActivities, "keyword" | "category" | "sort" | "page">;
 }
 
 async function SearchPage({ searchParams }: SearchPageProps) {
-  const { keyword, category, sort = "most_reviewed", page = 1 } = searchParams;
-  const pageSize = 12;
+  const { keyword, category, sort = DEFAULT_SORT, page = 1 } = searchParams;
+  const pageSize = PAGE_SIZE;
 
   const { totalCount, activities } = await activitiesAPI.get({
     keyword,
@@ -36,10 +40,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
         </h2>
 
         <div className="flex items-center justify-between">
-          <TabList
-            paramName="category"
-            paramValues={["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"]}
-          />
+          <TabList paramName="category" paramValues={TAB_LIST} />
           <SortDropdown />
         </div>
 
