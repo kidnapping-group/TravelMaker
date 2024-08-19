@@ -1,3 +1,4 @@
+import Footer from "@/app/_components/Footer";
 import Header from "@/app/_components/Header";
 import ReactQueryProviders from "@/contexts/ReactQueryProviders";
 import type { Metadata } from "next";
@@ -24,11 +25,12 @@ function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={`${pretendardFont.className} text-black`}>
         <ReactQueryProviders>
           <Header />
           {children}
+          <Footer />
         </ReactQueryProviders>
       </body>
     </html>
