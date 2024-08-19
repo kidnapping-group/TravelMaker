@@ -44,11 +44,12 @@ export const getDateClasses = (
   isCurrentMonth: boolean,
   hasReservation: boolean,
   isSelected: boolean,
+  isReservation?: boolean,
 ) => {
   const baseClasses = "p-2 flex justify-center items-center font-semibold text-sm rounded-lg ";
   if (!isCurrentMonth) return `${baseClasses} text-gray-300`;
   if (isSelected) return `${baseClasses} text-white bg-primary-400`;
-  if (hasReservation)
+  if (hasReservation && !isReservation)
     return `${baseClasses} border border-primary-600 hover:bg-primary-400 hover:text-white`;
   return `${baseClasses} text-gray-300 `;
 };

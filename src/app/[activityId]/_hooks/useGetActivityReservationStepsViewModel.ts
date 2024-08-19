@@ -1,7 +1,6 @@
 import { useActivityId } from "@/app/[activityId]/_contexts/ActivityIdContext";
 import {
   getActivityPrice,
-  getActivityReservationId,
   getActivityReservationTime,
   getActivitySchedules,
   getActivitySchedulesTime,
@@ -20,7 +19,6 @@ const useGetActivityReservationStepsViewModel = (
 
   return {
     reservationTimes: getActivityReservationTime(data, selectedDate),
-    reservationId: getActivityReservationId(data, selectedDate),
     scheduleTime: getActivitySchedulesTime(data, selectedTime),
     schedules: getActivitySchedules(data),
     price,

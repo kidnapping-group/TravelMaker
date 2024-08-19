@@ -15,7 +15,7 @@ function ReservationSteps() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [selectedDate, setSelectedDate] = useState("");
   const { population, populationActions } = useActivityPopulation();
-  const { reservationTimes, reservationId, schedules, price, totalPrice, scheduleTime } =
+  const { reservationTimes, schedules, price, totalPrice, scheduleTime } =
     useGetActivityReservationStepsViewModel(selectedDate, selectedTime);
   const { postReservationMutation } = usePostReservationMutation(
     activityId,
@@ -46,7 +46,7 @@ function ReservationSteps() {
         />
       )}
       <TotalMoney population={population} populationActions={populationActions} price={price} />
-      <ReservationButton submitReservation={submitReservation} reservationId={reservationId} />
+      <ReservationButton submitReservation={submitReservation} />
     </div>
   );
 }

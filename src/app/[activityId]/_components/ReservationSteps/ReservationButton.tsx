@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 
 interface ReservationButtonProps {
   submitReservation: () => void;
-  reservationId: number | null;
 }
 
-function ReservationButton({ submitReservation, reservationId }: ReservationButtonProps) {
+function ReservationButton({ submitReservation }: ReservationButtonProps) {
   const router = useRouter();
   const { isReservation, isLogin } = useControlPopup();
 
@@ -17,8 +16,6 @@ function ReservationButton({ submitReservation, reservationId }: ReservationButt
       openPopup("reservationNoUser");
     } else if (isReservation) {
       openPopup("reservationEndActivity");
-    } else if (!reservationId) {
-      openPopup("reservationIdNull");
     } else {
       submitReservation();
     }
@@ -33,12 +30,6 @@ function ReservationButton({ submitReservation, reservationId }: ReservationButt
         onChangeLeftButton={() => closePopup("reservationNoUser")}
         rightButton="로그인"
         onChangeRightButton={() => router.push("/signin")}
-      />
-      <Popup
-        id="reservationEndActivity"
-        text="해당 날짜는 이미 체험이 종료됐습니다."
-        leftButton="확인"
-        onChangeLeftButton={() => closePopup("reservationEndActivity")}
       />
       <Popup
         id="reservationIdNull"
