@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 // 상태 타입 정의
-interface UserInfo {
+export interface UserInfo {
   id: string | null;
   email: string | null;
   nickname: string | null;

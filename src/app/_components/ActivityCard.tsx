@@ -10,7 +10,7 @@ interface ActivityCardProps {
 
 function ActivityCard({ bannerImageUrl, title, price, rating, reviewCount }: ActivityCardProps) {
   return (
-    <article className="relative flex w-[240px] flex-col gap-4 pb-2 pc:w-auto">
+    <article className="relative flex flex-col gap-4 pb-2">
       <div className="group relative aspect-video w-full overflow-hidden rounded-[10px]">
         <Image className="object-cover" src={bannerImageUrl} alt="체험 사진" fill />
         <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
