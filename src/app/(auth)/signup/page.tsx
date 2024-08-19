@@ -4,6 +4,7 @@ import authAPI from "@/apis/authAPI";
 import usersAPI from "@/apis/usersAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
@@ -35,12 +36,16 @@ function SignUp() {
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   const onSubmit = async (data: SignUpFormData) => {
-    const { email, nickname, password } = data;
-    const postData = { email, nickname, password };
-    await usersAPI.postSignup(postData);
-    const loginData = { email, password };
-    await authAPI.login(loginData);
-    router.push("/");
+    try {
+      const { email, nickname, password } = data;
+      const postData = { email, nickname, password };
+      await usersAPI.postSignup(postData);
+      const loginData = { email, password };
+      await authAPI.login(loginData);
+      router.push("/");
+    } catch (error) {
+      openPopup("existEmail");
+    }
   };
 
   return (
@@ -115,6 +120,12 @@ function SignUp() {
           <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 회원가입" />
         </Link>
       </div>
+      <Popup
+        id="existEmail"
+        text="이메일이 이미 존재합니다."
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("existEmail")}
+      />
     </div>
   );
 }

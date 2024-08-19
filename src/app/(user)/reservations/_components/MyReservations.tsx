@@ -10,30 +10,27 @@ import { useState } from "react";
 import MyReservationItem from "./MyReservationItem";
 
 function MyReservations() {
-  const menuItems = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
+  let size = 10;
+  const menuItems = ["전체보기", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
+  const menuItemsStatus = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
   const [status, setStatus] = useState<string | undefined>(undefined);
-
-  const MyReservation = (size = 10) =>
-    useInfiniteQuery<
-      ReservationRes,
-      Error,
-      InfiniteData<ReservationRes>,
-      [string, number, string | null],
-      number | undefined
-    >({
-      queryKey: ["myReservations", size, status ?? null],
-      queryFn: ({ pageParam }: { pageParam?: number }) =>
-        myReservationAPI.get({ cursorId: pageParam, size, status: status || undefined }),
-      initialPageParam: undefined,
-      getNextPageParam: lastBatch => lastBatch.cursorId,
-    });
-  const { data, isLoading, error } = MyReservation();
+  const { data, isLoading, error } = useInfiniteQuery<
+    ReservationRes,
+    Error,
+    InfiniteData<ReservationRes>,
+    [string, number, string | null],
+    number | undefined
+  >({
+    queryKey: ["myReservations", size, status ?? null],
+    queryFn: ({ pageParam }: { pageParam?: number }) =>
+      myReservationAPI.get({ cursorId: pageParam, size, status: status || undefined }),
+    initialPageParam: undefined,
+    getNextPageParam: lastBatch => lastBatch.cursorId,
+  });
   const handleSelectStatus = (selectStatus: string) => {
-    if (selectStatus === "all") {
-      setStatus(undefined);
-    } else {
-      setStatus(selectStatus);
-    }
+    const selectedIndex = menuItems.indexOf(selectStatus);
+    const correspondingStatus = menuItemsStatus[selectedIndex] || "all";
+    setStatus(correspondingStatus === "all" ? undefined : correspondingStatus);
   };
 
   const hasReservations = data?.pages.some(page => page.reservations.length > 0);
@@ -53,8 +50,8 @@ function MyReservations() {
 
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
-    <div className="relative mx-auto flex h-[100vh] w-full max-w-[806px] flex-col items-center justify-start px-4 pb-[210px]">
-      <div className="z-10 flex h-20 w-full max-w-[800px] items-start justify-between bg-gray-100 pb-4 pt-2">
+    <div className="relative h-[100vh] w-full max-w-[806px] px-4 pb-[140px]">
+      <div className="relative z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-4 pt-2">
         <h1 className="text-3xl font-bold">예약 내역</h1>
         <Dropdown
           menuItems={menuItems}
@@ -64,10 +61,10 @@ function MyReservations() {
         />
       </div>
       {hasReservations ? (
-        <div className="h-full w-full flex-grow">
-          <div className="h-full">
+        <div className="h-full pb-20">
+          <div className="h-full overflow-y-auto">
             {data?.pages.map(page => (
-              <div className="flex h-full flex-col gap-[24px] overflow-y-auto" key={page.cursorId}>
+              <div className="flex flex-col gap-[24px]" key={page.cursorId}>
                 {page.reservations.map(reservation => (
                   <MyReservationItem key={reservation.id} reservation={reservation} />
                 ))}
@@ -76,7 +73,7 @@ function MyReservations() {
           </div>
         </div>
       ) : (
-        <div className="flex w-full flex-grow flex-col items-center justify-center">
+        <div className="flex w-full flex-grow flex-col items-center justify-center tablet:w-[800px]">
           <Image src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
           <p className="text-2xl font-medium text-gray-500">아직 예약한 체험이 없어요</p>
         </div>
