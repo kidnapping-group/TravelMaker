@@ -26,5 +26,4 @@ function UserRootLayout({
     </div>
   );
 }
-
 export default UserRootLayout;
