@@ -49,6 +49,6 @@ export const getDateClasses = (
   if (!isCurrentMonth) return `${baseClasses} text-gray-300`;
   if (isSelected) return `${baseClasses} text-white bg-primary-400`;
   if (hasReservation)
-    return `${baseClasses} text-primary-400 bg-gray-200 hover:bg-primary-400 hover:text-white`;
-  return `${baseClasses} hover:bg-gray-200`;
+    return `${baseClasses} border border-primary-600 hover:bg-primary-400 hover:text-white`;
+  return `${baseClasses} text-gray-300 `;
 };

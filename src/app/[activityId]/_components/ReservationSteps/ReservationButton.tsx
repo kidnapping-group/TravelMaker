@@ -36,7 +36,7 @@ function ReservationButton({ submitReservation, reservationId }: ReservationButt
       />
       <Popup
         id="reservationEndActivity"
-        text="해당 날짜는 이미 체험이 종료됬습니다."
+        text="해당 날짜는 이미 체험이 종료됐습니다."
         leftButton="확인"
         onChangeLeftButton={() => closePopup("reservationEndActivity")}
       />

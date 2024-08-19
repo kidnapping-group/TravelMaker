@@ -20,6 +20,7 @@ function CalendarDay({
   return (
     <button
       type="button"
+      disabled={!hasReservation}
       className={getDateClasses(isCurrentMonth, hasReservation, isSelected)}
       onClick={() => setSelectedDate(formattedDate, hasReservation)}
     >
