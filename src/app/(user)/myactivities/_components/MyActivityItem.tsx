@@ -1,11 +1,12 @@
 "use client";
 
+import { Activities } from "@/apis/API.type";
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import Popup, { closePopup } from "@/components/Popup";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import { Activities } from "@/apis/API.type";
+
 import ContextMenu from "./ContextMenu";
 
 function MyActivityItem({ activity }: { activity: Activities }) {

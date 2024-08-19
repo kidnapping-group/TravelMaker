@@ -11,8 +11,8 @@ fi
 FIRST_LINE=$(echo "$COMMIT_MESSAGE" | head -n 1)
 FIRST_LINE_LENGTH=$(echo -n "$FIRST_LINE" | wc -m)
 
-if [ "$FIRST_LINE_LENGTH" -gt 50 ]; then
-echo "커밋 메시지의 제목은 50자를 넘을 수 없습니다."
+if [ "$FIRST_LINE_LENGTH" -gt 80 ]; then
+echo "커밋 메시지의 제목은 80자를 넘을 수 없습니다."
 exit 1
 fi
 
