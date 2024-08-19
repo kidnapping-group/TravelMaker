@@ -4,6 +4,7 @@ import ActivityCard from "@/app/_components/ActivityCard";
 import SearchForm from "@/app/_components/SearchForm";
 import Link from "next/link";
 
+import SortDropdown from "./_components/SortDropdown";
 import TabList from "./_components/TabList";
 
 interface SearchPageProps {
@@ -39,6 +40,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
               paramName="category"
               paramValues={["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"]}
             />
+            <SortDropdown />
           </div>
 
           {activities.length > 0 ? (
