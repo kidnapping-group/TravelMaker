@@ -1,10 +1,9 @@
 import { getActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
-import ActivityCard from "@/app/_components/ActivityCard";
 import SearchForm from "@/app/_components/SearchForm";
 import Pagination from "@/components/Pagination";
-import Link from "next/link";
 
+import ActivityGrid from "./_components/ActivityGrid";
 import SortDropdown from "./_components/SortDropdown";
 import TabList from "./_components/TabList";
 
@@ -46,24 +45,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
 
         {activities.length > 0 ? (
           <div className="flex flex-col gap-5 pt-3">
-            <div className="-ml-3 flex flex-wrap tablet:-ml-5">
-              {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
-                <div
-                  className="mb-3 basis-1/2 pl-3 tablet:mb-5 tablet:basis-1/3 tablet:pl-5 pc:basis-1/4"
-                  key={id}
-                >
-                  <Link href={`/${id}`}>
-                    <ActivityCard
-                      bannerImageUrl={bannerImageUrl}
-                      title={title}
-                      price={price}
-                      rating={rating}
-                      reviewCount={reviewCount}
-                    />
-                  </Link>
-                </div>
-              ))}
-            </div>
+            <ActivityGrid activities={activities} />
             <Pagination totalCount={totalCount} pageSize={pageSize} />
           </div>
         ) : (
