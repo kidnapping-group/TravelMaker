@@ -4,6 +4,8 @@ import ActivityCard from "@/app/_components/ActivityCard";
 import SearchForm from "@/app/_components/SearchForm";
 import Link from "next/link";
 
+import TabList from "./_components/TabList";
+
 interface SearchPageProps {
   searchParams: Pick<getActivities, "keyword" | "category" | "sort" | "page">;
 }
@@ -26,10 +28,19 @@ async function SearchPage({ searchParams }: SearchPageProps) {
         <div className="py-5">
           <SearchForm placeholder="내가 원하는 체험은" />
         </div>
-        <div className="w-full">
+
+        <div className="flex w-full flex-col gap-2">
           <h2 className="text-xl font-bold">
             &lsquo;{searchParams.keyword}&rsquo; 검색 결과 {totalCount}개
           </h2>
+
+          <div className="flex items-center justify-between">
+            <TabList
+              paramName="category"
+              paramValues={["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"]}
+            />
+          </div>
+
           {activities.length > 0 ? (
             <div className="-ml-3 mt-3 flex flex-wrap tablet:-ml-5">
               {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
