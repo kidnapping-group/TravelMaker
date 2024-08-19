@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface DeleteButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
 }
@@ -9,7 +11,9 @@ function DeleteButton({ onClick }: DeleteButtonProps) {
       type="button"
       onClick={onClick}
     >
-      <div className="text-xs text-white">X</div>
+      <div className="relative h-2 w-2">
+        <Image fill src="/icons/icon-delete-btn.svg" alt="닫기" />
+      </div>
     </button>
   );
 }

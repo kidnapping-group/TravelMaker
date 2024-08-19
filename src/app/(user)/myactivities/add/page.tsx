@@ -55,12 +55,21 @@ export default function Add() {
       schedule =>
         schedule.date.toISOString().split("T")[0] ===
           currentSchedule.date.toISOString().split("T")[0] &&
-        schedule.startTime === currentSchedule.startTime?.toLocaleTimeString() &&
-        schedule.endTime === currentSchedule.endTime?.toLocaleTimeString(),
+        schedule.startTime ===
+          currentSchedule.startTime?.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }) &&
+        schedule.endTime ===
+          currentSchedule.endTime?.toLocaleTimeString("en-GB", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
     );
 
     if (isDuplicate) {
-      // alert("중복된 스케줄이 존재합니다.");
+      openPopup("duplicate");
+
       return;
     }
 
@@ -107,11 +116,8 @@ export default function Add() {
       subImageUrls,
     };
     try {
-      const res = await activitiesAPI.post(formData);
+      await activitiesAPI.post(formData);
       openPopup("success");
-
-      // eslint-disable-next-line no-console
-      console.log("Response:", res);
     } catch (error) {
       openPopup("fail");
     }
@@ -130,7 +136,7 @@ export default function Add() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="px-3">
-        <div className="flex justify-between">
+        <div className="sticky top-[95px] z-10 flex justify-between bg-gray-100 py-3 pc:top-[55px]">
           <p className="text-3xl font-bold">내 체험 등록</p>
           <Button disabled={isSubmitDisabled} type="submit">
             등록
@@ -164,10 +170,10 @@ export default function Add() {
         />
         <AddInput
           id="price"
-          label="판매 가격"
+          label="체험 비용"
           value={price}
           onChange={e => setPrice(e.target.value)}
-          placeholder="판매 가격을 입력해 주세요"
+          placeholder="인당 체험 비용을 입력해 주세요"
           type="number"
         />
         <AddressInput address={address} setAddress={setAddress} />
@@ -177,9 +183,8 @@ export default function Add() {
           <p className="text-base col-span-2 font-medium">시작 시간</p>
           <p className="text-base col-span-2 font-medium">종료 시간</p>
           <p className="text-base col-span-1 font-medium">추가</p>
-          <div className="col-span-3">
+          <div className="col-span-3 w-full">
             <DatePicker
-              showIcon
               className="h-9 w-full rounded-[4px] border border-gray-500"
               toggleCalendarOnIconClick
               selected={currentSchedule.date}
@@ -187,11 +192,14 @@ export default function Add() {
                 handleScheduleChange("date", date);
               }}
               minDate={new Date()}
+              showYearDropdown
+              scrollableYearDropdown
+              dateFormat="yyyy-MM-dd"
             />
           </div>
           <div className="col-span-2">
             <DatePicker
-              className="h-9 w-full rounded-[4px] border border-gray-500"
+              className="col-span-2 h-9 w-full rounded-[4px] border border-gray-500"
               selected={currentSchedule.startTime}
               onChange={(date: Date | null) => handleScheduleChange("startTime", date)}
               selectsStart
@@ -199,16 +207,16 @@ export default function Add() {
               showTimeSelectOnly
               timeIntervals={60}
               timeCaption="Time"
-              dateFormat="h:mm aa"
+              dateFormat="HH:mm"
               minTime={
                 currentSchedule.date.toDateString() === now.toDateString()
                   ? now
                   : setHours(setMinutes(new Date(), 0), 0)
               }
-              maxTime={setHours(setMinutes(currentSchedule.date, 0), 23)}
+              maxTime={currentSchedule.endTime || setHours(setMinutes(currentSchedule.date, 0), 23)}
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-2 w-full">
             <DatePicker
               className="h-9 w-full rounded-[4px] border border-gray-500"
               selected={currentSchedule.endTime}
@@ -218,8 +226,8 @@ export default function Add() {
               showTimeSelectOnly
               timeIntervals={60}
               timeCaption="Time"
-              dateFormat="h:mm aa"
-              minTime={currentSchedule.startTime || setHours(setMinutes(new Date(), 0), 0)}
+              dateFormat="HH:mm"
+              minTime={currentSchedule.startTime || now}
               maxTime={setHours(setMinutes(currentSchedule.date, 0), 23)}
             />
           </div>
@@ -238,7 +246,7 @@ export default function Add() {
             {schedules.map((schedule, index) => (
               // eslint-disable-next-line react/no-array-index-key
               <React.Fragment key={index}>
-                <div className="col-span-3 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] border border-gray-500 bg-white pl-2">
                   {schedule.date.toISOString().split("T")[0]}
                 </div>
                 <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
@@ -278,6 +286,14 @@ export default function Add() {
         leftButton="확인"
         onChangeLeftButton={() => {
           closePopup("fail");
+        }}
+      />
+      <Popup
+        id="duplicate"
+        text="중복된 시간대가 존재합니다."
+        leftButton="확인"
+        onChangeLeftButton={() => {
+          closePopup("duplicate");
         }}
       />
     </div>
