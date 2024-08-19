@@ -64,7 +64,6 @@ function ProfileEditor({ register, profileImage, handleImageChange, handleImageR
             alt="프로필 수정 더보기 아이콘"
             width={30}
             height={30}
-            priority
           />
         </button>
 
@@ -77,13 +76,7 @@ function ProfileEditor({ register, profileImage, handleImageChange, handleImageR
           }`}
           onClick={handleInputClick}
         >
-          <Image
-            src="/icons/icon-pen.svg"
-            alt="프로필 수정 아이콘"
-            width={30}
-            height={30}
-            priority
-          />
+          <Image src="/icons/icon-pen.svg" alt="프로필 수정 아이콘" width={30} height={30} />
           <input
             type="file"
             accept="image/*"
@@ -103,13 +96,7 @@ function ProfileEditor({ register, profileImage, handleImageChange, handleImageR
           }`}
           onClick={handleResetAndClearInput}
         >
-          <Image
-            src="/icons/icon-back.svg"
-            alt="프로필 되돌리기 아이콘"
-            width={30}
-            height={30}
-            priority
-          />
+          <Image src="/icons/icon-back.svg" alt="프로필 되돌리기 아이콘" width={30} height={30} />
         </button>
       </div>
     </div>
