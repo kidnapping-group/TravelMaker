@@ -14,21 +14,21 @@ function Review({ reservation }: { reservation: Reservations }) {
     await myReservationAPI.postReviews(reservation.id, { rating, content: reviewContent });
   };
   return (
-    <div className="flex h-full flex-col gap-3 px-4 tablet:h-[660px] tablet:w-[480px] tablet:gap-6 tablet:px-6">
+    <div className="flex h-full w-[100vw] flex-col gap-3 px-4 tablet:h-[636px] tablet:w-[460px] tablet:gap-6 tablet:px-6">
       <div className="flex h-[100px] items-center gap-2 tablet:h-[137px]">
         <Image
           src={reservation.activity.bannerImageUrl}
           width={100}
           height={100}
           alt="체험 사진"
-          className="rounded-[12px] object-cover tablet:h-[125px] tablet:w-[125px]"
+          className="flex-shrink-0 rounded-[12px] object-cover tablet:h-[125px] tablet:w-[125px]"
         />
-        <div className="flex flex-grow flex-col justify-between tablet:gap-3">
-          <div className="tablet:flex tablet:flex-col tablet:gap-3">
-            <p className="overflow-hidden text-ellipsis whitespace-nowrap text-lg font-bold tracking-tight tablet:text-xl">
+        <div className="flex flex-grow flex-col justify-between truncate tablet:gap-3">
+          <div className="flex flex-col tablet:gap-3">
+            <p className="truncate text-lg font-bold tracking-tight tablet:text-xl">
               {reservation.activity.title}
             </p>
-            <p className="tablet::text-2lg text-md">
+            <p className="tablet::text-2lg truncate text-md">
               {reservation.date} · {reservation.startTime} - {reservation.endTime} ·{" "}
               {reservation.headCount}명
             </p>
