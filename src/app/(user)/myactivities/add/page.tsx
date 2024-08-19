@@ -135,141 +135,144 @@ export default function Add() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="px-3">
-        <div className="sticky top-[95px] z-10 flex justify-between bg-gray-100 py-3 pc:top-[55px]">
+      <form onSubmit={handleSubmit} className="h-[100vh] px-3 pb-[150px]">
+        <div className="flex justify-between">
           <p className="text-3xl font-bold">내 체험 등록</p>
           <Button disabled={isSubmitDisabled} type="submit">
             등록
           </Button>
         </div>
-
-        <AddInput
-          id="title"
-          label="체험명"
-          value={title}
-          onChange={e => setTitle(e.target.value)}
-          placeholder="체험명을 입력해 주세요"
-        />
-        <p className="text-xl font-bold">카테고리</p>
-        <div className="mb-8 mt-2.5">
-          <Dropdown
-            menuItems={dropdownList}
-            type="square"
-            onChangeDropdown={handleCategory}
-            placeHolder="카테고리"
+        <div className="h-full overflow-y-auto">
+          <AddInput
+            id="title"
+            label="체험명"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            placeholder="체험명을 입력해 주세요"
           />
-        </div>
+          <p className="text-xl font-bold">카테고리</p>
+          <div className="mb-8 mt-2.5">
+            <Dropdown
+              menuItems={dropdownList}
+              type="square"
+              onChangeDropdown={handleCategory}
+              placeHolder="카테고리"
+            />
+          </div>
 
-        <AddInput
-          id="description"
-          label="체험 소개"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-          placeholder="체험 소개를 입력해 주세요"
-          isTextArea
-        />
-        <AddInput
-          id="price"
-          label="체험 비용"
-          value={price}
-          onChange={e => setPrice(e.target.value)}
-          placeholder="인당 체험 비용을 입력해 주세요"
-          type="number"
-        />
-        <AddressInput address={address} setAddress={setAddress} />
-        <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
-        <div className="grid grid-cols-8 grid-rows-2 gap-1">
-          <p className="text-base col-span-3 font-medium">날짜</p>
-          <p className="text-base col-span-2 font-medium">시작 시간</p>
-          <p className="text-base col-span-2 font-medium">종료 시간</p>
-          <p className="text-base col-span-1 font-medium">추가</p>
-          <div className="col-span-3 w-full">
-            <DatePicker
-              className="h-9 w-full rounded-[4px] border border-gray-500"
-              toggleCalendarOnIconClick
-              selected={currentSchedule.date}
-              onChange={(date: Date | null) => {
-                handleScheduleChange("date", date);
-              }}
-              minDate={new Date()}
-              showYearDropdown
-              scrollableYearDropdown
-              dateFormat="yyyy-MM-dd"
-            />
+          <AddInput
+            id="description"
+            label="체험 소개"
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+            placeholder="체험 소개를 입력해 주세요"
+            isTextArea
+          />
+          <AddInput
+            id="price"
+            label="체험 비용"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+            placeholder="인당 체험 비용을 입력해 주세요"
+            type="number"
+          />
+          <AddressInput address={address} setAddress={setAddress} />
+          <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
+          <div className="grid grid-cols-8 grid-rows-2 gap-1">
+            <p className="text-base col-span-3 font-medium">날짜</p>
+            <p className="text-base col-span-2 font-medium">시작 시간</p>
+            <p className="text-base col-span-2 font-medium">종료 시간</p>
+            <p className="text-base col-span-1 font-medium">추가</p>
+            <div className="col-span-3 w-full">
+              <DatePicker
+                className="h-9 w-full rounded-[4px] border border-gray-500"
+                toggleCalendarOnIconClick
+                selected={currentSchedule.date}
+                onChange={(date: Date | null) => {
+                  handleScheduleChange("date", date);
+                }}
+                minDate={new Date()}
+                showYearDropdown
+                scrollableYearDropdown
+                dateFormat="yyyy-MM-dd"
+              />
+            </div>
+            <div className="col-span-2">
+              <DatePicker
+                className="col-span-2 h-9 w-full rounded-[4px] border border-gray-500"
+                selected={currentSchedule.startTime}
+                onChange={(date: Date | null) => handleScheduleChange("startTime", date)}
+                selectsStart
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={60}
+                timeCaption="Time"
+                dateFormat="HH:mm"
+                minTime={
+                  currentSchedule.date.toDateString() === now.toDateString()
+                    ? now
+                    : setHours(setMinutes(new Date(), 0), 0)
+                }
+                maxTime={
+                  currentSchedule.endTime || setHours(setMinutes(currentSchedule.date, 0), 23)
+                }
+              />
+            </div>
+            <div className="col-span-2 w-full">
+              <DatePicker
+                className="h-9 w-full rounded-[4px] border border-gray-500"
+                selected={currentSchedule.endTime}
+                onChange={(date: Date | null) => handleScheduleChange("endTime", date)}
+                selectsEnd
+                showTimeSelect
+                showTimeSelectOnly
+                timeIntervals={60}
+                timeCaption="Time"
+                dateFormat="HH:mm"
+                minTime={currentSchedule.startTime || now}
+                maxTime={setHours(setMinutes(currentSchedule.date, 0), 23)}
+              />
+            </div>
+            <Button
+              className="text-base col-span-1 h-9 rounded-[4px] border border-gray-500 font-medium"
+              type="button"
+              onClick={addSchedule}
+            >
+              추가
+            </Button>
           </div>
-          <div className="col-span-2">
-            <DatePicker
-              className="col-span-2 h-9 w-full rounded-[4px] border border-gray-500"
-              selected={currentSchedule.startTime}
-              onChange={(date: Date | null) => handleScheduleChange("startTime", date)}
-              selectsStart
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={60}
-              timeCaption="Time"
-              dateFormat="HH:mm"
-              minTime={
-                currentSchedule.date.toDateString() === now.toDateString()
-                  ? now
-                  : setHours(setMinutes(new Date(), 0), 0)
-              }
-              maxTime={currentSchedule.endTime || setHours(setMinutes(currentSchedule.date, 0), 23)}
-            />
-          </div>
-          <div className="col-span-2 w-full">
-            <DatePicker
-              className="h-9 w-full rounded-[4px] border border-gray-500"
-              selected={currentSchedule.endTime}
-              onChange={(date: Date | null) => handleScheduleChange("endTime", date)}
-              selectsEnd
-              showTimeSelect
-              showTimeSelectOnly
-              timeIntervals={60}
-              timeCaption="Time"
-              dateFormat="HH:mm"
-              minTime={currentSchedule.startTime || now}
-              maxTime={setHours(setMinutes(currentSchedule.date, 0), 23)}
-            />
-          </div>
-          <Button
-            className="text-base col-span-1 h-9 rounded-[4px] border border-gray-500 font-medium"
-            type="button"
-            onClick={addSchedule}
-          >
-            추가
-          </Button>
-        </div>
 
-        <div className="mb-8 mt-4">
-          <p className="text-base h-8 font-medium">추가한 예약 시간</p>
-          <div className="grid grid-cols-8 gap-1">
-            {schedules.map((schedule, index) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <React.Fragment key={index}>
-                <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] border border-gray-500 bg-white pl-2">
-                  {schedule.date.toISOString().split("T")[0]}
-                </div>
-                <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
-                  {schedule.startTime}
-                </div>
-                <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
-                  {schedule.endTime}
-                </div>
-                <Button
-                  className="text-base col-span-1 h-9 rounded-[4px] border border-gray-500 font-medium"
-                  type="button"
-                  onClick={() => removeSchedule(index)}
-                >
-                  삭제
-                </Button>
-              </React.Fragment>
-            ))}
+          <div className="mb-8 mt-4">
+            <p className="text-base h-8 font-medium">추가한 예약 시간</p>
+            <div className="grid grid-cols-8 gap-1">
+              {schedules.map((schedule, index) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <React.Fragment key={index}>
+                  <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                    {schedule.date.toISOString().split("T")[0]}
+                  </div>
+                  <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                    {schedule.startTime}
+                  </div>
+                  <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                    {schedule.endTime}
+                  </div>
+                  <Button
+                    className="text-base col-span-1 h-9 rounded-[4px] border border-gray-500 font-medium"
+                    type="button"
+                    onClick={() => removeSchedule(index)}
+                  >
+                    삭제
+                  </Button>
+                </React.Fragment>
+              ))}
+            </div>
           </div>
+          <p className="mb-2.5 text-xl font-bold">배너 이미지</p>
+          <ImageInput bannerImageUrl={bannerImageUrl} setBannerImageUrl={setBannerImageUrl} />
+          <p className="mb-2.5 text-xl font-bold">소개 이미지</p>
+          <SubImagesInput subImageUrls={subImageUrls} setSubImageUrls={setSubImageUrls} />
         </div>
-        <p className="mb-2.5 text-xl font-bold">배너 이미지</p>
-        <ImageInput bannerImageUrl={bannerImageUrl} setBannerImageUrl={setBannerImageUrl} />
-        <p className="mb-2.5 text-xl font-bold">소개 이미지</p>
-        <SubImagesInput subImageUrls={subImageUrls} setSubImageUrls={setSubImageUrls} />
       </form>
       <Popup
         id="success"
