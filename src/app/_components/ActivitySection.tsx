@@ -41,7 +41,7 @@ async function ActivitySection({
       <div className="flex items-center justify-between">
         <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
         <Link
-          className="text-md font-semibold text-primary-500 hover:text-primary-300"
+          className="text-md font-semibold text-primary-500 transition hover:text-primary-300 active:text-primary-200"
           href={`/search?${createQueryString({ category, keyword, sort })}`}
         >
           더보기
