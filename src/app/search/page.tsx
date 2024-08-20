@@ -17,14 +17,13 @@ interface SearchPageProps {
 
 async function SearchPage({ searchParams }: SearchPageProps) {
   const { keyword, category, sort = DEFAULT_SORT, page = 1 } = searchParams;
-  const pageSize = PAGE_SIZE;
 
   const { totalCount, activities } = await activitiesAPI.get({
     keyword,
     category,
     sort,
     page,
-    size: pageSize,
+    size: PAGE_SIZE,
   });
 
   return (
@@ -46,7 +45,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
         {activities.length > 0 ? (
           <div className="flex flex-col gap-5 pt-3">
             <ActivityGrid activities={activities} />
-            <Pagination totalCount={totalCount} pageSize={pageSize} />
+            <Pagination totalCount={totalCount} pageSize={PAGE_SIZE} />
           </div>
         ) : (
           <div className="my-20 flex justify-center text-lg font-medium text-gray-400">
