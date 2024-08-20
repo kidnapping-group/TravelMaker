@@ -2,18 +2,29 @@
 
 import { Button } from "@/components/Button";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   placeholder: string;
 }
 
 function SearchForm({ placeholder }: Props) {
+  const { push } = useRouter();
+
   const searchParams = useSearchParams();
-  const keyword = searchParams.get("keyword");
+  const keyword = searchParams.get("keyword")?.toString();
+
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const searchKeyword = formData.get("keyword") as string;
+
+    push(`/search?keyword=${searchKeyword}`);
+  };
 
   return (
-    <form className="flex gap-3" action="/search" method="get">
+    <form className="flex gap-3" onSubmit={handleSearch}>
       <div className="relative flex grow items-center">
         <Image
           className="absolute"
@@ -27,7 +38,7 @@ function SearchForm({ placeholder }: Props) {
           className="h-full w-full rounded-lg bg-gray-100 py-2 pl-12 pr-4 text-lg font-medium placeholder:text-gray-400"
           name="keyword"
           placeholder={placeholder}
-          defaultValue={keyword ?? undefined}
+          defaultValue={keyword}
         />
       </div>
       <Button size="large" type="submit">
