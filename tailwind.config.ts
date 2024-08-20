@@ -47,6 +47,7 @@ const config: Config = {
       green: {
         500: "#00AC07",
       },
+      transparent: "transparent",
     },
     fontSize: {
       xs: ["12px", "18px"],
