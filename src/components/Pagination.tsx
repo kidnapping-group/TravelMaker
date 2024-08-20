@@ -1,8 +1,8 @@
 "use client";
 
+import useUpdateQuery from "@/hooks/useUpdateQuery";
 import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 interface PaginationProps extends React.PropsWithChildren {
   totalCount: number;
@@ -10,7 +10,8 @@ interface PaginationProps extends React.PropsWithChildren {
 }
 
 function Pagination({ totalCount, pageSize }: PaginationProps) {
-  const pathname = usePathname();
+  const updateQuery = useUpdateQuery("page");
+
   const currentPage = Number(useSearchParams().get("page") ?? "1");
   const totalPages = Math.ceil(totalCount / pageSize);
 
@@ -25,9 +26,12 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
 
   return (
     <div className="gap-10px flex justify-center">
-      <Link
-        href={`${pathname}?page=${Math.max(1, currentPage - 1)}`}
+      <button
         className="border-green flex h-10 w-10 items-center justify-center rounded-2xl border tablet:h-[55px] tablet:w-[55px]"
+        type="button"
+        onClick={() => {
+          updateQuery(Math.max(1, currentPage - 1));
+        }}
       >
         <Image
           src={`/icons/icon-arrow-prev-${currentPage === 1 ? "passive-" : ""}pagination.svg`}
@@ -35,21 +39,27 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
           height={18}
           alt="이전"
         />
-      </Link>
+      </button>
       {pageNumbers.map(pageNumber => (
-        <Link
+        <button
           key={pageNumber}
-          href={`${pathname}?page=${pageNumber}`}
           className={`${
-            currentPage === pageNumber ? "bg-green text-white" : "text-green"
+            currentPage === pageNumber ? "bg-primary-500 text-white" : "text-green"
           } border-green flex h-10 w-10 items-center justify-center rounded-2xl border text-lg font-normal tablet:h-[55px] tablet:w-[55px]`}
+          type="button"
+          onClick={() => {
+            updateQuery(pageNumber);
+          }}
         >
           {pageNumber}
-        </Link>
+        </button>
       ))}
-      <Link
-        href={`${pathname}?page=${Math.min(totalPages, currentPage + 1)}`}
+      <button
         className="border-green flex h-10 w-10 items-center justify-center rounded-2xl border tablet:h-[55px] tablet:w-[55px]"
+        type="button"
+        onClick={() => {
+          updateQuery(Math.min(totalPages, currentPage + 1));
+        }}
       >
         <Image
           src={`/icons/icon-arrow-next-${currentPage === totalPages ? "passive-" : ""}pagination.svg`}
@@ -57,7 +67,7 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
           height={18}
           alt="다음"
         />
-      </Link>
+      </button>
     </div>
   );
 }
