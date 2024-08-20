@@ -46,7 +46,7 @@ function MyActivities() {
     <div className="relative mx-auto h-full w-full max-w-[806px] flex-col items-center justify-center px-4">
       <div className="z-10 flex max-w-[800px] flex-grow items-start justify-between bg-gray-100 pb-6">
         <h1 className="text-3xl font-bold">내 체험 관리</h1>
-        <LinkButton href="/myactivities/register" variant="default" size="medium">
+        <LinkButton href="/myactivities/add" variant="default" size="medium">
           체험 등록하기
         </LinkButton>
       </div>
