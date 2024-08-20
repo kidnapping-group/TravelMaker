@@ -1,24 +1,24 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
-const useUpdateQuery = () => {
+const useUpdateQuery = (queryKey: string) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const updateQuery = useCallback(
-    (paramName: string, paramValue: string | null) => {
+    (value: string | number | null) => {
       const params = new URLSearchParams(searchParams);
 
-      if (paramValue === null) {
-        params.delete(paramName);
+      if (value === null) {
+        params.delete(queryKey);
       } else {
-        params.set(paramName, paramValue);
+        params.set(queryKey, String(value));
       }
 
       router.push(`${pathname}?${params.toString()}`);
     },
-    [router, pathname, searchParams],
+    [router, pathname, searchParams, queryKey],
   );
 
   return updateQuery;

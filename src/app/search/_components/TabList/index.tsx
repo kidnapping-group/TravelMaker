@@ -11,7 +11,7 @@ interface TabListProps {
 }
 
 function TabList({ paramName, paramValues }: TabListProps) {
-  const updateQuery = useUpdateQuery();
+  const updateQuery = useUpdateQuery(paramName);
 
   const searchParams = useSearchParams();
   const currentTab = searchParams.get(paramName);
@@ -22,7 +22,7 @@ function TabList({ paramName, paramValues }: TabListProps) {
         <Tab
           selected={currentTab === null}
           onClick={() => {
-            updateQuery(paramName, null);
+            updateQuery(null);
           }}
         >
           전체
@@ -33,7 +33,7 @@ function TabList({ paramName, paramValues }: TabListProps) {
           <Tab
             selected={currentTab === paramValue}
             onClick={() => {
-              updateQuery(paramName, paramValue);
+              updateQuery(paramValue);
             }}
           >
             {paramValue}

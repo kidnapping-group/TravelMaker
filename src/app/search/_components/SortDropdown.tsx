@@ -13,7 +13,7 @@ const SORT_NAME: Record<string, string> = {
 const PARAM_NAME = "sort";
 
 function SortDropdown() {
-  const updateQuery = useUpdateQuery();
+  const updateQuery = useUpdateQuery(PARAM_NAME);
 
   const searchParams = useSearchParams();
   const currentSort = searchParams.get(PARAM_NAME);
@@ -21,7 +21,7 @@ function SortDropdown() {
   const handleMenuItemClick = (status: string) => {
     const selectedSortKey = Object.keys(SORT_NAME).find(key => SORT_NAME[key] === status);
     if (selectedSortKey) {
-      updateQuery(PARAM_NAME, selectedSortKey);
+      updateQuery(selectedSortKey);
     }
   };
 
