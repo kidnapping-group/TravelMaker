@@ -6,11 +6,11 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
-interface Props {
+interface SearchFormProps {
   placeholder: string;
 }
 
-function SearchForm({ placeholder }: Props) {
+function SearchForm({ placeholder }: SearchFormProps) {
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
 
   const { push } = useRouter();
