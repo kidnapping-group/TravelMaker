@@ -29,7 +29,8 @@ function SearchForm({ placeholder }: SearchFormProps) {
       return;
     }
 
-    push(`/search?keyword=${searchKeyword}`);
+    const encodedKeyword = encodeURIComponent(searchKeyword);
+    push(`/search?keyword=${encodedKeyword}`);
   };
 
   return (
