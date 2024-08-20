@@ -11,10 +11,10 @@ import MyReservationItem from "./MyReservationItem";
 
 function MyReservations() {
   let size = 10;
-  const menuItems = ["전체보기", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
-  const menuItemsStatus = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
+  const menuItems = ["전체 예약", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
+  const menuItemsStatus = ["all", "pending", "canceled", "confirmed", "declined", "completed"];
   const [status, setStatus] = useState<string | undefined>(undefined);
-  const { data, isLoading, error } = useInfiniteQuery<
+  const { data, isLoading, error, fetchNextPage, hasNextPage } = useInfiniteQuery<
     ReservationRes,
     Error,
     InfiniteData<ReservationRes>,
@@ -31,6 +31,13 @@ function MyReservations() {
     const selectedIndex = menuItems.indexOf(selectStatus);
     const correspondingStatus = menuItemsStatus[selectedIndex] || "all";
     setStatus(correspondingStatus === "all" ? undefined : correspondingStatus);
+  };
+
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 1 && hasNextPage && !isLoading) {
+      fetchNextPage();
+    }
   };
 
   const hasReservations = data?.pages.some(page => page.reservations.length > 0);
@@ -62,7 +69,7 @@ function MyReservations() {
       </div>
       {hasReservations ? (
         <div className="h-full pb-20">
-          <div className="h-full overflow-y-auto">
+          <div className="h-full overflow-y-auto" onScroll={handleScroll}>
             {data?.pages.map(page => (
               <div className="flex flex-col gap-[24px]" key={page.cursorId}>
                 {page.reservations.map(reservation => (
