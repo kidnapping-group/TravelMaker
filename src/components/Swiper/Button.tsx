@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 import { useSwiper } from "./Context";
@@ -7,7 +9,7 @@ function PreviousButton() {
 
   return (
     <button
-      className="absolute -left-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white ring-offset-white transition-colors hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:hidden"
+      className="absolute -left-4 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white ring-offset-white transition-colors hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:hidden pc:flex"
       disabled={!canScrollPrev}
       onClick={scrollPrev}
       type="button"
@@ -22,7 +24,7 @@ function NextButton() {
 
   return (
     <button
-      className="absolute -right-4 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white ring-offset-white transition-colors hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:hidden"
+      className="absolute -right-4 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-gray-200 bg-white ring-offset-white transition-colors hover:bg-gray-100 active:bg-gray-200 disabled:pointer-events-none disabled:hidden pc:flex"
       disabled={!canScrollNext}
       onClick={scrollNext}
       type="button"
