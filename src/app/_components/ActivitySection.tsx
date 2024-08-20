@@ -1,6 +1,7 @@
 import activitiesAPI from "@/apis/activitiesAPI";
 import ActivityCard from "@/app/_components/ActivityCard";
 import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
+import createQueryString from "@/utils/createQueryString";
 import Link from "next/link";
 
 interface ActivitySectionProps {
@@ -21,12 +22,14 @@ const categoryTitle = {
 
 async function ActivitySection({
   title: sectionTitle,
-  category,
+  category: categoryKey,
   keyword,
   sort = "most_reviewed",
 }: ActivitySectionProps) {
+  const category = categoryKey && categoryTitle[categoryKey];
+
   const { activities, totalCount } = await activitiesAPI.get({
-    category: category && categoryTitle[category],
+    category,
     keyword,
     sort,
     page: 1,
@@ -37,7 +40,10 @@ async function ActivitySection({
     <section className="flex flex-col">
       <div className="flex items-center justify-between">
         <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
-        <Link className="text-md font-semibold text-primary-500" href="/">
+        <Link
+          className="text-md font-semibold text-primary-500 hover:text-primary-300"
+          href={`/search?${createQueryString({ category, keyword, sort })}`}
+        >
           더보기
         </Link>
       </div>
