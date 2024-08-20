@@ -1,14 +1,15 @@
 "use client";
 
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { Children, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { NextButton, PreviousButton } from "./Button";
+import Content from "./Content";
 import { SwiperContext } from "./Context";
 
 type SwiperApi = UseEmblaCarouselType[1];
 
-function Swiper({ children }: React.PropsWithChildren) {
+function Swiper({ children }: { children: React.ReactNode }) {
   const [swiperRef, api] = useEmblaCarousel({ align: "start" });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
@@ -46,33 +47,25 @@ function Swiper({ children }: React.PropsWithChildren) {
 
   const context = useMemo(
     () => ({
+      swiperRef,
       scrollPrev,
       scrollNext,
       canScrollPrev,
       canScrollNext,
     }),
-    [scrollPrev, scrollNext, canScrollPrev, canScrollNext],
+    [swiperRef, scrollPrev, scrollNext, canScrollPrev, canScrollNext],
   );
 
   return (
     <SwiperContext.Provider value={context}>
-      <div className="relative">
-        <div ref={swiperRef} className="overflow-hidden">
-          <div className="-ml-3 flex pc:-ml-4">
-            {Children.map(children, child => (
-              <div className="w-[240px] min-w-0 shrink-0 grow-0 pl-3 pc:w-auto pc:basis-1/4 pc:pl-4">
-                {child}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="hidden pc:block">
-          <PreviousButton />
-          <NextButton />
-        </div>
-      </div>
+      <div className="relative">{children}</div>
     </SwiperContext.Provider>
   );
 }
 
-export default Swiper;
+export {
+  Swiper,
+  Content as SwiperContent,
+  PreviousButton as SwiperPrevious,
+  NextButton as SwiperNext,
+};
