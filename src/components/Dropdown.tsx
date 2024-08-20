@@ -84,7 +84,7 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown, placeHolder }: 
     <div>
       <div
         role="button"
-        className={`relative inline-block min-w-32 ${styles.container}`}
+        className={`relative inline-block min-w-32 bg-white ${styles.container}`}
         ref={dropdownRef}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
@@ -105,7 +105,7 @@ function Dropdown({ menuItems, type = "round", onChangeDropdown, placeHolder }: 
         </button>
         {isOpen && (
           <div
-            className={`absolute ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
+            className={`absolute z-10 ${styles.dropdownList} mt-2 w-full rounded-md border border-[#1122110D] bg-white shadow-sm`}
           >
             {menuItems.map((item, index) => (
               <button
