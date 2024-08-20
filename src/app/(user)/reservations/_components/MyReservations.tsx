@@ -14,6 +14,7 @@ function MyReservations() {
   const menuItems = ["전체 예약", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
   const menuItemsStatus = ["all", "pending", "canceled", "confirmed", "declined", "completed"];
   const [status, setStatus] = useState<string | undefined>(undefined);
+  const [namingstatus, setNamingStatus] = useState<string | undefined>(undefined);
   const { data, isLoading, error, fetchNextPage, hasNextPage } = useInfiniteQuery<
     ReservationRes,
     Error,
@@ -31,6 +32,7 @@ function MyReservations() {
     const selectedIndex = menuItems.indexOf(selectStatus);
     const correspondingStatus = menuItemsStatus[selectedIndex] || "all";
     setStatus(correspondingStatus === "all" ? undefined : correspondingStatus);
+    setNamingStatus(selectStatus);
   };
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
@@ -64,7 +66,7 @@ function MyReservations() {
           menuItems={menuItems}
           type="round"
           onChangeDropdown={handleSelectStatus}
-          placeHolder="필터"
+          placeHolder={namingstatus}
         />
       </div>
       {hasReservations ? (
