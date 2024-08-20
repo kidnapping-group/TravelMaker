@@ -27,7 +27,7 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
     <div className="flex justify-center gap-2">
       <Link
         href={`${pathname}?page=${Math.max(1, currentPage - 1)}`}
-        className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
+        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
       >
         <Image
           className="select-none"
@@ -46,14 +46,14 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
             currentPage === pageNumber
               ? "bg-primary-500 text-white"
               : "bg-white text-black hover:bg-gray-100"
-          } flex h-8 w-8 items-center justify-center rounded-full text-md font-medium transition-colors disabled:pointer-events-none tablet:h-10 tablet:w-10 tablet:text-lg`}
+          } flex h-8 w-8 items-center justify-center rounded-full text-md font-medium disabled:pointer-events-none tablet:h-10 tablet:w-10 tablet:text-lg`}
         >
           {pageNumber}
         </Link>
       ))}
       <Link
         href={`${pathname}?page=${Math.min(totalPages, currentPage + 1)}`}
-        className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
+        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
       >
         <Image
           src={`/icons/icon-arrow-next-${currentPage === totalPages ? "passive-" : ""}pagination.svg`}
