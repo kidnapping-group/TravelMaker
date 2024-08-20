@@ -32,14 +32,16 @@ axiosInstance.interceptors.response.use(
     if (error.response.status === 401 && !prevRequest.retry) {
       prevRequest.retry = true;
 
-      let currentRefreshToken = Cookies.get("refreshToken");
+      const currentRefreshToken = Cookies.get("refreshToken");
       if (!currentRefreshToken) {
         return Promise.reject(error);
       }
-
       try {
-        axiosInstance.defaults.headers.common.Authorization = `Bearer ${currentRefreshToken}`;
-        const { data } = await axiosInstance.post("/auth/tokens");
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/tokens`, null, {
+          headers: {
+            Authorization: `Bearer ${currentRefreshToken}`,
+          },
+        });
         const { accessToken, refreshToken } = data;
         Cookies.set("refreshToken", refreshToken);
         Cookies.set("accessToken", accessToken);
@@ -47,13 +49,14 @@ axiosInstance.interceptors.response.use(
         const response = await axiosInstance(prevRequest);
         return response;
       } catch (refreshError) {
-        handleAxiosError(refreshError);
-        return Promise.reject(refreshError);
+        Cookies.remove("refreshToken");
+        Cookies.remove("accessToken");
+        Cookies.remove("social-login-store");
+        window.location.href = "/signin?expiredRefreshToken=true";
       }
     }
     handleAxiosError(error);
     return Promise.reject(error);
   },
 );
-
 export default axiosInstance;

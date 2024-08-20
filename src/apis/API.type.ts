@@ -216,9 +216,9 @@ export type postUsers = {
 };
 
 export type patchUsers = {
-  nickname: string;
-  profileImageUrl: string;
-  newPassword: string;
+  nickname?: string;
+  profileImageUrl?: string;
+  newPassword?: string;
 };
 
 export type postUsersImageRes = {
@@ -226,7 +226,7 @@ export type postUsersImageRes = {
 };
 
 export type getReservation = {
-  cursorId?: string;
+  cursorId?: number;
   size?: number;
   status?: string;
 };
