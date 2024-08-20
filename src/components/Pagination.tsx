@@ -25,27 +25,31 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
   const pageNumbers = Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
 
   return (
-    <div className="gap-10px flex justify-center">
+    <div className="flex justify-center gap-2">
       <button
-        className="border-green flex h-10 w-10 items-center justify-center rounded-2xl border tablet:h-[55px] tablet:w-[55px]"
+        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
         type="button"
         onClick={() => {
           updateQuery(Math.max(1, currentPage - 1));
         }}
       >
         <Image
+          className="select-none"
           src={`/icons/icon-arrow-prev-${currentPage === 1 ? "passive-" : ""}pagination.svg`}
           width={18}
           height={18}
           alt="이전"
+          draggable={false}
         />
       </button>
       {pageNumbers.map(pageNumber => (
         <button
           key={pageNumber}
           className={`${
-            currentPage === pageNumber ? "bg-primary-500 text-white" : "text-green"
-          } border-green flex h-10 w-10 items-center justify-center rounded-2xl border text-lg font-normal tablet:h-[55px] tablet:w-[55px]`}
+            currentPage === pageNumber
+              ? "bg-primary-500 text-white"
+              : "bg-white text-black hover:bg-gray-100"
+          } flex h-8 w-8 items-center justify-center rounded-full text-md font-medium disabled:pointer-events-none tablet:h-10 tablet:w-10 tablet:text-lg`}
           type="button"
           onClick={() => {
             updateQuery(pageNumber);
@@ -55,7 +59,7 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
         </button>
       ))}
       <button
-        className="border-green flex h-10 w-10 items-center justify-center rounded-2xl border tablet:h-[55px] tablet:w-[55px]"
+        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
         type="button"
         onClick={() => {
           updateQuery(Math.min(totalPages, currentPage + 1));
