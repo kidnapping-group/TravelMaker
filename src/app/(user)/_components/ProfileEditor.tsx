@@ -2,14 +2,19 @@ import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
-interface Props {
+interface ProfileEditorProps {
   profileImage: string | null;
   register: UseFormRegisterReturn;
   handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleImageReset: () => void;
 }
 
-function ProfileEditor({ register, profileImage, handleImageChange, handleImageReset }: Props) {
+function ProfileEditor({
+  register,
+  profileImage,
+  handleImageChange,
+  handleImageReset,
+}: ProfileEditorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);

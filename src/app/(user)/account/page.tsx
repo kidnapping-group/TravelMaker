@@ -1,5 +1,6 @@
 "use client";
 
+import { User } from "@/apis/API.type";
 import userAPI from "@/apis/usersAPI";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input/Input";
@@ -14,147 +15,188 @@ import { z } from "zod";
 
 import ProfileEditor from "../_components/ProfileEditor";
 
-type UserData = {
-  nickname?: string;
-  email?: string;
-  profileImageUrl?: string | null;
-};
+type UserData = Pick<User, "nickname" | "email" | "profileImageUrl">;
 
-type AccountFormData = z.infer<typeof commonAccountSchema>;
+type AccountFormValues = z.infer<typeof commonAccountValidationSchema>;
 
-const socialAccountSchema = baseSchema.pick({
+const socialAccountValidationSchema = baseSchema.pick({
   nickname: true,
   profileImageUrl: true,
 });
 
-const commonAccountSchema = baseSchema
-  .pick({ nickname: true, password: true, confirmPassword: true, profileImageUrl: true })
-  .refine(data => data.confirmPassword === data.password, {
-    message: "비밀번호가 일치하지 않습니다",
-    path: ["confirmPassword"],
-  });
+const commonAccountValidationSchema = baseSchema
+  .pick({
+    nickname: true,
+    profileImageUrl: true,
+  })
+  .extend({
+    password: z.string().optional(),
+    confirmPassword: z.string().optional(),
+  })
+  .refine(
+    values => {
+      if (values.password) {
+        return values.password.length >= 8;
+      }
+      return true;
+    },
+    {
+      message: "비밀번호는 8자 이상이어야 합니다",
+      path: ["password"],
+    },
+  )
+  .refine(
+    values => {
+      if (values.password) {
+        return values.password === values.confirmPassword;
+      }
+      return true;
+    },
+    {
+      message: "비밀번호가 일치하지 않습니다",
+      path: ["confirmPassword"],
+    },
+  );
 
 function Account() {
-  const [profileImage, setProfileImage] = useState<string>("");
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [currentProfileImageUrl, setCurrentProfileImageUrl] = useState<string | null>(null);
+  const [isSocialLogin, setIsSocialLogin] = useState<boolean>(false);
+  const [initialFormValues, setInitialFormValues] = useState<AccountFormValues | null>(null);
+  const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string | null>(null);
 
   const { social } = socialLoginStore(state => ({
     social: state.social,
   }));
 
-  const selectedSchema = isDisabled ? socialAccountSchema : commonAccountSchema;
+  const selectedValidationSchema = isSocialLogin
+    ? socialAccountValidationSchema
+    : commonAccountValidationSchema;
 
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields, isValid },
+    formState: { errors, touchedFields },
     reset,
-  } = useForm<AccountFormData>({
-    resolver: zodResolver(selectedSchema),
-    mode: "all",
+    setValue,
+  } = useForm<AccountFormValues>({
+    resolver: zodResolver(selectedValidationSchema),
+    mode: "onSubmit",
   });
 
-  const { data: userData, refetch } = useQuery<UserData>({
+  const { data: fetchedUserData, refetch: refetchUserData } = useQuery<UserData>({
     queryKey: ["userData"],
     queryFn: userAPI.getUsers,
   });
 
-  const userDataPatchMutation = useMutation({
-    mutationFn: userAPI.patchUsers,
+  const updateUserMutation = useMutation({
+    mutationFn: (updatedData: {
+      nickname: string | undefined;
+      newPassword?: string | undefined;
+      profileImageUrl: string | null;
+    }) => userAPI.patchUsers(updatedData),
     onSuccess: () => {
       openPopup("changeUserData");
-      refetch();
+      refetchUserData();
     },
   });
 
-  const imagePostMutation = useMutation({
+  const uploadImageMutation = useMutation({
     mutationFn: userAPI.postUsersImage,
-    onSuccess: () => {
-      refetch();
-    },
   });
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const formData = new FormData();
       formData.append("image", file);
 
-      imagePostMutation.mutate(formData, {
+      uploadImageMutation.mutate(formData, {
         onSuccess: data => {
           const imageUrl = data.profileImageUrl;
-          setProfileImage(imageUrl);
+          setCurrentProfileImageUrl(imageUrl);
         },
       });
     }
   };
 
-  const handleImageReset = async () => {
-    const response = await fetch("/images/defaultProfile.png");
-    const blob = await response.blob();
-    const defaultFile = new File([blob], "defaultProfile.png", { type: "image/png" });
-
-    const formData = new FormData();
-    formData.append("image", defaultFile);
-
-    imagePostMutation.mutate(formData, {
-      onSuccess: data => {
-        const imageUrl = data.profileImageUrl;
-        setProfileImage(imageUrl);
-      },
-    });
+  const handleProfileImageReset = () => {
+    setValue("profileImageUrl", null);
+    setCurrentProfileImageUrl(null);
   };
 
-  const onSubmit = async (data: AccountFormData) => {
-    userDataPatchMutation.mutate({
-      nickname: data?.nickname,
-      newPassword: data?.password,
-      profileImageUrl: profileImage,
-    });
-  };
+  const handleFormSubmit = async (formData: AccountFormValues) => {
+    let hasFormChanged = false;
 
-  useEffect(() => {
-    setIsDisabled(social);
-  }, [social]);
-
-  useEffect(() => {
-    if (userData?.profileImageUrl === null) {
-      setProfileImage("/images/defaultProfile.png");
+    if (isSocialLogin) {
+      hasFormChanged = initialFormValues
+        ? initialFormValues.nickname !== formData.nickname ||
+          initialFormValues.profileImageUrl !== formData.profileImageUrl
+        : false;
     } else {
-      setProfileImage(userData?.profileImageUrl || "/images/defaultProfile.png");
+      hasFormChanged = initialFormValues
+        ? Object.keys(initialFormValues).some(
+            key =>
+              initialFormValues[key as keyof AccountFormValues] !==
+              formData[key as keyof AccountFormValues],
+          )
+        : false;
     }
-    reset({
-      nickname: "",
+
+    const hasProfileImageChanged = initialProfileImageUrl !== currentProfileImageUrl;
+
+    if (!hasFormChanged && !hasProfileImageChanged) {
+      openPopup("noChanges");
+      return;
+    }
+
+    updateUserMutation.mutate({
+      nickname: formData.nickname,
+      newPassword: formData.password || undefined,
+      profileImageUrl: currentProfileImageUrl || null,
+    });
+  };
+
+  useEffect(() => {
+    setIsSocialLogin(social);
+
+    const initialValues = {
+      nickname: fetchedUserData?.nickname || "",
       password: "",
       confirmPassword: "",
-    });
-  }, [userData, reset]);
+      profileImageUrl: fetchedUserData?.profileImageUrl || null,
+    };
+
+    reset(initialValues);
+    setInitialFormValues(initialValues);
+    setCurrentProfileImageUrl(fetchedUserData?.profileImageUrl || null);
+    setInitialProfileImageUrl(fetchedUserData?.profileImageUrl || null);
+  }, [fetchedUserData, reset, social]);
 
   return (
     <div>
       <form
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(handleFormSubmit)}
         className="flex w-[400px] flex-col gap-[10px] tablet:w-[700px] pc:w-[700px]"
       >
         <div className="flex items-center gap-[80px] tablet:gap-[100px] pc:gap-[100px]">
           <ProfileEditor
             register={register("profileImageUrl")}
-            profileImage={profileImage}
-            handleImageChange={handleImageChange}
-            handleImageReset={handleImageReset}
+            profileImage={currentProfileImageUrl}
+            handleImageChange={handleProfileImageChange}
+            handleImageReset={handleProfileImageReset}
           />
           <div className="flex flex-col">
             <h1 className="text-[30px] font-semibold text-primary-600 tablet:text-[40px] pc:text-[40px]">
-              {userData?.nickname || "닉네임"}
+              {fetchedUserData?.nickname}
             </h1>
-            <p className="text-[15px] text-primary-600">{userData?.email || "이메일"}</p>
+            <p className="text-[15px] text-primary-600">{fetchedUserData?.email}</p>
           </div>
         </div>
 
         <Input
           register={register("nickname")}
           type="text"
-          name="name"
+          name="nickname"
           label="닉네임"
           placeholder="닉네임을 입력해주세요"
           error={errors.nickname}
@@ -169,7 +211,7 @@ function Account() {
           placeholder="비밀번호를 입력해주세요"
           error={errors.password}
           touched={touchedFields.password}
-          disabled={isDisabled}
+          disabled={isSocialLogin}
         />
 
         <Input
@@ -180,18 +222,26 @@ function Account() {
           placeholder="비밀번호를 한번 더 입력해주세요"
           error={errors.confirmPassword}
           touched={touchedFields.confirmPassword}
-          disabled={isDisabled}
+          disabled={isSocialLogin}
         />
 
-        <Button type="submit" size="medium" disabled={!isValid}>
+        <Button type="submit" size="medium">
           수정
         </Button>
       </form>
+
       <Popup
         id="changeUserData"
         text="내 정보 수정 완료!"
         leftButton="확인"
         onChangeLeftButton={() => closePopup("changeUserData")}
+      />
+
+      <Popup
+        id="noChanges"
+        text="변경사항이 없습니다."
+        leftButton="확인"
+        onChangeLeftButton={() => closePopup("noChanges")}
       />
     </div>
   );
