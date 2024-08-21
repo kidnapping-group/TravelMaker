@@ -226,9 +226,9 @@ export type postUsersImageRes = {
 };
 
 export type getReservation = {
-  cursorId?: string;
+  cursorId?: number;
   size?: number;
-  status?: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status?: string;
 };
 
 export type ReservationRes = {
