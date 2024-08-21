@@ -11,24 +11,20 @@ import MyReservationItem from "./MyReservationItem";
 
 function MyReservations() {
   let size = 10;
-  const menuItems = [
-    "전체 예약",
-    "예약 신청",
-    "예약 취소",
-    "예약 승인",
-    "예약 거절",
-    "체험 완료",
-    "마감 완료",
-  ];
-  const menuItemsStatus = [
-    "all",
-    "pending",
-    "canceled",
-    "confirmed",
-    "declined",
-    "completed",
-    "pending",
-  ];
+
+  const menu = {
+    "전체 예약": "all",
+    "예약 신청": "pending",
+    "예약 취소": "canceled",
+    "예약 승인": "confirmed",
+    "예약 거절": "declined",
+    "체험 완료": "completed",
+    "마감 완료": "pending",
+  };
+
+  const menuItems = Object.keys(menu);
+  const menuItemsStatus = Object.values(menu);
+
   const [status, setStatus] = useState<string | undefined>(undefined);
   const [statusTitle, setStatusTitle] = useState<string>("");
   const { data, isLoading, error, fetchNextPage, hasNextPage } = useInfiniteQuery<
