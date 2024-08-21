@@ -12,7 +12,13 @@ import { useEffect, useState } from "react";
 
 import Review from "./review/Review";
 
-function MyReservationItem({ reservation }: { reservation: Reservations }) {
+function MyReservationItem({
+  reservation,
+  statusTitle,
+}: {
+  reservation: Reservations;
+  statusTitle: string;
+}) {
   const { isMobile, isTablet, isPc } = useMediaQuery();
   const [reservationState, setReservationState] = useState(reservation);
 
@@ -48,6 +54,14 @@ function MyReservationItem({ reservation }: { reservation: Reservations }) {
       setReservationState((prev: Reservations) => ({ ...prev, status: "closed" }));
     }
   }, [reservationState]);
+
+  if (statusTitle === "마감 완료" && reservationState.status !== "closed") {
+    return null;
+  }
+
+  if (statusTitle === "예약 신청" && reservationState.status !== "pending") {
+    return null;
+  }
 
   return (
     <div className="relative">
