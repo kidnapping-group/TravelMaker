@@ -37,7 +37,7 @@ axiosInstance.interceptors.response.use(
         return Promise.reject(error);
       }
       try {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/tokens`, null, {
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}auth/tokens`, null, {
           headers: {
             Authorization: `Bearer ${currentRefreshToken}`,
           },
