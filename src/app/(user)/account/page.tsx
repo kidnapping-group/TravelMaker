@@ -127,19 +127,18 @@ function Account() {
   const handleFormSubmit = async (formData: AccountFormValues) => {
     let hasFormChanged = false;
 
-    if (isSocialLogin) {
-      hasFormChanged = initialFormValues
-        ? initialFormValues.nickname !== formData.nickname ||
-          initialFormValues.profileImageUrl !== formData.profileImageUrl
-        : false;
-    } else {
-      hasFormChanged = initialFormValues
-        ? Object.keys(initialFormValues).some(
-            key =>
-              initialFormValues[key as keyof AccountFormValues] !==
-              formData[key as keyof AccountFormValues],
-          )
-        : false;
+    if (initialFormValues) {
+      if (isSocialLogin) {
+        hasFormChanged =
+          initialFormValues.nickname !== formData.nickname ||
+          initialFormValues.profileImageUrl !== formData.profileImageUrl;
+      } else {
+        hasFormChanged = Object.keys(initialFormValues).some(
+          key =>
+            initialFormValues[key as keyof AccountFormValues] !==
+            formData[key as keyof AccountFormValues],
+        );
+      }
     }
 
     const hasProfileImageChanged = initialProfileImageUrl !== currentProfileImageUrl;
