@@ -67,7 +67,7 @@ export type ReservationBase = {
   activity: ReservationActivity;
   activityId: number;
   scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed" | "closed";
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
@@ -112,16 +112,16 @@ export type StatusCount = {
 export type getActivities = {
   method?: "offset";
   cursorId?: number | null;
-  category?: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙" | null;
+  category?: string | null;
   keyword?: string | null;
-  sort?: "most_reviewed" | "price_asc" | "price_desc" | "latest" | null;
+  sort?: string | null;
   page?: number;
   size?: number;
 };
 
 export type postActivities = {
   title: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   description: string;
   address: string;
   price: number;
@@ -135,7 +135,7 @@ export type BaseActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   price: number;
   address: string;
   rating: number;
@@ -306,7 +306,7 @@ export type getMyReservation = {
   cursorId?: number;
   size?: number;
   scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status: string;
 };
 
 export type getMyReservationRes = {
@@ -325,7 +325,7 @@ export type patchMyReservationRes = Omit<ReservationBase, "nickname" | "activity
 
 export type patchMyActivities = {
   title: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   description: string;
   price: number;
   address: string;
@@ -341,7 +341,7 @@ export type patchMyActivitiesRes = {
   userId: number;
   title: string;
   description: string;
-  category: "문화 · 예술" | "식음료" | "스포츠" | "투어" | "관광" | "웰빙";
+  category: string;
   price: number;
   address: string;
   bannerImageUrl: string;

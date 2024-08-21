@@ -11,10 +11,23 @@ import MyReservationItem from "./MyReservationItem";
 
 function MyReservations() {
   let size = 10;
-  const menuItems = ["전체보기", "예약 신청", "예약 취소", "예약 승인", "예약 거절", "체험 완료"];
-  const menuItemsStatus = ["all", "pending", "confirmed", "declined", "canceled", "completed"];
+
+  const menu = {
+    "전체 예약": "all",
+    "예약 신청": "pending",
+    "예약 취소": "canceled",
+    "예약 승인": "confirmed",
+    "예약 거절": "declined",
+    "체험 완료": "completed",
+    "마감 완료": "pending",
+  };
+
+  const menuItems = Object.keys(menu);
+  const menuItemsStatus = Object.values(menu);
+
   const [status, setStatus] = useState<string | undefined>(undefined);
-  const { data, isLoading, error } = useInfiniteQuery<
+  const [statusTitle, setStatusTitle] = useState<string>("");
+  const { data, isLoading, error, fetchNextPage, hasNextPage } = useInfiniteQuery<
     ReservationRes,
     Error,
     InfiniteData<ReservationRes>,
@@ -31,6 +44,14 @@ function MyReservations() {
     const selectedIndex = menuItems.indexOf(selectStatus);
     const correspondingStatus = menuItemsStatus[selectedIndex] || "all";
     setStatus(correspondingStatus === "all" ? undefined : correspondingStatus);
+    setStatusTitle(selectStatus);
+  };
+
+  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const { scrollTop, scrollHeight, clientHeight } = event.currentTarget;
+    if (scrollHeight - scrollTop <= clientHeight + 1 && hasNextPage && !isLoading) {
+      fetchNextPage();
+    }
   };
 
   const hasReservations = data?.pages.some(page => page.reservations.length > 0);
@@ -50,32 +71,36 @@ function MyReservations() {
 
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
-    <div className="relative h-full w-full max-w-[800x] flex-col items-center justify-center px-4">
-      <div className="z-10 flex w-full max-w-[768px] items-start justify-between bg-gray-100 pb-6">
+    <div className="relative h-[100vh] w-full max-w-[806px] px-4 pb-[140px]">
+      <div className="relative z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-4 pt-2">
         <h1 className="text-3xl font-bold">예약 내역</h1>
         <Dropdown
           menuItems={menuItems}
           type="round"
           onChangeDropdown={handleSelectStatus}
-          placeHolder="필터"
+          placeHolder={statusTitle}
         />
       </div>
       {hasReservations ? (
         <div className="h-full pb-20">
-          <div className="h-full overflow-y-auto">
+          <div className="h-full overflow-y-auto" onScroll={handleScroll}>
             {data?.pages.map(page => (
-              <div className="flex flex-col gap-[24px]" key={crypto.randomUUID()}>
+              <div className="flex flex-col gap-[24px]" key={page.cursorId}>
                 {page.reservations.map(reservation => (
-                  <MyReservationItem key={reservation.id} reservation={reservation} />
+                  <MyReservationItem
+                    key={reservation.id}
+                    statusTitle={statusTitle}
+                    reservation={reservation}
+                  />
                 ))}
               </div>
             ))}
           </div>
         </div>
       ) : (
-        <div className="flex h-full flex-col items-center justify-center tablet:w-[800px]">
+        <div className="flex w-full flex-grow flex-col items-center justify-center tablet:w-[800px]">
           <Image src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
-          <p className="text-2xl font-medium text-gray-500">아직 등록한 체험이 없어요</p>
+          <p className="text-2xl font-medium text-gray-500">아직 예약한 체험이 없어요</p>
         </div>
       )}
     </div>
