@@ -16,7 +16,7 @@ function BigActivityCard({
   reviewCount,
 }: BigActivityCardProps) {
   return (
-    <article className="group relative flex aspect-square w-[240px] flex-col justify-end overflow-hidden rounded-[10px] p-5 pc:w-auto">
+    <article className="group relative flex aspect-square flex-col justify-end overflow-hidden rounded-[10px] p-5">
       <div>
         <Image className="object-cover" src={bannerImageUrl} alt="체험 사진" fill />
         <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-50" />
