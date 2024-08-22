@@ -45,6 +45,7 @@ const OauthAPI = {
       profileImageUrl: data.user.profileImageUrl,
       createdAt: data.user.createdAt,
       updatedAt: data.user.updatedAt,
+      social: true,
     });
     return data;
   },
