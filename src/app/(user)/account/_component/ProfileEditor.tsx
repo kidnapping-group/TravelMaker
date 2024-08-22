@@ -5,15 +5,15 @@ import { UseFormRegisterReturn } from "react-hook-form";
 interface ProfileEditorProps {
   profileImage: string | null;
   register: UseFormRegisterReturn;
-  handleImageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleImageReset: () => void;
+  onChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onImageReset: () => void;
 }
 
 function ProfileEditor({
   register,
   profileImage,
-  handleImageChange,
-  handleImageReset,
+  onChangeImage,
+  onImageReset,
 }: ProfileEditorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,7 +26,7 @@ function ProfileEditor({
   const handleInputClick = () => inputRef.current?.click();
 
   const handleResetAndClearInput = () => {
-    handleImageReset();
+    onImageReset();
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -87,7 +87,7 @@ function ProfileEditor({
             accept="image/*"
             {...register}
             ref={inputRef}
-            onChange={handleImageChange}
+            onChange={onChangeImage}
             className="hidden"
           />
         </button>

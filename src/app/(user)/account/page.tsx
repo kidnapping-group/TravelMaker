@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import ProfileEditor from "../_components/ProfileEditor";
+import ProfileEditor from "./_component/ProfileEditor";
 
 type UserData = Pick<User, "nickname" | "email" | "profileImageUrl">;
 
@@ -127,18 +127,16 @@ function Account() {
   const handleFormSubmit = async (formData: AccountFormValues) => {
     let hasFormChanged = false;
 
-    if (initialFormValues) {
-      if (isSocialLogin) {
-        hasFormChanged =
-          initialFormValues.nickname !== formData.nickname ||
-          initialFormValues.profileImageUrl !== formData.profileImageUrl;
-      } else {
-        hasFormChanged = Object.keys(initialFormValues).some(
-          key =>
-            initialFormValues[key as keyof AccountFormValues] !==
-            formData[key as keyof AccountFormValues],
-        );
-      }
+    if (initialFormValues && isSocialLogin) {
+      hasFormChanged =
+        initialFormValues.nickname !== formData.nickname ||
+        initialFormValues.profileImageUrl !== formData.profileImageUrl;
+    } else if (initialFormValues) {
+      hasFormChanged = Object.keys(initialFormValues).some(
+        key =>
+          initialFormValues[key as keyof AccountFormValues] !==
+          formData[key as keyof AccountFormValues],
+      );
     }
 
     const hasProfileImageChanged = initialProfileImageUrl !== currentProfileImageUrl;
@@ -181,8 +179,8 @@ function Account() {
           <ProfileEditor
             register={register("profileImageUrl")}
             profileImage={currentProfileImageUrl}
-            handleImageChange={handleProfileImageChange}
-            handleImageReset={handleProfileImageReset}
+            onChangeImage={handleProfileImageChange}
+            onImageReset={handleProfileImageReset}
           />
           <div className="flex flex-col">
             <h1 className="text-[30px] font-semibold text-primary-600 tablet:text-[40px] pc:text-[40px]">
