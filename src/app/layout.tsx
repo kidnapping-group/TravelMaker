@@ -1,5 +1,3 @@
-import Footer from "@/app/_components/Footer";
-import Header from "@/app/_components/Header";
 import ReactQueryProviders from "@/contexts/ReactQueryProviders";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -27,11 +25,7 @@ function RootLayout({
   return (
     <html lang="ko">
       <body className={`${pretendardFont.className} text-black`}>
-        <ReactQueryProviders>
-          <Header />
-          {children}
-          <Footer />
-        </ReactQueryProviders>
+        <ReactQueryProviders>{children}</ReactQueryProviders>
       </body>
     </html>
   );
