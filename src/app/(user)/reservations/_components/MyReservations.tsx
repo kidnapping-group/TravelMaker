@@ -53,12 +53,7 @@ function MyReservations() {
     <div className="relative h-[100vh] w-full max-w-[806px] px-4 pb-[140px]">
       <div className="relative z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-4 pt-2">
         <h1 className="text-3xl font-bold">예약 내역</h1>
-        <Dropdown
-          menuItems={menuItems}
-          type="round"
-          onChangeDropdown={handleSelectStatus}
-          placeHolder="필터"
-        />
+        <Dropdown menuItems={menuItems} onChangeDropdown={handleSelectStatus} placeHolder="필터" />
       </div>
       {hasReservations ? (
         <div className="h-full pb-20">
