@@ -1,14 +1,4 @@
-"use client";
-
-import { useSelectedLayoutSegment } from "next/navigation";
-
 function Footer() {
-  const segment = useSelectedLayoutSegment();
-
-  if (segment === "(auth)") return <div />;
-
-  if (segment === "(user)") return <div />;
-
   return (
     <footer className="flex w-full justify-center bg-gray-100 px-5 pb-16 pt-10 text-xs text-gray-400 pc:px-10">
       <div className="flex w-full max-w-[1200px] flex-col">
