@@ -39,7 +39,7 @@ function AddInput({
           placeholder={placeholder}
           onChange={onChange}
           onBlur={onBlur}
-          className="mb-8 mt-2.5 h-28 w-full rounded-[4px] border border-gray-500 py-4 pl-4"
+          className="mb-8 mt-2.5 h-28 w-full resize-none rounded-[4px] border border-gray-500 py-4 pl-4"
         />
       ) : (
         <input
