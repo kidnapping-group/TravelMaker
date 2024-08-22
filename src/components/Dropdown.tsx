@@ -4,12 +4,13 @@ import Image from "next/image";
 import { FocusEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
 
 interface DropdownProps {
+  wide?: boolean;
   menuItems: string[];
   onChangeDropdown: (status: string) => Promise<void> | void;
   placeHolder?: string;
 }
 
-function Dropdown({ menuItems, onChangeDropdown, placeHolder }: DropdownProps) {
+function Dropdown({ wide = false, menuItems, onChangeDropdown, placeHolder }: DropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(placeHolder || menuItems[0]);
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -62,7 +63,7 @@ function Dropdown({ menuItems, onChangeDropdown, placeHolder }: DropdownProps) {
   return (
     <div
       role="button"
-      className="relative w-32"
+      className={`${wide ? "w-full" : "w-32"} relative`}
       ref={dropdownRef}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
