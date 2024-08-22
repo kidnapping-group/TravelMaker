@@ -6,10 +6,8 @@ import socialLoginStore from "@/store/socialLoginStore";
 import logoutCookies from "@/utils/logoutCookies";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelectedLayoutSegment } from "next/navigation";
 
 function Header() {
-  const segment = useSelectedLayoutSegment();
   const logout = socialLoginStore(state => state.logout);
   const userInfo = socialLoginStore(state => ({
     id: state.id,
@@ -20,8 +18,6 @@ function Header() {
     updatedAt: state.updatedAt,
     social: state.social,
   }));
-
-  if (segment === "(auth)") return <div />;
 
   const handleLogout = () => {
     logout();
