@@ -1,8 +1,9 @@
 "use client";
 
 import useUpdateQuery from "@/hooks/useUpdateQuery";
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+
+import { NextButton, PageButton, PrevButton } from "./Button";
 
 interface PaginationProps extends React.PropsWithChildren {
   totalCount: number;
@@ -26,54 +27,29 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
 
   return (
     <div className="flex justify-center gap-2">
-      <button
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
-        type="button"
+      <PrevButton
         disabled={currentPage <= 1}
         onClick={() => {
           updateQuery(Math.max(1, currentPage - 1));
         }}
-      >
-        <Image
-          className="select-none"
-          src={`/icons/icon-arrow-prev-${currentPage === 1 ? "passive-" : ""}pagination.svg`}
-          width={18}
-          height={18}
-          alt="이전"
-          draggable={false}
-        />
-      </button>
+      />
       {pageNumbers.map(pageNumber => (
-        <button
+        <PageButton
           key={pageNumber}
-          className={`${
-            currentPage === pageNumber
-              ? "bg-primary-500 text-white"
-              : "bg-white text-black hover:bg-gray-100"
-          } flex h-8 w-8 items-center justify-center rounded-full text-md font-medium disabled:pointer-events-none tablet:h-10 tablet:w-10 tablet:text-lg`}
-          type="button"
+          isActive={currentPage === pageNumber}
           onClick={() => {
             updateQuery(pageNumber);
           }}
         >
           {pageNumber}
-        </button>
+        </PageButton>
       ))}
-      <button
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
-        type="button"
+      <NextButton
         disabled={currentPage >= totalPages}
         onClick={() => {
           updateQuery(Math.min(totalPages, currentPage + 1));
         }}
-      >
-        <Image
-          src={`/icons/icon-arrow-next-${currentPage === totalPages ? "passive-" : ""}pagination.svg`}
-          width={18}
-          height={18}
-          alt="다음"
-        />
-      </button>
+      />
     </div>
   );
 }
