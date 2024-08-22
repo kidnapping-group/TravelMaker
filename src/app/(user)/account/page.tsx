@@ -170,7 +170,7 @@ function Account() {
   }, [fetchedUserData, reset, social]);
 
   return (
-    <div>
+    <div className="flex justify-center">
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
         className="flex w-[400px] flex-col gap-[10px] tablet:w-[700px] pc:w-[700px]"
