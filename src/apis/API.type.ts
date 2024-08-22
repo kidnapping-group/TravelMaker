@@ -67,7 +67,7 @@ export type ReservationBase = {
   activity: ReservationActivity;
   activityId: number;
   scheduleId: number;
-  status: "pending" | "confirmed" | "declined" | "canceled" | "completed";
+  status: "pending" | "confirmed" | "declined" | "canceled" | "completed" | "closed";
   reviewSubmitted: boolean;
   totalPrice: number;
   headCount: number;
