@@ -1,7 +1,7 @@
-import ActivitySection from "@/app/_components/ActivitySection";
-import Banner from "@/app/_components/Banner";
-import BigActivitySection from "@/app/_components/BigActivitySection";
-import SearchForm from "@/app/_components/SearchForm";
+import ActivitySection from "@/app/(home)/_components/ActivitySection";
+import Banner from "@/app/(home)/_components/Banner";
+import BigActivitySection from "@/app/(home)/_components/BigActivitySection";
+import SearchForm from "@/app/(home)/_components/SearchForm";
 
 async function Home() {
   return (

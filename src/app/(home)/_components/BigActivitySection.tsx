@@ -1,9 +1,9 @@
 import activitiesAPI from "@/apis/activitiesAPI";
-import ActivityCard from "@/app/_components/ActivityCard";
-import Swiper from "@/components/Swiper";
+import BigActivityCard from "@/app/(home)/_components/BigActivityCard";
+import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
 import Link from "next/link";
 
-interface ActivitySectionProps {
+interface BigActivitySectionProps {
   title: string;
   category?: "arts" | "food" | "sports" | "tour" | "sightseeing" | "wellbeing";
   keyword?: string;
@@ -19,12 +19,12 @@ const categoryTitle = {
   wellbeing: "웰빙",
 } as const;
 
-async function ActivitySection({
+async function BigActivitySection({
   title: sectionTitle,
   category,
   keyword,
   sort = "most_reviewed",
-}: ActivitySectionProps) {
+}: BigActivitySectionProps) {
   const { activities, totalCount } = await activitiesAPI.get({
     category: category && categoryTitle[category],
     keyword,
@@ -36,19 +36,27 @@ async function ActivitySection({
   return (
     <section className="flex flex-col">
       <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
+
       {totalCount > 0 ? (
         <Swiper>
-          {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
-            <Link href={`/${id}`} key={id}>
-              <ActivityCard
-                bannerImageUrl={bannerImageUrl}
-                title={title}
-                price={price}
-                rating={rating}
-                reviewCount={reviewCount}
-              />
-            </Link>
-          ))}
+          <SwiperContent>
+            {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
+              <Link href={`/${id}`} key={id}>
+                <BigActivityCard
+                  bannerImageUrl={bannerImageUrl}
+                  title={title}
+                  price={price}
+                  rating={rating}
+                  reviewCount={reviewCount}
+                />
+              </Link>
+            ))}
+          </SwiperContent>
+
+          <div className="absolute top-1/2 w-full">
+            <SwiperPrevious />
+            <SwiperNext />
+          </div>
         </Swiper>
       ) : (
         <div className="flex h-full max-h-[265px] min-h-[235px] items-center justify-center rounded-[10px] bg-gray-100 text-gray-300">
@@ -59,4 +67,4 @@ async function ActivitySection({
   );
 }
 
-export default ActivitySection;
+export default BigActivitySection;

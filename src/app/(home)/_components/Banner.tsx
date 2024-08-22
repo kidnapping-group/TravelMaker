@@ -1,5 +1,5 @@
 import activitiesAPI from "@/apis/activitiesAPI";
-import Carousel from "@/app/_components/Carousel";
+import Carousel from "@/app/(home)/_components/Carousel";
 import Image from "next/image";
 
 async function Banner() {
