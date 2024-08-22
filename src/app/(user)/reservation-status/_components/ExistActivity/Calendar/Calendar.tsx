@@ -3,6 +3,8 @@
 import DateSwitcher from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/DateSwitcher";
 import Day from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/Day";
 import useCreateCalendar from "@/app/(user)/reservation-status/hooks/useCreateCalendar";
+import { getMyActivityMonthReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
 const weeks = ["SUN", "MON", "TUE", "WED", "THUR", "FRI", "SAT"];
@@ -11,7 +13,16 @@ function Calendar({ selectedId }: { selectedId: number }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
-  const calendarData = useCreateCalendar(currentYear, currentMonth);
+
+  const monthReservationParams = {
+    activityId: selectedId,
+    year: String(currentYear),
+    month: String(currentMonth < 10 ? `0${currentMonth}` : currentMonth),
+  };
+  // data.map((item) => {item.reservations.})
+  const { data } = useSuspenseQuery(getMyActivityMonthReservationStatus(monthReservationParams));
+
+  const calendarData = useCreateCalendar(currentYear, currentMonth, data);
 
   return (
     <div className="mx-auto mt-8 max-w-4xl">

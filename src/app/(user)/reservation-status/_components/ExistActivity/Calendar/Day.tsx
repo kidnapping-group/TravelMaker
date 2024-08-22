@@ -1,12 +1,11 @@
-type ReservationStatus = "completed" | "pending" | "confirmed";
-
+export type ReservationStatus = "completed" | "pending" | "confirmed";
 export interface Reservation {
-  id: string;
+  id?: string;
   status: ReservationStatus;
   title: string;
 }
 
-interface DayData {
+export interface DayData {
   day: number;
   reservations: Reservation[];
   hasEvent: boolean;
@@ -35,14 +34,15 @@ function Day({ dayData }: DayProps) {
         {dayData.hasEvent && <div className="h-2 w-2 rounded-full bg-blue-500" />}
       </div>
       <div>
-        {dayData.reservations.map(reservation => (
-          <div
-            key={reservation.id}
-            className={`rounded text-xs ${statusColors[reservation.status]} flex h-[23px] items-center pl-1`}
-          >
-            {reservation.title}
-          </div>
-        ))}
+        {dayData.isCurrentMonth &&
+          dayData.reservations.map(reservation => (
+            <div
+              key={crypto.randomUUID()}
+              className={`rounded text-xs ${statusColors[reservation.status]} flex h-[23px] items-center pl-1`}
+            >
+              {reservation.title}
+            </div>
+          ))}
       </div>
     </div>
   );
