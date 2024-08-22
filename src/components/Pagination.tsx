@@ -29,6 +29,7 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
       <button
         className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
         type="button"
+        disabled={currentPage <= 1}
         onClick={() => {
           updateQuery(Math.max(1, currentPage - 1));
         }}
@@ -61,6 +62,7 @@ function Pagination({ totalCount, pageSize }: PaginationProps) {
       <button
         className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
         type="button"
+        disabled={currentPage >= totalPages}
         onClick={() => {
           updateQuery(Math.min(totalPages, currentPage + 1));
         }}
