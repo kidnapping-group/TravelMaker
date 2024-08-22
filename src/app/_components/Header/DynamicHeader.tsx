@@ -6,11 +6,10 @@ import { UserInfo } from "@/store/socialLoginStore";
 import getUserInfoFromCookie from "@/utils/getUserInfoFromCookie";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useSelectedLayoutSegment } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 function DynamicHeader({ initialUserInfo }: { initialUserInfo: UserInfo | null }) {
-  const segment = useSelectedLayoutSegment();
   const pathname = usePathname();
   const [userInfo, setUserInfo] = useState<UserInfo | null>(initialUserInfo);
 
@@ -22,8 +21,6 @@ function DynamicHeader({ initialUserInfo }: { initialUserInfo: UserInfo | null }
     };
     loadUserInfo();
   }, [pathname]);
-
-  if (segment === "(auth)") return <div />;
 
   return (
     <div>
