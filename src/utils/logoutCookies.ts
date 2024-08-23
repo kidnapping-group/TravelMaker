@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
 
-const logout = () => {
+const logoutCookies = () => {
   Cookies.remove("refreshToken");
   Cookies.remove("accessToken");
   Cookies.remove("social-login-store");
 };
 
-export default logout;
+export default logoutCookies;

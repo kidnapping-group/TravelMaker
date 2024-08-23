@@ -4,7 +4,7 @@ function Dropdown({ onLogout }: { onLogout: () => void }) {
   return (
     <div className="absolute right-0 top-10 w-28 overflow-hidden rounded-lg border border-primary-50 bg-white text-sm font-medium text-gray-700 shadow-md">
       <Link
-        href="/myactivities"
+        href="/account"
         className="block w-full transform py-3 pl-2 text-left transition-all duration-200 ease-in-out hover:scale-105 hover:bg-primary-400 hover:text-white"
       >
         마이 페이지
