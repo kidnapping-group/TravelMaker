@@ -1,0 +1,32 @@
+"use client";
+
+import { StatusCount } from "@/apis/API.type";
+import ReservationItem from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationItem";
+import { getMyActivityTimeReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
+interface ReservationListProps {
+  activityId: number;
+  scheduleId: number;
+  status: keyof StatusCount;
+}
+
+function ReservationList({ activityId, scheduleId, status }: ReservationListProps) {
+  const { data: timeReservation } = useSuspenseQuery(
+    getMyActivityTimeReservationStatus({ activityId, scheduleId, status, size: 999 }),
+  );
+
+  return (
+    <div className="flex flex-col gap-4">
+      {timeReservation.reservations.length ? (
+        timeReservation.reservations.map(reservation => (
+          <ReservationItem key={reservation.id} reservation={reservation} />
+        ))
+      ) : (
+        <p>예약 내역이 없군요!</p>
+      )}
+    </div>
+  );
+}
+
+export default ReservationList;

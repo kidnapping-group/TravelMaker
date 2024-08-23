@@ -9,7 +9,7 @@ function ReservationStatus() {
   const { data } = useSuspenseQuery(getMyActivities);
 
   return (
-    <div className="max-h-[585px] overflow-auto">
+    <div>
       <h1 className="text-3xl font-bold">예약 현황</h1>
       {data.totalCount ? <ExistActivity activities={data.activities} /> : <NoExistActivity />}
     </div>

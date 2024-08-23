@@ -1,4 +1,5 @@
 import { openModal } from "@/components/Modal";
+import { Dispatch, SetStateAction } from "react";
 
 export type ReservationStatus = "completed" | "pending" | "confirmed";
 export interface Reservation {
@@ -16,6 +17,7 @@ export interface DayData {
 
 interface DayProps {
   dayData: DayData;
+  setCurrentDate: Dispatch<SetStateAction<Date>>;
 }
 
 const statusColors = {
@@ -24,11 +26,30 @@ const statusColors = {
   confirmed: "bg-[#FFF4E8] text-[#FF7C1D]",
 };
 
-function Day({ dayData }: DayProps) {
+function Day({ dayData, setCurrentDate }: DayProps) {
+  const changeCurrentDay = () => {
+    setCurrentDate(prevDate => {
+      const newDate = new Date(prevDate);
+      newDate.setDate(dayData.day);
+      return newDate;
+    });
+  };
+
+  const handleClick = () => {
+    if (!dayData.hasEvent) return;
+    changeCurrentDay();
+    openModal();
+  };
+
   return (
-    <button type="button" onClick={openModal}>
+    <button
+      type="button"
+      onClick={handleClick}
+      disabled={!dayData.hasEvent}
+      className={`w-full text-left ${dayData.hasEvent ? "cursor-pointer" : "cursor-default"}`}
+    >
       <div
-        className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"}`}
+        className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"} ${dayData.isCurrentMonth && dayData.hasEvent ? "transition-colors duration-200 hover:bg-primary-400" : ""} `}
       >
         <div className="ml-2 mt-2 flex w-9 items-start gap-1">
           <span className={`${dayData.isCurrentMonth ? "" : "text-gray-300"} text-xl leading-6`}>

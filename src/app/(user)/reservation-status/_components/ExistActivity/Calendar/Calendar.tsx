@@ -2,7 +2,7 @@
 
 import DateSwitcher from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/DateSwitcher";
 import Day from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/Day";
-import ReservationStatusModal from "@/app/(user)/reservation-status/_components/ReservationStatusModal";
+import ReservationStatusModal from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal";
 import useCreateCalendar from "@/app/(user)/reservation-status/hooks/useCreateCalendar";
 import { getMyActivityMonthReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -20,9 +20,8 @@ function Calendar({ selectedId }: { selectedId: number }) {
     year: String(currentYear),
     month: String(currentMonth < 10 ? `0${currentMonth}` : currentMonth),
   };
-  // data.map((item) => {item.reservations.})
-  const { data } = useSuspenseQuery(getMyActivityMonthReservationStatus(monthReservationParams));
 
+  const { data } = useSuspenseQuery(getMyActivityMonthReservationStatus(monthReservationParams));
   const calendarData = useCreateCalendar(currentYear, currentMonth, data);
 
   return (
@@ -39,11 +38,11 @@ function Calendar({ selectedId }: { selectedId: number }) {
           </div>
         ))}
         {calendarData.flat().map(dayData => (
-          <Day key={crypto.randomUUID()} dayData={dayData} />
+          <Day key={crypto.randomUUID()} dayData={dayData} setCurrentDate={setCurrentDate} />
         ))}
       </div>
       <p>{selectedId}</p>
-      <ReservationStatusModal />
+      <ReservationStatusModal activityId={selectedId} selectedDate={currentDate} />
     </div>
   );
 }
