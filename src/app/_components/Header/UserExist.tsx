@@ -30,9 +30,9 @@ function UserExist({ userInfo, onLogout }: UserExistProps) {
               fill
             />
           </div>
-          <p className="text-md font-normal">{userInfo?.nickname}</p>
-          {isOpen && <Dropdown onLogout={onLogout} />}
+          <p className="max-w-[60px] truncate text-left text-md font-normal">주먹주먹</p>
         </button>
+        {isOpen && <Dropdown onLogout={onLogout} />}
       </div>
     </div>
   );
