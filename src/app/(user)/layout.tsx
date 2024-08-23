@@ -14,7 +14,6 @@ function UserRootLayout({
   if (!accessToken) {
     redirect("/signin");
   }
-
   return (
     <div className="relative bg-gray-100">
       <Header />

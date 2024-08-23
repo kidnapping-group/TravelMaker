@@ -12,7 +12,7 @@ function KakaoRedirect() {
   const { alreadyExistKakaoUser, socialSignupFail, socialLoginSuccess } = kakaoSocialStatusStore();
   const domain = `${process.env.NEXT_PUBLIC_URL}/social/kakao`;
   // 랜덤 문자열 생성 함수
-  const generateRandomName = (length: number = 32): string =>
+  const generateRandomName = (length: number = 3): string =>
     crypto.randomBytes(length).toString("hex");
 
   useEffect(() => {
