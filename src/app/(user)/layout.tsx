@@ -1,6 +1,7 @@
 import Navigation from "@/app/(user)/_components/Navigation";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
 import Header from "../_components/Header";
 
 function UserRootLayout({
@@ -13,7 +14,6 @@ function UserRootLayout({
   if (!accessToken) {
     redirect("/signin");
   }
-
   return (
     <div className="relative bg-gray-100">
       <Header />

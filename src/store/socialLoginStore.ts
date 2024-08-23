@@ -1,8 +1,6 @@
-import Cookies from "js-cookie";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-// 상태 타입 정의
 export interface UserInfo {
   id: string | null;
   email: string | null;
@@ -10,42 +8,44 @@ export interface UserInfo {
   profileImageUrl: string | null;
   createdAt: string | null;
   updatedAt: string | null;
+  social: boolean;
 }
 
 interface SocialLoginStoreType extends UserInfo {
-  social: boolean;
   socialLogin: (userInfo: UserInfo) => void;
   commonLogin: (userInfo: UserInfo) => void;
+  logout: () => void;
 }
+
+const initialState: UserInfo = {
+  id: null,
+  email: null,
+  nickname: null,
+  profileImageUrl: null,
+  createdAt: null,
+  updatedAt: null,
+  social: false,
+};
 
 const socialLoginStore = create<SocialLoginStoreType>()(
   persist(
     set => ({
-      social: false,
-      id: null,
-      email: null,
-      nickname: null,
-      profileImageUrl: null,
-      createdAt: null,
-      updatedAt: null,
+      ...initialState,
       socialLogin: (userInfo: UserInfo) =>
         set({
-          social: true,
           ...userInfo,
+          social: true,
         }),
+
       commonLogin: (userInfo: UserInfo) =>
         set({
-          social: false,
           ...userInfo,
+          social: false,
         }),
+      logout: () => set(initialState),
     }),
     {
       name: "social-login-store",
-      getStorage: () => ({
-        getItem: name => Cookies.get(name) || null,
-        setItem: (name, value) => Cookies.set(name, value, { expires: 7 }),
-        removeItem: name => Cookies.remove(name),
-      }),
     },
   ),
 );
