@@ -2,22 +2,15 @@ import Dropdown from "@/app/_components/Header/Dropdown";
 import Notification from "@/app/_components/Notification";
 import useDropdownToggle from "@/hooks/useDropdownToggle";
 import { UserInfo } from "@/store/socialLoginStore";
-import logout from "@/utils/logout";
 import Image from "next/image";
-import { Dispatch, SetStateAction } from "react";
 
 interface UserExistProps {
   userInfo: UserInfo;
-  setUserInfo: Dispatch<SetStateAction<UserInfo | null>>;
+  onLogout: () => void;
 }
 
-function UserExist({ userInfo, setUserInfo }: UserExistProps) {
+function UserExist({ userInfo, onLogout }: UserExistProps) {
   const { isOpen, toggleDropdown, dropdownRef } = useDropdownToggle();
-
-  const handleLogout = () => {
-    logout();
-    setUserInfo(null);
-  };
 
   return (
     <div className="relative flex items-center justify-center gap-3 tablet:gap-3">
@@ -38,7 +31,7 @@ function UserExist({ userInfo, setUserInfo }: UserExistProps) {
             />
           </div>
           <p className="text-md font-normal">{userInfo?.nickname}</p>
-          {isOpen && <Dropdown onLogout={handleLogout} />}
+          {isOpen && <Dropdown onLogout={onLogout} />}
         </button>
       </div>
     </div>

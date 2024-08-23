@@ -11,6 +11,7 @@ interface InputProps extends React.PropsWithChildren {
   placeholder: string;
   error: FieldError | undefined;
   touched: boolean | undefined;
+  disabled?: boolean;
 }
 
 export default function Input({
@@ -21,8 +22,19 @@ export default function Input({
   placeholder,
   error,
   touched,
+  disabled,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
+
+  const effectiveError = disabled ? undefined : error;
+  const effectiveTouched = disabled ? undefined : touched;
+
+  const handleTogglePassword = () => {
+    if (!disabled) {
+      setShowPassword(!showPassword);
+    }
+  };
+
   return (
     <div className="relative flex flex-col gap-[10px]">
       <label htmlFor={name} className="text-[16px] font-normal leading-[26px] text-black">
@@ -33,7 +45,8 @@ export default function Input({
         type={type === "password" && showPassword ? "text" : type}
         placeholder={placeholder}
         {...register}
-        className={`h-[58px] w-full rounded-md bg-gray-200 py-[10px] pl-[10px] outline-none ${type === "password" ? "pr-10" : "pr-[10px]"} ${getInputColorStatus(error, touched)}`}
+        disabled={disabled}
+        className={`h-[58px] w-full rounded-md bg-gray-200 py-[10px] pl-[10px] outline-none ${disabled ? "bg-gray-300" : "bg-gray-200"} ${type === "password" ? "pr-10" : "pr-[10px]"} ${getInputColorStatus(effectiveError, effectiveTouched)}`}
       />
       {type === "password" && (
         <Image
@@ -41,11 +54,15 @@ export default function Input({
           alt="toggle visibility"
           width={24}
           height={24}
-          className="absolute right-[10px] top-[53px] cursor-pointer"
-          onClick={() => setShowPassword(!showPassword)}
+          className={`absolute right-[10px] top-[53px] ${disabled ? "" : "cursor-pointer"}`}
+          onClick={handleTogglePassword}
         />
       )}
-      {error && <p className="text-red text-[12px] font-normal leading-[18px]">{error.message}</p>}
+      {effectiveError && (
+        <p className="text-[12px] font-normal leading-[18px] text-red-500">
+          {effectiveError.message}
+        </p>
+      )}
     </div>
   );
 }
