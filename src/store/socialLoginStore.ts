@@ -14,7 +14,7 @@ export interface UserInfo {
 interface SocialLoginStoreType extends UserInfo {
   socialLogin: (userInfo: UserInfo) => void;
   commonLogin: (userInfo: UserInfo) => void;
-  logout: () => void; // 새로운 로그아웃 액션
+  logout: () => void;
 }
 
 const initialState: UserInfo = {
