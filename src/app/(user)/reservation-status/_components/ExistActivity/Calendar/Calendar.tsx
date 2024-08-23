@@ -2,6 +2,7 @@
 
 import DateSwitcher from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/DateSwitcher";
 import Day from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/Day";
+import ReservationStatusModal from "@/app/(user)/reservation-status/_components/ReservationStatusModal";
 import useCreateCalendar from "@/app/(user)/reservation-status/hooks/useCreateCalendar";
 import { getMyActivityMonthReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -42,6 +43,7 @@ function Calendar({ selectedId }: { selectedId: number }) {
         ))}
       </div>
       <p>{selectedId}</p>
+      <ReservationStatusModal />
     </div>
   );
 }
