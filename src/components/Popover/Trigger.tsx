@@ -6,7 +6,7 @@ function Trigger({ children }: { children: React.ReactNode }) {
   const { toggle } = usePopover();
 
   return (
-    <button type="button" onClick={toggle}>
+    <button className="flex" type="button" onClick={toggle}>
       {children}
     </button>
   );

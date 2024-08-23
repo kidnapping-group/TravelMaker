@@ -31,12 +31,7 @@ function Popover({ children }: { children: React.ReactNode }) {
 
   return (
     <PopoverContext.Provider value={context}>
-      <div
-        ref={popoverRef}
-        className="flex rounded-lg px-2 py-[6px] transition-colors hover:bg-gray-100 active:bg-gray-200"
-      >
-        {children}
-      </div>
+      <div ref={popoverRef}>{children}</div>
     </PopoverContext.Provider>
   );
 }

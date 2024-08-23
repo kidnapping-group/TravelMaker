@@ -28,17 +28,18 @@ function UserDropdown() {
   return (
     <Popover>
       <PopoverTrigger>
-        <div className="flex items-center gap-2">
-          <div className="relative h-7 w-7">
+        <div className="flex items-center gap-2 rounded-lg transition-colors tablet:px-2 tablet:py-[6px] tablet:hover:bg-gray-100 tablet:active:bg-gray-200">
+          <div className="relative h-7 w-7 overflow-hidden rounded-full">
             <Image
-              className="rounded-full object-cover"
+              className="object-cover"
               src={userInfo?.profileImageUrl || "/icons/noProfile.svg"}
               alt="프로필 사진"
               draggable={false}
               fill
             />
+            <div className="absolute inset-0 opacity-25 transition-colors hover:bg-white tablet:hidden" />
           </div>
-          <p className="max-w-[60px] truncate text-left text-md font-normal">
+          <p className="hidden max-w-[60px] truncate text-left text-md font-normal tablet:block">
             {userInfo?.nickname}
           </p>
         </div>
