@@ -64,8 +64,9 @@ function Account() {
   const [initialFormValues, setInitialFormValues] = useState<AccountFormValues | null>(null);
   const [initialProfileImageUrl, setInitialProfileImageUrl] = useState<string | null>(null);
 
-  const { social } = socialLoginStore(state => ({
+  const { social, updateUserInfo } = socialLoginStore(state => ({
     social: state.social,
+    updateUserInfo: state.socialLogin, // 상태 업데이트를 위한 메서드
   }));
 
   const selectedValidationSchema = isSocialLogin
@@ -94,9 +95,18 @@ function Account() {
       newPassword?: string | undefined;
       profileImageUrl: string | null;
     }) => userAPI.patchUsers(updatedData),
-    onSuccess: () => {
+    onSuccess: data => {
       openPopup("changeUserData");
       refetchUserData();
+      updateUserInfo({
+        id: data.id,
+        email: data.email,
+        nickname: data.nickname,
+        profileImageUrl: data.profileImageUrl,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
+        social,
+      });
     },
   });
 
