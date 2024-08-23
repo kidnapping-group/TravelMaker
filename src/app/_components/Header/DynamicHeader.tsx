@@ -23,18 +23,16 @@ function DynamicHeader({ initialUserInfo }: { initialUserInfo: UserInfo | null }
   }, [pathname]);
 
   return (
-    <div>
-      <div className="mx-auto flex max-w-[1224px] items-center justify-between px-6">
-        <Link href="/">
-          <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
-        </Link>
-        {userInfo?.id ? (
-          <UserExist userInfo={userInfo} setUserInfo={setUserInfo} />
-        ) : (
-          <UserNotExist />
-        )}
-      </div>
-    </div>
+    <nav className="mx-auto flex items-center justify-between px-5 tablet:px-10 pc:max-w-[1200px] pc:px-0">
+      <Link href="/">
+        <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
+      </Link>
+      {userInfo?.id ? (
+        <UserExist userInfo={userInfo} setUserInfo={setUserInfo} />
+      ) : (
+        <UserNotExist />
+      )}
+    </nav>
   );
 }
 

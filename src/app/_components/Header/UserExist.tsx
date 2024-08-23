@@ -20,23 +20,25 @@ function UserExist({ userInfo, setUserInfo }: UserExistProps) {
   };
 
   return (
-    <div className="relative flex items-center justify-center gap-3 text-sm font-medium tablet:gap-6">
+    <div className="relative flex items-center justify-center gap-3 tablet:gap-3">
       <Notification />
-      <div className="h-8 border-r border-[#DDDDDD]" />
-      <div ref={dropdownRef}>
+      <div className="h-6 border-r border-gray-200" />
+      <div
+        ref={dropdownRef}
+        className="rounded-lg px-2 py-[6px] transition-colors hover:bg-gray-100 active:bg-gray-200"
+      >
         <button type="button" onClick={toggleDropdown} className="flex items-center gap-2">
-          <div className="relative h-8 w-8 rounded-full">
+          <div className="relative h-7 w-7">
             <Image
-              className="object-cover"
+              className="rounded-full object-cover"
               src={userInfo?.profileImageUrl || "/icons/noProfile.svg"}
               alt="프로필 사진"
+              draggable={false}
               fill
             />
           </div>
-          <div>
-            {userInfo?.nickname}
-            {isOpen && <Dropdown onLogout={handleLogout} />}
-          </div>
+          <p className="text-md font-normal">{userInfo?.nickname}</p>
+          {isOpen && <Dropdown onLogout={handleLogout} />}
         </button>
       </div>
     </div>

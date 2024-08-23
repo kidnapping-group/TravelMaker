@@ -8,9 +8,9 @@ function Header() {
   const initialUserInfo = LoginState?.state || null;
 
   return (
-    <div className="sticky top-0 z-20 bg-white">
+    <header className="sticky top-0 z-20 border-b border-gray-200 bg-white">
       <DynamicHeader initialUserInfo={initialUserInfo} />
-    </div>
+    </header>
   );
 }
 
