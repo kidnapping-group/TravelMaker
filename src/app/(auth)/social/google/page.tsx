@@ -13,7 +13,7 @@ export default function GoogleRedirect() {
 
   // 랜덤 문자열 생성 함수
   const generateRandomName = useCallback(
-    (length: number = 32): string => crypto.randomBytes(length).toString("hex"),
+    (length: number = 3): string => crypto.randomBytes(length).toString("hex"),
     [],
   );
 
