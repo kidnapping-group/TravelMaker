@@ -19,6 +19,7 @@ const authAPI = {
       profileImageUrl: response.profileImageUrl,
       createdAt: response.createdAt,
       updatedAt: response.updatedAt,
+      social: false,
     });
   },
 };
