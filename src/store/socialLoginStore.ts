@@ -14,6 +14,7 @@ export interface UserInfo {
 interface SocialLoginStoreType extends UserInfo {
   socialLogin: (userInfo: UserInfo) => void;
   commonLogin: (userInfo: UserInfo) => void;
+  updateKakaoProfile: (nickname: string, profileImageUrl: string) => void;
   logout: () => void;
 }
 
@@ -42,6 +43,14 @@ const socialLoginStore = create<SocialLoginStoreType>()(
           ...userInfo,
           social: false,
         }),
+
+      updateKakaoProfile: (nickname: string, profileImageUrl: string) =>
+        set(state => ({
+          ...state,
+          nickname,
+          profileImageUrl,
+        })),
+
       logout: () => set(initialState),
     }),
     {
