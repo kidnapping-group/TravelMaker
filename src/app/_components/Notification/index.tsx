@@ -26,6 +26,7 @@ function Notification() {
       const prevNotification = localStorage.getItem("prevNotification");
       setHasNewNotifications(currentNotification !== prevNotification);
     };
+
     NotificationData();
   }, [refresh]);
 
@@ -59,61 +60,53 @@ function Notification() {
   };
 
   return (
-    <div className="relative inline-block">
-      <Image
-        className="cursor-pointer tablet:z-30"
-        src="/icons/icon-notification.svg"
-        width={24}
-        height={24}
-        alt="알람"
+    <div className="relative flex">
+      <button
+        className="rounded-lg p-1 transition-colors hover:bg-gray-100 active:bg-gray-200"
+        type="button"
         onClick={toggleNotification}
-      />
-      {hasNewNotifications && (
-        <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500" />
-      )}
+      >
+        <Image
+          src="/icons/Icon-notification.svg"
+          width={24}
+          height={24}
+          alt="알람"
+          draggable={false}
+        />
+        {hasNewNotifications && (
+          <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500" />
+        )}
+      </button>
 
       {isOpen && (
-        <div className="fixed inset-0 mx-auto flex max-w-[1224px] tablet:absolute tablet:left-[-340px] tablet:top-[35px]">
-          <div
-            ref={notificationRef}
-            className="overflow relative h-full w-full bg-gray-400 px-[14px] py-6 tablet:absolute tablet:h-[494px] tablet:w-[368px] tablet:rounded-[10px] pc:absolute"
-          >
-            <div className="flex h-full w-full flex-col gap-4">
-              <div className="flex items-center justify-between">
-                <p className="text-20px font-bold">알림 {data.totalCount}개</p>
-                <Image
-                  className="cursor-pointer"
-                  src="/icons/icon-close-black.svg"
-                  width={24}
-                  height={24}
-                  alt="닫기"
-                  onClick={toggleNotification}
+        <div
+          className="absolute right-0 top-full mt-1 flex h-[400px] w-[350px] flex-col rounded-lg bg-gray-100 p-5"
+          ref={notificationRef}
+        >
+          <p className="text-md font-normal">알림 {data.totalCount}개</p>
+
+          <div className="mt-3 flex h-full flex-col gap-3 overflow-y-auto">
+            {data.notifications.length > 0 ? (
+              data.notifications.map(({ id, content, updatedAt }) => (
+                <AlertItem
+                  key={id}
+                  id={id}
+                  content={content}
+                  updatedAt={updatedAt}
+                  onClick={handleDelete}
                 />
+              ))
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center gap-3 py-5">
+                <Image
+                  src="/icons/icon-exist-notification.svg"
+                  width={40}
+                  height={40}
+                  alt="꺼진 알람 아이콘"
+                />
+                <p className="text-lg font-medium text-gray-400">알림이 존재하지 않습니다.</p>
               </div>
-              <div className="flex h-full flex-col gap-2 overflow-y-auto">
-                {data.notifications.length > 0 ? (
-                  data.notifications.map(notification => (
-                    <AlertItem
-                      key={notification.id}
-                      id={notification.id}
-                      content={notification.content}
-                      updatedAt={notification.updatedAt}
-                      onClick={handleDelete}
-                    />
-                  ))
-                ) : (
-                  <div className="flex h-full flex-col items-center justify-center gap-5 rounded-[12px] bg-gray-400 tablet:h-[416px] tablet:w-[334px]">
-                    <Image
-                      src="/icons/icon-exist-notification.svg"
-                      width={150}
-                      height={150}
-                      alt="알람이 없을 때"
-                    />
-                    <p className="text-[20px] font-bold text-gray-500">알림이 존재하지 않습니다.</p>
-                  </div>
-                )}
-              </div>
-            </div>
+            )}
           </div>
         </div>
       )}
