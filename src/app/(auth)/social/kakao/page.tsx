@@ -1,7 +1,6 @@
 "use client";
 
 import OauthAPI from "@/apis/OauthAPI";
-import userAPI from "@/apis/usersAPI";
 import kakaoSocialStatusStore from "@/store/kakaoSocialStatusStore";
 import socialLoginStore from "@/store/socialLoginStore";
 import axios from "axios";
@@ -49,24 +48,8 @@ function KakaoRedirect() {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return { nickname: data.properties.nickname, profileImage: data.properties.profile_image };
+    return data.properties.nickname;
   }, []);
-
-  // Kakao Image를 formData로 변경
-  const updateUserProfile = async (profileImage: string | null) => {
-    const response = await fetch(profileImage, {
-      mode: "cors", // CORS 모드 명시적 설정
-      credentials: "same-origin", // 같은 출처의 쿠키만 전송
-    });
-
-    const blob = await response.blob();
-
-    const formData = new FormData();
-    formData.append("image", blob, "profile.jpg");
-
-    const { profileImageUrl } = await userAPI.postUsersImage(formData);
-    return profileImageUrl;
-  };
 
   useEffect(() => {
     const handleKakaoRedirect = async () => {
@@ -75,33 +58,25 @@ function KakaoRedirect() {
       const code = url.searchParams.get("code");
       if (!alreadyGetUserData) {
         const accessToken = await getKakaoToken(code);
-        const { nickname, profileImage } = await getKakaoUserData(accessToken);
-        const profileImageUrl = profileImage;
-        updateKakaoProfile(nickname, profileImageUrl);
+        const nickname = await getKakaoUserData(accessToken);
+        updateKakaoProfile(nickname);
         await getUserData();
         await router.push(
           `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${domain}&scope=profile_nickname,profile_image`,
         );
       } else {
-        const nicknames = socialLoginStore.getState().nickname;
-        const profileImage = socialLoginStore.getState().profileImageUrl;
-        if (code && !alreadyExistKakaoUser) {
+        const { nickname } = socialLoginStore.getState();
+        if (code && !alreadyExistKakaoUser && nickname) {
           const data = {
-            nickname: nicknames,
+            nickname,
             token: code,
             redirectUri: domain || "",
           };
           try {
             const response = await OauthAPI.postSignup("kakao", data);
             if (response) {
-              const profileImageUrl = await updateUserProfile(profileImage);
-              const patchImg = await userAPI.patchUsers({
-                profileImageUrl,
-              });
-              if (patchImg) {
-                setIsLoading(false);
-                router.push("/");
-              }
+              setIsLoading(false);
+              router.push("/");
             }
           } catch (error) {
             let err = String(error);
@@ -119,23 +94,16 @@ function KakaoRedirect() {
           }
         }
 
-        if (code && alreadyExistKakaoUser) {
+        if (code && alreadyExistKakaoUser && nickname) {
           const data = {
             token: code,
             redirectUri: domain || "",
           };
           const response = await OauthAPI.postSignin("kakao", data);
           if (response) {
-            const profileImageUrl = await updateUserProfile(profileImage);
-            const patchImg = await userAPI.patchUsers({
-              nickname: nicknames,
-              profileImageUrl,
-            });
-            if (patchImg) {
-              setIsLoading(false);
-              socialLoginSuccess();
-              router.push("/");
-            }
+            setIsLoading(false);
+            socialLoginSuccess();
+            router.push("/");
           }
         }
       }
