@@ -126,6 +126,7 @@ function Notification() {
                   src="/icons/icon-exist-notification.svg"
                   width={40}
                   height={40}
+                  draggable={false}
                   alt="꺼진 알람 아이콘"
                 />
                 <p className="text-lg font-medium text-gray-400">알림이 존재하지 않습니다.</p>
