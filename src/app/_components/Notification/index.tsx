@@ -3,10 +3,13 @@
 import { getNotificationsRes } from "@/apis/API.type";
 import myNotificationsAPI from "@/apis/myNotificationsAPI";
 import AlertItem from "@/app/_components/Notification/AlertItem";
+import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 function Notification() {
+  const { isMobile } = useMediaQuery();
+
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<getNotificationsRes>({
     totalCount: 0,
@@ -50,6 +53,18 @@ function Notification() {
     };
   }, [isOpen, data.totalCount]);
 
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen, isMobile]);
+
   const toggleNotification = () => {
     setIsOpen(prev => !prev);
   };
@@ -80,10 +95,19 @@ function Notification() {
 
       {isOpen && (
         <div
-          className="absolute right-0 top-full mt-1 flex h-[400px] w-[350px] flex-col rounded-lg bg-gray-100 p-5"
+          className="fixed inset-0 z-30 flex flex-col rounded-lg bg-gray-100 p-5 tablet:absolute tablet:inset-auto tablet:right-0 tablet:top-full tablet:mt-1 tablet:h-[400px] tablet:w-[350px]"
           ref={notificationRef}
         >
-          <p className="text-md font-normal">알림 {data.totalCount}개</p>
+          <div className="relative flex items-center justify-center tablet:justify-start">
+            <button
+              className="absolute left-0 flex h-7 w-7 items-center justify-center rounded-lg text-lg hover:bg-gray-200 active:bg-gray-300 tablet:hidden"
+              type="button"
+              onClick={toggleNotification}
+            >
+              {"<"}
+            </button>
+            <p className="text-lg font-normal tablet:text-md">알림 {data.totalCount}개</p>
+          </div>
 
           <div className="mt-3 flex h-full flex-col gap-3 overflow-y-auto">
             {data.notifications.length > 0 ? (
