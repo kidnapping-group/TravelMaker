@@ -77,7 +77,7 @@ function Notification() {
   return (
     <div className="relative flex">
       <button
-        className="rounded-lg p-1 transition-colors hover:bg-gray-100 active:bg-gray-200"
+        className="rounded-lg p-1 transition hover:opacity-60 tablet:hover:bg-gray-100 tablet:hover:opacity-100 tablet:active:bg-gray-200"
         type="button"
         onClick={toggleNotification}
       >
