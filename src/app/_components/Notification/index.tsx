@@ -129,7 +129,7 @@ function Notification() {
                   draggable={false}
                   alt="꺼진 알람 아이콘"
                 />
-                <p className="text-lg font-medium text-gray-400">알림이 존재하지 않습니다.</p>
+                <p className="text-lg font-medium text-gray-400">모든 알림을 확인했습니다.</p>
               </div>
             )}
           </div>
