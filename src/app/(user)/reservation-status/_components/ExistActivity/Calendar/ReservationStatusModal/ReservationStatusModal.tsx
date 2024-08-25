@@ -11,10 +11,6 @@ import formatDateToKorean from "@/utils/formatDateToKorean";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
-// 모달에서 필요한 데이터가 뭐가있지?
-// 일단 Day컴포넌트를 눌러서 모달이 떳을 때 어케하지? 일별 api에서 신청 승인 거절을 받아서 렌더링 시켜줘야해 이게 첫째야!
-// 그럼 일별 api를 만들려면 activityId와 날짜를 가져와야해
-
 interface ReservationStatusModalProps {
   activityId: number;
   selectedDate: Date;
