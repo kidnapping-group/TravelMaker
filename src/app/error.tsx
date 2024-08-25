@@ -13,7 +13,7 @@ interface ErrorProps {
 export default function Error({ error }: ErrorProps) {
   const router = useRouter();
   const isAPIError = error instanceof APIError;
-  const statusCode = isAPIError ? (error as APIError).status : null;
+  const statusCode = isAPIError ? (error as APIError).status : 404;
 
   return (
     <div className="inset-0 flex h-[100vh] flex-col items-center justify-center gap-4 px-10 tablet:flex-row">
