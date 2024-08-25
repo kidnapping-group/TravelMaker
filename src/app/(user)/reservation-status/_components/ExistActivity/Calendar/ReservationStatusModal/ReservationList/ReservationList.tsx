@@ -16,15 +16,13 @@ function ReservationList({ activityId, scheduleId, status }: ReservationListProp
     getMyActivityTimeReservationStatus({ activityId, scheduleId, status, size: 999 }),
   );
 
+  if (!timeReservation.reservations.length) return null;
+
   return (
     <div className="flex max-h-[346px] flex-col gap-4 overflow-y-auto">
-      {timeReservation.reservations.length ? (
-        timeReservation.reservations.map(reservation => (
-          <ReservationItem key={reservation.id} reservation={reservation} status={status} />
-        ))
-      ) : (
-        <p>예약 내역이 없군요!</p>
-      )}
+      {timeReservation.reservations.map(reservation => (
+        <ReservationItem key={reservation.id} reservation={reservation} status={status} />
+      ))}
     </div>
   );
 }

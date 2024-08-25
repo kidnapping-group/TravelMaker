@@ -44,8 +44,9 @@ function ReservationStatusModal({ activityId, selectedDate }: ReservationStatusM
       <div className="flex flex-col gap-6 px-6 pb-6">
         {dateReservation && (
           <RequestStatus
-            status={dateReservation[selectedTime]?.count}
+            statusCount={dateReservation[selectedTime]?.count}
             setSelectedStatus={setSelectedStatus}
+            selectedStatus={selectedStatus}
           />
         )}
         <div>
