@@ -13,6 +13,7 @@ export interface DayData {
   reservations: Reservation[];
   hasEvent: boolean;
   isCurrentMonth: boolean;
+  isCompleted: boolean;
 }
 
 interface DayProps {
@@ -55,7 +56,13 @@ function Day({ dayData, setCurrentDate }: DayProps) {
           <span className={`${dayData.isCurrentMonth ? "" : "text-gray-300"} text-xl leading-6`}>
             {Math.abs(dayData.day)}
           </span>
-          {dayData.hasEvent && <div className="h-2 w-2 rounded-full bg-blue-500" />}
+          {dayData.hasEvent && (
+            <div
+              className={`h-2 w-2 rounded-full ${
+                dayData.isCompleted ? "bg-gray-700" : "bg-primary-500"
+              }`}
+            />
+          )}
         </div>
         <div>
           {dayData.isCurrentMonth &&
