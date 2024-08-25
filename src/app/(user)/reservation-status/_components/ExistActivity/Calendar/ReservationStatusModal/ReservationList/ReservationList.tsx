@@ -5,12 +5,10 @@ import ReservationItem from "@/app/(user)/reservation-status/_components/ExistAc
 import { getMyActivityTimeReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
-export type Status = keyof StatusCount;
-
 interface ReservationListProps {
   activityId: number;
   scheduleId: number;
-  status: Status;
+  status: keyof StatusCount;
 }
 
 function ReservationList({ activityId, scheduleId, status }: ReservationListProps) {
@@ -22,7 +20,7 @@ function ReservationList({ activityId, scheduleId, status }: ReservationListProp
     <div className="flex max-h-[346px] flex-col gap-4 overflow-y-auto">
       {timeReservation.reservations.length ? (
         timeReservation.reservations.map(reservation => (
-          <ReservationItem key={reservation.id} reservation={reservation} />
+          <ReservationItem key={reservation.id} reservation={reservation} status={status} />
         ))
       ) : (
         <p>예약 내역이 없군요!</p>

@@ -1,8 +1,15 @@
-import { MyReservation } from "@/apis/API.type";
+import { MyReservation, StatusCount } from "@/apis/API.type";
+import ReservationActionButton from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationActionButton";
+import ReservationStatusView from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationStatusView";
 import usePatchReservation from "@/app/(user)/reservation-status/hooks/usePatchReservationMutation";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
+import Popup, { closePopup } from "@/components/Popup";
 
-function ReservationItem({ reservation }: { reservation: MyReservation }) {
+interface ReservationItemProps {
+  reservation: MyReservation;
+  status: keyof StatusCount;
+}
+
+function ReservationItem({ reservation, status }: ReservationItemProps) {
   const { createPatchHandler } = usePatchReservation(reservation);
 
   return (
@@ -24,22 +31,11 @@ function ReservationItem({ reservation }: { reservation: MyReservation }) {
           <span className="text-gray-600">인원</span>
           <span className="ml-2 font-semibold text-black">{reservation.headCount}명</span>
         </div>
-        <div className="flex justify-end gap-2 text-md font-bold">
-          <button
-            type="button"
-            onClick={() => createPatchHandler("confirmed")}
-            className="rounded-md bg-primary-800 px-4 py-2 text-white transition-colors duration-200 hover:bg-primary-900"
-          >
-            승인하기
-          </button>
-          <button
-            type="button"
-            onClick={() => openPopup("reservationDeclined")}
-            className="rounded-md border border-primary-800 px-4 py-2 transition-colors duration-200 hover:bg-primary-50"
-          >
-            거절하기
-          </button>
-        </div>
+        {status === "pending" ? (
+          <ReservationActionButton reservation={reservation} />
+        ) : (
+          <ReservationStatusView status={status} />
+        )}
       </div>
     </>
   );
