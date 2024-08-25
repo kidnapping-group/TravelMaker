@@ -13,7 +13,7 @@ function DateSwitcher({ setCurrentDate, currentYear, currentMonth }: DateSwitche
   };
 
   return (
-    <div className="mb-4 flex items-center justify-center gap-24">
+    <div className="mb-4 flex items-center justify-center gap-20 tablet:gap-24">
       <button type="button" onClick={() => changeMonth(-1)}>
         <Image src="/icons/left_double_arrow.svg" alt="이전 달" width={24} height={24} />
       </button>
