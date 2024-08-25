@@ -27,7 +27,7 @@ function ReservationStatusModal({ activityId, selectedDate }: ReservationStatusM
 
   const koreanDateFormat = formatDateToKorean(selectedDate);
 
-  const dropdownItem = dateReservation.map(({ startTime, endTime }) => `${startTime}~${endTime}`);
+  const dropdownItem = dateReservation.map(({ startTime, endTime }) => `${startTime} ~ ${endTime}`);
 
   const handleChangeDropdown = (item: string) => {
     const startEndTimes = item.split("~");

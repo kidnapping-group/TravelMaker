@@ -41,7 +41,6 @@ function Calendar({ selectedId }: { selectedId: number }) {
           <Day key={crypto.randomUUID()} dayData={dayData} setCurrentDate={setCurrentDate} />
         ))}
       </div>
-      <p>{selectedId}</p>
       <ReservationStatusModal activityId={selectedId} selectedDate={currentDate} />
     </div>
   );
