@@ -64,35 +64,3 @@ export const getCalendarGrid = (year: number, month: number): number[][] => {
 
   return calendar;
 };
-
-// 현재 월 반환
-export const getMonth = (month?: number): number => {
-  const now = new Date();
-  const currentMonth = month ?? now.getMonth() + 1; // JavaScript의 월은 0부터 시작하므로 1을 더합니다.
-
-  return currentMonth;
-};
-
-// 현재 년도 반환
-export const getYear = (year?: number): number => {
-  const now = new Date();
-  const currentYear = year ?? now.getFullYear();
-
-  return currentYear;
-};
-
-// 이전 달 계산
-export const getPreviousMonth = (year: number, month: number): { year: number; month: number } => {
-  if (month === 1) {
-    return { year: year - 1, month: 12 };
-  }
-  return { year, month: month - 1 };
-};
-
-// 다음 달 계산
-export const getNextMonth = (year: number, month: number): { year: number; month: number } => {
-  if (month === 12) {
-    return { year: year + 1, month: 1 };
-  }
-  return { year, month: month + 1 };
-};
