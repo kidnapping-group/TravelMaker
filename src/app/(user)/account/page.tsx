@@ -66,7 +66,7 @@ function Account() {
 
   const { social, updateUserInfo } = socialLoginStore(state => ({
     social: state.social,
-    updateUserInfo: state.socialLogin, // 상태 업데이트를 위한 메서드
+    updateUserInfo: state.commonLogin,
   }));
 
   const selectedValidationSchema = isSocialLogin
@@ -85,7 +85,7 @@ function Account() {
   });
 
   const { data: fetchedUserData, refetch: refetchUserData } = useQuery<UserData>({
-    queryKey: ["userData"],
+    queryKey: ["userData", social ? "social" : "common"],
     queryFn: userAPI.getUsers,
   });
 
