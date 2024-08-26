@@ -76,7 +76,7 @@ function Account() {
   });
 
   const { data: fetchedUserData, refetch: refetchUserData } = useQuery<UserData>({
-    queryKey: ["userData", social ? "social" : "common"],
+    queryKey: ["userData"],
     queryFn: userAPI.getUsers,
   });
 
