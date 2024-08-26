@@ -2,7 +2,7 @@
 
 import activitiesAPI from "@/apis/activitiesAPI";
 import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
-import AddressInput from "@/app/(user)/myactivities/add/_components/AddressInput";
+import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
 import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
 import { Button } from "@/components/Button";
@@ -176,7 +176,8 @@ export default function Add() {
             placeholder="인당 체험 비용을 입력해 주세요"
             type="number"
           />
-          <AddressInput address={address} setAddress={setAddress} />
+          <AddressAutoComplete address={address} setAddress={setAddress} />
+
           <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
           <div className="grid grid-cols-8 grid-rows-2 gap-1">
             <p className="text-base col-span-3 font-medium">날짜</p>
