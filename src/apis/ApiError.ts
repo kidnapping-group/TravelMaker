@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class APIError extends Error {
+export class APIError extends Error {
   constructor(
     message: string,
     public status: number,
@@ -9,6 +9,25 @@ class APIError extends Error {
     this.name = "";
   }
 }
+
+export const getErrorStatusMessage = (statusCode: number | null) => {
+  switch (statusCode) {
+    case 400:
+      return "Bad Request";
+    case 404:
+      return "Not Found";
+    case 500:
+      return "Internal Server Error";
+    case 403:
+      return "Forbidden";
+    case 401:
+      return "Unauthorized";
+    case 409:
+      return "Conflict";
+    default:
+      return null;
+  }
+};
 
 const ErrorMessages: { [key: string]: string } = {
   400: "잘못된 형식의 요청입니다. 입력값을 확인해주세요.",

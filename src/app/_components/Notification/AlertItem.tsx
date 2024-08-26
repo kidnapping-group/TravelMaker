@@ -3,55 +3,60 @@
 import formatTime from "@/utils/formatTime";
 import Image from "next/image";
 
-interface AlertData {
+interface AlertItemProps {
   id: number;
   content: string;
   updatedAt: string;
   onClick: (id: number) => void;
 }
 
-const contentStatus = (content: string): { text: JSX.Element[]; color: string } => {
+function AlertItem({ id, content, updatedAt, onClick }: AlertItemProps) {
   const activityNameEnd = content.indexOf("예약이") + 3;
   const activityName = content.slice(0, activityNameEnd).trim();
   const status = content.slice(activityNameEnd, activityNameEnd + 3).trim();
   const conclusion = content.slice(activityNameEnd + 3).trim();
 
-  let color = "";
-  if (status === "승인") {
-    color = "blue-500";
-  } else if (status === "거절") {
-    color = "red-500";
-  } else {
-    color = "green-500";
+  let bgColor = "";
+  let textColor = "";
+
+  switch (status) {
+    case "승인":
+      bgColor = "bg-blue-500";
+      textColor = "text-blue-500";
+      break;
+    case "거절":
+      bgColor = "bg-red-500";
+      textColor = "text-red-500";
+      break;
+    default:
+      bgColor = "bg-green-500";
+      textColor = "text-green-500";
+      break;
   }
-  const text = [
-    <span key="1">{activityName} </span>,
-    <span key="2" className={`text-${color} font-bold`}>
-      {status}
-    </span>,
-    <span key="3">{conclusion}</span>,
-  ];
-
-  return { text, color };
-};
-
-function AlertItem({ id, content, updatedAt, onClick }: AlertData) {
-  const status = contentStatus(content);
 
   return (
-    <div className="flex flex-col gap-1 rounded-[5px] border bg-white px-4 py-3 text-md tablet:h-[126px] tablet:w-[328px]">
-      <div className="flex items-center justify-between">
-        <div className={`h-[5px] w-[5px] rounded-[5px] bg-${status.color}`} />
+    <div className="relative mr-1 flex flex-col gap-1 rounded-lg bg-white p-3">
+      <div className={`absolute left-3 my-2 ml-[2px] h-[5px] w-[5px] rounded-full ${bgColor}`} />
+      <button
+        className="absolute right-2 top-2 rounded-lg p-1 transition-colors hover:bg-gray-100 active:bg-gray-200"
+        type="button"
+        onClick={() => onClick(id)}
+      >
         <Image
           src="/icons/icon-close-gary-bold.svg"
-          width={24}
-          height={24}
+          width={20}
+          height={20}
           alt="알람삭제"
-          onClick={() => onClick(id)}
+          draggable={false}
         />
+      </button>
+      <div className="mt-6">
+        <p className="text-md leading-5">
+          {activityName} <span className={`${textColor} font-bold`}>{status}</span>
+          {conclusion}
+        </p>
+        <p className="mt-2 text-xs text-gray-400">{formatTime(updatedAt)}</p>
       </div>
-      <p>{status.text}</p>
-      <p>{formatTime(updatedAt)}</p>
     </div>
   );
 }
