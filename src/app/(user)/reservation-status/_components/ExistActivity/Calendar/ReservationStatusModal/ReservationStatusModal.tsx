@@ -3,8 +3,8 @@
 import { StatusCount } from "@/apis/API.type";
 import RequestStatus from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/RequestStatus";
 import ReservationList from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList";
-import { getMyActivityDateReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
 import formatDateToYYYYMMDD from "@/app/(user)/reservation-status/utils/formatDateToYYYYMMDD";
+import { getMyActivityDateReservationStatus } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import Dropdown from "@/components/Dropdown";
 import Modal from "@/components/Modal";
 import formatDateToKorean from "@/utils/formatDateToKorean";

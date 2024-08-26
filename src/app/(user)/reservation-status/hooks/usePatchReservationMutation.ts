@@ -6,7 +6,7 @@ import {
   patchMyReservation,
 } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import { queryKeys } from "@/app/(user)/reservation-status/reservationStatus";
+import { queryKeys } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const usePatchReservation = (reservation: MyReservation) => {

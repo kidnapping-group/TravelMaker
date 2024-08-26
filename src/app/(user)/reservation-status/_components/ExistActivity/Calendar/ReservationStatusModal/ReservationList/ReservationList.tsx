@@ -2,7 +2,7 @@
 
 import { StatusCount } from "@/apis/API.type";
 import ReservationItem from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationItem";
-import { getMyActivityTimeReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
+import { getMyActivityTimeReservationStatus } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
 interface ReservationListProps {

@@ -4,7 +4,7 @@ import DateSwitcher from "@/app/(user)/reservation-status/_components/ExistActiv
 import Day from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/Day";
 import ReservationStatusModal from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal";
 import useCreateCalendar from "@/app/(user)/reservation-status/hooks/useCreateCalendar";
-import { getMyActivityMonthReservationStatus } from "@/app/(user)/reservation-status/reservationStatus";
+import { getMyActivityMonthReservationStatus } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
