@@ -6,6 +6,7 @@ import Input from "@/components/Input/Input";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -24,6 +25,7 @@ function SignIn() {
     resolver: zodResolver(loginSchema),
     mode: "all",
   });
+  const queryClient = useQueryClient();
   const router = useRouter();
 
   useEffect(() => {
@@ -39,6 +41,7 @@ function SignIn() {
     try {
       await authAPI.login(data);
       router.push("/");
+      queryClient.removeQueries();
     } catch (error) {
       let err = String(error);
       if (err === "비밀번호가 일치하지 않습니다.") {
