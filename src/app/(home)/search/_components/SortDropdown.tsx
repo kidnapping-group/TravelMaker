@@ -27,7 +27,6 @@ function SortDropdown() {
 
   return (
     <Dropdown
-      type="round"
       placeHolder={currentSort ? SORT_NAME[currentSort] : undefined}
       menuItems={Object.values(SORT_NAME)}
       onChangeDropdown={handleMenuItemClick}

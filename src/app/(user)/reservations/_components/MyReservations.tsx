@@ -76,7 +76,6 @@ function MyReservations() {
         <h1 className="text-3xl font-bold">예약 내역</h1>
         <Dropdown
           menuItems={menuItems}
-          type="round"
           onChangeDropdown={handleSelectStatus}
           placeHolder={statusTitle}
         />
