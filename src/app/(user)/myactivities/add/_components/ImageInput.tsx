@@ -41,7 +41,7 @@ function ImageInput({ bannerImageUrl, setBannerImageUrl }: ImageInputProps) {
 
       {bannerImageUrl && (
         <div className="relative h-40 w-40 rounded-[4px] border border-gray-500">
-          <Image fill src={bannerImageUrl} alt="배너이미지" />
+          <Image className="rounded-[4px]" fill src={bannerImageUrl} alt="배너이미지" />
           <DeleteButton onClick={handleDelete} />
         </div>
       )}

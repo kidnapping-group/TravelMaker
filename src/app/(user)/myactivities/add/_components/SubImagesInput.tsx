@@ -51,7 +51,12 @@ function SubImagesInput({ subImageUrls, setSubImageUrls }: SubImagesInputProps) 
           {subImageUrls.map((imageUrl, index) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={index} className="relative h-40 w-40 rounded-[4px] border border-gray-500">
-              <Image fill src={imageUrl} alt={`소개 이미지 ${index + 1}`} />
+              <Image
+                className="rounded-[4px]"
+                fill
+                src={imageUrl}
+                alt={`소개 이미지 ${index + 1}`}
+              />
               <DeleteButton onClick={() => handleDelete(index)} />
             </div>
           ))}
