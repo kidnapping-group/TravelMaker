@@ -191,6 +191,7 @@ function Account() {
             profileImage={currentProfileImageUrl}
             onChangeImage={handleProfileImageChange}
             onImageReset={handleProfileImageReset}
+            disabled={isSocialLogin}
           />
           <div className="flex flex-col">
             <h1 className="text-[30px] font-semibold text-primary-600 tablet:text-[40px] pc:text-[40px]">
@@ -208,6 +209,7 @@ function Account() {
           placeholder="닉네임을 입력해주세요"
           error={errors.nickname}
           touched={touchedFields.nickname}
+          disabled={isSocialLogin}
         />
 
         <Input
@@ -232,9 +234,15 @@ function Account() {
           disabled={isSocialLogin}
         />
 
-        <Button type="submit" size="medium">
-          수정
-        </Button>
+        {isSocialLogin === true ? (
+          <p className="text-lg font-semibold text-red-500">
+            소셜 로그인 시 사용자 정보를 수정할 수 없습니다
+          </p>
+        ) : (
+          <Button type="submit" size="medium">
+            수정
+          </Button>
+        )}
       </form>
 
       <Popup
