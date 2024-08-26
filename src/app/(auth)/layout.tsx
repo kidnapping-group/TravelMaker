@@ -26,14 +26,26 @@ function AuthRootLayout({
             href={GOOGLE_AUTH_URL}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
           >
-            <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 회원가입" />
+            <Image
+              src="/icons/google.svg"
+              width={27}
+              height={27}
+              alt="Google 아이콘"
+              draggable={false}
+            />
           </Link>
 
           <Link
             href={KAKAO_AUTH_URL}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
           >
-            <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 회원가입" />
+            <Image
+              src="/icons/kakao.svg"
+              width={27}
+              height={27}
+              alt="카카오톡 아이콘"
+              draggable={false}
+            />
           </Link>
         </div>
       </div>
