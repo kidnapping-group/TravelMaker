@@ -17,14 +17,9 @@ import ProfileEditor from "./_component/ProfileEditor";
 
 type UserData = Pick<User, "nickname" | "email" | "profileImageUrl">;
 
-type AccountFormValues = z.infer<typeof commonAccountValidationSchema>;
+type AccountFormValues = z.infer<typeof AccountValidationSchema>;
 
-const socialAccountValidationSchema = baseSchema.pick({
-  nickname: true,
-  profileImageUrl: true,
-});
-
-const commonAccountValidationSchema = baseSchema
+const AccountValidationSchema = baseSchema
   .pick({
     nickname: true,
     profileImageUrl: true,
@@ -69,10 +64,6 @@ function Account() {
     updateUserInfo: state.commonLogin,
   }));
 
-  const selectedValidationSchema = isSocialLogin
-    ? socialAccountValidationSchema
-    : commonAccountValidationSchema;
-
   const {
     register,
     handleSubmit,
@@ -80,7 +71,7 @@ function Account() {
     reset,
     setValue,
   } = useForm<AccountFormValues>({
-    resolver: zodResolver(selectedValidationSchema),
+    resolver: zodResolver(AccountValidationSchema),
     mode: "onSubmit",
   });
 
