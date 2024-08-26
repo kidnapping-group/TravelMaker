@@ -7,14 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 function Header() {
-  const userInfo = socialLoginStore(state => ({
+  const { id } = socialLoginStore(state => ({
     id: state.id,
-    email: state.email,
-    nickname: state.nickname,
-    profileImageUrl: state.profileImageUrl,
-    createdAt: state.createdAt,
-    updatedAt: state.updatedAt,
-    social: state.social,
   }));
 
   return (
@@ -23,7 +17,7 @@ function Header() {
         <Link href="/">
           <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
         </Link>
-        {userInfo?.id ? <UserExist /> : <UserNotExist />}
+        {id ? <UserExist /> : <UserNotExist />}
       </nav>
     </header>
   );
