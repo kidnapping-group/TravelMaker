@@ -219,7 +219,7 @@ export type postUsers = {
 
 export type patchUsers = {
   nickname?: string;
-  profileImageUrl?: string;
+  profileImageUrl?: string | null;
   newPassword?: string;
 };
 

@@ -22,7 +22,7 @@ function SelectedActivity({ activities, setSelectedId }: SelectedActivityProps) 
   return (
     <div className="mt-2 flex flex-col gap-1">
       <p className="text-md font-normal">체험명</p>
-      <Dropdown menuItems={menuItems} type="square" onChangeDropdown={handleDropdownChange} />
+      <Dropdown menuItems={menuItems} wide onChangeDropdown={handleDropdownChange} />
     </div>
   );
 }

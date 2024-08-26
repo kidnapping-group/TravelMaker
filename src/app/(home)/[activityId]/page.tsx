@@ -8,6 +8,12 @@ import Review from "@/app/(home)/[activityId]/_components/Review";
 import { ActivityIdProvider } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
 
 function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
+  const id = Number(activityId);
+
+  if (!id) {
+    throw new Error("페이지가 존재하지 않습니다.");
+  }
+
   return (
     <div className="bg-primary-50">
       <ActivityIdProvider activityId={activityId}>
