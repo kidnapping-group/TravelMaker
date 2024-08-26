@@ -53,7 +53,7 @@ function MyReservationItem({
     if (currentTime > reservationDate && reservation.status === "pending") {
       setReservationState((prev: Reservations) => ({ ...prev, status: "closed" }));
     }
-  }, [reservationState]);
+  }, [reservation]);
 
   if (statusTitle === "마감 완료" && reservationState.status !== "closed") {
     return null;
