@@ -52,11 +52,7 @@ function ReservationStatusModal({ activityId, selectedDate }: ReservationStatusM
         <div>
           <h2 className="text-xl font-semibold">예약 날짜</h2>
           <p className="mt-4 text-xl font-normal">{koreanDateFormat}</p>
-          <Dropdown
-            type="square"
-            menuItems={dropdownItem}
-            onChangeDropdown={handleChangeDropdown}
-          />
+          <Dropdown wide menuItems={dropdownItem} onChangeDropdown={handleChangeDropdown} />
         </div>
         <div>
           <h2 className="text-xl font-semibold">예약 내역</h2>
