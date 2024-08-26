@@ -3,6 +3,7 @@
 import OauthAPI from "@/apis/OauthAPI";
 import userAPI from "@/apis/usersAPI";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -115,7 +116,18 @@ export default function GoogleRedirect() {
   }, [handleGoogleRedirect]);
 
   if (isLoading) {
-    return <div>소셜 로그인 중입니다!</div>;
+    return (
+      <div className="flex h-[100vh] w-full flex-col items-center justify-center">
+        <p className="text-[50px]">로딩중...</p>
+        <Image
+          src="/images/GOOGLE.png"
+          width={500}
+          height={500}
+          alt="카카오로고"
+          className="animate-[spin_2s_linear_infinite]"
+        />
+      </div>
+    );
   }
 
   return null;
