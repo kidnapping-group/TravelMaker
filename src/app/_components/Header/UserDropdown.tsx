@@ -3,11 +3,13 @@
 import { Popover, PopoverContent, PopoverItem, PopoverTrigger } from "@/components/Popover";
 import socialLoginStore from "@/store/socialLoginStore";
 import logoutCookies from "@/utils/logoutCookies";
+import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 function UserDropdown() {
   const { push } = useRouter();
+  const queryClient = useQueryClient();
   const logout = socialLoginStore(state => state.logout);
   const userInfo = socialLoginStore(state => ({
     id: state.id,
@@ -22,6 +24,7 @@ function UserDropdown() {
   const handleLogout = () => {
     logout();
     logoutCookies();
+    queryClient.removeQueries();
     push("/");
   };
 
