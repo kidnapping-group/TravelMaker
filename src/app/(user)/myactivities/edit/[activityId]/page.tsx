@@ -3,7 +3,7 @@
 import activitiesAPI from "@/apis/activitiesAPI";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import AddInput from "@/app/(user)/myactivities/edit/_components/AddInput";
-import AddressInput from "@/app/(user)/myactivities/edit/_components/AddressInput";
+import AddressAutoComplete from "@/app/(user)/myactivities/edit/_components/AddressAutoComplete";
 import ImageInput from "@/app/(user)/myactivities/edit/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImagesInput";
 import { Button } from "@/components/Button";
@@ -82,6 +82,10 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
   };
 
   const addSchedule = () => {
+    if (!currentSchedule.startTime || !currentSchedule.endTime) {
+      openPopup("timeMissing");
+      return;
+    }
     const isDuplicate = schedules.some(
       schedule =>
         schedule.date.toISOString().split("T")[0] ===
@@ -178,13 +182,13 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
   return (
     <div>
       <form onSubmit={handleSubmit} className="h-[100vh] px-3 pb-[150px]">
-        <div className="flex justify-between">
+        <div className="flex justify-between px-1">
           <p className="text-3xl font-bold">내 체험 등록</p>
           <Button disabled={isSubmitDisabled} type="submit">
             수정
           </Button>
         </div>
-        <div className="h-full overflow-y-auto">
+        <div className="h-full overflow-y-auto px-1">
           <AddInput
             id="title"
             label="체험명"
@@ -196,9 +200,9 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
           <div className="mb-8 mt-2.5">
             <Dropdown
               menuItems={dropdownList}
-              type="square"
               onChangeDropdown={handleCategory}
               placeHolder="카테고리"
+              wide
             />
           </div>
 
@@ -218,7 +222,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             placeholder="인당 체험 비용을 입력해 주세요"
             type="number"
           />
-          <AddressInput address={address} setAddress={setAddress} />
+          <AddressAutoComplete address={address} setAddress={setAddress} />
           <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
           <div className="grid grid-cols-8 grid-rows-2 gap-1">
             <p className="text-base col-span-3 font-medium">날짜</p>
@@ -227,7 +231,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             <p className="text-base col-span-1 font-medium">추가</p>
             <div className="col-span-3 w-full">
               <DatePicker
-                className="h-9 w-full rounded-[4px] border border-gray-500"
+                className="h-9 w-full rounded-[4px] bg-gray-100 pl-2 outline-blue-500 focus:outline focus:outline-1"
                 toggleCalendarOnIconClick
                 selected={currentSchedule.date}
                 onChange={(date: Date | null) => {
@@ -241,7 +245,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             </div>
             <div className="col-span-2">
               <DatePicker
-                className="col-span-2 h-9 w-full rounded-[4px] border border-gray-500"
+                className="col-span-2 h-9 w-full rounded-[4px] bg-gray-100 pl-2 outline-blue-500 focus:outline focus:outline-1"
                 selected={currentSchedule.startTime}
                 onChange={(date: Date | null) => handleScheduleChange("startTime", date)}
                 selectsStart
@@ -262,7 +266,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             </div>
             <div className="col-span-2 w-full">
               <DatePicker
-                className="h-9 w-full rounded-[4px] border border-gray-500"
+                className="h-9 w-full rounded-[4px] bg-gray-100 pl-2 outline-blue-500 focus:outline focus:outline-1"
                 selected={currentSchedule.endTime}
                 onChange={(date: Date | null) => handleScheduleChange("endTime", date)}
                 selectsEnd
@@ -276,7 +280,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
               />
             </div>
             <Button
-              className="text-base col-span-1 h-9 rounded-[4px] border border-gray-500 font-medium"
+              className="text-base col-span-1 h-9 rounded-[4px] bg-primary-500 font-medium text-white hover:bg-primary-600 active:bg-primary-700"
               type="button"
               onClick={addSchedule}
             >
@@ -290,17 +294,17 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
               {schedules.map((schedule, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <React.Fragment key={index}>
-                  <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                  <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.date.toISOString().split("T")[0]}
                   </div>
-                  <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                  <div className="col-span-2 flex h-9 items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.startTime}
                   </div>
-                  <div className="col-span-2 flex h-9 items-center rounded-[4px] border border-gray-500 bg-white pl-2">
+                  <div className="col-span-2 flex h-9 items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.endTime}
                   </div>
                   <Button
-                    className="text-base col-span-1 h-9 rounded-[4px] border border-gray-500 font-medium"
+                    className="text-base col-span-1 h-9 rounded-[4px] bg-gray-500 font-medium text-white hover:bg-gray-600"
                     type="button"
                     onClick={() => removeSchedule(schedule.id, index)}
                   >
@@ -351,6 +355,14 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
         leftButton="확인"
         onChangeLeftButton={() => {
           closePopup("duplicate");
+        }}
+      />
+      <Popup
+        id="timeMissing"
+        text="시작 시간과 종료 시간을 모두 입력해 주세요."
+        leftButton="확인"
+        onChangeLeftButton={() => {
+          closePopup("timeMissing");
         }}
       />
     </div>

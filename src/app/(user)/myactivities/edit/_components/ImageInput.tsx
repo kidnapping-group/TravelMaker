@@ -25,7 +25,7 @@ function ImageInput({ bannerImageUrl, setBannerImageUrl }: ImageInputProps) {
   return (
     <div className="mb-8 flex gap-2">
       <label htmlFor="image-upload">
-        <div className="flex h-40 w-40 cursor-pointer items-center justify-center rounded-[4px] border border-gray-500 bg-white font-medium hover:bg-gray-500 hover:text-white">
+        <div className="flex h-40 w-40 cursor-pointer items-center justify-center rounded-[4px] bg-gray-100 font-medium hover:bg-gray-500 hover:text-white">
           파일 업로드하기
         </div>
       </label>
