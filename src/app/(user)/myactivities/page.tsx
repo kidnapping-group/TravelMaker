@@ -6,8 +6,8 @@ async function MyActivitiesPage() {
   const queryClient = new QueryClient();
   await [
     queryClient.prefetchQuery({
-      queryKey: ["myActivities", 20],
-      queryFn: () => myActivitiesAPI.get({ cursorId: undefined, size: 20 }),
+      queryKey: ["myActivities", { size: 10 }],
+      queryFn: () => myActivitiesAPI.get({ cursorId: undefined, size: 10 }),
     }),
   ];
 
