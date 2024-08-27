@@ -39,7 +39,7 @@ function AddInput({
           placeholder={placeholder}
           onChange={onChange}
           onBlur={onBlur}
-          className="mb-8 mt-2.5 h-28 w-full resize-none rounded-[4px] border border-gray-500 p-4"
+          className="mb-8 mt-2.5 h-28 w-full resize-none rounded-[4px] bg-gray-100 p-4 outline-blue-500 focus:outline focus:outline-1"
         />
       ) : (
         <input
@@ -50,7 +50,7 @@ function AddInput({
           type={type}
           onChange={onChange}
           onBlur={onBlur}
-          className="mb-8 mt-2.5 h-14 w-full rounded-[4px] border border-gray-500 p-4"
+          className="mb-8 mt-2.5 h-14 w-full rounded-[4px] bg-gray-100 p-4 outline-blue-500 focus:outline focus:outline-1"
         />
       )}
     </div>

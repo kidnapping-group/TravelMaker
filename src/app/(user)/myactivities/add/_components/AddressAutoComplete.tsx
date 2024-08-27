@@ -29,7 +29,7 @@ export default function AddressAutoComplete({ address, setAddress }: AddressAuto
       <div className="mb-8 flex items-center">
         <input
           value={address}
-          className="mr-3 h-14 w-full rounded-[4px] border border-gray-500 p-4"
+          className="mr-3 h-14 w-full rounded-[4px] bg-gray-100 p-4 outline-blue-500 focus:outline focus:outline-1"
           placeholder="주소를 검색하세요"
         />
 
