@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 interface BigActivityCardProps {
+  wide?: boolean;
   bannerImageUrl: string;
   title: string;
   price: number;
@@ -9,6 +10,7 @@ interface BigActivityCardProps {
 }
 
 function BigActivityCard({
+  wide = false,
   bannerImageUrl,
   title,
   price,
@@ -16,7 +18,9 @@ function BigActivityCard({
   reviewCount,
 }: BigActivityCardProps) {
   return (
-    <article className="group relative flex aspect-square flex-col justify-end overflow-hidden rounded-[10px] p-5">
+    <article
+      className={`${wide ? "w-full" : "w-[288px] pc:w-full"} group relative flex aspect-square flex-col justify-end overflow-hidden rounded-[10px] p-5`}
+    >
       <div>
         <Image className="object-cover" src={bannerImageUrl} alt="체험 사진" fill />
         <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-50" />

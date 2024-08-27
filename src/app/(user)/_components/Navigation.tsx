@@ -44,7 +44,7 @@ const navItems = [
 
 function TopNavigation({ pathname }: MobileNavProps) {
   return (
-    <div className="fixed left-0 top-[55px] flex w-full justify-around bg-white pt-[10px] text-center">
+    <div className="fixed left-0 top-[55px] z-10 flex w-full justify-around bg-white pt-[10px] text-center">
       {navItems.map(item => (
         <Link
           key={item.label}
