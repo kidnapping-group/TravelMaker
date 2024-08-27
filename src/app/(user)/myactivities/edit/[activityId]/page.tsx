@@ -221,6 +221,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             onChange={e => setPrice(e.target.value)}
             placeholder="인당 체험 비용을 입력해 주세요"
             type="number"
+            min={0}
           />
           <AddressAutoComplete address={address} setAddress={setAddress} />
           <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
@@ -322,6 +323,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             setSubImageUrls={setSubImageUrls}
             setSubImageIdsToRemove={setSubImageIdsToRemove}
           />
+          <p>* 소개이미지는 최대 4개까지 등록할 수 있습니다.</p>
         </div>
       </form>
       <Popup
