@@ -16,6 +16,7 @@ function ActivityGrid({ activities }: ActivityGridProps) {
         >
           <Link href={`/${id}`}>
             <ActivityCard
+              wide
               bannerImageUrl={bannerImageUrl}
               title={title}
               price={price}
