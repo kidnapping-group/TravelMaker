@@ -39,7 +39,7 @@ async function ActivitySection({
   return (
     <section className="flex flex-col">
       <div className="flex items-center justify-between">
-        <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
+        <h2 className="py-3 text-2lg font-bold text-black tablet:text-xl">{sectionTitle}</h2>
         <Link
           className="text-md font-semibold text-primary-500 transition hover:text-primary-600 hover:underline hover:underline-offset-2 active:text-primary-700"
           href={`/search?${createQueryString({ category, keyword, sort })}`}
