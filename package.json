@@ -18,7 +18,6 @@
     "axios": "^1.7.2",
     "embla-carousel-react": "^8.1.8",
     "js-cookie": "^3.0.5",
-    "lucide-react": "^0.436.0",
     "next": "14.2.5",
     "pnpm": "^9.6.0",
     "react": "^18",
