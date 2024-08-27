@@ -31,7 +31,7 @@ function MyActivityItem({ activity }: { activity: Activities }) {
               src={activity.bannerImageUrl}
               fill
               alt="배너 이미지"
-              className="rounded-l-[24px] object-cover"
+              className="rounded-l-[24px] object-cover hover:scale-110"
             />
           </Link>
         </div>

@@ -5,17 +5,20 @@ import UserNotExist from "@/app/_components/Header/UserNotExist";
 import socialLoginStore from "@/store/socialLoginStore";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 function Header() {
-  const userInfo = socialLoginStore(state => ({
+  const { id } = socialLoginStore(state => ({
     id: state.id,
-    email: state.email,
-    nickname: state.nickname,
-    profileImageUrl: state.profileImageUrl,
-    createdAt: state.createdAt,
-    updatedAt: state.updatedAt,
-    social: state.social,
   }));
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (id !== undefined) {
+      setIsLoading(false);
+    }
+  }, [id]);
 
   return (
     <header className="sticky top-0 z-20 border-b border-gray-200 bg-white">
@@ -23,7 +26,7 @@ function Header() {
         <Link href="/">
           <Image src="/images/logo_small.png" alt="헤더 로고" width={165} height={55} priority />
         </Link>
-        {userInfo?.id ? <UserExist /> : <UserNotExist />}
+        {!isLoading && (id ? <UserExist /> : <UserNotExist />)}
       </nav>
     </header>
   );

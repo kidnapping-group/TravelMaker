@@ -55,8 +55,8 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/signin?expiredRefreshToken=true";
       }
     }
-    handleAxiosError(error);
-    return Promise.reject(error);
+    const handledError = handleAxiosError(error);
+    return Promise.reject(handledError);
   },
 );
 export default axiosInstance;

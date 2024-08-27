@@ -1,25 +1,12 @@
+import socialLoginStore from "@/store/socialLoginStore";
 import Cookies from "js-cookie";
 
-interface UserProfile {
-  social: boolean;
-  id: number;
-  email: string;
-  nickname: string;
-  profileImageUrl: string | null;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface SocialLoginStore {
-  state: UserProfile;
-  version: number;
-}
-
 export const getCookiesUserID = (): number | null => {
-  const data = Cookies.get("social-login-store");
+  const data = socialLoginStore(state => ({
+    id: state.id,
+  }));
   if (data) {
-    const parseData: SocialLoginStore = JSON.parse(data);
-    return parseData.state.id;
+    return Number(data.id);
   }
   return null;
 };
