@@ -21,6 +21,8 @@ const useCreateCalendar = (
             hasEvent:
               !!ReservationMonthDataFormatted(data)[Math.abs(day)]?.length && isCurrentMonth,
             isCompleted: data.some(item => item.reservations.completed > 0),
+            isPending: data.some(item => item.reservations.pending > 0),
+            isConfirmed: data.some(item => item.reservations.confirmed > 0),
           };
         }),
       ),
