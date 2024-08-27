@@ -22,23 +22,26 @@ function KakaoRedirect() {
   const domain = `${process.env.NEXT_PUBLIC_URL}/social/kakao`;
 
   // Kakao accessToken 토큰 가져오기
-  const getKakaoToken = useCallback(async (code: string | null) => {
-    const url = "https://kauth.kakao.com/oauth/token";
+  const getKakaoToken = useCallback(
+    async (code: string | null) => {
+      const url = "https://kauth.kakao.com/oauth/token";
 
-    const body = new URLSearchParams({
-      grant_type: "authorization_code",
-      client_id: process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY || "",
-      redirect_uri: domain || "",
-      code: code || "",
-    });
+      const body = new URLSearchParams({
+        grant_type: "authorization_code",
+        client_id: process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY || "",
+        redirect_uri: domain || "",
+        code: code || "",
+      });
 
-    const { data } = await axios.post(url, body.toString(), {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-      },
-    });
-    return data.access_token;
-  }, []);
+      const { data } = await axios.post(url, body.toString(), {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
+      return data.access_token;
+    },
+    [domain],
+  );
 
   // Kakao 유저 데이터 가져오기
   const getKakaoUserData = useCallback(async (accessToken: string) => {
@@ -52,66 +55,78 @@ function KakaoRedirect() {
     return data.properties.nickname;
   }, []);
 
-  useEffect(() => {
-    const handleKakaoRedirect = async () => {
-      // kakao 인가 code 추출
-      const url = new URL(window.location.href);
-      const code = url.searchParams.get("code");
-      if (!alreadyGetUserData) {
-        const accessToken = await getKakaoToken(code);
-        const nickname = await getKakaoUserData(accessToken);
-        updateKakaoProfile(nickname);
-        await getUserData();
-        await router.push(
-          `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${domain}&scope=profile_nickname,profile_image`,
-        );
-      } else {
-        const { nickname } = socialLoginStore.getState();
-        if (code && !alreadyExistKakaoUser && nickname) {
-          const data = {
-            nickname,
-            token: code,
-            redirectUri: domain || "",
-          };
-          try {
-            const response = await OauthAPI.postSignup("kakao", data);
-            if (response) {
-              setIsLoading(false);
-              router.push("/");
-            }
-          } catch (error) {
-            let err = String(error);
-            if (err === "이미 등록된 사용자입니다.") {
-              socialSignupFail(); //
-              setTimeout(() => {
-                const updatedState = kakaoSocialStatusStore.getState().alreadyExistKakaoUser;
-                if (updatedState) {
-                  router.push(
-                    `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${domain}&scope=profile_nickname,profile_image`,
-                  );
-                }
-              }, 0);
-            }
-          }
-        }
+  const handleKakaoRedirect = useCallback(async () => {
+    // kakao 인가 code 추출
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("code");
 
-        if (code && alreadyExistKakaoUser && nickname) {
-          const data = {
-            token: code,
-            redirectUri: domain || "",
-          };
-          const response = await OauthAPI.postSignin("kakao", data);
+    if (!alreadyGetUserData) {
+      const accessToken = await getKakaoToken(code);
+      const nickname = await getKakaoUserData(accessToken);
+      updateKakaoProfile(nickname);
+      await getUserData();
+      await router.push(
+        `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${domain}&scope=profile_nickname,profile_image`,
+      );
+    } else {
+      const { nickname } = socialLoginStore.getState();
+      if (code && !alreadyExistKakaoUser && nickname) {
+        const data = {
+          nickname,
+          token: code,
+          redirectUri: domain || "",
+        };
+        try {
+          const response = await OauthAPI.postSignup("kakao", data);
           if (response) {
             setIsLoading(false);
-            socialLoginSuccess();
             router.push("/");
+          }
+        } catch (error) {
+          let err = String(error);
+          if (err === "이미 등록된 사용자입니다.") {
+            socialSignupFail(); //
+            setTimeout(() => {
+              const updatedState = kakaoSocialStatusStore.getState().alreadyExistKakaoUser;
+              if (updatedState) {
+                router.push(
+                  `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${domain}&scope=profile_nickname,profile_image`,
+                );
+              }
+            }, 0);
           }
         }
       }
-    };
 
+      if (code && alreadyExistKakaoUser && nickname) {
+        const data = {
+          token: code,
+          redirectUri: domain || "",
+        };
+        const response = await OauthAPI.postSignin("kakao", data);
+        if (response) {
+          setIsLoading(false);
+          socialLoginSuccess();
+          router.push("/");
+        }
+      }
+    }
+  }, [
+    getKakaoUserData,
+    getKakaoToken,
+    router,
+    alreadyExistKakaoUser,
+    alreadyGetUserData,
+    domain,
+    getUserData,
+    socialLoginSuccess,
+    socialSignupFail,
+    updateKakaoProfile,
+  ]);
+
+  useEffect(() => {
     handleKakaoRedirect();
-  }, [router]);
+  }, [handleKakaoRedirect]);
 
   if (isLoading) {
     return (
