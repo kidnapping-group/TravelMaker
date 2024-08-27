@@ -2,7 +2,7 @@
 
 import { Activities } from "@/apis/API.type";
 import Calendar from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar";
-import SelectedActivity from "@/app/(user)/reservation-status/_components/ExistActivity/SelectedActivity";
+import MyActivitiesDropdown from "@/app/(user)/reservation-status/_components/ExistActivity/MyActivitiesDropdown";
 import { useState } from "react";
 
 function ExistActivity({ activities }: { activities: Activities[] }) {
@@ -10,7 +10,7 @@ function ExistActivity({ activities }: { activities: Activities[] }) {
 
   return (
     <div>
-      <SelectedActivity activities={activities} setSelectedId={setSelectedId} />
+      <MyActivitiesDropdown activities={activities} setSelectedId={setSelectedId} />
       <Calendar selectedId={selectedId} />
     </div>
   );

@@ -46,11 +46,11 @@ function Day({ dayData, setCurrentDate }: DayProps) {
     <button
       type="button"
       onClick={handleClick}
-      disabled={!dayData.hasEvent}
-      className={`w-full text-left ${dayData.hasEvent ? "cursor-pointer" : "cursor-default"}`}
+      disabled={!dayData.hasEvent || dayData?.isCompleted}
+      className={`w-full text-left ${dayData.hasEvent && !dayData?.isCompleted ? "cursor-pointer" : "cursor-default"}`}
     >
       <div
-        className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"} ${dayData.isCurrentMonth && dayData.hasEvent ? "transition-colors duration-200 hover:bg-primary-400" : ""} `}
+        className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"} ${dayData.isCurrentMonth && dayData.hasEvent && !dayData?.isCompleted ? "transition-colors duration-200 hover:bg-primary-400" : ""} `}
       >
         <div className="ml-2 mt-2 flex w-9 items-start gap-1">
           <span className={`${dayData.isCurrentMonth ? "" : "text-gray-300"} text-xl leading-6`}>
