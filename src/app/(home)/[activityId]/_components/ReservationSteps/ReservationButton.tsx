@@ -9,13 +9,13 @@ interface ReservationButtonProps {
 
 function ReservationButton({ submitReservation }: ReservationButtonProps) {
   const router = useRouter();
-  const { isReservation, isLogin } = useControlPopup();
+  const { isLogin, isUser } = useControlPopup();
 
   const createReservationPopup = () => {
     if (!isLogin) {
       openPopup("reservationNoUser");
-    } else if (isReservation) {
-      openPopup("reservationEndActivity");
+    } else if (isUser) {
+      openPopup("reservationBanSelfing");
     } else {
       submitReservation();
     }
@@ -32,10 +32,10 @@ function ReservationButton({ submitReservation }: ReservationButtonProps) {
         onChangeRightButton={() => router.push("/signin")}
       />
       <Popup
-        id="reservationIdNull"
-        text="해당 날짜는 예약 가능한 시간이 없습니다."
+        id="reservationBanSelfing"
+        text="본인의 체험은 예약이 불가능합니다."
         leftButton="확인"
-        onChangeLeftButton={() => closePopup("reservationIdNull")}
+        onChangeLeftButton={() => closePopup("reservationBanSelfing")}
       />
       <Popup
         id="reservationAlready"

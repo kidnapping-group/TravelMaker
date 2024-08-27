@@ -208,7 +208,7 @@ export type postActivitiesImage = {
 };
 
 export type postActivitiesImageRes = {
-  activitiesImageUrl: string;
+  activityImageUrl: string;
 };
 
 export type postUsers = {
