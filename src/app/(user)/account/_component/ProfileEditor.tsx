@@ -60,7 +60,7 @@ function ProfileEditor({
         priority
         className="h-[120px] w-[120px] rounded-full tablet:h-[200px] tablet:w-[200px] pc:h-[200px] pc:w-[200px]"
       />
-      {disabled === true ? null : (
+      {disabled ? null : (
         <div className="absolute bottom-0 right-0">
           <button
             type="button"

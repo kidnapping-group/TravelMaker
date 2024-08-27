@@ -225,7 +225,7 @@ function Account() {
           disabled={isSocialLogin}
         />
 
-        {isSocialLogin === true ? (
+        {isSocialLogin ? (
           <p className="text-lg font-semibold text-red-500">
             소셜 로그인 시 사용자 정보를 수정할 수 없습니다
           </p>
