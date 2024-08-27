@@ -1,4 +1,5 @@
 import ReactQueryProviders from "@/contexts/ReactQueryProviders";
+import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
@@ -33,6 +34,9 @@ function RootLayout({
         />
       </head>
       <body className={`${pretendardFont.className} text-black`}>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        ) : null}
         <ReactQueryProviders>{children}</ReactQueryProviders>
       </body>
     </html>
