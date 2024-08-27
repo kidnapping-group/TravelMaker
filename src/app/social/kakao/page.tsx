@@ -132,7 +132,7 @@ function KakaoRedirect() {
     return (
       <div className="flex h-[100vh] w-full flex-col items-center justify-center">
         <Image
-          src="/images/KAKAO.png"
+          src="/images/kakao.png"
           width={400}
           height={400}
           alt="카카오로고"

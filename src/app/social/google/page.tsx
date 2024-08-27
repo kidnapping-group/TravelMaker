@@ -122,7 +122,7 @@ export default function GoogleRedirect() {
     return (
       <div className="flex h-[100vh] w-full flex-col items-center justify-center">
         <Image
-          src="/images/GOOGLE.png"
+          src="/images/google.png"
           width={400}
           height={400}
           alt="구글 로고"
