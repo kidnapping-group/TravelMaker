@@ -13,26 +13,29 @@ export default function GoogleRedirect() {
   const domain = `${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   // Google OAuth 토큰 가져오기
-  const getGoogleToken = useCallback(async (code: string) => {
-    const url = "https://oauth2.googleapis.com/token";
+  const getGoogleToken = useCallback(
+    async (code: string) => {
+      const url = "https://oauth2.googleapis.com/token";
 
-    const body = new URLSearchParams({
-      grant_type: "authorization_code",
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
-      client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || "",
-      redirect_uri: domain || "",
-      code,
-      scope: "openid https://www.googleapis.com/auth/userinfo.profile",
-    });
+      const body = new URLSearchParams({
+        grant_type: "authorization_code",
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+        client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || "",
+        redirect_uri: domain || "",
+        code,
+        scope: "openid https://www.googleapis.com/auth/userinfo.profile",
+      });
 
-    const { data } = await axios.post(url, body.toString(), {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-      },
-    });
+      const { data } = await axios.post(url, body.toString(), {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
 
-    return { token: data.id_token, accessToken: data.access_token };
-  }, []);
+      return { token: data.id_token, accessToken: data.access_token };
+    },
+    [domain],
+  );
 
   // Google 유저 데이터 가져오기
   const getGoogleUserData = useCallback(async (accessToken: string) => {
@@ -109,7 +112,7 @@ export default function GoogleRedirect() {
         }
       }
     }
-  }, [getGoogleToken, router]);
+  }, [getGoogleUserData, getGoogleToken, router]);
 
   useEffect(() => {
     handleGoogleRedirect();
@@ -118,14 +121,14 @@ export default function GoogleRedirect() {
   if (isLoading) {
     return (
       <div className="flex h-[100vh] w-full flex-col items-center justify-center">
-        <p className="text-[50px]">로딩중...</p>
         <Image
           src="/images/GOOGLE.png"
-          width={500}
-          height={500}
-          alt="카카오로고"
+          width={400}
+          height={400}
+          alt="구글 로고"
           className="animate-[spin_2s_linear_infinite]"
         />
+        <p className="text-[40px]">구글 로그인 중...</p>
       </div>
     );
   }
