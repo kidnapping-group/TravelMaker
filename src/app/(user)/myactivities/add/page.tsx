@@ -3,10 +3,10 @@
 import activitiesAPI from "@/apis/activitiesAPI";
 import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
 import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
+import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
 import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
 import { Button } from "@/components/Button";
-import Dropdown from "@/components/Dropdown";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { setHours, setMinutes } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -15,10 +15,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Add() {
-  const dropdownList = ["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"];
-
   const [title, setTitle] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>(dropdownList[0]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("문화 · 예술");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [address, setAddress] = useState("");
@@ -38,10 +36,6 @@ export default function Add() {
   const [subImageUrls, setSubImageUrls] = useState<string[]>([]);
 
   const router = useRouter();
-
-  const handleCategory = (category: string) => {
-    setSelectedCategory(category);
-  };
 
   const handleScheduleChange = (field: string, value: Date | null) => {
     setCurrentSchedule(prev => ({
@@ -156,12 +150,7 @@ export default function Add() {
           />
           <p className="text-xl font-bold">카테고리</p>
           <div className="mb-8 mt-2.5">
-            <Dropdown
-              menuItems={dropdownList}
-              onChangeDropdown={handleCategory}
-              placeHolder="카테고리"
-              wide
-            />
+            <CategoryDropdown setSelectedCategory={setSelectedCategory} />
           </div>
 
           <AddInput
