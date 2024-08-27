@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 interface NavigationButtonProp {
   disabled: boolean;
@@ -8,19 +8,12 @@ interface NavigationButtonProp {
 function PrevButton({ disabled, onClick }: NavigationButtonProp) {
   return (
     <button
-      className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
+      className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none disabled:text-gray-400 tablet:h-10 tablet:w-10"
       type="button"
       disabled={disabled}
       onClick={onClick}
     >
-      <Image
-        className="select-none"
-        src={`/icons/icon-arrow-prev-${disabled ? "passive-" : ""}pagination.svg`}
-        width={18}
-        height={18}
-        alt="이전"
-        draggable={false}
-      />
+      <FaChevronLeft />
     </button>
   );
 }
@@ -28,17 +21,12 @@ function PrevButton({ disabled, onClick }: NavigationButtonProp) {
 function NextButton({ disabled, onClick }: NavigationButtonProp) {
   return (
     <button
-      className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none tablet:h-10 tablet:w-10"
+      className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-gray-100 disabled:pointer-events-none disabled:text-gray-400 tablet:h-10 tablet:w-10"
       type="button"
       disabled={disabled}
       onClick={onClick}
     >
-      <Image
-        src={`/icons/icon-arrow-next-${disabled ? "passive-" : ""}pagination.svg`}
-        width={18}
-        height={18}
-        alt="다음"
-      />
+      <FaChevronRight />
     </button>
   );
 }

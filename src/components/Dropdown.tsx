@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { FocusEvent, KeyboardEvent, useCallback, useRef, useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 interface DropdownProps {
   wide?: boolean;
@@ -71,17 +71,15 @@ function Dropdown({ wide = false, menuItems, onChangeDropdown, placeHolder }: Dr
     >
       <button
         type="button"
-        className="flex h-11 w-full items-center rounded-lg bg-gray-100 text-left text-md font-medium text-black outline-none transition-colors hover:bg-gray-200 active:bg-gray-300"
+        className="flex h-11 w-full items-center rounded-lg bg-gray-100 px-[18px] text-left text-md font-medium text-black outline-none transition-colors hover:bg-gray-200 active:bg-gray-300"
         onClick={toggleDropdown}
       >
-        <span className="grow truncate pl-[18px]">{selectedItem}</span>
-        <Image
-          className="mr-1"
-          src={`/icons/icon-${isOpen ? "dropup" : "dropdown"}.svg`}
-          alt="드롭다운 버튼"
-          width={32}
-          height={32}
-        />
+        <span className="grow truncate">{selectedItem}</span>
+        {isOpen ? (
+          <FaChevronUp className="text-gray-700" />
+        ) : (
+          <FaChevronDown className="text-gray-700" />
+        )}
       </button>
       {isOpen && (
         <div className="absolute z-10 mt-2 flex max-h-[300px] w-full flex-col overflow-y-auto rounded-lg bg-white p-[6px] shadow-[0_6px_20px_rgba(0,0,0,0.15)]">

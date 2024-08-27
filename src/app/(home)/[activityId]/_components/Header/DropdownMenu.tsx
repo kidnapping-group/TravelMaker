@@ -4,9 +4,9 @@ import DropdownMenuPopup from "@/app/(home)/[activityId]/_components/Header/Drop
 import useControlDropdownMenu from "@/app/(home)/[activityId]/_hooks/useControlDropdownMenu";
 import useControlPopup from "@/app/(home)/[activityId]/_hooks/useControlPopup";
 import { openPopup } from "@/components/Popup";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaEllipsisVertical } from "react-icons/fa6";
 
 function DropdownMenu({ activityId }: { activityId: string }) {
   const router = useRouter();
@@ -36,8 +36,12 @@ function DropdownMenu({ activityId }: { activityId: string }) {
     <>
       <DropdownMenuPopup onChangeRightButton={onChangeRightButton} />
       <div className="relative z-[2]" ref={dropdownRef}>
-        <button type="button" onClick={toggleDropdown}>
-          <Image src="/icons/icon-meatball.svg" alt="수정, 삭제 버튼보기" width={40} height={40} />
+        <button
+          className="rounded-lg p-1 text-gray-700 transition-colors hover:bg-gray-100 active:bg-gray-200"
+          type="button"
+          onClick={toggleDropdown}
+        >
+          <FaEllipsisVertical size={20} />
         </button>
         {isOpen && (
           <div className="absolute right-0 mt-2 w-40 rounded-md border-[#DDDDDD] bg-white text-2lg font-medium shadow-lg">

@@ -14,7 +14,7 @@ function Review({ reservation }: { reservation: Reservations }) {
     await myReservationAPI.postReviews(reservation.id, { rating, content: reviewContent });
   };
   return (
-    <div className="flex h-full w-[100vw] flex-col gap-3 px-4 tablet:h-[636px] tablet:w-[460px] tablet:gap-6 tablet:px-6">
+    <div className="flex h-full w-[100vw] flex-col gap-3 px-4 tablet:w-[460px] tablet:gap-6 tablet:px-6">
       <div className="flex h-[100px] items-center gap-2 tablet:h-[137px]">
         <Image
           src={reservation.activity.bannerImageUrl}
@@ -40,7 +40,7 @@ function Review({ reservation }: { reservation: Reservations }) {
         </div>
       </div>
       <Rating onRatingChange={rate => setRating(rate)} currentRating={rating} />
-      <div className="border-gary-200 flex h-[40vh] w-full flex-col rounded border border-solid p-4 tablet:h-[240px]">
+      <div className="border-gary-200 flex h-[40vh] w-full grow flex-col rounded border border-solid p-4 tablet:h-[240px]">
         <textarea
           className="text-base scrollbar-hide h-full min-h-[150px] w-full flex-grow resize-none outline-none"
           placeholder="후기를 작성해 주세요."
