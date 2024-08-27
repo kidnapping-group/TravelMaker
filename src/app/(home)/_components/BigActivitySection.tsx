@@ -35,7 +35,7 @@ async function BigActivitySection({
 
   return (
     <section className="flex flex-col">
-      <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
+      <h2 className="py-3 text-2lg font-bold text-black tablet:text-xl">{sectionTitle}</h2>
 
       {totalCount > 0 ? (
         <Swiper>

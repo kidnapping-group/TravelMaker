@@ -7,7 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-function UserDropdown() {
+function UserPopover() {
   const { push } = useRouter();
   const queryClient = useQueryClient();
   const logout = socialLoginStore(state => state.logout);
@@ -55,4 +55,4 @@ function UserDropdown() {
   );
 }
 
-export default UserDropdown;
+export default UserPopover;
