@@ -116,14 +116,14 @@ function KakaoRedirect() {
   if (isLoading) {
     return (
       <div className="flex h-[100vh] w-full flex-col items-center justify-center">
-        <p className="text-[50px]">로딩중...</p>
         <Image
           src="/images/KAKAO.png"
-          width={500}
-          height={500}
+          width={400}
+          height={400}
           alt="카카오로고"
           className="animate-[bounce_0.7s_ease-in-out_infinite]"
         />
+        <p className="text-[40px]">카카오 로그인 중...</p>
       </div>
     );
   }
