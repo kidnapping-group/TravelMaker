@@ -174,7 +174,7 @@ function Account() {
     <div className="flex justify-center">
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
-        className="flex w-[400px] flex-col gap-[10px] tablet:w-[700px] pc:w-[700px]"
+        className="mx-[10px] flex w-full max-w-[700px] flex-col gap-[10px]"
       >
         <div className="flex items-center gap-[80px] tablet:gap-[100px] pc:gap-[100px]">
           <ProfileEditor
