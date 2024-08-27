@@ -182,7 +182,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
   return (
     <div>
       <form onSubmit={handleSubmit} className="h-[100vh] px-3 pb-[150px]">
-        <div className="flex justify-between px-1">
+        <div className="flex justify-between px-1 pb-4">
           <p className="text-3xl font-bold">내 체험 등록</p>
           <Button disabled={isSubmitDisabled} type="submit">
             수정
@@ -323,7 +323,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
             setSubImageUrls={setSubImageUrls}
             setSubImageIdsToRemove={setSubImageIdsToRemove}
           />
-          <p>* 소개이미지는 최대 4개까지 등록할 수 있습니다.</p>
+          <p className="mb-4 font-medium">* 소개이미지는 최대 4개까지 등록할 수 있습니다.</p>
         </div>
       </form>
       <Popup
