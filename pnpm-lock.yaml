@@ -23,6 +23,9 @@ importers:
       '@types/google.maps':
         specifier: ^3.55.12
         version: 3.55.12
+      '@types/react-places-autocomplete':
+        specifier: ^7.2.14
+        version: 7.2.14
       axios:
         specifier: ^1.7.2
         version: 1.7.2
@@ -498,6 +501,9 @@ packages:
 
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
+
+  '@types/react-places-autocomplete@7.2.14':
+    resolution: {integrity: sha512-5ywNgYR/oDbEcZaSdmVRa+AZlOjBlc1YnWnvp1Ufr/ww00tOds4MT+9qTmelSbdN/5y3sybYIeKeRKMJaKVDqg==}
 
   '@types/react@18.3.3':
     resolution: {integrity: sha512-hti/R0pS0q1/xx+TsI73XIqk26eBsISZ2R0wUijXIngRK9R/e7Xw/cXVxQK7R5JjW+SV4zGcn5hXjudkN/pLIw==}
@@ -2747,6 +2753,11 @@ snapshots:
 
   '@types/react-dom@18.3.0':
     dependencies:
+      '@types/react': 18.3.3
+
+  '@types/react-places-autocomplete@7.2.14':
+    dependencies:
+      '@types/google.maps': 3.55.12
       '@types/react': 18.3.3
 
   '@types/react@18.3.3':
