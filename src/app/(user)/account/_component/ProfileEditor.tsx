@@ -9,6 +9,7 @@ interface ProfileEditorProps {
   register: UseFormRegisterReturn;
   onChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onImageReset: () => void;
+  disabled: boolean;
 }
 
 function ProfileEditor({
@@ -16,6 +17,7 @@ function ProfileEditor({
   profileImage,
   onChangeImage,
   onImageReset,
+  disabled,
 }: ProfileEditorProps) {
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -60,47 +62,49 @@ function ProfileEditor({
         priority
         className="h-[120px] w-[120px] rounded-full tablet:h-[200px] tablet:w-[200px] pc:h-[200px] pc:w-[200px]"
       />
-      <div className="absolute bottom-2 right-2">
-        <button
-          type="button"
-          className="rounded-full bg-primary-500 p-3 transition-colors hover:bg-primary-600"
-          onClick={toggleButtons}
-        >
-          <FaGear size={20} color="white" />
-        </button>
+      {disabled ? null : (
+        <div className="absolute bottom-2 right-2">
+          <button
+            type="button"
+            className="rounded-full bg-primary-500 p-3 transition-colors hover:bg-primary-600"
+            onClick={toggleButtons}
+          >
+            <FaGear size={20} color="white" />
+          </button>
 
-        <button
-          type="button"
-          className={`absolute left-[65px] top-[-20px] rounded-full bg-primary-500 p-3 transition-all duration-300 ease-in-out hover:bg-primary-600 ${
-            isOpen
-              ? "translate-x-[10px] translate-y-[-40px] scale-100 opacity-100"
-              : "scale-50 opacity-0"
-          }`}
-          onClick={handleInputClick}
-        >
-          <FaPen size={20} color="white" />
-          <input
-            type="file"
-            accept="image/*"
-            {...register}
-            ref={inputRef}
-            onChange={onChangeImage}
-            className="hidden"
-          />
-        </button>
+          <button
+            type="button"
+            className={`absolute left-[65px] top-[-20px] rounded-full bg-primary-500 p-3 transition-all duration-300 ease-in-out hover:bg-primary-600 ${
+              isOpen
+                ? "translate-x-[10px] translate-y-[-40px] scale-100 opacity-100"
+                : "scale-50 opacity-0"
+            }`}
+            onClick={handleInputClick}
+          >
+            <FaPen size={20} color="white" />
+            <input
+              type="file"
+              accept="image/*"
+              {...register}
+              ref={inputRef}
+              onChange={onChangeImage}
+              className="hidden"
+            />
+          </button>
 
-        <button
-          type="button"
-          className={`absolute left-[65px] top-[40px] rounded-full bg-primary-500 p-3 transition-all duration-300 ease-in-out hover:bg-primary-600 ${
-            isOpen
-              ? "translate-x-[10px] translate-y-[-30px] scale-100 opacity-100"
-              : "scale-50 opacity-0"
-          }`}
-          onClick={handleResetAndClearInput}
-        >
-          <RiArrowGoBackLine size={20} color="white" />
-        </button>
-      </div>
+          <button
+            type="button"
+            className={`absolute left-[65px] top-[40px] rounded-full bg-primary-500 p-3 transition-all duration-300 ease-in-out hover:bg-primary-600 ${
+              isOpen
+                ? "translate-x-[10px] translate-y-[-30px] scale-100 opacity-100"
+                : "scale-50 opacity-0"
+            }`}
+            onClick={handleResetAndClearInput}
+          >
+            <RiArrowGoBackLine size={20} color="white" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
