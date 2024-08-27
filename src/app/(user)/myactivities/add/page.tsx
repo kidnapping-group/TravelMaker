@@ -140,7 +140,7 @@ export default function Add() {
   return (
     <div>
       <form onSubmit={handleSubmit} className="h-[100vh] pb-[150px]">
-        <div className="flex justify-between px-1">
+        <div className="flex justify-between px-1 pb-4">
           <p className="text-3xl font-bold">내 체험 등록</p>
           <Button size="medium" disabled={isSubmitDisabled} type="submit">
             등록
@@ -179,6 +179,7 @@ export default function Add() {
             onChange={e => setPrice(e.target.value)}
             placeholder="인당 체험 비용을 입력해 주세요"
             type="number"
+            min={0}
           />
           <AddressAutoComplete address={address} setAddress={setAddress} />
 
@@ -277,6 +278,7 @@ export default function Add() {
           <ImageInput bannerImageUrl={bannerImageUrl} setBannerImageUrl={setBannerImageUrl} />
           <p className="mb-2.5 text-xl font-bold">소개 이미지</p>
           <SubImagesInput subImageUrls={subImageUrls} setSubImageUrls={setSubImageUrls} />
+          <p className="mb-4 font-medium">* 소개이미지는 최대 4개까지 등록할 수 있습니다.</p>
         </div>
       </form>
       <Popup

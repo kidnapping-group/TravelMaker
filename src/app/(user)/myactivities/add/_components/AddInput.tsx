@@ -21,7 +21,10 @@ function AddInput({
   onBlur,
   isTextArea,
   type = "text",
-}: AddInputProps) {
+  ...props
+}: AddInputProps &
+  React.InputHTMLAttributes<HTMLInputElement> &
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
     <div>
       <div>
@@ -40,6 +43,7 @@ function AddInput({
           onChange={onChange}
           onBlur={onBlur}
           className="mb-8 mt-2.5 h-28 w-full resize-none rounded-[4px] bg-gray-100 p-4 outline-blue-500 focus:outline focus:outline-1"
+          {...props}
         />
       ) : (
         <input
@@ -51,6 +55,7 @@ function AddInput({
           onChange={onChange}
           onBlur={onBlur}
           className="mb-8 mt-2.5 h-14 w-full rounded-[4px] bg-gray-100 p-4 outline-blue-500 focus:outline focus:outline-1"
+          {...props}
         />
       )}
     </div>
