@@ -9,7 +9,7 @@ import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImages
 import { Button } from "@/components/Button";
 import Dropdown from "@/components/Dropdown";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
-import { setHours, setMinutes } from "date-fns";
+import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -258,7 +258,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
                 minTime={
                   currentSchedule.date.toDateString() === now.toDateString()
                     ? now
-                    : setHours(setMinutes(new Date(), 0), 0)
+                    : setHours(setMinutes(setSeconds(new Date(), 0), 0), 0)
                 }
                 maxTime={
                   currentSchedule.endTime || setHours(setMinutes(currentSchedule.date, 0), 23)
