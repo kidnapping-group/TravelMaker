@@ -26,10 +26,15 @@ function Images() {
   const [imageIndex, setImageIndex] = useState(0);
 
   const imageCount = Math.min(subImages.length, 4);
+  const hasSubImages = subImages.length > 0;
+
+  const mainImageClasses = hasSubImages
+    ? "w-[595px] tablet:w-[345px] pc:w-[595px]"
+    : "w-full tablet:w-full pc:w-full";
 
   return (
-    <div className="-mx-6 flex justify-center tablet:mx-auto tablet:justify-normal tablet:gap-1 pc:gap-2">
-      <div className="relative h-[310px] w-[595px] tablet:w-[345px] pc:h-[534px] pc:w-[595px]">
+    <div className="-mx-6 flex w-full justify-center tablet:mx-auto tablet:justify-normal tablet:gap-1 pc:gap-2">
+      <div className={`relative h-[310px] ${mainImageClasses} pc:h-[534px]`}>
         <Image
           src={errorImage.src || totalImages[imageIndex]}
           alt={`${title} 배경 사진`}
@@ -54,20 +59,22 @@ function Images() {
           <Image src="icons/icon-next.svg" alt="다음 사진" width={24} height={47} />
         </button>
       </div>
-      <div className={`${showImage[imageCount]} h-[304px] w-[340px] pc:h-[528px] pc:w-[588px]`}>
-        {subImages.map((item, index) => (
-          <div key={item.id} className={`relative ${getImageLayout(imageCount, index)}`}>
-            <Image
-              src={errorImage.src || item.imageUrl}
-              alt={`${title} 서브 사진`}
-              fill
-              style={{ objectFit: "cover" }}
-              className="h-full w-full"
-              onError={errorImage.onError}
-            />
-          </div>
-        ))}
-      </div>
+      {hasSubImages && (
+        <div className={`${showImage[imageCount]} h-[304px] w-[340px] pc:h-[528px] pc:w-[588px]`}>
+          {subImages.map((item, index) => (
+            <div key={item.id} className={`relative ${getImageLayout(imageCount, index)}`}>
+              <Image
+                src={errorImage.src || item.imageUrl}
+                alt={`${title} 서브 사진`}
+                fill
+                style={{ objectFit: "cover" }}
+                className="h-full w-full"
+                onError={errorImage.onError}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
