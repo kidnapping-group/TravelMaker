@@ -79,7 +79,9 @@ export type ReservationBase = {
 };
 export type Reservations = Omit<ReservationBase, "nickname" | "activityId">;
 
-export type MyReservation = Omit<ReservationBase, "activity">;
+export type MyReservation = Omit<ReservationBase, "activity" | "status"> & {
+  status: keyof StatusCount;
+};
 
 export type ReservationsStatus = {
   pending: number;
@@ -321,7 +323,9 @@ export type patchMyReservation = {
   status: "declined" | "pending" | "confirmed";
 };
 
-export type patchMyReservationRes = Omit<ReservationBase, "nickname" | "activityId">;
+export type patchMyReservationRes = Omit<ReservationBase, "nickname" | "activityId" | "status"> & {
+  status: keyof StatusCount;
+};
 
 export type patchMyActivities = {
   title: string;

@@ -1,5 +1,17 @@
-function ReservationStatus() {
-  return <div>예약 현황</div>;
+import ReservationStatus from "@/app/(user)/reservation-status/_components/ReservationStatus";
+import { getMyActivities } from "@/app/(user)/reservation-status/utils/reservationStatus";
+import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+
+async function ReservationStatusPage() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(getMyActivities);
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ReservationStatus />
+    </HydrationBoundary>
+  );
 }
 
-export default ReservationStatus;
+export default ReservationStatusPage;
