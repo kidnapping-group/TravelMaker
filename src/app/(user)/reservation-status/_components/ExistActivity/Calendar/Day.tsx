@@ -13,9 +13,6 @@ export interface DayData {
   reservations: Reservation[];
   hasEvent: boolean;
   isCurrentMonth: boolean;
-  isCompleted: boolean;
-  isPending: boolean;
-  isConfirmed: boolean;
 }
 
 interface DayProps {
@@ -30,6 +27,9 @@ const statusColors = {
 };
 
 function Day({ dayData, setCurrentDate }: DayProps) {
+  const isCompleted = dayData?.reservations[0]?.status === "completed";
+  const isPending = dayData?.reservations[0]?.status === "pending";
+  const isConfirmed = dayData?.reservations[0]?.status === "confirmed";
   const changeCurrentDay = () => {
     setCurrentDate(prevDate => {
       const newDate = new Date(prevDate);
@@ -43,16 +43,15 @@ function Day({ dayData, setCurrentDate }: DayProps) {
     changeCurrentDay();
     openModal("reservationStatus");
   };
-
   return (
     <button
       type="button"
       onClick={handleClick}
-      disabled={!dayData.isPending && !dayData.isConfirmed}
-      className={`w-full text-left ${dayData.isPending && dayData.isConfirmed ? "cursor-pointer" : "cursor-default"}`}
+      disabled={!isPending && !isConfirmed}
+      className={`w-full text-left ${isPending || isConfirmed ? "cursor-pointer" : "cursor-default"}`}
     >
       <div
-        className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"} ${(dayData.isCurrentMonth && dayData.isPending) || dayData.isConfirmed ? "transition-colors duration-200 hover:bg-primary-400" : ""} `}
+        className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"} ${(dayData.isCurrentMonth && isPending) || isConfirmed ? "transition-colors duration-200 hover:bg-primary-400" : ""} `}
       >
         <div className="ml-2 mt-2 flex w-9 items-start gap-1">
           <span className={`${dayData.isCurrentMonth ? "" : "text-gray-300"} text-xl leading-6`}>
@@ -60,9 +59,7 @@ function Day({ dayData, setCurrentDate }: DayProps) {
           </span>
           {dayData.hasEvent && (
             <div
-              className={`h-2 w-2 rounded-full ${
-                dayData.isCompleted ? "bg-gray-700" : "bg-primary-500"
-              }`}
+              className={`h-2 w-2 rounded-full ${isCompleted ? "bg-gray-700" : "bg-primary-500"}`}
             />
           )}
         </div>
