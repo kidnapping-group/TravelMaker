@@ -42,7 +42,7 @@ function ReservationButton({ submitReservation, isError, error }: ReservationBut
         leftButton="확인"
         onChangeLeftButton={() => closePopup("reservationNoUser")}
         rightButton="로그인"
-        onChangeRightButton={() => router.push("/signin")}
+        onChangeRightButton={() => router.push("/signin", { scroll: true })}
       />
       <Popup
         id="reservationBanSelfing"
