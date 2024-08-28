@@ -175,9 +175,9 @@ export default function Edit({ activityId }: { activityId: number }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="h-[100vh] pb-[150px]">
-        <div className="flex justify-between px-1 pb-4">
-          <p className="text-3xl font-bold">내 체험 수정</p>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-5 flex items-start justify-between">
+          <p className="text-2xl font-bold">내 체험 수정</p>
           <Button disabled={isSubmitDisabled} type="submit">
             수정
           </Button>
@@ -218,11 +218,11 @@ export default function Edit({ activityId }: { activityId: number }) {
           <AddressAutoComplete address={address} setAddress={setAddress} />
           <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
           <div className="grid grid-cols-8 grid-rows-2 gap-1">
-            <p className="text-base col-span-3 font-medium">날짜</p>
+            <p className="text-base col-span-2 font-medium">날짜</p>
             <p className="text-base col-span-2 font-medium">시작 시간</p>
             <p className="text-base col-span-2 font-medium">종료 시간</p>
-            <p className="text-base col-span-1 font-medium">추가</p>
-            <div className="col-span-3 w-full">
+            <p className="text-base col-span-2 font-medium">추가</p>
+            <div className="col-span-2 w-full">
               <DatePicker
                 className="h-9 w-full rounded-[4px] bg-gray-100 pl-2 outline-blue-500 focus:outline focus:outline-1"
                 toggleCalendarOnIconClick
@@ -273,7 +273,7 @@ export default function Edit({ activityId }: { activityId: number }) {
               />
             </div>
             <Button
-              className="text-base col-span-1 h-9 rounded-[4px] bg-primary-500 font-medium text-white hover:bg-primary-600 active:bg-primary-700"
+              className="text-base col-span-2 h-9 rounded-[4px] bg-primary-500 font-medium text-white hover:bg-primary-600 active:bg-primary-700"
               type="button"
               onClick={addSchedule}
             >
@@ -283,11 +283,11 @@ export default function Edit({ activityId }: { activityId: number }) {
 
           <div className="mb-8 mt-4">
             <p className="text-base h-8 font-medium">추가한 예약 시간</p>
-            <div className="grid grid-cols-8 gap-1">
+            <div className="grid grid-cols-8 gap-2">
               {schedules.map((schedule, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <React.Fragment key={index}>
-                  <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] bg-gray-200 pl-2">
+                  <div className="col-span-2 flex h-9 max-w-[211.2px] items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.date.toISOString().split("T")[0]}
                   </div>
                   <div className="col-span-2 flex h-9 items-center rounded-[4px] bg-gray-200 pl-2">
@@ -297,7 +297,7 @@ export default function Edit({ activityId }: { activityId: number }) {
                     {schedule.endTime}
                   </div>
                   <Button
-                    className="text-base col-span-1 h-9 rounded-[4px] bg-gray-500 font-medium text-white hover:bg-gray-600"
+                    className="text-base col-span-2 h-9 rounded-[4px] bg-gray-500 font-medium text-white hover:bg-gray-600"
                     type="button"
                     onClick={() => removeSchedule(schedule.id, index)}
                   >
