@@ -6,6 +6,7 @@ import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
 import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
 import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
+import NumberInput from "@/app/(user)/myactivities/add/_components/NumberInput";
 import ImageInput from "@/app/(user)/myactivities/edit/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImagesInput";
 import { Button } from "@/components/Button";
@@ -145,6 +146,10 @@ export default function Edit({ activityId }: { activityId: number }) {
 
   const now = new Date();
 
+  const onchange = (newValue: string) => {
+    setPrice(newValue);
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const subImageUrlsToAdd = subImageUrls
@@ -215,14 +220,12 @@ export default function Edit({ activityId }: { activityId: number }) {
             placeholder="체험 소개를 입력해 주세요"
             isTextArea
           />
-          <AddInput
+          <NumberInput
             id="price"
             label="체험 비용"
             value={price}
-            onChange={e => setPrice(e.target.value)}
+            onChange={onchange}
             placeholder="인당 체험 비용을 입력해 주세요"
-            type="number"
-            min={0}
           />
           <AddressAutoComplete address={address} setAddress={setAddress} />
           <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
