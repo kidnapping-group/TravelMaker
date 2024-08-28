@@ -9,7 +9,7 @@ function ReservationModal() {
 
   return (
     <div className="tablet:hidden">
-      <Modal title={`${formattedPrice} / 인`}>
+      <Modal title={`${formattedPrice} / 인`} id="reservationModal">
         <ReservationSteps />
       </Modal>
     </div>

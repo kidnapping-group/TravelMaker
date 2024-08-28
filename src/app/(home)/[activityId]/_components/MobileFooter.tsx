@@ -12,7 +12,7 @@ function MobileFooter() {
       <p className="text-xl font-bold">
         {formattedPrice} / <span className="text-2lg font-medium text-primary-800">인</span>
       </p>
-      <Button size="medium" onClick={openModal}>
+      <Button size="medium" onClick={() => openModal("reservationModal")}>
         예약하기
       </Button>
     </div>

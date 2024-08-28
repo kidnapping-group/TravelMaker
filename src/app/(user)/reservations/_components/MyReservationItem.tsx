@@ -110,10 +110,10 @@ function MyReservationItem({
             )}
             {reservationState.status === "completed" && !reservationState.reviewSubmitted && (
               <>
-                <Button size={size} onClick={openModal}>
+                <Button size={size} onClick={() => openModal(`writeReview-${reservationState.id}`)}>
                   후기 작성
                 </Button>
-                <Modal title="후기 작성">
+                <Modal title="후기 작성" id={`writeReview-${reservationState.id}`}>
                   <Review reservation={reservationState} />,
                 </Modal>
               </>

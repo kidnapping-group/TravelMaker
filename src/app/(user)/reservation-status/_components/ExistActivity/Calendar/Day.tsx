@@ -41,7 +41,7 @@ function Day({ dayData, setCurrentDate }: DayProps) {
   const handleClick = () => {
     if (!dayData.hasEvent) return;
     changeCurrentDay();
-    openModal();
+    openModal("reservationStatus");
   };
 
   return (
