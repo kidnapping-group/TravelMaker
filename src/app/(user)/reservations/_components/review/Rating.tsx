@@ -56,16 +56,12 @@ export default function Rating({
             className="h-full w-1/2 cursor-pointer opacity-0"
             onMouseEnter={() => handleMouseEnter(starValue - 0.5)}
             onClick={() => handleClick(starValue - 0.5)}
-            onKeyDown={e => e.key === "Enter" && handleClick(starValue - 0.5)}
-            aria-label={`${starValue - 0.5} 점`}
           />
           <button
             type="button"
             className="h-full w-1/2 cursor-pointer opacity-0"
             onMouseEnter={() => handleMouseEnter(starValue)}
             onClick={() => handleClick(starValue)}
-            onKeyDown={e => e.key === "Enter" && handleClick(starValue)}
-            aria-label={`${starValue} 점`}
           />
         </div>
       </div>
