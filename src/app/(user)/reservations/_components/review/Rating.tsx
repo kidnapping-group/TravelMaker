@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaStar, FaStarHalf } from "react-icons/fa";
 
 export default function Rating({
   currentRating,
@@ -36,7 +36,16 @@ export default function Rating({
       return <FaStar size={48} color="gold" />;
     }
     if (isHalf) {
-      return <FaStarHalfAlt size={48} color="gold" />;
+      return (
+        <div className="relative">
+          <FaStar size={48} color="gray" /> {/* 회색 전체 별 */}
+          <FaStarHalf
+            size={48}
+            color="gold"
+            className="absolute left-0 top-0" // 반쪽 노란색 별을 위에 덮어 씌움
+          />
+        </div>
+      );
     }
     return <FaStar size={48} color="gray" />;
   };
