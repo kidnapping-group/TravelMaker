@@ -1,7 +1,11 @@
+"use client";
+
 import activitiesAPI from "@/apis/activitiesAPI";
 import ActivityCard from "@/app/(home)/_components/ActivityCard";
+import activitySectionQueryKeys from "@/app/(home)/utils/activitySectionQuery";
 import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
 import createQueryString from "@/utils/createQueryString";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 interface ActivitySectionProps {
@@ -20,7 +24,7 @@ const categoryTitle = {
   wellbeing: "웰빙",
 } as const;
 
-async function ActivitySection({
+function ActivitySection({
   title: sectionTitle,
   category: categoryKey,
   keyword,
@@ -28,13 +32,12 @@ async function ActivitySection({
 }: ActivitySectionProps) {
   const category = categoryKey && categoryTitle[categoryKey];
 
-  const { activities, totalCount } = await activitiesAPI.get({
-    category,
-    keyword,
-    sort,
-    page: 1,
-    size: 10,
+  const { data } = useSuspenseQuery({
+    queryKey: activitySectionQueryKeys.list({ category, keyword, sort, page: 1, size: 10 }),
+    queryFn: () => activitiesAPI.get({ category, keyword, sort, page: 1, size: 10 }),
   });
+
+  const { activities, totalCount } = data || { activities: [], totalCount: 0 };
 
   return (
     <section className="flex flex-col">
