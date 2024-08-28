@@ -52,7 +52,7 @@ function MyReservations() {
 
   return (
     <>
-      <div className="mb-5 flex w-full items-center justify-between">
+      <div className="mb-5 flex w-full items-start justify-between">
         <h1 className="text-2xl font-bold">예약 내역</h1>
         <StatusDropdown placeholder={statusTitle} onSelect={handleDropdownSelect} />
       </div>
