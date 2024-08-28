@@ -40,7 +40,7 @@ function ActivitySection({
   const { activities, totalCount } = data || { activities: [], totalCount: 0 };
 
   return (
-    <section className="flex flex-col">
+    <section className="mx-auto flex w-full max-w-[1280px] flex-col px-5 py-5 tablet:px-10">
       <div className="flex items-center justify-between">
         <h2 className="py-3 text-2lg font-bold text-black tablet:text-xl">{sectionTitle}</h2>
         <Link

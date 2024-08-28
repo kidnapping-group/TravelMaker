@@ -17,8 +17,8 @@ const OauthAPI = {
   ) => {
     const { data } = await axiosInstance.post<OauthSignRes>(`/oauth/sign-up/${provider}`, body);
     const { accessToken, refreshToken } = data;
-    Cookies.set("accessToken", accessToken);
-    Cookies.set("refreshToken", refreshToken);
+    Cookies.set("accessToken", accessToken, { secure: true, sameSite: "Strict" });
+    Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "Strict" });
     socialLoginStore.getState().socialLogin({
       id: data.user.id,
       email: data.user.email,
@@ -36,8 +36,8 @@ const OauthAPI = {
   ) => {
     const { data } = await axiosInstance.post<OauthSignRes>(`/oauth/sign-in/${provider}`, body);
     const { accessToken, refreshToken } = data;
-    Cookies.set("accessToken", accessToken);
-    Cookies.set("refreshToken", refreshToken);
+    Cookies.set("accessToken", accessToken, { secure: true, sameSite: "Strict" });
+    Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "Strict" });
     socialLoginStore.getState().socialLogin({
       id: data.user.id,
       email: data.user.email,
