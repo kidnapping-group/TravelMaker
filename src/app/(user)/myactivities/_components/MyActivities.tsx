@@ -39,7 +39,7 @@ function MyActivities() {
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
     <>
-      <div className="mb-5 flex w-full items-center justify-between">
+      <div className="mb-5 flex w-full items-start justify-between">
         <h1 className="text-2xl font-bold">내 체험 관리</h1>
         <LinkButton href="/myactivities/add" size="medium">
           체험 등록하기
