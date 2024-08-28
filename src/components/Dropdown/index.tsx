@@ -64,7 +64,7 @@ function Dropdown({ wide = false, onSelect, children }: DropdownProps) {
 
   return (
     <DropdownContext.Provider value={context}>
-      <div className={`${wide ? "w-full" : "w-32"} relative`} ref={dropdownRef}>
+      <div className={`${wide ? "w-full" : "w-32"} relative min-w-28`} ref={dropdownRef}>
         {children}
       </div>
     </DropdownContext.Provider>
