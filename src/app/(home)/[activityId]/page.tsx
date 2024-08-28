@@ -38,12 +38,12 @@ function ActivityId({ params: { activityId } }: { params: { activityId: string }
   }
 
   return (
-    <div className="bg-primary-50">
+    <div>
       <ActivityIdProvider activityId={activityId}>
         <div className="mx-auto flex max-w-[1248px] flex-col justify-center px-6">
           <Header />
           <Images />
-          <div className="flex gap-6 tablet:mt-12 pc:mt-24">
+          <div className="mt-4 flex gap-6 tablet:mt-12 pc:mt-24">
             <div className="flex-grow">
               <Contents />
               <Review />
