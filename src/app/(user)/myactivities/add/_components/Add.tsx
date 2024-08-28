@@ -137,7 +137,7 @@ export default function Add() {
     !address ||
     !schedules ||
     !bannerImageUrl ||
-    !subImageUrls ||
+    !subImageUrls.length ||
     !selectedCategory;
 
   return (

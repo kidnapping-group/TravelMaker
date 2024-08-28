@@ -179,7 +179,7 @@ export default function Edit({ activityId }: { activityId: number }) {
     !address ||
     !schedules ||
     !bannerImageUrl ||
-    !subImageUrls ||
+    !subImageUrls.length ||
     !selectedCategory;
 
   return (
