@@ -40,7 +40,7 @@ function SignIn() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       await authAPI.login(data);
-      router.push("/");
+      router.push("/", { scroll: true });
       queryClient.removeQueries();
     } catch (error) {
       let err = String(error);
@@ -77,7 +77,7 @@ function SignIn() {
       </Button>
       <div className="-mt-1 text-center">
         회원이 아니신가요?{" "}
-        <Link href="/signup">
+        <Link href="/signup" scroll>
           <span className="text-blue-500 underline">회원가입</span>
         </Link>
       </div>

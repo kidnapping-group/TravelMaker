@@ -28,7 +28,7 @@ const useDeleteActivityMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["activities"] });
-      router.push("/");
+      router.push("/", { scroll: true });
     },
   });
 

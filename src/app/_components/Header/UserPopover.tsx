@@ -25,7 +25,7 @@ function UserPopover() {
     logout();
     logoutCookies();
     queryClient.removeQueries();
-    push("/");
+    push("/", { scroll: true });
   };
 
   return (

@@ -29,7 +29,7 @@ function DropdownMenu({ activityId }: { activityId: string }) {
 
   const onChangeRightButton = () => {
     handleDelete(activityId);
-    router.push("/");
+    router.push("/", { scroll: true });
   };
 
   return (
