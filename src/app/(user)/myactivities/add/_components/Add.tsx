@@ -5,6 +5,7 @@ import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
 import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
 import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
 import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
+import NumberInput from "@/app/(user)/myactivities/add/_components/NumberInput";
 import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
 import { Button } from "@/components/Button";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
@@ -96,9 +97,12 @@ export default function Add() {
 
   const now = new Date();
 
+  const onchange = (newValue: string) => {
+    setPrice(newValue);
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     const formData = {
       title,
       category: selectedCategory,
@@ -120,7 +124,6 @@ export default function Add() {
       openPopup("fail");
     }
   };
-
   const isSubmitDisabled: boolean =
     !title ||
     !description ||
@@ -164,14 +167,12 @@ export default function Add() {
             placeholder="체험 소개를 입력해 주세요"
             isTextArea
           />
-          <AddInput
+          <NumberInput
             id="price"
             label="체험 비용"
             value={price}
-            onChange={e => setPrice(e.target.value)}
+            onChange={onchange}
             placeholder="인당 체험 비용을 입력해 주세요"
-            type="number"
-            min={0}
           />
           <AddressAutoComplete address={address} setAddress={setAddress} />
 
