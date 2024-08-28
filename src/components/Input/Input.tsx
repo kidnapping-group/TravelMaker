@@ -1,7 +1,7 @@
 import getInputColorStatus from "@/components/Input/getInputColorStatus";
-import Image from "next/image";
 import { useState } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 interface InputProps extends React.PropsWithChildren {
   register: UseFormRegisterReturn;
@@ -40,24 +40,26 @@ export default function Input({
       <label htmlFor={name} className="text-[16px] font-normal leading-[26px] text-black">
         {label}
       </label>
-      <input
-        id={name}
-        type={type === "password" && showPassword ? "text" : type}
-        placeholder={placeholder}
-        {...register}
-        disabled={disabled}
-        className={`h-[58px] w-full rounded-md bg-gray-200 py-[10px] pl-[10px] outline-none ${disabled ? "bg-gray-300" : "bg-gray-200"} ${type === "password" ? "pr-10" : "pr-[10px]"} ${getInputColorStatus(effectiveError, effectiveTouched)}`}
-      />
-      {type === "password" && (
-        <Image
-          src={showPassword ? "/icons/icon-eye.svg" : "/icons/icon-eye-off.svg"}
-          alt="toggle visibility"
-          width={24}
-          height={24}
-          className={`absolute right-[10px] top-[53px] ${disabled ? "" : "cursor-pointer"}`}
-          onClick={handleTogglePassword}
+      <div className="flex items-center">
+        <input
+          id={name}
+          type={type === "password" && showPassword ? "text" : type}
+          placeholder={placeholder}
+          {...register}
+          disabled={disabled}
+          className={`h-[58px] w-full rounded-md bg-gray-200 py-[10px] pl-[10px] outline-none ${disabled ? "bg-gray-300" : "bg-gray-200"} ${type === "password" ? "pr-10" : "pr-[10px]"} ${getInputColorStatus(effectiveError, effectiveTouched)}`}
         />
-      )}
+        {type === "password" && (
+          <button
+            className="absolute right-[10px] text-2xl text-gray-500 disabled:pointer-events-none"
+            type="button"
+            onClick={handleTogglePassword}
+            disabled={disabled}
+          >
+            {showPassword ? <IoEyeOutline /> : <IoEyeOffOutline />}
+          </button>
+        )}
+      </div>
       {effectiveError && (
         <p className="text-[12px] font-normal leading-[18px] text-red-500">
           {effectiveError.message}
