@@ -51,36 +51,33 @@ function MyReservations() {
   if (error) return <div>에러가 발생했습니다.</div>;
 
   return (
-    <div className="relative h-[100vh] w-full max-w-[806px] px-4 pb-[140px]">
-      <div className="relative z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-4 pt-2">
-        <h1 className="text-3xl font-bold">예약 내역</h1>
+    <>
+      <div className="mb-5 flex w-full items-center justify-between">
+        <h1 className="text-2xl font-bold">예약 내역</h1>
         <StatusDropdown placeholder={statusTitle} onSelect={handleDropdownSelect} />
       </div>
 
       {hasReservations ? (
-        <div className="h-full pb-20">
-          <div className="flex h-full flex-col gap-[24px] overflow-y-auto" onScroll={handleScroll}>
-            `
-            {data?.pages.map(page => (
-              <div className="flex flex-col gap-[24px]" key={page.cursorId}>
-                {page.reservations.map(reservation => (
-                  <MyReservationItem
-                    key={reservation.id}
-                    statusTitle={statusTitle ?? ""}
-                    reservation={reservation}
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+        <div onScroll={handleScroll}>
+          {data?.pages.map(page => (
+            <div className="flex flex-col gap-[24px]" key={page.cursorId}>
+              {page.reservations.map(reservation => (
+                <MyReservationItem
+                  key={reservation.id}
+                  statusTitle={statusTitle ?? ""}
+                  reservation={reservation}
+                />
+              ))}
+            </div>
+          ))}
         </div>
       ) : (
-        <div className="flex w-full flex-grow flex-col items-center justify-center tablet:w-[800px]">
+        <div className="flex w-full grow flex-col items-center justify-center">
           <Image src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
           <p className="text-2xl font-medium text-gray-500">아직 예약한 체험이 없어요</p>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

@@ -20,7 +20,7 @@ export default function AddressAutoComplete({ address, setAddress }: AddressAuto
   const handleSelect = (lt: string) => {
     setAddress(lt);
     geocodeByAddress(lt).then(results => getLatLng(results[0]));
-    closeModal();
+    closeModal("myActivityAdd");
   };
 
   return (
@@ -33,11 +33,11 @@ export default function AddressAutoComplete({ address, setAddress }: AddressAuto
           placeholder="주소를 검색하세요"
         />
 
-        <Button onClick={openModal} type="button" size="large">
+        <Button onClick={() => openModal("myActivityAdd")} type="button" size="large">
           검색
         </Button>
       </div>
-      <Modal title="주소 입력">
+      <Modal title="주소 입력" id="myActivityAdd">
         <PlacesAutocomplete
           value={location}
           onChange={HandleLocationChange}

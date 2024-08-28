@@ -23,11 +23,9 @@ async function Reservations() {
   });
 
   return (
-    <div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <MyReservations />
-      </HydrationBoundary>
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <MyReservations />
+    </HydrationBoundary>
   );
 }
 
