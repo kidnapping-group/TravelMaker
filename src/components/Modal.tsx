@@ -70,4 +70,3 @@ export const closeModal = (id: string) => {
 };
 
 export default Modal;
-
