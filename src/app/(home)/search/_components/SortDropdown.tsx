@@ -1,36 +1,41 @@
 "use client";
 
-import Dropdown from "@/components/Dropdown";
+import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
 import useUpdateQuery from "@/hooks/useUpdateQuery";
 import { useSearchParams } from "next/navigation";
 
-const SORT_NAME: Record<string, string> = {
-  most_reviewed: "인기순",
-  latest: "최신순",
-  price_asc: "낮은 가격순",
-  price_desc: "높은 가격순",
-};
+const SORTS = [
+  {
+    query: "most_reviewed",
+    name: "인기순",
+  },
+  { query: "latest", name: "최신순" },
+  { query: "price_asc", name: "낮은 가격순" },
+  { query: "price_desc", name: "높은 가격순" },
+];
 const PARAM_NAME = "sort";
 
 function SortDropdown() {
   const updateQuery = useUpdateQuery(PARAM_NAME);
 
   const searchParams = useSearchParams();
-  const currentSort = searchParams.get(PARAM_NAME);
+  const currentSort = searchParams.get(PARAM_NAME) ?? undefined;
 
-  const handleMenuItemClick = (status: string) => {
-    const selectedSortKey = Object.keys(SORT_NAME).find(key => SORT_NAME[key] === status);
-    if (selectedSortKey) {
-      updateQuery(selectedSortKey);
-    }
+  const handleMenuItemClick = (value: string) => {
+    updateQuery(value);
   };
 
   return (
-    <Dropdown
-      placeHolder={currentSort ? SORT_NAME[currentSort] : undefined}
-      menuItems={Object.values(SORT_NAME)}
-      onChangeDropdown={handleMenuItemClick}
-    />
+    <Dropdown onSelect={handleMenuItemClick}>
+      <DropdownTrigger placeholder={currentSort} />
+      <DropdownContent>
+        {SORTS.map(sort => (
+          <DropdownItem key={sort.query} value={sort.query}>
+            {sort.name}
+          </DropdownItem>
+        ))}
+      </DropdownContent>
+    </Dropdown>
   );
 }
 

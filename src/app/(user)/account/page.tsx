@@ -17,14 +17,9 @@ import ProfileEditor from "./_component/ProfileEditor";
 
 type UserData = Pick<User, "nickname" | "email" | "profileImageUrl">;
 
-type AccountFormValues = z.infer<typeof commonAccountValidationSchema>;
+type AccountFormValues = z.infer<typeof AccountValidationSchema>;
 
-const socialAccountValidationSchema = baseSchema.pick({
-  nickname: true,
-  profileImageUrl: true,
-});
-
-const commonAccountValidationSchema = baseSchema
+const AccountValidationSchema = baseSchema
   .pick({
     nickname: true,
     profileImageUrl: true,
@@ -66,12 +61,8 @@ function Account() {
 
   const { social, updateUserInfo } = socialLoginStore(state => ({
     social: state.social,
-    updateUserInfo: state.socialLogin, // 상태 업데이트를 위한 메서드
+    updateUserInfo: state.commonLogin,
   }));
-
-  const selectedValidationSchema = isSocialLogin
-    ? socialAccountValidationSchema
-    : commonAccountValidationSchema;
 
   const {
     register,
@@ -80,7 +71,7 @@ function Account() {
     reset,
     setValue,
   } = useForm<AccountFormValues>({
-    resolver: zodResolver(selectedValidationSchema),
+    resolver: zodResolver(AccountValidationSchema),
     mode: "onSubmit",
   });
 
@@ -183,7 +174,7 @@ function Account() {
     <div className="flex justify-center">
       <form
         onSubmit={handleSubmit(handleFormSubmit)}
-        className="flex w-[400px] flex-col gap-[10px] tablet:w-[700px] pc:w-[700px]"
+        className="mx-[10px] flex w-full max-w-[700px] flex-col gap-[10px]"
       >
         <div className="flex items-center gap-[80px] tablet:gap-[100px] pc:gap-[100px]">
           <ProfileEditor
@@ -191,6 +182,7 @@ function Account() {
             profileImage={currentProfileImageUrl}
             onChangeImage={handleProfileImageChange}
             onImageReset={handleProfileImageReset}
+            disabled={isSocialLogin}
           />
           <div className="flex flex-col">
             <h1 className="text-[30px] font-semibold text-primary-600 tablet:text-[40px] pc:text-[40px]">
@@ -208,6 +200,7 @@ function Account() {
           placeholder="닉네임을 입력해주세요"
           error={errors.nickname}
           touched={touchedFields.nickname}
+          disabled={isSocialLogin}
         />
 
         <Input
@@ -232,9 +225,15 @@ function Account() {
           disabled={isSocialLogin}
         />
 
-        <Button type="submit" size="medium">
-          수정
-        </Button>
+        {isSocialLogin ? (
+          <p className="text-lg font-semibold text-red-500">
+            소셜 로그인 시 사용자 정보를 수정할 수 없습니다
+          </p>
+        ) : (
+          <Button type="submit" size="medium">
+            수정
+          </Button>
+        )}
       </form>
 
       <Popup
