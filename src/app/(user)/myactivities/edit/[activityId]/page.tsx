@@ -2,12 +2,12 @@
 
 import activitiesAPI from "@/apis/activitiesAPI";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
+import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
 import AddInput from "@/app/(user)/myactivities/edit/_components/AddInput";
 import AddressAutoComplete from "@/app/(user)/myactivities/edit/_components/AddressAutoComplete";
 import ImageInput from "@/app/(user)/myactivities/edit/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImagesInput";
 import { Button } from "@/components/Button";
-import Dropdown from "@/components/Dropdown";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
@@ -16,10 +16,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Edit({ params: { activityId } }: { params: { activityId: string } }) {
-  const dropdownList = ["문화 · 예술", "식음료", "스포츠", "투어", "관광", "웰빙"];
-
   const [title, setTitle] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>(dropdownList[0]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("문화 · 예술");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [address, setAddress] = useState("");
@@ -69,10 +67,6 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
 
     fetchActivityData();
   }, [activityId]);
-
-  const handleCategory = (category: string) => {
-    setSelectedCategory(category);
-  };
 
   const handleScheduleChange = (field: string, value: Date | null) => {
     setCurrentSchedule(prev => ({
@@ -183,7 +177,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
     <div>
       <form onSubmit={handleSubmit} className="h-[100vh] px-3 pb-[150px]">
         <div className="flex justify-between px-1 pb-4">
-          <p className="text-3xl font-bold">내 체험 등록</p>
+          <p className="text-3xl font-bold">내 체험 수정</p>
           <Button disabled={isSubmitDisabled} type="submit">
             수정
           </Button>
@@ -198,11 +192,9 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
           />
           <p className="text-xl font-bold">카테고리</p>
           <div className="mb-8 mt-2.5">
-            <Dropdown
-              menuItems={dropdownList}
-              onChangeDropdown={handleCategory}
-              placeHolder="카테고리"
-              wide
+            <CategoryDropdown
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
             />
           </div>
 
