@@ -80,7 +80,7 @@ function KakaoRedirect() {
           const response = await OauthAPI.postSignup("kakao", data);
           if (response) {
             setIsLoading(false);
-            router.push("/");
+            router.push("/", { scroll: true });
           }
         } catch (error) {
           let err = String(error);
@@ -107,7 +107,7 @@ function KakaoRedirect() {
         if (response) {
           setIsLoading(false);
           socialLoginSuccess();
-          router.push("/");
+          router.push("/", { scroll: true });
         }
       }
     }
