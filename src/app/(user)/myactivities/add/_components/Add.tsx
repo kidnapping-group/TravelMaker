@@ -258,7 +258,11 @@ export default function Add() {
                 // eslint-disable-next-line react/no-array-index-key
                 <React.Fragment key={index}>
                   <div className="col-span-2 flex h-9 w-full items-center rounded-[4px] bg-gray-200 pl-2">
-                    {schedule.date.toISOString().split("T")[0]}
+                    {
+                      new Date(schedule.date.getTime() + 24 * 60 * 60 * 1000)
+                        .toISOString()
+                        .split("T")[0]
+                    }
                   </div>
                   <div className="col-span-2 flex h-9 items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.startTime}
