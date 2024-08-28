@@ -175,7 +175,7 @@ export default function Edit({ params: { activityId } }: { params: { activityId:
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="h-[100vh] px-3 pb-[150px]">
+      <form onSubmit={handleSubmit} className="h-[100vh] pb-[150px]">
         <div className="flex justify-between px-1 pb-4">
           <p className="text-3xl font-bold">내 체험 수정</p>
           <Button disabled={isSubmitDisabled} type="submit">
