@@ -5,6 +5,7 @@ import myReservationAPI from "@/apis/myReservationAPI";
 import { Button } from "@/components/Button";
 import Modal, { openModal } from "@/components/Modal";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
+import useImageError from "@/hooks/useImageError";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ function MyReservationItem({
   reservation: Reservations;
   statusTitle: string;
 }) {
+  const [errorImage] = useImageError(["/images/noImage.png"]);
   const { isMobile, isTablet, isPc } = useMediaQuery();
   const [reservationState, setReservationState] = useState(reservation);
 
@@ -72,11 +74,12 @@ function MyReservationItem({
             className="mt-[8px] text-[20px] font-bold hover:underline"
           >
             <Image
-              src={reservation.activity.bannerImageUrl}
+              src={errorImage.src || reservation.activity.bannerImageUrl}
               alt="액티비티 사진"
               fill
               objectFit="cover"
               className="transition hover:scale-110"
+              onError={errorImage.onError}
             />
           </Link>
         </div>

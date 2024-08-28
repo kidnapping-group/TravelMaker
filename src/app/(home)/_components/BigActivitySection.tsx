@@ -1,6 +1,10 @@
+"use client";
+
 import activitiesAPI from "@/apis/activitiesAPI";
 import BigActivityCard from "@/app/(home)/_components/BigActivityCard";
+import activitySectionQueryKeys from "@/app/(home)/utils/activitySectionQuery";
 import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 
 interface BigActivitySectionProps {
@@ -19,19 +23,31 @@ const categoryTitle = {
   wellbeing: "웰빙",
 } as const;
 
-async function BigActivitySection({
+function BigActivitySection({
   title: sectionTitle,
   category,
   keyword,
   sort = "most_reviewed",
 }: BigActivitySectionProps) {
-  const { activities, totalCount } = await activitiesAPI.get({
-    category: category && categoryTitle[category],
-    keyword,
-    sort,
-    page: 1,
-    size: 10,
+  const { data } = useSuspenseQuery({
+    queryKey: activitySectionQueryKeys.list({
+      category: category && categoryTitle[category],
+      keyword,
+      sort,
+      page: 1,
+      size: 10,
+    }),
+    queryFn: () =>
+      activitiesAPI.get({
+        category: category && categoryTitle[category],
+        keyword,
+        sort,
+        page: 1,
+        size: 10,
+      }),
   });
+
+  const { activities, totalCount } = data || { activities: [], totalCount: 0 };
 
   return (
     <section className="flex flex-col">

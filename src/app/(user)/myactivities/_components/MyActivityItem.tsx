@@ -3,6 +3,7 @@
 import { Activities } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import Popup, { closePopup } from "@/components/Popup";
+import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,6 +13,7 @@ import ContextMenu from "./ContextMenu";
 
 function MyActivityItem({ activity }: { activity: Activities }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [errorImage] = useImageError(["/images/noImage.png"]);
 
   const handleClickMore = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,9 +30,10 @@ function MyActivityItem({ activity }: { activity: Activities }) {
         <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-l-[24px] tablet:h-[156px] tablet:w-[156px] pc:h-[204px] pc:w-[204px]">
           <Link href={`/${activity.id}`}>
             <Image
-              src={activity.bannerImageUrl}
+              src={errorImage.src || activity.bannerImageUrl}
               fill
               alt="배너 이미지"
+              onError={errorImage.onError}
               className="rounded-l-[24px] object-cover transition hover:scale-110"
             />
           </Link>
