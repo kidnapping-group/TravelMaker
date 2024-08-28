@@ -4,10 +4,10 @@ import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query
 
 export const metadata = {
   title: "내 체험 현황",
-  description: "내 체험을 수정 삭제 할 수 있는 페이지 입니다.",
+  description: "내 체험을 확인하고 관리하세요.",
   openGraph: {
-    title: "내 체험 현황 페이지",
-    description: "내 체험을 수정 삭제 할 수 있는 페이지 입니다",
+    title: "내 체험 현황",
+    description: "내 체험을 확인하고 관리하세요.",
     url: "https://travel-kidnap-maker.vercel.app/myactivities",
   },
 };

@@ -17,11 +17,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const activityId = Number(params.activityId);
   const { title, description, bannerImageUrl } = await activitiesAPI.getInfo(activityId);
 
+  const fullTitle = `${title} - Travel Maker`;
+
   return {
-    title,
+    title: fullTitle,
     description,
     openGraph: {
-      title,
+      title: fullTitle,
       description,
       images: [bannerImageUrl],
     },

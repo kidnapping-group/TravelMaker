@@ -5,10 +5,10 @@ import MyReservations from "./_components/MyReservations";
 
 export const metadata = {
   title: "예약 내역",
-  description: "내가 예약한 체험의 내역을 표시합니다.",
+  description: "내가 예약한 체험을 확인하세요.",
   openGraph: {
-    title: "예약 내역 페이지",
-    description: "내가 예약한 체험의 내역을 표시합니다.",
+    title: "예약 내역",
+    description: "내가 예약한 체험을 확인하세요.",
     url: "https://travel-kidnap-maker.vercel.app/reservations",
   },
 };
