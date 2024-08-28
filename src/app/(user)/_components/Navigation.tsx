@@ -34,27 +34,27 @@ const navItems = [
 
 function TopNavigation({ pathname }: NavProps) {
   return (
-    <div className="fixed left-0 top-[55px] z-10 flex w-full justify-around bg-white pt-[10px] text-center">
+    <nav className="fixed left-0 right-0 top-[60px] z-20 flex h-10 w-full items-center justify-around bg-white text-center">
       {navItems.map(item => (
         <Link
           key={item.label}
           href={item.href}
-          className={`border-gray h-[30px] w-full cursor-pointer border-b-2 ${
+          className={`flex h-full flex-1 cursor-pointer items-center justify-center transition-colors hover:bg-gray-100 ${
             pathname === item.href
-              ? "border-b-[3px] border-primary-500 font-bold text-primary-500"
-              : ""
+              ? "border-b-2 border-primary-500 font-bold text-primary-500"
+              : "border-b border-gray-200 text-gray-500 hover:text-black"
           }`}
         >
           {item.label}
         </Link>
       ))}
-    </div>
+    </nav>
   );
 }
 
 function SideNavigation({ pathname }: NavProps) {
   return (
-    <div className="flex w-[250px] flex-col gap-[5px] rounded-lg bg-white p-[6px] shadow-[0_6px_20px_rgba(0,0,0,0.15)]">
+    <nav className="fixed top-[120px] flex h-fit w-[250px] flex-col gap-[5px] rounded-lg bg-white p-[6px] shadow-[0_6px_20px_rgba(0,0,0,0.15)] pc:top-[90px]">
       {navItems.map(({ label, href, icon }) => (
         <Link
           key={label}
@@ -69,7 +69,7 @@ function SideNavigation({ pathname }: NavProps) {
           {label}
         </Link>
       ))}
-    </div>
+    </nav>
   );
 }
 
@@ -78,10 +78,10 @@ function Navigation() {
   const { isMobile, isTablet, isPc } = useMediaQuery();
 
   return (
-    <div>
+    <>
       {(isMobile || isTablet) && <TopNavigation pathname={pathname} />}
       {isPc && <SideNavigation pathname={pathname} />}
-    </div>
+    </>
   );
 }
 

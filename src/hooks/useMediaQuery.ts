@@ -10,8 +10,8 @@ const useMediaQuery = () => {
 
   useEffect(() => {
     const mobileQuery = window.matchMedia("(max-width: 767px)");
-    const tabletQuery = window.matchMedia("(min-width: 768px) and (max-width: 1199px)");
-    const pcQuery = window.matchMedia("(min-width: 1200px)");
+    const tabletQuery = window.matchMedia("(min-width: 768px) and (max-width: 1279px)");
+    const pcQuery = window.matchMedia("(min-width: 1280px)");
 
     const updateMatches = () => {
       setIsMobile(mobileQuery.matches);
