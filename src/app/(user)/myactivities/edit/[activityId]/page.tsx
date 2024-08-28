@@ -1,20 +1,21 @@
 "use client";
 
 import activitiesAPI from "@/apis/activitiesAPI";
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
 import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
 import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
-import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
-import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
+import ImageInput from "@/app/(user)/myactivities/edit/_components/ImageInput";
+import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImagesInput";
 import { Button } from "@/components/Button";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function Add() {
+export default function Edit({ params: { activityId } }: { params: { activityId: string } }) {
   const [title, setTitle] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [description, setDescription] = useState("");
@@ -29,13 +30,43 @@ export default function Add() {
     startTime: null,
     endTime: null,
   });
-  const [schedules, setSchedules] = useState<{ date: Date; startTime: string; endTime: string }[]>(
-    [],
-  );
+  const [schedules, setSchedules] = useState<
+    { id: number | null; date: Date; startTime: string; endTime: string }[]
+  >([]);
   const [bannerImageUrl, setBannerImageUrl] = useState("");
-  const [subImageUrls, setSubImageUrls] = useState<string[]>([]);
 
+  const [subImageUrls, setSubImageUrls] = useState<{ id: number | null; imageUrl: string }[]>([]);
+  const [subImageIdsToRemove, setSubImageIdsToRemove] = useState<number[]>([]);
+  const [scheduleIdsToRemove, setScheduleIdsToRemove] = useState<number[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchActivityData = async () => {
+      try {
+        const res = await activitiesAPI.getInfo(Number(activityId));
+
+        setTitle(res.title);
+        setSelectedCategory(res.category);
+        setDescription(res.description);
+        setPrice(res.price.toString());
+        setAddress(res.address);
+        setSchedules(
+          res.schedules.map(schedule => ({
+            id: schedule.id,
+            date: new Date(schedule.date),
+            startTime: schedule.startTime,
+            endTime: schedule.endTime,
+          })),
+        );
+        setBannerImageUrl(res.bannerImageUrl);
+        setSubImageUrls(res.subImages);
+      } catch (error) {
+        openPopup("failFetch");
+      }
+    };
+
+    fetchActivityData();
+  }, [activityId]);
 
   const handleScheduleChange = (field: string, value: Date | null) => {
     setCurrentSchedule(prev => ({
@@ -74,6 +105,7 @@ export default function Add() {
     setSchedules([
       ...schedules,
       {
+        id: null,
         date: currentSchedule.date,
         startTime:
           currentSchedule.startTime?.toLocaleTimeString("en-GB", {
@@ -90,7 +122,10 @@ export default function Add() {
     setCurrentSchedule({ date: new Date(), startTime: null, endTime: null });
   };
 
-  const removeSchedule = (index: number) => {
+  const removeSchedule = (id: number | null, index: number) => {
+    if (id !== null) {
+      setScheduleIdsToRemove(prev => [...prev, id]);
+    }
     setSchedules(schedules.filter((_, i) => i !== index));
   };
 
@@ -98,23 +133,30 @@ export default function Add() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
+    const subImageUrlsToAdd = subImageUrls
+      .filter(image => image.id === null)
+      .map(image => image.imageUrl);
+    const schedulesToAdd = schedules
+      .filter(schedule => schedule.id === null)
+      .map(schedule => ({
+        date: schedule.date.toISOString().split("T")[0],
+        startTime: schedule.startTime,
+        endTime: schedule.endTime,
+      }));
     const formData = {
       title,
       category: selectedCategory,
       description,
       address,
-      price: parseInt(price, 10),
-      schedules: schedules.map(schedule => ({
-        date: schedule.date.toISOString().split("T")[0],
-        startTime: schedule.startTime,
-        endTime: schedule.endTime,
-      })),
+      price: parseFloat(price),
       bannerImageUrl,
-      subImageUrls,
+      subImageIdsToRemove,
+      subImageUrlsToAdd,
+      scheduleIdsToRemove,
+      schedulesToAdd,
     };
     try {
-      await activitiesAPI.post(formData);
+      await myActivitiesAPI.patch(Number(activityId), formData);
       openPopup("success");
     } catch (error) {
       openPopup("fail");
@@ -133,11 +175,11 @@ export default function Add() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="h-[100vh] pb-[150px]">
+      <form onSubmit={handleSubmit} className="h-[100vh] px-3 pb-[150px]">
         <div className="flex justify-between px-1 pb-4">
-          <p className="text-3xl font-bold">내 체험 등록</p>
-          <Button size="medium" disabled={isSubmitDisabled} type="submit">
-            등록
+          <p className="text-3xl font-bold">내 체험 수정</p>
+          <Button disabled={isSubmitDisabled} type="submit">
+            수정
           </Button>
         </div>
         <div className="h-full overflow-y-auto px-1">
@@ -174,7 +216,6 @@ export default function Add() {
             min={0}
           />
           <AddressAutoComplete address={address} setAddress={setAddress} />
-
           <div className="mb-2.5 text-xl font-bold">예약 가능한 시간대</div>
           <div className="grid grid-cols-8 grid-rows-2 gap-1">
             <p className="text-base col-span-3 font-medium">날짜</p>
@@ -258,7 +299,7 @@ export default function Add() {
                   <Button
                     className="text-base col-span-1 h-9 rounded-[4px] bg-gray-500 font-medium text-white hover:bg-gray-600"
                     type="button"
-                    onClick={() => removeSchedule(index)}
+                    onClick={() => removeSchedule(schedule.id, index)}
                   >
                     삭제
                   </Button>
@@ -269,13 +310,25 @@ export default function Add() {
           <p className="mb-2.5 text-xl font-bold">배너 이미지</p>
           <ImageInput bannerImageUrl={bannerImageUrl} setBannerImageUrl={setBannerImageUrl} />
           <p className="mb-2.5 text-xl font-bold">소개 이미지</p>
-          <SubImagesInput subImageUrls={subImageUrls} setSubImageUrls={setSubImageUrls} />
+          <SubImagesInput
+            subImageUrls={subImageUrls}
+            setSubImageUrls={setSubImageUrls}
+            setSubImageIdsToRemove={setSubImageIdsToRemove}
+          />
           <p className="mb-4 font-medium">* 소개이미지는 최대 4개까지 등록할 수 있습니다.</p>
         </div>
       </form>
       <Popup
+        id="failFetch"
+        text="기존 체험정보 불러오기에 실패했습니다."
+        leftButton="확인"
+        onChangeLeftButton={() => {
+          closePopup("failFetch");
+        }}
+      />
+      <Popup
         id="success"
-        text="체험등록이 완료되었습니다."
+        text="체험수정이 완료되었습니다."
         leftButton="확인"
         onChangeLeftButton={() => {
           closePopup("success");
@@ -284,7 +337,7 @@ export default function Add() {
       />
       <Popup
         id="fail"
-        text="체험등록에 실패했습니다."
+        text="체험수정에 실패했습니다."
         leftButton="확인"
         onChangeLeftButton={() => {
           closePopup("fail");
