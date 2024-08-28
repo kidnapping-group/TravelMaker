@@ -16,7 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function Add() {
   const [title, setTitle] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<string>("문화 · 예술");
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [address, setAddress] = useState("");
