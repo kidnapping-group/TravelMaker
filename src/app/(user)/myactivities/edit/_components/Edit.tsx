@@ -299,7 +299,7 @@ export default function Edit({ activityId }: { activityId: number }) {
               {schedules.map((schedule, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <React.Fragment key={index}>
-                  <div className="col-span-3 flex h-9 max-w-[211.2px] items-center rounded-[4px] bg-gray-200 pl-2">
+                  <div className="col-span-2 flex h-9 w-full items-center rounded-[4px] bg-gray-200 pl-2">
                     {
                       new Date(schedule.date.getTime() + 24 * 60 * 60 * 1000)
                         .toISOString()
