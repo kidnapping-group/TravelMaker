@@ -34,7 +34,7 @@ function Images() {
     : "w-screen";
 
   return (
-    <div className="-mx-6 flex justify-center tablet:mx-auto tablet:justify-normal tablet:gap-1 pc:gap-2">
+    <div className="-mx-6 flex justify-center tablet:mx-[0.5px] tablet:justify-normal tablet:gap-1 pc:gap-2">
       <div className={`relative h-[310px] ${mainImageClasses} pc:h-[534px]`}>
         <Image
           src={errorImage.src || totalImages[imageIndex]}
