@@ -17,9 +17,9 @@ function UserRootLayout({
   return (
     <>
       <Header />
-      <main className="mb-20 flex w-full max-w-[1280px] px-5 tablet:mt-5 tablet:px-10 pc:mx-auto pc:max-w-[1200px] pc:p-0">
+      <main className="relative mb-20 flex w-full max-w-[1280px] flex-col px-5 tablet:px-10 pc:mx-auto pc:max-w-[1200px] pc:flex-row pc:p-0">
         <Navigation />
-        <div className="grow tablet:ml-5">{children}</div>
+        <div className="mt-[120px] w-full pc:ml-[290px] pc:mt-[90px]">{children}</div>
       </main>
     </>
   );
