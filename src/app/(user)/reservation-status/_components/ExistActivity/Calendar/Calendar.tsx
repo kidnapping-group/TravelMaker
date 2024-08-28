@@ -25,7 +25,7 @@ function Calendar({ selectedId }: { selectedId: number }) {
   const calendarData = useCreateCalendar(currentYear, currentMonth, data);
 
   return (
-    <div className="mx-auto mt-8 max-w-4xl">
+    <div className="mt-8">
       <DateSwitcher
         setCurrentDate={setCurrentDate}
         currentYear={currentYear}
