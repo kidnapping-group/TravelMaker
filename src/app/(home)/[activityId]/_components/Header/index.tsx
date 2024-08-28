@@ -2,7 +2,7 @@
 
 import DropdownMenu from "@/app/(home)/[activityId]/_components/Header/DropdownMenu";
 import useGetActivityHeaderViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityHeaderViewModel";
-import Image from "next/image";
+import { FaLocationDot, FaStar } from "react-icons/fa6";
 
 function Header() {
   const { category, title, rating, reviewCount, address, activityId } =
@@ -17,12 +17,12 @@ function Header() {
       </div>
       <div className="mt-4 flex items-center gap-3 text-md font-normal">
         <div className="flex items-center justify-center gap-1">
-          <Image src="icons/Icon_star_on.svg" alt="평점" width={16} height={16} />
+          <FaStar color="gold" />
           <p>{rating}</p>
           <p>({reviewCount})</p>
         </div>
         <div className="flex items-center justify-center gap-1">
-          <Image src="icons/icon-location.svg" alt="위치 아이콘" width={18} height={18} />
+          <FaLocationDot />
           <p>{address}</p>
         </div>
       </div>
