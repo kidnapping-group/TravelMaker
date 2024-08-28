@@ -26,8 +26,8 @@ function MyActivityItem({ activity }: { activity: Activities }) {
 
   return (
     <div className="relative">
-      <div className="mx-auto flex h-32 w-full rounded-[24px] bg-white shadow-lg tablet:h-[156px] pc:h-[204px]">
-        <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-l-[24px] tablet:h-[156px] tablet:w-[156px] pc:h-[204px] pc:w-[204px]">
+      <div className="flex h-32 w-full overflow-hidden rounded-lg bg-white shadow-[0_6px_20px_rgba(0,0,0,0.15)] tablet:h-[150px] pc:h-[200px]">
+        <div className="relative aspect-square h-32 w-32 overflow-hidden tablet:h-[150px] tablet:w-[150px] pc:h-[200px] pc:w-[200px]">
           <Link href={`/${activity.id}`}>
             <Image
               src={errorImage.src || activity.bannerImageUrl}

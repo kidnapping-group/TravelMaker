@@ -67,7 +67,7 @@ function MyReservationItem({
 
   return (
     <div className="relative">
-      <div className="relative flex h-32 overflow-hidden rounded-3xl bg-white tablet:h-[156px] pc:h-[204px]">
+      <div className="flex h-32 overflow-hidden rounded-lg bg-white shadow-[0_6px_20px_rgba(0,0,0,0.15)] tablet:h-[150px] pc:h-[200px]">
         <div className="relative h-32 w-32 overflow-hidden tablet:h-[156px] tablet:min-w-[156px] pc:h-[204px] pc:w-[204px]">
           <Link
             href={`/${reservation.activity.id}`}
