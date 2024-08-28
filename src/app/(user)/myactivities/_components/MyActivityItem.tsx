@@ -3,6 +3,7 @@
 import { Activities } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import Popup, { closePopup } from "@/components/Popup";
+import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,6 +13,7 @@ import ContextMenu from "./ContextMenu";
 
 function MyActivityItem({ activity }: { activity: Activities }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [errorImage] = useImageError(["/images/noImage.png"]);
 
   const handleClickMore = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -28,10 +30,11 @@ function MyActivityItem({ activity }: { activity: Activities }) {
         <div className="relative aspect-square h-32 w-32 overflow-hidden tablet:h-[150px] tablet:w-[150px] pc:h-[200px] pc:w-[200px]">
           <Link href={`/${activity.id}`}>
             <Image
-              src={activity.bannerImageUrl}
+              src={errorImage.src || activity.bannerImageUrl}
               fill
               alt="배너 이미지"
-              className="rounded-l-lg object-cover transition hover:scale-110"
+              onError={errorImage.onError}
+              className="rounded-l-[24px] object-cover transition hover:scale-110"
             />
           </Link>
         </div>
@@ -61,7 +64,7 @@ function MyActivityItem({ activity }: { activity: Activities }) {
       </div>
       <Popup
         id="cancel"
-        text="예약을 취소하시겠어요?"
+        text="소중한 체험을 삭제하시겠습니까?"
         leftButton="아니요"
         onChangeLeftButton={() => closePopup("cancel")}
         rightButton="네"

@@ -18,8 +18,6 @@ export const getCommentTotalCount = (data: getActivitiesReviewsRes) => {
   return data?.totalCount;
 };
 
-export const getFloorAverageRating = (rating: number) => Math.floor(rating * 10) / 10;
-
 export const getCommentReview = (data: getActivitiesReviewsRes) => {
   if (!data?.reviews) return [];
   return data?.reviews;
