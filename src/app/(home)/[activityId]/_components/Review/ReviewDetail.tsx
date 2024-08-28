@@ -1,5 +1,5 @@
 import useGetCommentReviewViewModel from "@/app/(home)/[activityId]/_hooks/useGetCommentReviewViewModel";
-import Image from "next/image";
+import { FaStar } from "react-icons/fa6";
 
 function ReviewDetail() {
   const { satisfies, totalCount, floorRating } = useGetCommentReviewViewModel();
@@ -12,8 +12,8 @@ function ReviewDetail() {
         <p className="text-[50px] font-semibold">{floorRating}</p>
         <div className="flex flex-col justify-center gap-2">
           <p className="text-2lg font-normal">{satisfies}</p>
-          <div className="flex gap-1">
-            <Image src="icons/Icon_star_on.svg" alt="별" width={16} height={16} />
+          <div className="flex items-center gap-2">
+            <FaStar color="gold" />
             <p>{totalCount}개 후기</p>
           </div>
         </div>

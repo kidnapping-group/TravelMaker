@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import { FaXmark } from "react-icons/fa6";
 
 interface ModalProps extends React.PropsWithChildren {
   title: string;
@@ -38,8 +38,12 @@ function Modal({ children, title }: ModalProps) {
       <div className="h-full w-full bg-white shadow-lg tablet:h-auto tablet:w-[460px] tablet:rounded-lg">
         <div className="flex items-center justify-between p-4 tablet:p-6">
           <h1 className="text-[28px] font-bold">{title}</h1>
-          <button type="button" onClick={() => setIsOpen(false)}>
-            <Image width={40} height={40} alt="창 닫기" src="/icons/icon-close-black.svg" />
+          <button
+            className="rounded-lg p-1 text-gray-700 hover:bg-gray-100 active:bg-gray-200"
+            type="button"
+            onClick={() => setIsOpen(false)}
+          >
+            <FaXmark size={24} />
           </button>
         </div>
         <div>{children}</div>

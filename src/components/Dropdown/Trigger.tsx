@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
 import { useDropdown } from "./context";
 
@@ -16,17 +16,15 @@ function Trigger({ placeholder }: TriggerProps) {
   return (
     <button
       type="button"
-      className="flex h-11 w-full items-center rounded-lg bg-gray-100 text-left text-md font-medium text-black outline-none transition-colors hover:bg-gray-200 active:bg-gray-300"
+      className="flex h-11 w-full items-center rounded-lg bg-gray-100 px-[18px] text-left text-md font-medium text-black outline-none transition-colors hover:bg-gray-200 active:bg-gray-300"
       onClick={toggle}
     >
-      <p className="grow truncate pl-[18px]">{selectedItemContent ?? initialContent}</p>
-      <Image
-        className="mr-1"
-        src={`/icons/icon-${isOpen ? "dropup" : "dropdown"}.svg`}
-        alt="드롭다운 버튼"
-        width={32}
-        height={32}
-      />
+      <p className="grow truncate">{selectedItemContent ?? initialContent}</p>
+      {isOpen ? (
+        <FaChevronUp className="text-gray-700" />
+      ) : (
+        <FaChevronDown className="text-gray-700" />
+      )}
     </button>
   );
 }

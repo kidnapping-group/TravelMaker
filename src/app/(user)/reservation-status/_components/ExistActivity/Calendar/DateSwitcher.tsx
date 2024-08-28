@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { SetStateAction } from "react";
+import { FaAnglesLeft, FaAnglesRight } from "react-icons/fa6";
 
 interface DateSwitcherProps {
   setCurrentDate: (value: SetStateAction<Date>) => void;
@@ -14,12 +14,20 @@ function DateSwitcher({ setCurrentDate, currentYear, currentMonth }: DateSwitche
 
   return (
     <div className="mb-4 flex items-center justify-center gap-20 tablet:gap-24">
-      <button type="button" onClick={() => changeMonth(-1)}>
-        <Image src="/icons/left_double_arrow.svg" alt="이전 달" width={24} height={24} />
+      <button
+        className="text-gray-700 transition hover:text-gray-500"
+        type="button"
+        onClick={() => changeMonth(-1)}
+      >
+        <FaAnglesLeft />
       </button>
       <h2 className="text-xl font-bold">{`${currentYear}년 ${currentMonth}월`}</h2>
-      <button type="button" onClick={() => changeMonth(+1)}>
-        <Image src="/icons/right_double_arrow.svg" alt="다음 달" width={24} height={24} />
+      <button
+        className="text-gray-700 transition hover:text-gray-500"
+        type="button"
+        onClick={() => changeMonth(+1)}
+      >
+        <FaAnglesRight />
       </button>
     </div>
   );

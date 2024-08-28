@@ -35,7 +35,7 @@ function UserPopover() {
           <div className="relative h-7 w-7 overflow-hidden rounded-full transition hover:opacity-60 tablet:hover:opacity-100">
             <Image
               className="object-cover"
-              src={userInfo?.profileImageUrl || "/icons/noProfile.svg"}
+              src={userInfo?.profileImageUrl || "/icons/profile.svg"}
               alt="프로필 사진"
               draggable={false}
               fill
