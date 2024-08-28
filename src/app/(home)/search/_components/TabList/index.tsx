@@ -1,5 +1,6 @@
 "use client";
 
+import { Swiper, SwiperContent } from "@/components/Swiper";
 import useUpdateQuery from "@/hooks/useUpdateQuery";
 import { useSearchParams } from "next/navigation";
 
@@ -17,8 +18,10 @@ function TabList({ paramName, paramValues }: TabListProps) {
   const currentTab = searchParams.get(paramName);
 
   return (
-    <ul className="flex gap-3">
-      <li>
+    <Swiper>
+      <SwiperContent>
+        {/* <ul className="flex gap-3">
+          <li> */}
         <Tab
           selected={currentTab === null}
           onClick={() => {
@@ -27,10 +30,11 @@ function TabList({ paramName, paramValues }: TabListProps) {
         >
           전체
         </Tab>
-      </li>
-      {paramValues.map(paramValue => (
-        <li key={paramValue}>
+        {/* </li> */}
+        {paramValues.map(paramValue => (
+          // <li key={paramValue}>
           <Tab
+            key={paramValue}
             selected={currentTab === paramValue}
             onClick={() => {
               updateQuery(paramValue);
@@ -38,9 +42,11 @@ function TabList({ paramName, paramValues }: TabListProps) {
           >
             {paramValue}
           </Tab>
-        </li>
-      ))}
-    </ul>
+          // </li>
+        ))}
+        {/* </ul> */}
+      </SwiperContent>
+    </Swiper>
   );
 }
 
