@@ -19,7 +19,8 @@ function SortDropdown() {
   const updateQuery = useUpdateQuery(PARAM_NAME);
 
   const searchParams = useSearchParams();
-  const currentSort = searchParams.get(PARAM_NAME) ?? undefined;
+  const currentSort =
+    SORTS.find(sort => sort.query === searchParams.get(PARAM_NAME))?.name ?? undefined;
 
   const handleMenuItemClick = (value: string) => {
     updateQuery(value);
