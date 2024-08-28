@@ -2,9 +2,9 @@
 
 import activitiesAPI from "@/apis/activitiesAPI";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
+import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
+import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
 import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
-import AddInput from "@/app/(user)/myactivities/edit/_components/AddInput";
-import AddressAutoComplete from "@/app/(user)/myactivities/edit/_components/AddressAutoComplete";
 import ImageInput from "@/app/(user)/myactivities/edit/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImagesInput";
 import { Button } from "@/components/Button";
