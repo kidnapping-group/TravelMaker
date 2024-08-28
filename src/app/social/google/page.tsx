@@ -86,7 +86,7 @@ export default function GoogleRedirect() {
           });
           if (patchImg) {
             setIsLoading(false);
-            router.push("/");
+            router.push("/", { scroll: true });
           }
         }
       } catch (error) {
@@ -106,7 +106,7 @@ export default function GoogleRedirect() {
             });
             if (patchData) {
               setIsLoading(false);
-              router.push("/");
+              router.push("/", { scroll: true });
             }
           }
         }

@@ -39,7 +39,7 @@ function SignUp() {
       await usersAPI.postSignup(postData);
       const loginData = { email, password };
       await authAPI.login(loginData);
-      router.push("/");
+      router.push("/", { scroll: true });
     } catch (error) {
       openPopup("existEmail");
     }
@@ -88,7 +88,7 @@ function SignUp() {
       </Button>
       <div className="-mt-1 text-center">
         회원이신가요?{" "}
-        <Link href="/signin">
+        <Link href="/signin" scroll>
           <span className="text-blue-500 underline">로그인</span>
         </Link>
       </div>

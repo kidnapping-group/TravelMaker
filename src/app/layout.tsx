@@ -3,7 +3,6 @@ import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import ScrollTop from "./_components/ScrollTop";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -35,7 +34,6 @@ function RootLayout({
         />
       </head>
       <body className={`${pretendardFont.className} text-black`}>
-        <ScrollTop />
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         ) : null}
