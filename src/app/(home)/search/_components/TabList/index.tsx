@@ -20,8 +20,6 @@ function TabList({ paramName, paramValues }: TabListProps) {
   return (
     <Swiper>
       <SwiperContent>
-        {/* <ul className="flex gap-3">
-          <li> */}
         <Tab
           selected={currentTab === null}
           onClick={() => {
@@ -30,9 +28,7 @@ function TabList({ paramName, paramValues }: TabListProps) {
         >
           전체
         </Tab>
-        {/* </li> */}
         {paramValues.map(paramValue => (
-          // <li key={paramValue}>
           <Tab
             key={paramValue}
             selected={currentTab === paramValue}
@@ -42,9 +38,7 @@ function TabList({ paramName, paramValues }: TabListProps) {
           >
             {paramValue}
           </Tab>
-          // </li>
         ))}
-        {/* </ul> */}
       </SwiperContent>
     </Swiper>
   );
