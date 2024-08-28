@@ -49,7 +49,7 @@ function Day({ dayData, setCurrentDate }: DayProps) {
       type="button"
       onClick={handleClick}
       disabled={!dayData.isPending && !dayData.isConfirmed}
-      className={`w-full text-left ${dayData.isPending && dayData.isConfirmed ? "cursor-pointer" : "cursor-default"}`}
+      className={`w-full text-left ${dayData.isPending || dayData.isConfirmed ? "cursor-pointer" : "cursor-default"}`}
     >
       <div
         className={`flex h-32 flex-col justify-between border p-[2px] font-medium ${dayData.isCurrentMonth ? "bg-white" : "bg-gray-100"} ${(dayData.isCurrentMonth && dayData.isPending) || dayData.isConfirmed ? "transition-colors duration-200 hover:bg-primary-400" : ""} `}
