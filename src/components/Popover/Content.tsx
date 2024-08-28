@@ -22,7 +22,7 @@ function Content({ children }: { children: React.ReactNode }) {
 
   return (
     isOpen && (
-      <div className="absolute right-0 top-full z-10 mt-1 flex w-28 flex-col overflow-hidden rounded-lg border bg-white p-[6px] shadow-[0_6px_20px_rgba(0,0,0,0.15)]">
+      <div className="absolute right-0 top-full z-10 mt-1 flex w-[120px] flex-col overflow-hidden rounded-lg border bg-white p-[6px] shadow-[0_6px_20px_rgba(0,0,0,0.15)]">
         {children}
       </div>
     )
