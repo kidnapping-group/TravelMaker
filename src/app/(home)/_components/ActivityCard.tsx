@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { FaStar } from "react-icons/fa6";
 
 interface ActivityCardProps {
   wide?: boolean;
@@ -26,8 +27,8 @@ function ActivityCard({
         <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-20" />
       </div>
       <div className="mx-1 flex flex-col gap-1">
-        <div className="flex items-center gap-[2px] text-xs font-semibold">
-          <Image src="icons/star.svg" alt="별 아이콘" height={14} width={14} />
+        <div className="flex items-center gap-1 text-xs font-semibold">
+          <FaStar color="gold" />
           <p>{rating.toFixed(1)}</p>
           <p className="text-gray-400">({reviewCount})</p>
         </div>

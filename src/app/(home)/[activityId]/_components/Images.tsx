@@ -4,6 +4,7 @@ import useGetActivityImageViewModel from "@/app/(home)/[activityId]/_hooks/useGe
 import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import { useState } from "react";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 const showImage = [
   "hidden",
@@ -45,16 +46,16 @@ function Images() {
         <button
           type="button"
           onClick={() => setImageIndex((imageIndex - 1 + totalImages.length) % totalImages.length)}
-          className="absolute left-2.5 top-1/2 -translate-y-1/2 transform tablet:hidden"
+          className="absolute left-2.5 top-1/2 flex -translate-y-1/2 transform items-center justify-center rounded-lg bg-black/50 px-1 py-4 transition-colors hover:bg-black/75 tablet:hidden"
         >
-          <Image src="icons/icon-prev.svg" alt="이전 사진" width={24} height={47} />
+          <FaChevronLeft size={24} color="white" />
         </button>
         <button
           type="button"
           onClick={() => setImageIndex((imageIndex + 1) % totalImages.length)}
-          className="absolute right-2.5 top-1/2 -translate-y-1/2 transform tablet:hidden"
+          className="absolute right-2.5 top-1/2 flex -translate-y-1/2 transform items-center justify-center rounded-lg bg-black/50 px-1 py-4 transition-colors hover:bg-black/75 tablet:hidden"
         >
-          <Image src="icons/icon-next.svg" alt="다음 사진" width={24} height={47} />
+          <FaChevronRight size={24} color="white" />
         </button>
       </div>
       {hasSubImages && (

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { FaXmark } from "react-icons/fa6";
 
 interface DeleteButtonProps {
   onClick: React.MouseEventHandler<HTMLButtonElement>;
@@ -7,13 +7,11 @@ interface DeleteButtonProps {
 function DeleteButton({ onClick }: DeleteButtonProps) {
   return (
     <button
-      className="absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-[4px] border border-black bg-black"
+      className="absolute right-0 top-0 mr-1 mt-1 flex items-center justify-center rounded-lg bg-black/75 p-1 text-white transition-colors hover:bg-black"
       type="button"
       onClick={onClick}
     >
-      <div className="relative h-2 w-2">
-        <Image fill src="/icons/icon-delete-btn.svg" alt="닫기" />
-      </div>
+      <FaXmark />
     </button>
   );
 }
