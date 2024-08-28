@@ -43,7 +43,7 @@ function ActivityCard({
           <p>{rating.toFixed(1)}</p>
           <p className="text-gray-400">({reviewCount})</p>
         </div>
-        <h3 className="truncate text-lg font-bold">{title}</h3>
+        <h3 className="line-clamp-1 text-lg font-bold">{title}</h3>
         <p className="text-md font-medium text-gray-500">
           <strong className="font-bold text-black">₩ {price.toLocaleString()}</strong> / 인
         </p>
