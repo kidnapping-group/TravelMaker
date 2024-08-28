@@ -27,7 +27,9 @@ function Notification() {
 
       const currentNotification = response.totalCount.toString();
       const prevNotification = localStorage.getItem("prevNotification");
-      setHasNewNotifications(currentNotification !== prevNotification);
+      if (prevNotification) {
+        setHasNewNotifications(currentNotification !== prevNotification);
+      }
     };
 
     NotificationData();
