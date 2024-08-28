@@ -3,6 +3,7 @@
 import OauthAPI from "@/apis/OauthAPI";
 import userAPI from "@/apis/usersAPI";
 import axios from "axios";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
@@ -12,26 +13,29 @@ export default function GoogleRedirect() {
   const domain = `${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   // Google OAuth 토큰 가져오기
-  const getGoogleToken = useCallback(async (code: string) => {
-    const url = "https://oauth2.googleapis.com/token";
+  const getGoogleToken = useCallback(
+    async (code: string) => {
+      const url = "https://oauth2.googleapis.com/token";
 
-    const body = new URLSearchParams({
-      grant_type: "authorization_code",
-      client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
-      client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || "",
-      redirect_uri: domain || "",
-      code,
-      scope: "openid https://www.googleapis.com/auth/userinfo.profile",
-    });
+      const body = new URLSearchParams({
+        grant_type: "authorization_code",
+        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+        client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || "",
+        redirect_uri: domain || "",
+        code,
+        scope: "openid https://www.googleapis.com/auth/userinfo.profile",
+      });
 
-    const { data } = await axios.post(url, body.toString(), {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
-      },
-    });
+      const { data } = await axios.post(url, body.toString(), {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      });
 
-    return { token: data.id_token, accessToken: data.access_token };
-  }, []);
+      return { token: data.id_token, accessToken: data.access_token };
+    },
+    [domain],
+  );
 
   // Google 유저 데이터 가져오기
   const getGoogleUserData = useCallback(async (accessToken: string) => {
@@ -108,14 +112,25 @@ export default function GoogleRedirect() {
         }
       }
     }
-  }, [getGoogleToken, router]);
+  }, [getGoogleUserData, getGoogleToken, router]);
 
   useEffect(() => {
     handleGoogleRedirect();
   }, [handleGoogleRedirect]);
 
   if (isLoading) {
-    return <div>소셜 로그인 중입니다!</div>;
+    return (
+      <div className="flex h-[100vh] w-full flex-col items-center justify-center">
+        <Image
+          src="/images/google.png"
+          width={400}
+          height={400}
+          alt="구글 로고"
+          className="animate-[spin_2s_linear_infinite]"
+        />
+        <p className="text-[40px]">구글 로그인 중...</p>
+      </div>
+    );
   }
 
   return null;

@@ -59,7 +59,8 @@ function MyReservations() {
 
       {hasReservations ? (
         <div className="h-full pb-20">
-          <div className="h-full overflow-y-auto" onScroll={handleScroll}>
+          <div className="flex h-full flex-col gap-[24px] overflow-y-auto" onScroll={handleScroll}>
+            `
             {data?.pages.map(page => (
               <div className="flex flex-col gap-[24px]" key={page.cursorId}>
                 {page.reservations.map(reservation => (
