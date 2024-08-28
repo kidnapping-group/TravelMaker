@@ -1,5 +1,6 @@
 "use client";
 
+import { postActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
 import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
 import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
@@ -8,6 +9,7 @@ import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
 import { Button } from "@/components/Button";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -36,6 +38,18 @@ export default function Add() {
   const [subImageUrls, setSubImageUrls] = useState<string[]>([]);
 
   const router = useRouter();
+  const queryClient = useQueryClient();
+
+  const addActivityMutation = useMutation({
+    mutationFn: (formData: postActivities) => activitiesAPI.post(formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["activities"] });
+      openPopup("success");
+    },
+    onError: () => {
+      openPopup("fail");
+    },
+  });
 
   const handleScheduleChange = (field: string, value: Date | null) => {
     setCurrentSchedule(prev => ({
@@ -99,7 +113,7 @@ export default function Add() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const formData = {
+    const formData: postActivities = {
       title,
       category: selectedCategory,
       description,
@@ -113,12 +127,7 @@ export default function Add() {
       bannerImageUrl,
       subImageUrls,
     };
-    try {
-      await activitiesAPI.post(formData);
-      openPopup("success");
-    } catch (error) {
-      openPopup("fail");
-    }
+    addActivityMutation.mutate(formData);
   };
 
   const isSubmitDisabled: boolean =

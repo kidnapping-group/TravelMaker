@@ -1,5 +1,6 @@
 "use client";
 
+import { patchMyActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
@@ -9,6 +10,7 @@ import ImageInput from "@/app/(user)/myactivities/edit/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/edit/_components/SubImagesInput";
 import { Button } from "@/components/Button";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -39,7 +41,19 @@ export default function Edit({ activityId }: { activityId: number }) {
   const [subImageIdsToRemove, setSubImageIdsToRemove] = useState<number[]>([]);
   const [scheduleIdsToRemove, setScheduleIdsToRemove] = useState<number[]>([]);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
+  const updateActivityMutation = useMutation({
+    mutationFn: (formData: patchMyActivities) =>
+      myActivitiesAPI.patch(Number(activityId), formData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["activities"] });
+      openPopup("success");
+    },
+    onError: () => {
+      openPopup("fail");
+    },
+  });
   useEffect(() => {
     const fetchActivityData = async () => {
       try {
@@ -155,12 +169,7 @@ export default function Edit({ activityId }: { activityId: number }) {
       scheduleIdsToRemove,
       schedulesToAdd,
     };
-    try {
-      await myActivitiesAPI.patch(Number(activityId), formData);
-      openPopup("success");
-    } catch (error) {
-      openPopup("fail");
-    }
+    updateActivityMutation.mutate(formData);
   };
 
   const isSubmitDisabled: boolean =
