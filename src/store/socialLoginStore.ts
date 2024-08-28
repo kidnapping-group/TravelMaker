@@ -15,6 +15,7 @@ interface SocialLoginStoreType extends UserInfo {
   socialLogin: (userInfo: UserInfo) => void;
   commonLogin: (userInfo: UserInfo) => void;
   updateKakaoProfile: (nickname: string) => void;
+  updateProfileImageUrl: (profileImageUrl: string) => void;
   logout: () => void;
 }
 
@@ -48,6 +49,12 @@ const socialLoginStore = create<SocialLoginStoreType>()(
         set(state => ({
           ...state,
           nickname,
+        })),
+
+      updateProfileImageUrl: (profileImageUrl: string) =>
+        set(state => ({
+          ...state,
+          profileImageUrl,
         })),
 
       logout: () => set(initialState),
