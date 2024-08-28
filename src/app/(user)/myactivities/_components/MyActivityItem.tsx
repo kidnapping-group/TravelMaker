@@ -64,7 +64,7 @@ function MyActivityItem({ activity }: { activity: Activities }) {
       </div>
       <Popup
         id="cancel"
-        text="예약을 취소하시겠어요?"
+        text="소중한 체험을 삭제하시겠습니까?"
         leftButton="아니요"
         onChangeLeftButton={() => closePopup("cancel")}
         rightButton="네"

@@ -128,11 +128,11 @@ function MyReservationItem({
         </div>
         <Popup
           id={`cancel-${reservationState.id}`}
-          text="예약을 취소하겠어요?"
-          leftButton="취소하기"
-          onChangeLeftButton={handleCancelReservation}
-          rightButton="아니요"
-          onChangeRightButton={() => closePopup(`cancel-${reservationState.id}`)}
+          text="예약을 취소 하시겠습니까?"
+          leftButton="아니요"
+          onChangeLeftButton={() => closePopup(`cancel-${reservationState.id}`)}
+          rightButton="취소하기"
+          onChangeRightButton={handleCancelReservation}
         />
       </div>
     </div>
