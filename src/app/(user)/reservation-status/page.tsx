@@ -1,6 +1,7 @@
 import ReservationStatus from "@/app/(user)/reservation-status/_components/ReservationStatus";
 import { getMyActivities } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "예약 현황",
@@ -14,9 +15,11 @@ export const metadata = {
 
 async function ReservationStatusPage() {
   const queryClient = new QueryClient();
+  const accessToken = cookies().get("accessToken");
 
-  await queryClient.prefetchQuery(getMyActivities);
-
+  if (accessToken) {
+    await queryClient.prefetchQuery(getMyActivities);
+  }
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <ReservationStatus />

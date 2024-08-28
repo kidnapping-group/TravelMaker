@@ -1,6 +1,4 @@
 import Navigation from "@/app/(user)/_components/Navigation";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 import Header from "../_components/Header";
 
@@ -9,11 +7,6 @@ function UserRootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const accessToken = cookies().get("accessToken");
-
-  if (!accessToken) {
-    redirect("/signin");
-  }
   return (
     <>
       <Header />
