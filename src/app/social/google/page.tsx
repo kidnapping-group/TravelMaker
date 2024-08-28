@@ -88,7 +88,7 @@ export default function GoogleRedirect() {
           if (patchImg) {
             updateProfileImageUrl(profileImageUrl);
             setIsLoading(false);
-            router.push("/");
+            router.push("/", { scroll: true });
           }
         }
       } catch (error) {
@@ -109,7 +109,7 @@ export default function GoogleRedirect() {
             if (patchData) {
               updateProfileImageUrl(profileImageUrl);
               setIsLoading(false);
-              router.push("/");
+              router.push("/", { scroll: true });
             }
           }
         }

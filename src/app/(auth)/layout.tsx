@@ -12,7 +12,7 @@ function AuthRootLayout({
   return (
     <div className="relative min-h-screen w-full bg-gray-100">
       <div className="mx-auto flex h-full w-full max-w-[640px] flex-col items-center gap-12 px-2 py-10">
-        <Link href="/">
+        <Link href="/" scroll>
           <Image src="/images/logo_big.png" width={450} height={192} alt="메인로고" />
         </Link>
         {children}
