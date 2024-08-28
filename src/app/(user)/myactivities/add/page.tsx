@@ -8,7 +8,7 @@ import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
 import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
 import { Button } from "@/components/Button";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
-import { setHours, setMinutes } from "date-fns";
+import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
@@ -150,7 +150,10 @@ export default function Add() {
           />
           <p className="text-xl font-bold">카테고리</p>
           <div className="mb-8 mt-2.5">
-            <CategoryDropdown setSelectedCategory={setSelectedCategory} />
+            <CategoryDropdown
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
           </div>
 
           <AddInput
@@ -206,7 +209,7 @@ export default function Add() {
                 minTime={
                   currentSchedule.date.toDateString() === now.toDateString()
                     ? now
-                    : setHours(setMinutes(new Date(), 0), 0)
+                    : setHours(setMinutes(setSeconds(new Date(), 0), 0), 0)
                 }
                 maxTime={
                   currentSchedule.endTime || setHours(setMinutes(currentSchedule.date, 0), 23)
