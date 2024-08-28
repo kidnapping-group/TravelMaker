@@ -28,12 +28,10 @@ function Images() {
   const imageCount = Math.min(subImages.length, 4);
   const hasSubImages = subImages.length > 0;
 
-  const mainImageClasses = hasSubImages
-    ? "w-[595px] tablet:w-[345px] pc:w-[595px]"
-    : "w-full tablet:w-full pc:w-full";
+  const mainImageClasses = hasSubImages ? "w-[595px] tablet:w-[345px] pc:w-[595px]" : "w-full";
 
   return (
-    <div className="-mx-6 flex w-full justify-center tablet:mx-auto tablet:justify-normal tablet:gap-1 pc:gap-2">
+    <div className="flex w-full justify-center tablet:mx-auto tablet:max-w-[689px] tablet:justify-normal tablet:gap-1 pc:max-w-full pc:gap-2">
       <div className={`relative h-[310px] ${mainImageClasses} pc:h-[534px]`}>
         <Image
           src={errorImage.src || totalImages[imageIndex]}
