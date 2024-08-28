@@ -9,8 +9,8 @@ const authAPI = {
   login: async (body: Login) => {
     const { data } = await axiosInstance.post<LoginRes>("/auth/login", body);
     const { accessToken, refreshToken } = data;
-    Cookies.set("accessToken", accessToken);
-    Cookies.set("refreshToken", refreshToken);
+    Cookies.set("accessToken", accessToken, { secure: true, sameSite: "Strict" });
+    Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "Strict" });
     const response = await userAPI.getUsers();
     socialLoginStore.getState().commonLogin({
       id: response.id,
