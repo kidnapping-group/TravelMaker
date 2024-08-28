@@ -25,13 +25,13 @@ function MyActivityItem({ activity }: { activity: Activities }) {
   return (
     <div className="relative">
       <div className="mx-auto flex h-32 w-full rounded-[24px] bg-white shadow-lg tablet:h-[156px] pc:h-[204px]">
-        <div className="relative aspect-square h-32 w-32 tablet:h-[156px] tablet:w-[156px] pc:h-[204px] pc:w-[204px]">
+        <div className="relative aspect-square h-32 w-32 overflow-hidden rounded-l-[24px] tablet:h-[156px] tablet:w-[156px] pc:h-[204px] pc:w-[204px]">
           <Link href={`/${activity.id}`}>
             <Image
               src={activity.bannerImageUrl}
               fill
               alt="배너 이미지"
-              className="rounded-l-[24px] object-cover hover:scale-110"
+              className="rounded-l-[24px] object-cover transition hover:scale-110"
             />
           </Link>
         </div>

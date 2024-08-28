@@ -47,7 +47,7 @@ function DropdownMenu({ activityId }: { activityId: string }) {
           <div className="absolute right-0 mt-2 w-40 rounded-md border-[#DDDDDD] bg-white text-2lg font-medium shadow-lg">
             <div>
               <Link
-                href="myactivities/add"
+                href={`myactivities/edit/${activityId}`}
                 className="block w-full py-3 text-center text-gray-700 hover:bg-gray-100"
               >
                 수정하기

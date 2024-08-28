@@ -48,7 +48,11 @@ function UserPopover() {
       </PopoverTrigger>
 
       <PopoverContent>
-        <PopoverItem onClick={() => push("/account")}>마이 페이지</PopoverItem>
+        <PopoverItem onClick={() => push("/account")}>내 정보</PopoverItem>
+        <PopoverItem onClick={() => push("/reservations")}>예약 내역</PopoverItem>
+        <PopoverItem onClick={() => push("/myactivities")}>내 체험 관리</PopoverItem>
+        <PopoverItem onClick={() => push("/reservation-status")}>예약 현황</PopoverItem>
+        <hr className="m-1 border-gray-200" />
         <PopoverItem onClick={handleLogout}>로그아웃</PopoverItem>
       </PopoverContent>
     </Popover>

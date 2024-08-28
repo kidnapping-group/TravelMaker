@@ -2,6 +2,16 @@ import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import MyActivities from "@/app/(user)/myactivities/_components/MyActivities";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 
+export const metadata = {
+  title: "내 체험 현황",
+  description: "내 체험을 확인하고 관리하세요.",
+  openGraph: {
+    title: "내 체험 현황",
+    description: "내 체험을 확인하고 관리하세요.",
+    url: "https://travel-kidnap-maker.vercel.app/myactivities",
+  },
+};
+
 async function MyActivitiesPage() {
   const queryClient = new QueryClient();
   await [
