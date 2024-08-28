@@ -37,8 +37,10 @@ async function SearchPage({ searchParams }: SearchPageProps) {
           {keyword ? `‘${keyword}’` : "전체"} 검색 결과 {totalCount}개
         </h2>
 
-        <div className="flex items-center justify-between">
-          <TabList paramName="category" paramValues={TAB_LIST} />
+        <div className="flex items-center justify-between gap-2">
+          <div className="grow">
+            <TabList paramName="category" paramValues={TAB_LIST} />
+          </div>
           <SortDropdown />
         </div>
 

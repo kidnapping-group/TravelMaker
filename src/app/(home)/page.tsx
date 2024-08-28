@@ -2,11 +2,12 @@ import ActivitySection from "@/app/(home)/_components/ActivitySection";
 import Banner from "@/app/(home)/_components/Banner";
 import BigActivitySection from "@/app/(home)/_components/BigActivitySection";
 import SearchForm from "@/app/(home)/_components/SearchForm";
+import LoadingSpinner from "@/utils/LoadingSpinnter";
 import { Suspense } from "react";
 
 function Home() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSpinner />}>
       <main className="flex flex-col items-center">
         <div className="relative flex w-full">
           <Banner />

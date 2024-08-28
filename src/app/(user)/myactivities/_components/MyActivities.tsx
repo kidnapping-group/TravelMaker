@@ -3,6 +3,7 @@
 import { getActivitiesRes } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import { LinkButton } from "@/components/Button";
+import LoadingSpinner from "@/utils/LoadingSpinnter";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
@@ -34,18 +35,7 @@ function MyActivities() {
 
   const hasActivities = data?.pages.some(page => page.activities.length > 0);
 
-  if (isLoading)
-    return (
-      <div className="flex flex-col items-center gap-[100px] pt-[200px] text-3xl font-bold">
-        <Image
-          width={450}
-          height={450}
-          src="/images/spinner.png"
-          alt="spinner"
-          className="animate-[spin_1500ms_linear_infinite]"
-        />
-      </div>
-    );
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
     <div className="relative h-[100vh] w-full max-w-[806px] px-4 pb-[140px]">

@@ -3,6 +3,16 @@ import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query
 
 import MyReservations from "./_components/MyReservations";
 
+export const metadata = {
+  title: "예약 내역",
+  description: "내가 예약한 체험을 확인하세요.",
+  openGraph: {
+    title: "예약 내역",
+    description: "내가 예약한 체험을 확인하세요.",
+    url: "https://travel-kidnap-maker.vercel.app/reservations",
+  },
+};
+
 async function Reservations() {
   const status = undefined;
   const queryClient = new QueryClient();
