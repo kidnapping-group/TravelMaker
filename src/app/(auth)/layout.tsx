@@ -1,13 +1,22 @@
+import { cookies, headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 function AuthRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const accessToken = cookies().get("accessToken");
+
+  if (accessToken) {
+    const referer = headers().get("referer") || "/";
+    redirect(referer);
+  }
+
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/kakao&scope=profile_nickname,profile_image`;
-  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
+  const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email%20profile&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   return (
     <div className="relative min-h-screen w-full bg-gray-100">
@@ -26,14 +35,26 @@ function AuthRootLayout({
             href={GOOGLE_AUTH_URL}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
           >
-            <Image src="/icons/icon-google.svg" width={27} height={27} alt="Google 회원가입" />
+            <Image
+              src="/icons/google.svg"
+              width={27}
+              height={27}
+              alt="Google 아이콘"
+              draggable={false}
+            />
           </Link>
 
           <Link
             href={KAKAO_AUTH_URL}
             className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-300"
           >
-            <Image src="/icons/icon-kakao.svg" width={27} height={27} alt="카카오톡 회원가입" />
+            <Image
+              src="/icons/kakao.svg"
+              width={27}
+              height={27}
+              alt="카카오톡 아이콘"
+              draggable={false}
+            />
           </Link>
         </div>
       </div>

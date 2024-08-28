@@ -39,9 +39,9 @@ async function ActivitySection({
   return (
     <section className="flex flex-col">
       <div className="flex items-center justify-between">
-        <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
+        <h2 className="py-3 text-2lg font-bold text-black tablet:text-xl">{sectionTitle}</h2>
         <Link
-          className="text-md font-semibold text-primary-500 transition hover:text-primary-300 active:text-primary-200"
+          className="text-md font-semibold text-primary-500 transition hover:text-primary-600 hover:underline hover:underline-offset-2 active:text-primary-700"
           href={`/search?${createQueryString({ category, keyword, sort })}`}
         >
           더보기
@@ -50,7 +50,7 @@ async function ActivitySection({
 
       {totalCount > 0 ? (
         <Swiper>
-          <SwiperContent>
+          <SwiperContent isPcFixed>
             {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
               <Link href={`/${id}`} key={id}>
                 <ActivityCard
@@ -64,7 +64,7 @@ async function ActivitySection({
             ))}
           </SwiperContent>
 
-          <div className="absolute top-[31%] w-full">
+          <div className="absolute top-[31%] hidden w-full pc:block">
             <SwiperPrevious />
             <SwiperNext />
           </div>

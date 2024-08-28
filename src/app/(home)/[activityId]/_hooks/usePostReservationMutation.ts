@@ -20,11 +20,9 @@ const usePostReservationMutation = (
     onSuccess: () => {
       openPopup("reservationSuccess");
     },
-    onError: () => {
-      openPopup("reservationAlready");
-    },
   });
 
   return { postReservationMutation, ...postReservationMutation };
 };
+
 export default usePostReservationMutation;

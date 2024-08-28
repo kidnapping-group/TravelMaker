@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { FaStar } from "react-icons/fa6";
 
 export default function Rating({
   currentRating,
@@ -24,17 +24,15 @@ export default function Rating({
   };
 
   return (
-    <div className="flex h-[100px] w-full items-center justify-center gap-2">
+    <div className="flex w-full items-center justify-center gap-2">
       {Array.from({ length: totalStars }, (_, index) => (
-        <Image
-          key={index}
-          src={index < rating ? "/icons/Icon_star_on.svg" : "/icons/Icon_star_off.svg"}
-          width={50}
-          height={50}
-          alt={index < rating ? "준 평점" : "안 준 평점"}
-          onClick={() => handleClick(index + 1)}
-          className="cursor-pointer"
-        />
+        <button key={index} type="button" onClick={() => handleClick(index + 1)}>
+          <FaStar
+            className="transition-colors"
+            size={48}
+            color={index < rating ? "gold" : "gray"}
+          />
+        </button>
       ))}
     </div>
   );

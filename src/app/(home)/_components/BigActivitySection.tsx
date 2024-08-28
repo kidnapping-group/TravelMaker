@@ -35,11 +35,11 @@ async function BigActivitySection({
 
   return (
     <section className="flex flex-col">
-      <h2 className="py-3 text-2lg font-bold text-black">{sectionTitle}</h2>
+      <h2 className="py-3 text-2lg font-bold text-black tablet:text-xl">{sectionTitle}</h2>
 
       {totalCount > 0 ? (
         <Swiper>
-          <SwiperContent>
+          <SwiperContent isPcFixed>
             {activities.map(({ id, bannerImageUrl, title, price, rating, reviewCount }) => (
               <Link href={`/${id}`} key={id}>
                 <BigActivityCard
@@ -53,7 +53,7 @@ async function BigActivitySection({
             ))}
           </SwiperContent>
 
-          <div className="absolute top-1/2 w-full">
+          <div className="absolute top-1/2 hidden w-full pc:block">
             <SwiperPrevious />
             <SwiperNext />
           </div>

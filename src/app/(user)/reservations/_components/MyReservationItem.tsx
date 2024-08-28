@@ -53,7 +53,7 @@ function MyReservationItem({
     if (currentTime > reservationDate && reservation.status === "pending") {
       setReservationState((prev: Reservations) => ({ ...prev, status: "closed" }));
     }
-  }, [reservationState]);
+  }, [reservation]);
 
   if (statusTitle === "마감 완료" && reservationState.status !== "closed") {
     return null;
@@ -76,7 +76,7 @@ function MyReservationItem({
               alt="액티비티 사진"
               fill
               objectFit="cover"
-              className="hover:scale-110"
+              className="transition hover:scale-110"
             />
           </Link>
         </div>
@@ -109,9 +109,14 @@ function MyReservationItem({
               </Button>
             )}
             {reservationState.status === "completed" && !reservationState.reviewSubmitted && (
-              <Button size={size} onClick={openModal}>
-                후기 작성
-              </Button>
+              <>
+                <Button size={size} onClick={openModal}>
+                  후기 작성
+                </Button>
+                <Modal title="후기 작성">
+                  <Review reservation={reservationState} />,
+                </Modal>
+              </>
             )}
             {reservationState.status === "completed" && reservationState.reviewSubmitted && (
               <div className="bg-var-gray6 text-white">후기 작성 완료</div>
@@ -126,9 +131,6 @@ function MyReservationItem({
           rightButton="아니요"
           onChangeRightButton={() => closePopup(`cancel-${reservationState.id}`)}
         />
-        <Modal title="후기 작성">
-          <Review reservation={reservationState} />,
-        </Modal>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { PopulationActions } from "@/app/(home)/[activityId]/_hooks/useActivityPopulation";
 import formatKoreanWon from "@/utils/formatKoreanWon";
-import Image from "next/image";
+import { FaMinus, FaPlus } from "react-icons/fa6";
 
 interface TotalMoneyProps {
   population: number;
@@ -16,13 +16,13 @@ function TotalMoney({ population, populationActions, price }: TotalMoneyProps) {
       <h2 className="mt-4">참여 인원</h2>
       <div className="mt-4 flex w-fit rounded-md border">
         <button type="button" onClick={populationActions.decreasePopulation} className="p-[10px]">
-          <Image src="icons/icon-minus.svg" alt="빼기" width={20} height={20} />
+          <FaMinus />
         </button>
         <button type="button" className="flex h-10 w-10 items-center justify-center text-gray-700">
           {population}
         </button>
         <button type="button" onClick={populationActions.increasePopulation} className="p-[10px]">
-          <Image src="icons/icon-add.svg" alt="더하기" width={20} height={20} />
+          <FaPlus />
         </button>
       </div>
       <div className="mt-4 border-t" />

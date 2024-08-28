@@ -15,7 +15,7 @@ function ContextMenu({
   const queryClient = useQueryClient();
 
   const handleClickEdit = () => {
-    router.push(`/myactivity/edit/${activityId}`);
+    router.push(`/myactivities/edit/${activityId}`);
   };
 
   const handleClickDelete = async () => {

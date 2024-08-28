@@ -1,3 +1,4 @@
+import activitiesAPI from "@/apis/activitiesAPI";
 import Contents from "@/app/(home)/[activityId]/_components/Contents";
 import Header from "@/app/(home)/[activityId]/_components/Header";
 import Images from "@/app/(home)/[activityId]/_components/Images";
@@ -6,8 +7,36 @@ import ReservationModal from "@/app/(home)/[activityId]/_components/ReservationM
 import ReservationSteps from "@/app/(home)/[activityId]/_components/ReservationSteps";
 import Review from "@/app/(home)/[activityId]/_components/Review";
 import { ActivityIdProvider } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
+import { Metadata } from "next";
+
+type Props = {
+  params: { activityId: string };
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const activityId = Number(params.activityId);
+  const { title, description, bannerImageUrl } = await activitiesAPI.getInfo(activityId);
+
+  const fullTitle = `${title} - Travel Maker`;
+
+  return {
+    title: fullTitle,
+    description,
+    openGraph: {
+      title: fullTitle,
+      description,
+      images: [bannerImageUrl],
+    },
+  };
+}
 
 function ActivityId({ params: { activityId } }: { params: { activityId: string } }) {
+  const id = Number(activityId);
+
+  if (!id) {
+    throw new Error("페이지가 존재하지 않습니다.");
+  }
+
   return (
     <div className="bg-primary-50">
       <ActivityIdProvider activityId={activityId}>

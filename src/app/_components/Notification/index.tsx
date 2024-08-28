@@ -4,8 +4,8 @@ import { getNotificationsRes } from "@/apis/API.type";
 import myNotificationsAPI from "@/apis/myNotificationsAPI";
 import AlertItem from "@/app/_components/Notification/AlertItem";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { FaBell, FaBellSlash } from "react-icons/fa";
 
 function Notification() {
   const { isMobile } = useMediaQuery();
@@ -77,17 +77,11 @@ function Notification() {
   return (
     <div className="relative flex">
       <button
-        className="rounded-lg p-1 transition hover:opacity-60 tablet:hover:bg-gray-100 tablet:hover:opacity-100 tablet:active:bg-gray-200"
+        className="flex h-9 w-9 items-center justify-center rounded-lg transition hover:opacity-60 tablet:hover:bg-gray-100 tablet:hover:opacity-100 tablet:active:bg-gray-200"
         type="button"
         onClick={toggleNotification}
       >
-        <Image
-          src="/icons/Icon-notification.svg"
-          width={24}
-          height={24}
-          alt="알람"
-          draggable={false}
-        />
+        <FaBell size={20} className="text-gray-700" />
         {hasNewNotifications && (
           <div className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500" />
         )}
@@ -121,15 +115,9 @@ function Notification() {
                 />
               ))
             ) : (
-              <div className="flex h-full flex-col items-center justify-center gap-3 py-5">
-                <Image
-                  src="/icons/icon-exist-notification.svg"
-                  width={40}
-                  height={40}
-                  draggable={false}
-                  alt="꺼진 알람 아이콘"
-                />
-                <p className="text-lg font-medium text-gray-400">모든 알림을 확인했습니다.</p>
+              <div className="flex h-full flex-col items-center justify-center gap-5 py-5 text-gray-400">
+                <FaBellSlash size={40} />
+                <p className="text-lg font-medium">모든 알림을 확인했습니다.</p>
               </div>
             )}
           </div>
