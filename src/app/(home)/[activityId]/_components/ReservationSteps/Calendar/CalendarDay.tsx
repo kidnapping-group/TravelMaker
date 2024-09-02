@@ -1,4 +1,3 @@
-import useControlPopup from "@/app/(home)/[activityId]/_hooks/useControlPopup";
 import { getDateClasses } from "@/app/(home)/[activityId]/_utils/createCalendar";
 
 interface CalendarDayProps {
@@ -18,13 +17,11 @@ function CalendarDay({
   isSelected,
   setSelectedDate,
 }: CalendarDayProps) {
-  const { isReservation } = useControlPopup();
-
   return (
     <button
       type="button"
       disabled={!hasReservation}
-      className={getDateClasses(isCurrentMonth, hasReservation, isSelected, isReservation)}
+      className={getDateClasses(isCurrentMonth, hasReservation, isSelected)}
       onClick={() => setSelectedDate(formattedDate, hasReservation)}
     >
       {date.getDate()}

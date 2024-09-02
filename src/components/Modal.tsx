@@ -1,17 +1,25 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { FaXmark } from "react-icons/fa6";
 
-interface ModalProps extends React.PropsWithChildren {
+interface ModalProps {
+  id: string;
   title: string;
+  children: React.ReactNode;
 }
 
-let modalToggle: React.Dispatch<React.SetStateAction<boolean>> | null = null;
+const modalControls: { [key: string]: (isOpen: boolean) => void } = {};
 
-function Modal({ children, title }: ModalProps) {
+function Modal({ id, title, children }: ModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  modalToggle = setIsOpen;
+  const controlRef = useRef((open: boolean) => setIsOpen(open));
+
+  useEffect(() => {
+    modalControls[id] = controlRef.current;
+    return () => {
+      delete modalControls[id];
+    };
+  }, [id]);
 
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -33,7 +41,7 @@ function Modal({ children, title }: ModalProps) {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-20 flex items-center justify-center bg-black bg-opacity-70">
       <div className="h-full w-full bg-white shadow-lg tablet:h-auto tablet:w-[460px] tablet:rounded-lg">
         <div className="flex items-center justify-between p-4 tablet:p-6">
@@ -48,11 +56,17 @@ function Modal({ children, title }: ModalProps) {
         </div>
         <div>{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
-export const openModal = () => modalToggle?.(true);
-export const closeModal = () => modalToggle?.(false);
+export const openModal = (id: string) => {
+  modalControls[id]?.(true);
+};
+
+export const closeModal = (id: string) => {
+  modalControls[id]?.(false);
+};
 
 export default Modal;

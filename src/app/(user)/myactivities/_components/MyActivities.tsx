@@ -38,32 +38,31 @@ function MyActivities() {
   if (isLoading) return <LoadingSpinner />;
   if (error) return <div>에러가 발생했습니다.</div>;
   return (
-    <div className="relative h-[100vh] w-full max-w-[806px] px-4 pb-[140px]">
-      <div className="relative z-10 flex w-full max-w-[800px] items-start justify-between bg-gray-100 pb-4 pt-2">
-        <h1 className="text-3xl font-bold">내 체험 관리</h1>
-        <LinkButton href="/myactivities/add" variant="default" size="medium">
+    <>
+      <div className="mb-5 flex w-full items-start justify-between">
+        <h1 className="text-2xl font-bold">내 체험 관리</h1>
+        <LinkButton href="/myactivities/add" size="medium">
           체험 등록하기
         </LinkButton>
       </div>
+
       {hasActivities ? (
-        <div className="h-full pb-20">
-          <div className="h-full overflow-y-auto" onScroll={handleScroll}>
-            {data?.pages.map(page => (
-              <div key={page.cursorId} className="flex flex-col gap-[24px]">
-                {page.activities.map(activity => (
-                  <MyActivityItem key={activity.id} activity={activity} />
-                ))}
-              </div>
-            ))}
-          </div>
+        <div onScroll={handleScroll}>
+          {data?.pages.map(page => (
+            <div key={page.cursorId} className="flex flex-col gap-[24px]">
+              {page.activities.map(activity => (
+                <MyActivityItem key={activity.id} activity={activity} />
+              ))}
+            </div>
+          ))}
         </div>
       ) : (
-        <div className="flex h-full flex-col items-center justify-center tablet:w-[800px]">
+        <div className="flex h-full w-full flex-col items-center justify-center">
           <Image src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
-          <p className="text-2xl font-medium text-gray-500">아직 등록한 체험이 없어요</p>
+          <p className="text-xl font-medium text-gray-500">아직 등록한 체험이 없어요</p>
         </div>
       )}
-    </div>
+    </>
   );
 }
 

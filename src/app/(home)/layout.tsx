@@ -7,11 +7,11 @@ function HomeRootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <>
       <Header />
-      {children}
+      <main className="mb-[100px] mt-[60px] flex flex-col items-center">{children}</main>
       <Footer />
-    </div>
+    </>
   );
 }
 

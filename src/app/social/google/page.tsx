@@ -2,6 +2,7 @@
 
 import OauthAPI from "@/apis/OauthAPI";
 import userAPI from "@/apis/usersAPI";
+import socialLoginStore from "@/store/socialLoginStore";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -11,7 +12,7 @@ export default function GoogleRedirect() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const domain = `${process.env.NEXT_PUBLIC_URL}/social/google`;
-
+  const { updateProfileImageUrl } = socialLoginStore();
   // Google OAuth 토큰 가져오기
   const getGoogleToken = useCallback(
     async (code: string) => {
@@ -85,8 +86,9 @@ export default function GoogleRedirect() {
             profileImageUrl,
           });
           if (patchImg) {
+            updateProfileImageUrl(profileImageUrl);
             setIsLoading(false);
-            router.push("/");
+            router.push("/", { scroll: true });
           }
         }
       } catch (error) {
@@ -105,14 +107,15 @@ export default function GoogleRedirect() {
               profileImageUrl,
             });
             if (patchData) {
+              updateProfileImageUrl(profileImageUrl);
               setIsLoading(false);
-              router.push("/");
+              router.push("/", { scroll: true });
             }
           }
         }
       }
     }
-  }, [getGoogleUserData, getGoogleToken, router]);
+  }, [getGoogleUserData, getGoogleToken, router, updateProfileImageUrl]);
 
   useEffect(() => {
     handleGoogleRedirect();

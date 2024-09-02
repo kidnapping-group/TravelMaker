@@ -27,18 +27,18 @@ async function SearchPage({ searchParams }: SearchPageProps) {
   });
 
   return (
-    <main className="flex flex-col items-center px-5 pc:px-10">
-      <section className="w-full max-w-[1200px] py-5">
+    <>
+      <section className="w-full max-w-[1280px] px-5 py-5 tablet:px-10">
         <SearchForm placeholder="내가 원하는 체험은" />
       </section>
 
-      <section className="flex w-full max-w-[1200px] flex-col gap-3 pb-[100px]">
+      <section className="flex w-full max-w-[1280px] flex-col gap-3 px-5 tablet:px-10">
         <h2 className="text-xl font-bold">
           {keyword ? `‘${keyword}’` : "전체"} 검색 결과 {totalCount}개
         </h2>
 
-        <div className="flex items-center justify-between gap-2">
-          <div className="grow">
+        <div className="flex w-full items-center justify-between gap-2">
+          <div className="min-w-0 grow">
             <TabList paramName="category" paramValues={TAB_LIST} />
           </div>
           <SortDropdown />
@@ -55,7 +55,7 @@ async function SearchPage({ searchParams }: SearchPageProps) {
           </div>
         )}
       </section>
-    </main>
+    </>
   );
 }
 

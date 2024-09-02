@@ -1,27 +1,18 @@
-import { cookies, headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 function AuthRootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const accessToken = cookies().get("accessToken");
-
-  if (accessToken) {
-    const referer = headers().get("referer") || "/";
-    redirect(referer);
-  }
-
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/kakao&scope=profile_nickname,profile_image`;
   const GOOGLE_AUTH_URL = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&scope=openid%20email%20profile&client_id=${process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.NEXT_PUBLIC_URL}/social/google`;
 
   return (
     <div className="relative min-h-screen w-full bg-gray-100">
       <div className="mx-auto flex h-full w-full max-w-[640px] flex-col items-center gap-12 px-2 py-10">
-        <Link href="/">
+        <Link href="/" scroll>
           <Image src="/images/logo_big.png" width={450} height={192} alt="메인로고" />
         </Link>
         {children}

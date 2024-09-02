@@ -27,7 +27,9 @@ function Notification() {
 
       const currentNotification = response.totalCount.toString();
       const prevNotification = localStorage.getItem("prevNotification");
-      setHasNewNotifications(currentNotification !== prevNotification);
+      if (prevNotification) {
+        setHasNewNotifications(currentNotification !== prevNotification);
+      }
     };
 
     NotificationData();
@@ -43,13 +45,13 @@ function Notification() {
     };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("click", handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("click", handleClickOutside);
     };
   }, [isOpen, data.totalCount]);
 

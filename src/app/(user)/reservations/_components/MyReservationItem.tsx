@@ -5,6 +5,7 @@ import myReservationAPI from "@/apis/myReservationAPI";
 import { Button } from "@/components/Button";
 import Modal, { openModal } from "@/components/Modal";
 import Popup, { closePopup, openPopup } from "@/components/Popup";
+import useImageError from "@/hooks/useImageError";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +20,7 @@ function MyReservationItem({
   reservation: Reservations;
   statusTitle: string;
 }) {
+  const [errorImage] = useImageError(["/images/noImage.png"]);
   const { isMobile, isTablet, isPc } = useMediaQuery();
   const [reservationState, setReservationState] = useState(reservation);
 
@@ -65,18 +67,19 @@ function MyReservationItem({
 
   return (
     <div className="relative">
-      <div className="relative flex h-32 overflow-hidden rounded-3xl bg-white tablet:h-[156px] pc:h-[204px]">
+      <div className="flex h-32 overflow-hidden rounded-lg bg-white shadow-[0_6px_20px_rgba(0,0,0,0.15)] tablet:h-[150px] pc:h-[200px]">
         <div className="relative h-32 w-32 overflow-hidden tablet:h-[156px] tablet:min-w-[156px] pc:h-[204px] pc:w-[204px]">
           <Link
             href={`/${reservation.activity.id}`}
             className="mt-[8px] text-[20px] font-bold hover:underline"
           >
             <Image
-              src={reservation.activity.bannerImageUrl}
+              src={errorImage.src || reservation.activity.bannerImageUrl}
               alt="액티비티 사진"
               fill
               objectFit="cover"
               className="transition hover:scale-110"
+              onError={errorImage.onError}
             />
           </Link>
         </div>
@@ -110,10 +113,10 @@ function MyReservationItem({
             )}
             {reservationState.status === "completed" && !reservationState.reviewSubmitted && (
               <>
-                <Button size={size} onClick={openModal}>
+                <Button size={size} onClick={() => openModal(`writeReview-${reservationState.id}`)}>
                   후기 작성
                 </Button>
-                <Modal title="후기 작성">
+                <Modal title="후기 작성" id={`writeReview-${reservationState.id}`}>
                   <Review reservation={reservationState} />,
                 </Modal>
               </>
@@ -125,11 +128,11 @@ function MyReservationItem({
         </div>
         <Popup
           id={`cancel-${reservationState.id}`}
-          text="예약을 취소하겠어요?"
-          leftButton="취소하기"
-          onChangeLeftButton={handleCancelReservation}
-          rightButton="아니요"
-          onChangeRightButton={() => closePopup(`cancel-${reservationState.id}`)}
+          text="예약을 취소 하시겠습니까?"
+          leftButton="아니요"
+          onChangeLeftButton={() => closePopup(`cancel-${reservationState.id}`)}
+          rightButton="취소하기"
+          onChangeRightButton={handleCancelReservation}
         />
       </div>
     </div>

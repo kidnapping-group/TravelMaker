@@ -9,10 +9,10 @@ function ExistActivity({ activities }: { activities: Activities[] }) {
   const [selectedId, setSelectedId] = useState(activities[0].id);
 
   return (
-    <div>
+    <>
       <MyActivitiesDropdown activities={activities} setSelectedId={setSelectedId} />
       <Calendar selectedId={selectedId} />
-    </div>
+    </>
   );
 }
 

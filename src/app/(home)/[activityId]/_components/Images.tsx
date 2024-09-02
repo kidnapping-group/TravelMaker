@@ -29,10 +29,12 @@ function Images() {
   const imageCount = Math.min(subImages.length, 4);
   const hasSubImages = subImages.length > 0;
 
-  const mainImageClasses = hasSubImages ? "w-[595px] tablet:w-[345px] pc:w-[595px]" : "w-full";
+  const mainImageClasses = hasSubImages
+    ? "max-w-[595px] w-screen tablet:w-[345px] pc:w-[595px]"
+    : "w-screen";
 
   return (
-    <div className="flex w-full justify-center tablet:mx-auto tablet:max-w-[689px] tablet:justify-normal tablet:gap-1 pc:max-w-full pc:gap-2">
+    <div className="-mx-6 flex justify-center tablet:mx-[0.5px] tablet:justify-normal tablet:gap-1 pc:gap-2">
       <div className={`relative h-[310px] ${mainImageClasses} pc:h-[534px]`}>
         <Image
           src={errorImage.src || totalImages[imageIndex]}
@@ -59,7 +61,7 @@ function Images() {
         </button>
       </div>
       {hasSubImages && (
-        <div className={`${showImage[imageCount]} h-[304px] w-[340px] pc:h-[528px] pc:w-[588px]`}>
+        <div className={`${showImage[imageCount]} h-[310px] w-[345px] pc:h-[534px] pc:w-[595px]`}>
           {subImages.map((item, index) => (
             <div key={item.id} className={`relative ${getImageLayout(imageCount, index)}`}>
               <Image
