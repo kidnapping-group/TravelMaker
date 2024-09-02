@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { NextButton, PreviousButton } from "./Button";
 import Content from "./Content";
-import { SwiperContext } from "./Context";
+import { SwiperContext } from "./context";
 
 type SwiperApi = UseEmblaCarouselType[1];
 

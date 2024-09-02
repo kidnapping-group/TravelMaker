@@ -1,21 +1,24 @@
 "use client";
 
-import { postActivities } from "@/apis/API.type";
-import activitiesAPI from "@/apis/activitiesAPI";
-import AddInput from "@/app/(user)/myactivities/add/_components/AddInput";
-import AddressAutoComplete from "@/app/(user)/myactivities/add/_components/AddressAutoComplete";
-import CategoryDropdown from "@/app/(user)/myactivities/add/_components/CategoryDropdown";
-import ImageInput from "@/app/(user)/myactivities/add/_components/ImageInput";
-import NumberInput from "@/app/(user)/myactivities/add/_components/NumberInput";
-import SubImagesInput from "@/app/(user)/myactivities/add/_components/SubImagesInput";
-import { Button } from "@/components/Button";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import { postActivities } from "@/apis/API.type";
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import { Button } from "@/components/Button";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
+
+import AddInput from "./AddInput";
+import AddressAutoComplete from "./AddressAutoComplete";
+import CategoryDropdown from "./CategoryDropdown";
+import ImageInput from "./ImageInput";
+import NumberInput from "./NumberInput";
+import SubImagesInput from "./SubImagesInput";
 
 export default function Add() {
   const [title, setTitle] = useState("");

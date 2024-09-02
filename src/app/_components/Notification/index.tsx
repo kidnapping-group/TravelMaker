@@ -1,11 +1,14 @@
 "use client";
 
-import { getNotificationsRes } from "@/apis/API.type";
-import myNotificationsAPI from "@/apis/myNotificationsAPI";
-import AlertItem from "@/app/_components/Notification/AlertItem";
-import useMediaQuery from "@/hooks/useMediaQuery";
 import { useEffect, useRef, useState } from "react";
 import { FaBell, FaBellSlash } from "react-icons/fa";
+
+import { getNotificationsRes } from "@/apis/API.type";
+import myNotificationsAPI from "@/apis/myNotificationsAPI";
+
+import useMediaQuery from "@/hooks/useMediaQuery";
+
+import AlertItem from "./AlertItem";
 
 function Notification() {
   const { isMobile } = useMediaQuery();

@@ -1,8 +1,10 @@
 import { MyReservation, StatusCount } from "@/apis/API.type";
-import ReservationActionButton from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationActionButton";
-import ReservationStatusView from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationStatusView";
-import usePatchReservation from "@/app/(user)/reservation-status/hooks/usePatchReservationMutation";
+
 import Popup, { closePopup } from "@/components/Popup";
+
+import usePatchReservation from "../../../../../hooks/usePatchReservationMutation";
+import ReservationActionButton from "./ReservationActionButton";
+import ReservationStatusView from "./ReservationStatusView";
 
 interface ReservationItemProps {
   reservation: MyReservation;

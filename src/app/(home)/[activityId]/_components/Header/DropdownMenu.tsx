@@ -1,12 +1,14 @@
 "use client";
 
-import DropdownMenuPopup from "@/app/(home)/[activityId]/_components/Header/DropdownMenuPopup";
-import useControlDropdownMenu from "@/app/(home)/[activityId]/_hooks/useControlDropdownMenu";
-import useControlPopup from "@/app/(home)/[activityId]/_hooks/useControlPopup";
-import { openPopup } from "@/components/Popup";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaEllipsisVertical } from "react-icons/fa6";
+
+import { openPopup } from "@/components/Popup";
+
+import useControlDropdownMenu from "../../_hooks/useControlDropdownMenu";
+import useControlPopup from "../../_hooks/useControlPopup";
+import DropdownMenuPopup from "./DropdownMenuPopup";
 
 function DropdownMenu({ activityId }: { activityId: string }) {
   const router = useRouter();

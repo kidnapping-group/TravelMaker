@@ -1,14 +1,15 @@
 "use client";
 
-import Calendar from "@/app/(home)/[activityId]/_components/ReservationSteps/Calendar";
-import FreeReservationTime from "@/app/(home)/[activityId]/_components/ReservationSteps/FreeReservationTime";
-import ReservationButton from "@/app/(home)/[activityId]/_components/ReservationSteps/ReservationButton";
-import TotalMoney from "@/app/(home)/[activityId]/_components/ReservationSteps/TotalMoney";
-import { useActivityId } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
-import useActivityPopulation from "@/app/(home)/[activityId]/_hooks/useActivityPopulation";
-import useGetActivityReservationStepsViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityReservationStepsViewModel";
-import usePostReservationMutation from "@/app/(home)/[activityId]/_hooks/usePostReservationMutation";
 import { useState } from "react";
+
+import { useActivityId } from "../../_contexts/ActivityIdContext";
+import useActivityPopulation from "../../_hooks/useActivityPopulation";
+import useGetActivityReservationStepsViewModel from "../../_hooks/useGetActivityReservationStepsViewModel";
+import usePostReservationMutation from "../../_hooks/usePostReservationMutation";
+import Calendar from "./Calendar";
+import FreeReservationTime from "./FreeReservationTime";
+import ReservationButton from "./ReservationButton";
+import TotalMoney from "./TotalMoney";
 
 function ReservationSteps() {
   const { activityId } = useActivityId();

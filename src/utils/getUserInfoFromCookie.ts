@@ -1,7 +1,8 @@
 "use server";
 
-import { UserInfo } from "@/store/socialLoginStore";
 import { cookies } from "next/headers";
+
+import { UserInfo } from "@/store/socialLoginStore";
 
 export interface LoginStatus {
   state: UserInfo;

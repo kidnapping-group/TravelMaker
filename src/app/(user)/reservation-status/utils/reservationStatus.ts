@@ -1,6 +1,7 @@
+import { queryOptions } from "@tanstack/react-query";
+
 import { getMyReservation, getReservationDate, getReservationMonth } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import { queryOptions } from "@tanstack/react-query";
 
 export const queryKeys = {
   myActivities: () => ["myActivities"] as const,

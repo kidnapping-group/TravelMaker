@@ -1,8 +1,9 @@
 "use client";
 
-import useGetActivityFooterViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityFooterViewModel";
 import { Button } from "@/components/Button";
 import { openModal } from "@/components/Modal";
+
+import useGetActivityFooterViewModel from "../_hooks/useGetActivityFooterViewModel";
 
 function MobileFooter() {
   const { formattedPrice } = useGetActivityFooterViewModel();

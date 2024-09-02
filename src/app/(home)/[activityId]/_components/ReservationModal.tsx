@@ -1,8 +1,9 @@
 "use client";
 
-import ReservationSteps from "@/app/(home)/[activityId]/_components/ReservationSteps";
-import useGetActivityFooterViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityFooterViewModel";
 import Modal from "@/components/Modal";
+
+import useGetActivityFooterViewModel from "../_hooks/useGetActivityFooterViewModel";
+import ReservationSteps from "./ReservationSteps";
 
 function ReservationModal() {
   const { formattedPrice } = useGetActivityFooterViewModel();

@@ -1,5 +1,6 @@
-import { openPopup } from "@/components/Popup";
 import { useCallback, useEffect, useState } from "react";
+
+import { openPopup } from "@/components/Popup";
 
 const useErrorPopupConfig = (error: Error | null) => {
   const [errorMessage, setErrorMessage] = useState<string | null>("");

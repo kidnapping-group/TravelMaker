@@ -1,13 +1,15 @@
-import { useActivityId } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
+import formatKoreanWon from "@/utils/formatKoreanWon";
+
+import { useActivityId } from "../_contexts/ActivityIdContext";
 import {
   getActivityPrice,
   getActivityReservationTime,
   getActivitySchedules,
   getActivitySchedulesTime,
-} from "@/app/(home)/[activityId]/_utils/getActivityData";
-import { activityIdOptions } from "@/app/(home)/[activityId]/queryOptions";
-import formatKoreanWon from "@/utils/formatKoreanWon";
-import { useSuspenseQuery } from "@tanstack/react-query";
+} from "../_utils/getActivityData";
+import { activityIdOptions } from "../queryOptions";
 
 const useGetActivityReservationStepsViewModel = (
   selectedDate: string,

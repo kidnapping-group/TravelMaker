@@ -1,4 +1,4 @@
-import MyAccount from "./_component/MyAccount";
+import MyAccount from "./_components/MyAccount";
 
 export const metadata = {
   title: "내 정보",

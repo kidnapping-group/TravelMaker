@@ -2,7 +2,7 @@
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-import { useSwiper } from "./Context";
+import { useSwiper } from "./context";
 
 function PreviousButton() {
   const { scrollPrev, canScrollPrev } = useSwiper();

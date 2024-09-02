@@ -1,8 +1,9 @@
 "use client";
 
-import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
+
+import useImageError from "@/hooks/useImageError";
 
 interface BigActivityCardProps {
   wide?: boolean;

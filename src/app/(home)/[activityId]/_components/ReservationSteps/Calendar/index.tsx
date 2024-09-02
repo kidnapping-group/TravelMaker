@@ -1,9 +1,11 @@
 "use client";
 
-import { Schedules } from "@/apis/API.type";
-import CalendarDay from "@/app/(home)/[activityId]/_components/ReservationSteps/Calendar/CalendarDay";
-import { getDaysArray, monthNames } from "@/app/(home)/[activityId]/_utils/createCalendar";
 import { useState } from "react";
+
+import { Schedules } from "@/apis/API.type";
+
+import { getDaysArray, monthNames } from "../../../_utils/createCalendar";
+import CalendarDay from "./CalendarDay";
 
 interface CalendarProps {
   scheduleData: Schedules[];

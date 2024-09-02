@@ -1,12 +1,14 @@
 "use client";
 
-import OauthAPI from "@/apis/OauthAPI";
-import userAPI from "@/apis/usersAPI";
-import socialLoginStore from "@/store/socialLoginStore";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+
+import OauthAPI from "@/apis/OauthAPI";
+import userAPI from "@/apis/usersAPI";
+
+import socialLoginStore from "@/store/socialLoginStore";
 
 export default function GoogleRedirect() {
   const router = useRouter();

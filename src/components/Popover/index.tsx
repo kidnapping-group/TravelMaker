@@ -3,9 +3,9 @@
 import { useCallback, useMemo, useRef, useState } from "react";
 
 import Content from "./Content";
-import { PopoverContext } from "./Context";
 import Item from "./Item";
 import Trigger from "./Trigger";
+import { PopoverContext } from "./context";
 
 function Popover({ children }: { children: React.ReactNode }) {
   const popoverRef = useRef<HTMLDivElement>(null);

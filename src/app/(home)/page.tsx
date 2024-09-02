@@ -1,12 +1,15 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import ActivitySection from "@/app/(home)/_components/ActivitySection";
-import Banner from "@/app/(home)/_components/Banner";
-import BigActivitySection from "@/app/(home)/_components/BigActivitySection";
-import SearchForm from "@/app/(home)/_components/SearchForm";
-import activitySectionQueryKeys from "@/app/(home)/utils/activitySectionQuery";
-import LoadingSpinner from "@/utils/LoadingSpinnter";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { Suspense } from "react";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import LoadingSpinner from "@/utils/LoadingSpinnter";
+
+import ActivitySection from "./_components/ActivitySection";
+import Banner from "./_components/Banner";
+import BigActivitySection from "./_components/BigActivitySection";
+import SearchForm from "./_components/SearchForm";
+import activitySectionQueryKeys from "./utils/activitySectionQuery";
 
 async function Home() {
   const queryClient = new QueryClient();

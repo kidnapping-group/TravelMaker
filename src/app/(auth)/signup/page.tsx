@@ -1,16 +1,19 @@
 "use client";
 
-import authAPI from "@/apis/authAPI";
-import usersAPI from "@/apis/usersAPI";
-import { Button } from "@/components/Button";
-import Input from "@/components/Input/Input";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
-import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import authAPI from "@/apis/authAPI";
+import usersAPI from "@/apis/usersAPI";
+
+import { Button } from "@/components/Button";
+import Input from "@/components/Input/Input";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
+
+import baseSchema from "@/utils/schema";
 
 type SignUpFormData = z.infer<typeof baseSchema>;
 const signupSchema = baseSchema

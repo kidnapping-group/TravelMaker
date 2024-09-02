@@ -1,11 +1,13 @@
 "use client";
 
-import { ReservationRes } from "@/apis/API.type";
-import myReservationAPI from "@/apis/myReservationAPI";
-import LoadingSpinner from "@/utils/LoadingSpinnter";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useCallback, useState } from "react";
+
+import { ReservationRes } from "@/apis/API.type";
+import myReservationAPI from "@/apis/myReservationAPI";
+
+import LoadingSpinner from "@/utils/LoadingSpinnter";
 
 import MyReservationItem from "./MyReservationItem";
 import StatusDropdown from "./StatusDropdown";

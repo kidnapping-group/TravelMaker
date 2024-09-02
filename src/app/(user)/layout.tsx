@@ -1,6 +1,5 @@
-import Navigation from "@/app/(user)/_components/Navigation";
-
 import Header from "../_components/Header";
+import Navigation from "./_components/Navigation";
 
 function UserRootLayout({
   children,

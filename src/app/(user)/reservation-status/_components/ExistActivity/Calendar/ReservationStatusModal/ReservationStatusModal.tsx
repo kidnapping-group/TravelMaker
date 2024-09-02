@@ -1,15 +1,19 @@
 "use client";
 
-import { StatusCount } from "@/apis/API.type";
-import RequestStatus from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/RequestStatus";
-import ReservationList from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList";
-import formatDateToYYYYMMDD from "@/app/(user)/reservation-status/utils/formatDateToYYYYMMDD";
-import { getMyActivityDateReservationStatus } from "@/app/(user)/reservation-status/utils/reservationStatus";
-import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
-import Modal from "@/components/Modal";
-import formatDateToKorean from "@/utils/formatDateToKorean";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
+
+import { StatusCount } from "@/apis/API.type";
+
+import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
+import Modal from "@/components/Modal";
+
+import formatDateToKorean from "@/utils/formatDateToKorean";
+
+import formatDateToYYYYMMDD from "../../../../utils/formatDateToYYYYMMDD";
+import { getMyActivityDateReservationStatus } from "../../../../utils/reservationStatus";
+import RequestStatus from "./RequestStatus";
+import ReservationList from "./ReservationList";
 
 interface ReservationStatusModalProps {
   activityId: number;

@@ -1,5 +1,6 @@
-import myReservationAPI from "@/apis/myReservationAPI";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+
+import myReservationAPI from "@/apis/myReservationAPI";
 
 import MyReservations from "./_components/MyReservations";
 

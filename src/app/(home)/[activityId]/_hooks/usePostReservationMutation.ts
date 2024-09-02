@@ -1,6 +1,8 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import { openPopup } from "@/components/Popup";
 import { useMutation } from "@tanstack/react-query";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import { openPopup } from "@/components/Popup";
 
 const usePostReservationMutation = (
   activityId: string,

@@ -1,12 +1,15 @@
 "use client";
 
-import { getActivitiesRes } from "@/apis/API.type";
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import { LinkButton } from "@/components/Button";
-import LoadingSpinner from "@/utils/LoadingSpinnter";
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
+
+import { getActivitiesRes } from "@/apis/API.type";
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
+
+import { LinkButton } from "@/components/Button";
+
+import LoadingSpinner from "@/utils/LoadingSpinnter";
 
 import MyActivityItem from "./MyActivityItem";
 

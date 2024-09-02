@@ -1,5 +1,5 @@
-import Comment from "@/app/(home)/[activityId]/_components/Review/CommentList.tsx/Comment";
-import useGetCommentReviewViewModel from "@/app/(home)/[activityId]/_hooks/useGetCommentReviewViewModel";
+import useGetCommentReviewViewModel from "../../../_hooks/useGetCommentReviewViewModel";
+import Comment from "./Comment";
 
 function CommentList() {
   const { reviews } = useGetCommentReviewViewModel();

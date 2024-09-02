@@ -1,11 +1,13 @@
 "use client";
 
-import UserExist from "@/app/_components/Header/UserExist";
-import UserNotExist from "@/app/_components/Header/UserNotExist";
-import socialLoginStore from "@/store/socialLoginStore";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+import socialLoginStore from "@/store/socialLoginStore";
+
+import UserExist from "./UserExist";
+import UserNotExist from "./UserNotExist";
 
 function Header() {
   const { id } = socialLoginStore(state => ({

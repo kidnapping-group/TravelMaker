@@ -1,15 +1,18 @@
 "use client";
 
-import { Reservations } from "@/apis/API.type";
-import myReservationAPI from "@/apis/myReservationAPI";
-import { Button } from "@/components/Button";
-import Modal, { openModal } from "@/components/Modal";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
-import useImageError from "@/hooks/useImageError";
-import useMediaQuery from "@/hooks/useMediaQuery";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+import { Reservations } from "@/apis/API.type";
+import myReservationAPI from "@/apis/myReservationAPI";
+
+import useImageError from "@/hooks/useImageError";
+import useMediaQuery from "@/hooks/useMediaQuery";
+
+import { Button } from "@/components/Button";
+import Modal, { openModal } from "@/components/Modal";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 
 import Review from "./review/Review";
 

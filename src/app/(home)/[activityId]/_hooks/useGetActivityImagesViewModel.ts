@@ -1,11 +1,12 @@
-import { useActivityId } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
+import { useActivityId } from "../_contexts/ActivityIdContext";
 import {
   getActivitySubImages,
   getActivityTitle,
   getActivityTotalImages,
-} from "@/app/(home)/[activityId]/_utils/getActivityData";
-import { activityIdOptions } from "@/app/(home)/[activityId]/queryOptions";
-import { useSuspenseQuery } from "@tanstack/react-query";
+} from "../_utils/getActivityData";
+import { activityIdOptions } from "../queryOptions";
 
 const useGetActivityImageViewModel = () => {
   const { activityId } = useActivityId();

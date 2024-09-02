@@ -1,7 +1,8 @@
 "use client";
 
-import useUpdateQuery from "@/hooks/useUpdateQuery";
 import { useSearchParams } from "next/navigation";
+
+import useUpdateQuery from "@/hooks/useUpdateQuery";
 
 import { NextButton, PageButton, PrevButton } from "./Button";
 

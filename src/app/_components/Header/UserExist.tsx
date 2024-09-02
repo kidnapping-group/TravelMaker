@@ -1,5 +1,5 @@
-import UserPopover from "@/app/_components/Header/UserPopover";
-import Notification from "@/app/_components/Notification";
+import Notification from "../Notification";
+import UserPopover from "./UserPopover";
 
 function UserExist() {
   return (

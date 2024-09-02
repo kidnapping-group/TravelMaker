@@ -1,5 +1,6 @@
-import { StatusCount } from "@/apis/API.type";
 import { Dispatch, SetStateAction } from "react";
+
+import { StatusCount } from "@/apis/API.type";
 
 interface RequestStatusProps {
   statusCount: StatusCount;

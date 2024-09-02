@@ -1,7 +1,9 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import DeleteButton from "@/app/(user)/myactivities/add/_components/DeleteButton";
 import Image from "next/image";
 import { ChangeEvent } from "react";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import DeleteButton from "./DeleteButton";
 
 interface ImageInputProps {
   bannerImageUrl: string;

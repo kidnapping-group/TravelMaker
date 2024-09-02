@@ -1,8 +1,9 @@
 "use client";
 
-import DropdownMenu from "@/app/(home)/[activityId]/_components/Header/DropdownMenu";
-import useGetActivityHeaderViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityHeaderViewModel";
 import { FaLocationDot, FaStar } from "react-icons/fa6";
+
+import useGetActivityHeaderViewModel from "../../_hooks/useGetActivityHeaderViewModel";
+import DropdownMenu from "./DropdownMenu";
 
 function Header() {
   const { category, title, rating, reviewCount, address, activityId } =

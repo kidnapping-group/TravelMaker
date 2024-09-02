@@ -1,5 +1,6 @@
-import useDeleteActivityMutation from "@/app/(home)/[activityId]/_hooks/useDeleteActivityMutation";
 import { useEffect, useRef, useState } from "react";
+
+import useDeleteActivityMutation from "./useDeleteActivityMutation";
 
 const useControlDropdownMenu = () => {
   const { deleteActivityMutation } = useDeleteActivityMutation();

@@ -1,6 +1,8 @@
-import { PopulationActions } from "@/app/(home)/[activityId]/_hooks/useActivityPopulation";
-import formatKoreanWon from "@/utils/formatKoreanWon";
 import { FaMinus, FaPlus } from "react-icons/fa6";
+
+import formatKoreanWon from "@/utils/formatKoreanWon";
+
+import { PopulationActions } from "../../_hooks/useActivityPopulation";
 
 interface TotalMoneyProps {
   population: number;

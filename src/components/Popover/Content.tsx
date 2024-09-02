@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-import { usePopover } from "./Context";
+import { usePopover } from "./context";
 
 function Content({ children }: { children: React.ReactNode }) {
   const { isOpen, close, popoverRef } = usePopover();

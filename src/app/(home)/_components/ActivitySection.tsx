@@ -1,12 +1,16 @@
 "use client";
 
-import activitiesAPI from "@/apis/activitiesAPI";
-import ActivityCard from "@/app/(home)/_components/ActivityCard";
-import activitySectionQueryKeys from "@/app/(home)/utils/activitySectionQuery";
-import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
-import createQueryString from "@/utils/createQueryString";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
+
+import createQueryString from "@/utils/createQueryString";
+
+import activitySectionQueryKeys from "../utils/activitySectionQuery";
+import ActivityCard from "./ActivityCard";
 
 interface ActivitySectionProps {
   title: string;

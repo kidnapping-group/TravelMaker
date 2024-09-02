@@ -1,10 +1,11 @@
 import { Reviews } from "@/apis/API.type";
+
 import {
   getCommentReviewContent,
   getCommentReviewFormatUpdatedAt,
   getCommentReviewUserNickname,
   getCommentReviewUserProfileImg,
-} from "@/app/(home)/[activityId]/_utils/getCommentData";
+} from "../_utils/getCommentData";
 
 const useGetCommentItemViewModel = (review: Reviews) => ({
   userProfileImg: getCommentReviewUserProfileImg(review),
