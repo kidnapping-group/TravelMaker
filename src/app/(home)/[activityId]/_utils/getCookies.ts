@@ -1,5 +1,6 @@
-import socialLoginStore from "@/store/socialLoginStore";
 import Cookies from "js-cookie";
+
+import socialLoginStore from "@/store/socialLoginStore";
 
 export const getCookiesUserID = (): number | null => {
   const data = socialLoginStore(state => ({

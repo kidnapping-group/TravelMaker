@@ -1,9 +1,11 @@
-import useControlPopup from "@/app/(home)/[activityId]/_hooks/useControlPopup";
-import useErrorPopupConfig from "@/app/(home)/[activityId]/_hooks/useErrorPopupConfig";
-import { Button } from "@/components/Button";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+
+import { Button } from "@/components/Button";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
+
+import useControlPopup from "../../_hooks/useControlPopup";
+import useErrorPopupConfig from "../../_hooks/useErrorPopupConfig";
 
 export interface ReservationButtonProps {
   submitReservation: () => void;

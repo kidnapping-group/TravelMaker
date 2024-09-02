@@ -1,13 +1,15 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import Contents from "@/app/(home)/[activityId]/_components/Contents";
-import Header from "@/app/(home)/[activityId]/_components/Header";
-import Images from "@/app/(home)/[activityId]/_components/Images";
-import MobileFooter from "@/app/(home)/[activityId]/_components/MobileFooter";
-import ReservationModal from "@/app/(home)/[activityId]/_components/ReservationModal";
-import ReservationSteps from "@/app/(home)/[activityId]/_components/ReservationSteps";
-import Review from "@/app/(home)/[activityId]/_components/Review";
-import { ActivityIdProvider } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
 import { Metadata } from "next";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import Contents from "./_components/Contents";
+import Header from "./_components/Header";
+import Images from "./_components/Images";
+import MobileFooter from "./_components/MobileFooter";
+import ReservationModal from "./_components/ReservationModal";
+import ReservationSteps from "./_components/ReservationSteps";
+import Review from "./_components/Review";
+import { ActivityIdProvider } from "./_contexts/ActivityIdContext";
 
 type Props = {
   params: { activityId: string };

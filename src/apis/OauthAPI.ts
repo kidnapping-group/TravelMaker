@@ -1,5 +1,6 @@
-import socialLoginStore from "@/store/socialLoginStore";
 import Cookies from "js-cookie";
+
+import socialLoginStore from "@/store/socialLoginStore";
 
 import { OauthPostRes, OauthSignRes } from "./API.type";
 import axiosInstance from "./axiosInstance";

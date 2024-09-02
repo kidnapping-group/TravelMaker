@@ -1,7 +1,8 @@
-import ReactQueryProviders from "@/contexts/ReactQueryProviders";
-import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
+import ReactQueryProviders from "@/contexts/ReactQueryProviders";
+import GoogleAnalytics from "@/lib/GoogleAnalytics";
 
 import "./globals.css";
 

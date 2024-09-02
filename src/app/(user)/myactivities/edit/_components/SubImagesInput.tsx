@@ -1,7 +1,9 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import DeleteButton from "@/app/(user)/myactivities/edit/_components/DeleteButton";
 import Image from "next/image";
 import { ChangeEvent } from "react";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import DeleteButton from "./DeleteButton";
 
 interface ImageItem {
   id: number | null; // 기존 이미지면 ID, 새 이미지면 null

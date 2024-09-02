@@ -1,6 +1,8 @@
-import activitiesAPI from "@/apis/activitiesAPI";
-import Carousel from "@/app/(home)/_components/Carousel";
 import Image from "next/image";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import Carousel from "./Carousel";
 
 async function Banner() {
   const { activities } = await activitiesAPI.get({ sort: "most_reviewed", page: 1, size: 3 });

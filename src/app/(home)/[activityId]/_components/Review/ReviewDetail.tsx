@@ -1,5 +1,6 @@
-import useGetCommentReviewViewModel from "@/app/(home)/[activityId]/_hooks/useGetCommentReviewViewModel";
 import { FaStar } from "react-icons/fa6";
+
+import useGetCommentReviewViewModel from "../../_hooks/useGetCommentReviewViewModel";
 
 function ReviewDetail() {
   const { satisfies, totalCount, rating } = useGetCommentReviewViewModel();

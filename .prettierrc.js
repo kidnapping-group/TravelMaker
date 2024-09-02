@@ -7,7 +7,7 @@ module.exports = {
     "^@/apis/(.*)$",
     "^@/hooks/(.*)$",
     "^@/components/(.*)$",
-    "^@/utils/(.*)$",
+    "^(?:@/utils/|@/lib/|@/store/|@/contexts/)(.*)$",
     "^[./]",
   ],
   importOrderSeparation: true,

@@ -1,9 +1,10 @@
 "use client";
 
-import CommentList from "@/app/(home)/[activityId]/_components/Review/CommentList.tsx";
-import ReviewDetail from "@/app/(home)/[activityId]/_components/Review/ReviewDetail";
-import useGetCommentReviewViewModel from "@/app/(home)/[activityId]/_hooks/useGetCommentReviewViewModel";
 import Pagination from "@/components/Pagination";
+
+import useGetCommentReviewViewModel from "../../_hooks/useGetCommentReviewViewModel";
+import CommentList from "./CommentList";
+import ReviewDetail from "./ReviewDetail";
 
 function Review() {
   const { totalCount } = useGetCommentReviewViewModel();

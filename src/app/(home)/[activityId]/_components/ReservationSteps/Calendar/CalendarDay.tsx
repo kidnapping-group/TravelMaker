@@ -1,4 +1,4 @@
-import { getDateClasses } from "@/app/(home)/[activityId]/_utils/createCalendar";
+import { getDateClasses } from "../../../_utils/createCalendar";
 
 interface CalendarDayProps {
   date: Date;

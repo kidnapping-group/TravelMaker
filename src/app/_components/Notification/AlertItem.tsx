@@ -1,7 +1,8 @@
 "use client";
 
-import formatTime from "@/utils/formatTime";
 import { FaXmark } from "react-icons/fa6";
+
+import formatTime from "@/utils/formatTime";
 
 interface AlertItemProps {
   id: number;

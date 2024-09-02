@@ -1,7 +1,8 @@
-import { Activities, getActivitiesRes } from "@/apis/API.type";
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+
+import { Activities, getActivitiesRes } from "@/apis/API.type";
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
 
 const useDeleteActivityMutation = () => {
   const queryClient = useQueryClient();

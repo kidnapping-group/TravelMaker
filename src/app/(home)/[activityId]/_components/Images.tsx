@@ -1,10 +1,12 @@
 "use client";
 
-import useGetActivityImageViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityImagesViewModel";
-import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
+
+import useImageError from "@/hooks/useImageError";
+
+import useGetActivityImageViewModel from "../_hooks/useGetActivityImagesViewModel";
 
 const showImage = [
   "hidden",

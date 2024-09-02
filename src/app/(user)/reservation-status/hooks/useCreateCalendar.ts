@@ -1,8 +1,10 @@
-import { getReservationMonthRes } from "@/apis/API.type";
-import { DayData } from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/Day";
-import ReservationMonthDataFormatted from "@/app/(user)/reservation-status/utils/ReservationMonthDataFormatted";
-import { getCalendarGrid, getDaysInMonth } from "@/app/(user)/reservation-status/utils/calendar";
 import { useMemo } from "react";
+
+import { getReservationMonthRes } from "@/apis/API.type";
+
+import { DayData } from "../_components/ExistActivity/Calendar/Day";
+import ReservationMonthDataFormatted from "../utils/ReservationMonthDataFormatted";
+import { getCalendarGrid, getDaysInMonth } from "../utils/calendar";
 
 const useCreateCalendar = (
   currentYear: number,

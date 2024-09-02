@@ -1,5 +1,6 @@
-import { openModal } from "@/components/Modal";
 import { Dispatch, SetStateAction } from "react";
+
+import { openModal } from "@/components/Modal";
 
 export type ReservationStatus = "completed" | "pending" | "confirmed";
 export interface Reservation {

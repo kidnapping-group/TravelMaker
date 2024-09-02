@@ -1,10 +1,8 @@
-import { useActivityId } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
-import {
-  getActivityAddress,
-  getActivityDescription,
-} from "@/app/(home)/[activityId]/_utils/getActivityData";
-import { activityIdOptions } from "@/app/(home)/[activityId]/queryOptions";
 import { useSuspenseQuery } from "@tanstack/react-query";
+
+import { useActivityId } from "../_contexts/ActivityIdContext";
+import { getActivityAddress, getActivityDescription } from "../_utils/getActivityData";
+import { activityIdOptions } from "../queryOptions";
 
 const useGetActivityContentsViewModel = () => {
   const { activityId } = useActivityId();

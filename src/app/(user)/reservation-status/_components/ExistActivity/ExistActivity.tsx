@@ -1,9 +1,11 @@
 "use client";
 
-import { Activities } from "@/apis/API.type";
-import Calendar from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar";
-import MyActivitiesDropdown from "@/app/(user)/reservation-status/_components/ExistActivity/MyActivitiesDropdown";
 import { useState } from "react";
+
+import { Activities } from "@/apis/API.type";
+
+import Calendar from "./Calendar";
+import MyActivitiesDropdown from "./MyActivitiesDropdown";
 
 function ExistActivity({ activities }: { activities: Activities[] }) {
   const [selectedId, setSelectedId] = useState(activities[0].id);

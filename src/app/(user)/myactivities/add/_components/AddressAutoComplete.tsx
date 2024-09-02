@@ -1,9 +1,10 @@
 "use client";
 
-import { Button } from "@/components/Button";
-import Modal, { closeModal, openModal } from "@/components/Modal";
 import React, { useState } from "react";
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+
+import { Button } from "@/components/Button";
+import Modal, { closeModal, openModal } from "@/components/Modal";
 
 interface AddressAutoCompleteProps {
   address: string;

@@ -1,8 +1,9 @@
 "use client";
 
-import { openPopup } from "@/components/Popup";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
+
+import { openPopup } from "@/components/Popup";
 
 function ContextMenu({
   activityId,

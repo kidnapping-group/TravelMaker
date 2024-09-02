@@ -1,7 +1,8 @@
-import getInputColorStatus from "@/components/Input/getInputColorStatus";
 import { useState } from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+
+import getInputColorStatus from "./getInputColorStatus";
 
 interface InputProps extends React.PropsWithChildren {
   register: UseFormRegisterReturn;

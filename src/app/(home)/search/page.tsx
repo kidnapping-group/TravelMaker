@@ -1,8 +1,9 @@
 import { getActivities } from "@/apis/API.type";
 import activitiesAPI from "@/apis/activitiesAPI";
-import SearchForm from "@/app/(home)/_components/SearchForm";
+
 import Pagination from "@/components/Pagination";
 
+import SearchForm from "../_components/SearchForm";
 import ActivityGrid from "./_components/ActivityGrid";
 import SortDropdown from "./_components/SortDropdown";
 import TabList from "./_components/TabList";

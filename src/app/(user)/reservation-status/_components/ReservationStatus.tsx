@@ -1,9 +1,10 @@
 "use client";
 
-import ExistActivity from "@/app/(user)/reservation-status/_components/ExistActivity";
-import NoExistActivity from "@/app/(user)/reservation-status/_components/NoExistActivity";
-import { getMyActivities } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
+
+import { getMyActivities } from "../utils/reservationStatus";
+import ExistActivity from "./ExistActivity";
+import NoExistActivity from "./NoExistActivity";
 
 function ReservationStatus() {
   const { data } = useSuspenseQuery(getMyActivities);

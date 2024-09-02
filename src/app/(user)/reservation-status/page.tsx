@@ -1,7 +1,8 @@
-import ReservationStatus from "@/app/(user)/reservation-status/_components/ReservationStatus";
-import { getMyActivities } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
 import { cookies } from "next/headers";
+
+import ReservationStatus from "./_components/ReservationStatus";
+import { getMyActivities } from "./utils/reservationStatus";
 
 export const metadata = {
   title: "예약 현황",

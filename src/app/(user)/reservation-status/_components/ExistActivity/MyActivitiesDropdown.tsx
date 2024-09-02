@@ -1,6 +1,8 @@
-import { Activities } from "@/apis/API.type";
-import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
 import { Dispatch, SetStateAction, useMemo } from "react";
+
+import { Activities } from "@/apis/API.type";
+
+import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
 
 interface MyActivitiesDropdownProps {
   activities: Activities[];

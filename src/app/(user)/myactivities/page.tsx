@@ -1,6 +1,7 @@
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
 import MyActivities from "@/app/(user)/myactivities/_components/MyActivities";
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
+
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
 
 export const metadata = {
   title: "내 체험 현황",

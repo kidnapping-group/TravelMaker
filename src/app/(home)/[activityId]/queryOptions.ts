@@ -1,5 +1,6 @@
-import activitiesAPI from "@/apis/activitiesAPI";
 import { queryOptions } from "@tanstack/react-query";
+
+import activitiesAPI from "@/apis/activitiesAPI";
 
 export const getActivityQueryKey = (activityId: string) => ["activity", activityId];
 export const activityIdOptions = (activityId: string) =>

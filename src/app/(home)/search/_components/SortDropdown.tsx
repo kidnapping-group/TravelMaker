@@ -1,8 +1,10 @@
 "use client";
 
-import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
-import useUpdateQuery from "@/hooks/useUpdateQuery";
 import { useSearchParams } from "next/navigation";
+
+import useUpdateQuery from "@/hooks/useUpdateQuery";
+
+import { Dropdown, DropdownContent, DropdownItem, DropdownTrigger } from "@/components/Dropdown";
 
 const SORTS = [
   {

@@ -1,6 +1,8 @@
-import { Reviews } from "@/apis/API.type";
-import useGetCommentItemViewModel from "@/app/(home)/[activityId]/_hooks/useGetCommentItemViewModel";
 import Image from "next/image";
+
+import { Reviews } from "@/apis/API.type";
+
+import useGetCommentItemViewModel from "../../../_hooks/useGetCommentItemViewModel";
 
 interface CommentProps {
   review: Reviews;

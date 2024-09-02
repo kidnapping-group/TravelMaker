@@ -1,11 +1,13 @@
 "use client";
 
-import { Popover, PopoverContent, PopoverItem, PopoverTrigger } from "@/components/Popover";
-import socialLoginStore from "@/store/socialLoginStore";
-import logoutCookies from "@/utils/logoutCookies";
 import { useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import { Popover, PopoverContent, PopoverItem, PopoverTrigger } from "@/components/Popover";
+
+import socialLoginStore from "@/store/socialLoginStore";
+import logoutCookies from "@/utils/logoutCookies";
 
 function UserPopover() {
   const { push } = useRouter();

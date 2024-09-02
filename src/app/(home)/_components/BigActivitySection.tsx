@@ -1,11 +1,14 @@
 "use client";
 
-import activitiesAPI from "@/apis/activitiesAPI";
-import BigActivityCard from "@/app/(home)/_components/BigActivityCard";
-import activitySectionQueryKeys from "@/app/(home)/utils/activitySectionQuery";
-import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
+
+import activitiesAPI from "@/apis/activitiesAPI";
+
+import { Swiper, SwiperContent, SwiperNext, SwiperPrevious } from "@/components/Swiper";
+
+import activitySectionQueryKeys from "../utils/activitySectionQuery";
+import BigActivityCard from "./BigActivityCard";
 
 interface BigActivitySectionProps {
   title: string;

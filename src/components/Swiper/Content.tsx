@@ -2,7 +2,7 @@
 
 import { Children } from "react";
 
-import { useSwiper } from "./Context";
+import { useSwiper } from "./context";
 
 interface ContentProps extends React.PropsWithChildren {
   isPcFixed?: boolean;

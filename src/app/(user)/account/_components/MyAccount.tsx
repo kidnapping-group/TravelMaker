@@ -1,17 +1,20 @@
 "use client";
 
-import { User } from "@/apis/API.type";
-import userAPI from "@/apis/usersAPI";
-import { Button } from "@/components/Button";
-import Input from "@/components/Input/Input";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
-import socialLoginStore from "@/store/socialLoginStore";
-import baseSchema from "@/utils/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { User } from "@/apis/API.type";
+import userAPI from "@/apis/usersAPI";
+
+import { Button } from "@/components/Button";
+import Input from "@/components/Input/Input";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
+
+import socialLoginStore from "@/store/socialLoginStore";
+import baseSchema from "@/utils/schema";
 
 import ProfileEditor from "./ProfileEditor";
 

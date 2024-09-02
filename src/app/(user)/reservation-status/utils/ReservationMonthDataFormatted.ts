@@ -1,8 +1,6 @@
 import { getReservationMonthRes } from "@/apis/API.type";
-import {
-  Reservation,
-  ReservationStatus,
-} from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/Day";
+
+import { Reservation, ReservationStatus } from "../_components/ExistActivity/Calendar/Day";
 
 const STATUS: Record<ReservationStatus, ReservationStatus> = {
   completed: "completed",

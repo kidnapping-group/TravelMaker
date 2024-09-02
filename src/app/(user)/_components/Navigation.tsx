@@ -1,9 +1,10 @@
 "use client";
 
-import useMediaQuery from "@/hooks/useMediaQuery";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaCalendar, FaGear, FaListCheck, FaUser } from "react-icons/fa6";
+
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 interface NavProps {
   pathname: string;

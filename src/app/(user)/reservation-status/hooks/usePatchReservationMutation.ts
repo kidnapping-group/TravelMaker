@@ -1,3 +1,5 @@
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import {
   MyReservation,
   getMyReservation,
@@ -6,8 +8,8 @@ import {
   patchMyReservation,
 } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import { queryKeys } from "@/app/(user)/reservation-status/utils/reservationStatus";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+import { queryKeys } from "../utils/reservationStatus";
 
 const usePatchReservation = (reservation: MyReservation) => {
   const queryClient = useQueryClient();

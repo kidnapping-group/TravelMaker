@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@/components/Button";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+import { Button } from "@/components/Button";
 
 interface PopupProps {
   id: string;

@@ -1,7 +1,10 @@
-import { MyReservation } from "@/apis/API.type";
-import usePatchReservation from "@/app/(user)/reservation-status/hooks/usePatchReservationMutation";
-import { openPopup } from "@/components/Popup";
 import React from "react";
+
+import { MyReservation } from "@/apis/API.type";
+
+import { openPopup } from "@/components/Popup";
+
+import usePatchReservation from "../../../../../hooks/usePatchReservationMutation";
 
 function ReservationActionButton({ reservation }: { reservation: MyReservation }) {
   const { createPatchHandler } = usePatchReservation(reservation);

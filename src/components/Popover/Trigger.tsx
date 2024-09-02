@@ -1,6 +1,6 @@
 "use client";
 
-import { usePopover } from "./Context";
+import { usePopover } from "./context";
 
 function Trigger({ children }: { children: React.ReactNode }) {
   const { toggle } = usePopover();

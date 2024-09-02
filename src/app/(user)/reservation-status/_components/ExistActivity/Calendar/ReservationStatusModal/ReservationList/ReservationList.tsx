@@ -1,9 +1,11 @@
 "use client";
 
-import { StatusCount } from "@/apis/API.type";
-import ReservationItem from "@/app/(user)/reservation-status/_components/ExistActivity/Calendar/ReservationStatusModal/ReservationList/ReservationItem";
-import { getMyActivityTimeReservationStatus } from "@/app/(user)/reservation-status/utils/reservationStatus";
 import { useSuspenseQuery } from "@tanstack/react-query";
+
+import { StatusCount } from "@/apis/API.type";
+
+import { getMyActivityTimeReservationStatus } from "../../../../../utils/reservationStatus";
+import ReservationItem from "./ReservationItem";
 
 interface ReservationListProps {
   activityId: number;

@@ -1,13 +1,16 @@
 "use client";
 
-import { Activities } from "@/apis/API.type";
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
-import Popup, { closePopup } from "@/components/Popup";
-import useImageError from "@/hooks/useImageError";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaEllipsisVertical, FaStar } from "react-icons/fa6";
+
+import { Activities } from "@/apis/API.type";
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
+
+import useImageError from "@/hooks/useImageError";
+
+import Popup, { closePopup } from "@/components/Popup";
 
 import ContextMenu from "./ContextMenu";
 

@@ -1,8 +1,10 @@
 "use client";
 
-import { Swiper, SwiperContent } from "@/components/Swiper";
-import useUpdateQuery from "@/hooks/useUpdateQuery";
 import { useSearchParams } from "next/navigation";
+
+import useUpdateQuery from "@/hooks/useUpdateQuery";
+
+import { Swiper, SwiperContent } from "@/components/Swiper";
 
 import Tab from "./Tab";
 

@@ -1,10 +1,11 @@
 "use client";
 
-import { Button } from "@/components/Button";
-import Tooltip from "@/components/Tooltip";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
+
+import { Button } from "@/components/Button";
+import Tooltip from "@/components/Tooltip";
 
 interface SearchFormProps {
   placeholder: string;

@@ -1,6 +1,8 @@
-import { getActivitiesRes } from "@/apis/API.type";
-import ActivityCard from "@/app/(home)/_components/ActivityCard";
 import Link from "next/link";
+
+import { getActivitiesRes } from "@/apis/API.type";
+
+import ActivityCard from "../../_components/ActivityCard";
 
 interface ActivityGridProps {
   activities: getActivitiesRes["activities"];

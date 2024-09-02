@@ -1,8 +1,9 @@
 "use client";
 
-import Map from "@/app/(home)/[activityId]/_components/Map";
-import useGetActivityContentsViewModel from "@/app/(home)/[activityId]/_hooks/useGetActivityContentsViewModel";
 import { FaLocationDot } from "react-icons/fa6";
+
+import useGetActivityContentsViewModel from "../_hooks/useGetActivityContentsViewModel";
+import Map from "./Map";
 
 function Contents() {
   const { address, description } = useGetActivityContentsViewModel();

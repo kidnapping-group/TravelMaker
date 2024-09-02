@@ -1,11 +1,12 @@
-import { useActivityId } from "@/app/(home)/[activityId]/_contexts/ActivityIdContext";
+import { useSuspenseQuery } from "@tanstack/react-query";
+
+import { useActivityId } from "../_contexts/ActivityIdContext";
 import {
   getCommentReview,
   getCommentTotalCount,
   getRatingToSatisfaction,
-} from "@/app/(home)/[activityId]/_utils/getCommentData";
-import { activityIdOptions, commentOptions } from "@/app/(home)/[activityId]/queryOptions";
-import { useSuspenseQuery } from "@tanstack/react-query";
+} from "../_utils/getCommentData";
+import { activityIdOptions, commentOptions } from "../queryOptions";
 
 const useGetCommentReviewViewModel = () => {
   const { activityId } = useActivityId();

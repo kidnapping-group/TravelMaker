@@ -1,5 +1,6 @@
-import activitiesAPI from "@/apis/activitiesAPI";
 import { Metadata } from "next";
+
+import activitiesAPI from "@/apis/activitiesAPI";
 
 import Edit from "../_components/Edit";
 
