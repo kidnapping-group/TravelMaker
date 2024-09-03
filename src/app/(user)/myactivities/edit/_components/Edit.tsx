@@ -1,18 +1,16 @@
 "use client";
 
+import { patchMyActivities } from "@/apis/API.type";
+import activitiesAPI from "@/apis/activitiesAPI";
+import myActivitiesAPI from "@/apis/myActivitiesAPI";
+import { Button } from "@/components/Button";
+import Popup, { closePopup, openPopup } from "@/components/Popup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { setHours, setMinutes, setSeconds } from "date-fns";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-import { patchMyActivities } from "@/apis/API.type";
-import activitiesAPI from "@/apis/activitiesAPI";
-import myActivitiesAPI from "@/apis/myActivitiesAPI";
-
-import { Button } from "@/components/Button";
-import Popup, { closePopup, openPopup } from "@/components/Popup";
 
 import AddInput from "../../add/_components/AddInput";
 import AddressAutoComplete from "../../add/_components/AddressAutoComplete";
@@ -103,14 +101,18 @@ export default function Edit({ activityId }: { activityId: number }) {
         schedule.date.toISOString().split("T")[0] ===
           currentSchedule.date.toISOString().split("T")[0] &&
         schedule.startTime ===
-          currentSchedule.startTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.startTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }) &&
         schedule.endTime ===
-          currentSchedule.endTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.endTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }),
     );
 
@@ -126,14 +128,18 @@ export default function Edit({ activityId }: { activityId: number }) {
         id: null,
         date: currentSchedule.date,
         startTime:
-          currentSchedule.startTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.startTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }) || "",
         endTime:
-          currentSchedule.endTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.endTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }) || "",
       },
     ]);
@@ -303,11 +309,7 @@ export default function Edit({ activityId }: { activityId: number }) {
                 // eslint-disable-next-line react/no-array-index-key
                 <React.Fragment key={index}>
                   <div className="col-span-2 flex h-9 w-full items-center rounded-[4px] bg-gray-200 pl-2">
-                    {
-                      new Date(schedule.date.getTime() + 24 * 60 * 60 * 1000)
-                        .toISOString()
-                        .split("T")[0]
-                    }
+                    {schedule.date.toISOString().split("T")[0]}
                   </div>
                   <div className="col-span-2 flex h-9 items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.startTime}
