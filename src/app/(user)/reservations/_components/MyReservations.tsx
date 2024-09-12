@@ -1,11 +1,12 @@
 "use client";
 
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
-import Image from "next/image";
 import { useCallback, useState } from "react";
 
 import { ReservationRes } from "@/apis/API.type";
 import myReservationAPI from "@/apis/myReservationAPI";
+
+import Picture from "@/components/Picture";
 
 import LoadingSpinner from "@/utils/LoadingSpinnter";
 
@@ -75,7 +76,7 @@ function MyReservations() {
         </div>
       ) : (
         <div className="flex w-full grow flex-col items-center justify-center">
-          <Image src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
+          <Picture src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
           <p className="text-2xl font-medium text-gray-500">아직 예약한 체험이 없어요</p>
         </div>
       )}

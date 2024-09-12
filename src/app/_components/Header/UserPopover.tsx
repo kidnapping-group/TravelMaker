@@ -1,9 +1,9 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import Picture from "@/components/Picture";
 import { Popover, PopoverContent, PopoverItem, PopoverTrigger } from "@/components/Popover";
 
 import socialLoginStore from "@/store/socialLoginStore";
@@ -35,12 +35,13 @@ function UserPopover() {
       <PopoverTrigger>
         <div className="flex items-center gap-2 rounded-lg transition-colors tablet:px-2 tablet:py-[6px] tablet:hover:bg-gray-100 tablet:active:bg-gray-200">
           <div className="relative h-7 w-7 overflow-hidden rounded-full transition hover:opacity-60 tablet:hover:opacity-100">
-            <Image
+            <Picture
               className="object-cover"
               src={userInfo?.profileImageUrl || "/icons/profile.svg"}
               alt="프로필 사진"
               draggable={false}
               fill
+              priority
             />
           </div>
           <p className="hidden max-w-[60px] truncate text-left text-md font-normal tablet:block">
