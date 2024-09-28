@@ -120,7 +120,10 @@ function MyReservationItem({
                   후기 작성
                 </Button>
                 <Modal title="후기 작성" id={`writeReview-${reservationState.id}`}>
-                  <Review reservation={reservationState} />,
+                  <Review
+                    reservation={reservationState}
+                    setReservationState={setReservationState}
+                  />
                 </Modal>
               </>
             )}
