@@ -72,14 +72,18 @@ export default function Add() {
         schedule.date.toISOString().split("T")[0] ===
           currentSchedule.date.toISOString().split("T")[0] &&
         schedule.startTime ===
-          currentSchedule.startTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.startTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }) &&
         schedule.endTime ===
-          currentSchedule.endTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.endTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }),
     );
 
@@ -94,14 +98,18 @@ export default function Add() {
       {
         date: currentSchedule.date,
         startTime:
-          currentSchedule.startTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.startTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }) || "",
         endTime:
-          currentSchedule.endTime?.toLocaleTimeString("en-GB", {
+          currentSchedule.endTime?.toLocaleTimeString("ko-KR", {
             hour: "2-digit",
             minute: "2-digit",
+            hour12: false,
+            timeZone: "Asia/Seoul",
           }) || "",
       },
     ]);
@@ -261,11 +269,7 @@ export default function Add() {
                 // eslint-disable-next-line react/no-array-index-key
                 <React.Fragment key={index}>
                   <div className="col-span-2 flex h-9 w-full items-center rounded-[4px] bg-gray-200 pl-2">
-                    {
-                      new Date(schedule.date.getTime() + 24 * 60 * 60 * 1000)
-                        .toISOString()
-                        .split("T")[0]
-                    }
+                    {schedule.date.toISOString().split("T")[0]}
                   </div>
                   <div className="col-span-2 flex h-9 items-center rounded-[4px] bg-gray-200 pl-2">
                     {schedule.startTime}
