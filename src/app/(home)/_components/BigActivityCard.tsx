@@ -1,9 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { FaStar } from "react-icons/fa6";
 
-import useImageError from "@/hooks/useImageError";
+import Picture from "@/components/Picture";
 
 interface BigActivityCardProps {
   wide?: boolean;
@@ -22,19 +21,12 @@ function BigActivityCard({
   rating,
   reviewCount,
 }: BigActivityCardProps) {
-  const [errorImage] = useImageError(["/images/noImage.png"]);
   return (
     <article
       className={`${wide ? "w-full" : "w-[288px] pc:w-full"} group relative flex aspect-square flex-col justify-end overflow-hidden rounded-[10px] p-5`}
     >
       <div>
-        <Image
-          className="object-cover"
-          onError={errorImage.onError}
-          src={errorImage.src || bannerImageUrl}
-          alt="체험 사진"
-          fill
-        />
+        <Picture className="object-cover" src={bannerImageUrl} alt="체험 사진" fill />
         <div className="absolute inset-0 bg-black opacity-30 transition-opacity duration-300 ease-in-out group-hover:opacity-50" />
       </div>
       <div className="z-10 mx-1 flex flex-col gap-2 text-white">

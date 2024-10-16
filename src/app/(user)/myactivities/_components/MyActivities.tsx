@@ -8,6 +8,7 @@ import { getActivitiesRes } from "@/apis/API.type";
 import myActivitiesAPI from "@/apis/myActivitiesAPI";
 
 import { LinkButton } from "@/components/Button";
+import Picture from "@/components/Picture";
 
 import LoadingSpinner from "@/utils/LoadingSpinnter";
 
@@ -62,6 +63,7 @@ function MyActivities() {
       ) : (
         <div className="flex h-full w-full flex-col items-center justify-center">
           <Image src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
+          <Picture src="/images/empty.png" alt="빈 이미지" width={240} height={240} />
           <p className="text-xl font-medium text-gray-500">아직 등록한 체험이 없어요</p>
         </div>
       )}
