@@ -12,12 +12,12 @@ import {
   postActivitiesReservations,
   postActivitiesReservationsRes,
 } from "./API.type";
-import axiosInstance from "./axiosInstance";
+import fetchInstance from "./fetchInstance";
 
 const activitiesAPI = {
   // 체험 리스트 조회
   get: async (params: Omit<getActivities, "method"> & { method?: string } = {}) => {
-    const { data } = await axiosInstance.get<getActivitiesRes>("/activities", {
+    const data = await fetchInstance.get<getActivitiesRes>("/activities", {
       params: {
         ...params,
         method: "offset",
@@ -27,17 +27,17 @@ const activitiesAPI = {
   },
   // 체험 등록
   post: async (body: postActivities) => {
-    const { data } = await axiosInstance.post<postActivitiesRes>(`/activities`, body);
+    const data = await fetchInstance.post<postActivitiesRes>(`/activities`, body);
     return data;
   },
   // 체험 상세 조회
   getInfo: async (activityId: number) => {
-    const { data } = await axiosInstance.get<getActivitiesInfoRes>(`/activities/${activityId}`);
+    const data = await fetchInstance.get<getActivitiesInfoRes>(`/activities/${activityId}`);
     return data;
   },
   // 체험 예약 가능일 조회
   getSchedule: async (params: getActivitiesSchedule) => {
-    const { data } = await axiosInstance.get<getActivitiesScheduleRes>(
+    const data = await fetchInstance.get<getActivitiesScheduleRes>(
       `/activities/${params.id}/available-schedule?year=${params.year}&month=${params.month}`,
     );
     return data;
@@ -46,14 +46,14 @@ const activitiesAPI = {
   getReview: async (params: getActivitiesReviews) => {
     const page = params.page ? params.page : 1;
     const size = params.size ? params.size : 3;
-    const { data } = await axiosInstance.get<getActivitiesReviewsRes>(
+    const data = await fetchInstance.get<getActivitiesReviewsRes>(
       `/activities/${params.id}/reviews?page=${page}&size=${size}`,
     );
     return data;
   },
   // 체험 예약 신청
   postReservations: async (activityId: number, params: postActivitiesReservations) => {
-    const { data } = await axiosInstance.post<postActivitiesReservationsRes>(
+    const data = await fetchInstance.post<postActivitiesReservationsRes>(
       `/activities/${activityId}/reservations`,
       {
         scheduleId: params.scheduleId,
@@ -66,15 +66,11 @@ const activitiesAPI = {
   postImage: async (file: File) => {
     const formData = new FormData();
     formData.append("image", file);
-    const { data } = await axiosInstance.post<postActivitiesImageRes>(
-      `/activities/image`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+    const data = await fetchInstance.post<postActivitiesImageRes>(`/activities/image`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
-    );
+    });
     return data;
   },
 };

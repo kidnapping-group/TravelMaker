@@ -3,12 +3,12 @@ import Cookies from "js-cookie";
 import socialLoginStore from "@/store/socialLoginStore";
 
 import { Login, LoginRes } from "./API.type";
-import axiosInstance from "./axiosInstance";
+import fetchInstance from "./fetchInstance";
 import userAPI from "./usersAPI";
 
 const authAPI = {
   login: async (body: Login) => {
-    const { data } = await axiosInstance.post<LoginRes>("/auth/login", body);
+    const data = await fetchInstance.post<LoginRes>("/auth/login", body);
     const { accessToken, refreshToken } = data;
     Cookies.set("accessToken", accessToken, { secure: true, sameSite: "Strict" });
     Cookies.set("refreshToken", refreshToken, { secure: true, sameSite: "Strict" });

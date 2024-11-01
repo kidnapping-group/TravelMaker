@@ -1,25 +1,25 @@
 import { User, patchUsers, postUsers, postUsersImageRes } from "./API.type";
-import axiosInstance from "./axiosInstance";
+import fetchInstance from "./fetchInstance";
 
 const userAPI = {
   // 회원가입
   postSignup: async (body: postUsers) => {
-    const { data } = await axiosInstance.post<User>("/users", body);
+    const data = await fetchInstance.post<User>("/users", body);
     return data;
   },
   // 내 정보 조회
   getUsers: async () => {
-    const { data } = await axiosInstance.get<User>("/users/me");
+    const data = await fetchInstance.get<User>("/users/me");
     return data;
   },
   // 내 정보 수정
   patchUsers: async (body: patchUsers) => {
-    const { data } = await axiosInstance.patch<User>("/users/me", body);
+    const data = await fetchInstance.patch<User>("/users/me", body);
     return data;
   },
   // 프로필 이미지 url 생성
   postUsersImage: async (formData: FormData) => {
-    const { data } = await axiosInstance.post<postUsersImageRes>("/users/me/image", formData, {
+    const data = await fetchInstance.post<postUsersImageRes>("/users/me/image", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

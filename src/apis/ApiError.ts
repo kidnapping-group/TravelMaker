@@ -1,6 +1,9 @@
-import axios from "axios";
+interface ErrorResponseData {
+  message?: string;
+  [key: string]: unknown;
+}
 
-export class APIError extends Error {
+class APIError extends Error {
   constructor(
     message: string,
     public status: number,
@@ -9,25 +12,6 @@ export class APIError extends Error {
     this.name = "";
   }
 }
-
-export const getErrorStatusMessage = (statusCode: number | null) => {
-  switch (statusCode) {
-    case 400:
-      return "Bad Request";
-    case 404:
-      return "Not Found";
-    case 500:
-      return "Internal Server Error";
-    case 403:
-      return "Forbidden";
-    case 401:
-      return "Unauthorized";
-    case 409:
-      return "Conflict";
-    default:
-      return null;
-  }
-};
 
 const ErrorMessages: { [key: string]: string } = {
   400: "잘못된 형식의 요청입니다. 입력값을 확인해주세요.",
@@ -39,19 +23,23 @@ const ErrorMessages: { [key: string]: string } = {
   default: "예상치 못한 오류가 발생했습니다. 문제가 지속될 경우 관리자에게 문의하세요.",
 };
 
-const handleAxiosError = (error: unknown) => {
-  if (axios.isAxiosError(error)) {
-    if (error.response) {
-      const { status, data } = error.response;
-      const errorMessage = data.message || ErrorMessages[status] || ErrorMessages.default;
-      throw new APIError(errorMessage, status);
-    } else {
-      // 서버 응답이 없는 경우 (네트워크 오류 등)
-      throw new Error("서버에서 응답을 받아오지 못했습니다.");
-    }
-  } else {
-    throw new Error("서버에서 네트워크가 오지 않습니다.");
+export const handleApiError = (error: unknown) => {
+  // API 응답 에러인 경우
+  if (error && typeof error === "object" && "status" in error) {
+    const apiError = error as { status: number; data?: ErrorResponseData };
+    const errorMessage =
+      apiError.data?.message || ErrorMessages[apiError.status] || ErrorMessages.default;
+
+    throw new APIError(errorMessage, apiError.status);
   }
+
+  // fetch 네트워크 에러인 경우
+  if (error instanceof TypeError && error.message === "Failed to fetch") {
+    throw new APIError("서버에서 응답을 받아오지 못했습니다.", 500);
+  }
+
+  // 기타 예상치 못한 에러
+  throw new APIError("서버에서 네트워크가 오지 않습니다.", 500);
 };
 
-export default handleAxiosError;
+export { APIError };

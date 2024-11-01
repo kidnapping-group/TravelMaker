@@ -1,10 +1,10 @@
 import { getNotifications, getNotificationsRes } from "./API.type";
-import axiosInstance from "./axiosInstance";
+import fetchInstance from "./fetchInstance";
 
 const myNotificationsAPI = {
   //  내 알림 리스트 조회
   get: async (params?: getNotifications) => {
-    const { data } = await axiosInstance.get<getNotificationsRes>("/my-notifications", {
+    const data = await fetchInstance.get<getNotificationsRes>("/my-notifications", {
       params: {
         cursorId: params?.cursorId,
         size: params?.size ?? 10,
@@ -14,7 +14,7 @@ const myNotificationsAPI = {
   },
   // 내 알림 삭제
   delete: async (notificationId: number) => {
-    const { data } = await axiosInstance.delete(`/my-notifications/${notificationId}`);
+    const data = await fetchInstance.delete(`/my-notifications/${notificationId}`);
     return data;
   },
 };
