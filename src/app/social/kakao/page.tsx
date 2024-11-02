@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -35,11 +34,15 @@ function KakaoRedirect() {
         code: code || "",
       });
 
-      const { data } = await axios.post(url, body.toString(), {
+      const response = await fetch(url, {
+        method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
         },
+        body: body.toString(),
       });
+
+      const data = await response.json();
       return data.access_token;
     },
     [domain],
@@ -49,11 +52,13 @@ function KakaoRedirect() {
   const getKakaoUserData = useCallback(async (accessToken: string) => {
     const url = "https://kapi.kakao.com/v2/user/me";
 
-    const { data } = await axios.get(url, {
+    const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+
+    const data = await response.json();
     return data.properties.nickname;
   }, []);
 
