@@ -1,10 +1,10 @@
-import Image from "next/image";
 import { useState } from "react";
 
 import { Reservations } from "@/apis/API.type";
 import myReservationAPI from "@/apis/myReservationAPI";
 
 import { Button } from "@/components/Button";
+import Picture from "@/components/Picture";
 import { closeModal } from "@/components/Modal";
 
 import Rating from "./Rating";
@@ -28,7 +28,7 @@ function Review({
   return (
     <div className="tablet:h- flex h-full w-[100vw] flex-col gap-3 px-4 tablet:w-[460px] tablet:gap-6 tablet:px-6 tablet:pb-6">
       <div className="flex h-[100px] items-center gap-2 tablet:h-[137px]">
-        <Image
+        <Picture
           src={reservation.activity.bannerImageUrl}
           width={100}
           height={100}

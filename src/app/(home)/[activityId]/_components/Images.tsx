@@ -6,6 +6,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 import useImageError from "@/hooks/useImageError";
 
+import Picture from "@/components/Picture";
+
 import useGetActivityImageViewModel from "../_hooks/useGetActivityImagesViewModel";
 
 const showImage = [
@@ -38,14 +40,14 @@ function Images() {
   return (
     <div className="-mx-6 flex justify-center tablet:mx-[0.5px] tablet:justify-normal tablet:gap-1 pc:gap-2">
       <div className={`relative h-[310px] ${mainImageClasses} pc:h-[534px]`}>
-        <Image
+        <Picture
           src={errorImage.src || totalImages[imageIndex]}
           alt={`${title} 배경 사진`}
           fill
           style={{
             objectFit: "cover",
           }}
-          onError={errorImage.onError}
+          priority
         />
         <button
           type="button"

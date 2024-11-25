@@ -31,7 +31,6 @@ async function Home() {
             </div>
           </div>
         </section>
-
         <BigActivitySection title="실시간 인기 체험 🔥" sort="most_reviewed" />
         <ActivitySection title="새로 오픈한 체험 🆕" sort="latest" />
         <ActivitySection title="일상을 풍요롭게 만드는 특별한 경험 🎨🎶" category="arts" />
